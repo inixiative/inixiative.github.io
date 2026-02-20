@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>inixiative — technology for cooperation</title>
+  <meta name="description" content="Infrastructure for cooperation at scale. Tools, platforms, and libraries for adaptive governance and collaborative investment.">
+  <meta property="og:title" content="inixiative">
+  <meta property="og:description" content="Technology for Cooperation. Infrastructure for cooperation at scale.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/inixiative/.github/main/brand/og-1200x630.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@inixiative">
+  <meta name="twitter:title" content="inixiative">
+  <meta name="twitter:description" content="Technology for Cooperation">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/inixiative/.github/main/brand/og-1200x630.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icon-32x32.png">
+  <link rel="apple-touch-icon" href="icon-180x180.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0D1117;
+      --bg-surface: #161B22;
+      --bg-card: #1C2128;
+      --blue: #58A6FF;
+      --blue-dim: #1F6FEB;
+      --gray: #6E7681;
+      --text: #C9D1D9;
+      --text-dim: #8B949E;
+      --border: #30363D;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(3rem, 8vw, 6rem);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .logo .bracket { color: var(--gray); font-weight: 400; }
+    .logo .mark { color: var(--blue); font-weight: 700; }
+
+    .tagline {
+      font-size: clamp(0.75rem, 2vw, 0.875rem);
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.35em;
+      margin-bottom: 2.5rem;
+      font-weight: 500;
+    }
+
+    .subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+      color: var(--text-dim);
+      max-width: 600px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* Section */
+    section {
+      padding: 5rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 2.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Project grid */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .project {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+
+    .project:hover {
+      border-color: var(--blue-dim);
+    }
+
+    .project h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .project h3 a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .project h3 a:hover {
+      text-decoration: underline;
+    }
+
+    .project p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .project .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      color: var(--gray);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.15rem 0.6rem;
+      margin-top: 0.75rem;
+      margin-right: 0.3rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Thesis */
+    .thesis {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2.5rem;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-dim);
+    }
+
+    .thesis strong { color: var(--text); font-weight: 500; }
+
+    /* Links section */
+    .links {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .links a {
+      color: var(--blue);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      padding: 0.6rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .links a:hover {
+      border-color: var(--blue);
+      background: rgba(88, 166, 255, 0.05);
+    }
+
+    /* Advisory banner */
+    .advisory {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    .advisory a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray);
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="logo">
+      <span class="bracket">&lt;</span><span class="mark">iXi</span><span class="bracket">&gt;</span>
+    </div>
+    <div class="tagline">technology for cooperation</div>
+    <p class="subtitle">
+      Infrastructure for cooperation at scale. We build tools, platforms, and libraries for adaptive governance and collaborative investment.
+    </p>
+  </div>
+
+  <section>
+    <div class="section-title">// what we're building</div>
+    <div class="projects">
+      <div class="project">
+        <h3><a href="https://github.com/inixiative/template">template</a></h3>
+        <p>Reusable SaaS monorepo foundation. Auth, permissions, background jobs, multi-tenant patterns out of the box.</p>
+        <span class="tag">bun</span><span class="tag">hono</span><span class="tag">react</span>
+      </div>
+      <div class="project">
+        <h3><a href="https://github.com/inixiative/json-rules">json-rules</a></h3>
+
+        <p>Type-safe rules engine with 38 operators. Declarative business logic for permissions, pricing, eligibility, and form visibility.</p>
+        <span class="tag">npm</span><span class="tag">typescript</span>
+      </div>
+      <div class="project">
+        <h3><a href="https://github.com/inixiative/hivemind">hivemind</a></h3>
+        <p>Multi-agent coordination library. Message bus with role-scoped channels for AI-powered workflows.</p>
+        <span class="tag">npm</span><span class="tag">agents</span>
+      </div>
+      <div class="project">
+        <h3><a href="https://github.com/inixiative/whitepaper">whitepaper</a></h3>
+        <p>Adaptive governance infrastructure for cooperative societies. The theoretical foundation for everything we build.</p>
+        <span class="tag">in progress</span>
+      </div>
+      <div class="project">
+        <h3>rules-builder <span class="tag">coming soon</span></h3>
+        <p>Visual rule builder UI for json-rules. Drag-and-drop condition authoring for non-developers.</p>
+        <span class="tag">react</span>
+      </div>
+      <div class="project">
+        <h3>inixiative platform <span class="tag">coming soon</span></h3>
+        <p>Identity, permissions, escrow, and governance. The shared infrastructure layer for cooperation at scale.</p>
+        <span class="tag">hono</span><span class="tag">prisma</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">// thesis</div>
+    <div class="thesis">
+      Humans cooperate within a limited radius — roughly Dunbar's number. Beyond that, institutions mediate trust. But institutions are failing: they're slow, opaque, and often captured by the interests they were built to check.
+      <br><br>
+      <strong>Software can expand the cooperation radius.</strong> By encoding agreements precisely enough that strangers can cooperate on complex, long-horizon endeavors — cross-border investment, fractional ownership, community governance — with the same confidence they'd extend to a neighbor.
+      <br><br>
+      We build the tools that make this possible.
+    </div>
+  </section>
+
+  <div class="links">
+    <a href="https://github.com/inixiative">github</a>
+    <a href="https://inixiative.substack.com">substack</a>
+    <a href="https://x.com/inixiative">twitter/x</a>
+  </div>
+
+  <div class="advisory">
+    Open to advisory engagements. <a href="mailto:aron.greenspan@inixiative.com">Get in touch</a>.
+  </div>
+
+  <footer>&lt;iXi&gt; &copy; 2026</footer>
+
+</body>
+</html>
