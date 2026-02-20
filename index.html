@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>inixiative — technology for cooperation</title>
-  <meta name="description" content="Technology for cooperation. Infrastructure for adaptive governance and collaborative investment.">
+  <meta name="description"
+    content="Technology for cooperation. Infrastructure for adaptive governance and collaborative investment.">
   <meta property="og:title" content="inixiative">
   <meta property="og:description" content="Technology for Cooperation. Infrastructure for cooperation at scale.">
   <meta property="og:image" content="https://raw.githubusercontent.com/inixiative/.github/main/brand/og-1200x630.png">
@@ -19,7 +21,11 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     :root {
       --bg: #0D1117;
@@ -32,7 +38,9 @@
       --border: #21262D;
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: 'Inter', -apple-system, system-ui, sans-serif;
@@ -45,16 +53,28 @@
 
     /* Fade-in animation */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .fade-in {
       animation: fadeUp 0.6s ease-out both;
     }
 
-    .fade-in:nth-child(2) { animation-delay: 0.1s; }
-    .fade-in:nth-child(3) { animation-delay: 0.2s; }
+    .fade-in:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .fade-in:nth-child(3) {
+      animation-delay: 0.2s;
+    }
 
     /* ---- Hero ---- */
     .hero {
@@ -89,8 +109,15 @@
       position: relative;
     }
 
-    .logo .bracket { color: var(--gray); font-weight: 400; }
-    .logo .mark { color: var(--blue); font-weight: 700; }
+    .logo .bracket {
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    .logo .mark {
+      color: var(--blue);
+      font-weight: 700;
+    }
 
     .tagline {
       font-family: 'JetBrains Mono', monospace;
@@ -121,8 +148,15 @@
     }
 
     @keyframes bob {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(6px);
+      }
     }
 
     /* ---- Sections ---- */
@@ -225,7 +259,9 @@
       margin-bottom: 1.25rem;
     }
 
-    .thesis p:last-child { margin-bottom: 0; }
+    .thesis p:last-child {
+      margin-bottom: 0;
+    }
 
     .thesis strong {
       color: var(--text);
@@ -283,13 +319,26 @@
 
     /* ---- Responsive ---- */
     @media (max-width: 640px) {
-      .hero { min-height: 75vh; padding: 3rem 1.5rem; }
-      section { padding: 3rem 1.5rem; }
-      .thesis { padding-left: 1.25rem; }
-      .projects { grid-template-columns: 1fr; }
+      .hero {
+        min-height: 75vh;
+        padding: 3rem 1.5rem;
+      }
+
+      section {
+        padding: 3rem 1.5rem;
+      }
+
+      .thesis {
+        padding-left: 1.25rem;
+      }
+
+      .projects {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <div class="hero">
@@ -307,12 +356,15 @@
         <h3><a href="https://github.com/inixiative/template">template</a></h3>
         <p>SaaS monorepo foundation. Auth, permissions, background jobs, and multi-tenant patterns out of the box.</p>
         <div class="tags">
-          <span class="tag">bun</span><span class="tag">hono</span><span class="tag">prisma</span><span class="tag">react</span>
+          <span class="tag">bun</span><span class="tag">hono</span><span class="tag">prisma</span><span
+            class="tag">react</span>
+          <span class="tag status">in progress</span>
         </div>
       </div>
       <div class="project">
         <h3><a href="https://github.com/inixiative/json-rules">json-rules</a></h3>
-        <p>Type-safe rules engine with 38 operators. Declarative business logic for permissions, pricing, and eligibility.</p>
+        <p>Type-safe rules engine with 38 operators. Declarative business logic for permissions, pricing, and
+          eligibility.</p>
         <div class="tags">
           <span class="tag">bun</span><span class="tag">typescript</span>
         </div>
@@ -357,7 +409,8 @@
   <section>
     <div class="section-label">thesis</div>
     <div class="thesis">
-      <p>Civilization <em>is</em> — and is built on — technology we invented to cooperate at scale. Let's keep building.</p>
+      <p>Civilization <em>is</em> — and is built on — technology we invented to cooperate at scale. Let's keep building.
+      </p>
     </div>
   </section>
 
@@ -374,4 +427,5 @@
   </footer>
 
 </body>
+
 </html>
