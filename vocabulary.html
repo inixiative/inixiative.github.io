@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>inixiative — vocabulary</title>
+  <meta name="description"
+    content="The inixiative vocabulary: every primitive across the ecosystem and the template, with what it solves and how it works.">
+  <meta property="og:title" content="inixiative — vocabulary">
+  <meta property="og:description" content="Every primitive across the ecosystem and the template — what it solves and how it works.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/inixiative/.github/main/brand/og-1200x630.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@inixiative">
+  <link rel="icon" type="image/png" sizes="32x32" href="icon-32x32.png">
+  <link rel="apple-touch-icon" href="icon-180x180.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0D1117;
+      --bg-surface: #161B22;
+      --blue: #58A6FF;
+      --blue-dim: #1F6FEB;
+      --gray: #6E7681;
+      --text: #C9D1D9;
+      --text-dim: #8B949E;
+      --border: #21262D;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- Top bar ---- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: rgba(13, 17, 23, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.3rem;
+      text-decoration: none;
+    }
+
+    .topbar .logo .bracket {
+      color: var(--gray);
+    }
+
+    .topbar .logo .mark {
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .topbar .back {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .topbar .back:hover {
+      color: var(--blue);
+      border-color: var(--blue-dim);
+      background: rgba(88, 166, 255, 0.04);
+    }
+
+    /* ---- Content ---- */
+    main {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 3rem 2rem 6rem;
+    }
+
+    .md h1 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .md h2 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem;
+      color: var(--blue);
+      margin: 3.5rem 0 1.25rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: -0.01em;
+    }
+
+    .md h3 {
+      font-size: 1.2rem;
+      color: var(--text);
+      font-weight: 600;
+      margin: 2.5rem 0 1rem;
+    }
+
+    .md h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.98rem;
+      color: var(--blue);
+      font-weight: 600;
+      margin: 1.6rem 0 0.4rem;
+    }
+
+    .md p {
+      color: var(--text-dim);
+      margin-bottom: 0.9rem;
+    }
+
+    .md strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .md em {
+      color: var(--text);
+      font-style: italic;
+    }
+
+    .md a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .md a:hover {
+      text-decoration: underline;
+    }
+
+    .md ul {
+      margin: 0 0 1.1rem 1.3rem;
+    }
+
+    .md li {
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
+    }
+
+    .md code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.1rem 0.35rem;
+      color: var(--text);
+    }
+
+    .md pre {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      line-height: 1.5;
+    }
+
+    .md pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      white-space: pre;
+    }
+
+    .md blockquote {
+      border-left: 2px solid var(--blue-dim);
+      padding: 0.25rem 0 0.25rem 1.25rem;
+      margin: 1.25rem 0;
+      color: var(--gray);
+      font-size: 0.92rem;
+    }
+
+    .md blockquote p {
+      margin: 0;
+    }
+
+    .md hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 3rem 0;
+    }
+
+    .md table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1.25rem 0;
+      font-size: 0.9rem;
+    }
+
+    .md th,
+    .md td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.85rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .md th {
+      background: var(--bg-surface);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 500;
+      font-size: 0.82rem;
+    }
+
+    .md td {
+      color: var(--text-dim);
+    }
+
+    .state {
+      color: var(--text-dim);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      padding: 2rem 0;
+    }
+
+    .state a {
+      color: var(--blue);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--gray);
+      font-size: 0.8rem;
+    }
+
+    footer a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    @media (max-width: 640px) {
+      .topbar { padding: 0.85rem 1.25rem; }
+      main { padding: 2rem 1.25rem 4rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <a class="logo" href="/"><span class="bracket">&lt;</span><span class="mark">iXi</span><span class="bracket">&gt;</span></a>
+    <a class="back" href="/">&larr; home</a>
+  </div>
+
+  <main>
+    <article class="md" id="content">
+      <p class="state">Loading the vocabulary…</p>
+    </article>
+  </main>
+
+  <footer>
+    Canonical source:
+    <a href="https://github.com/inixiative/.github/blob/main/VOCABULARY.md">inixiative/.github/VOCABULARY.md</a>
+    · <a href="https://github.com/inixiative">github</a>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+  <script>
+    const SOURCE = 'https://raw.githubusercontent.com/inixiative/.github/main/VOCABULARY.md';
+    const el = document.getElementById('content');
+
+    fetch(SOURCE)
+      .then((r) => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      })
+      .then((md) => {
+        el.innerHTML = marked.parse(md, { gfm: true });
+        document.title = 'inixiative — vocabulary';
+      })
+      .catch((err) => {
+        el.innerHTML =
+          '<p class="state">Could not load the vocabulary (' +
+          err.message +
+          '). Read it on <a href="https://github.com/inixiative/.github/blob/main/VOCABULARY.md">GitHub</a>.</p>';
+      });
+  </script>
+</body>
+
+</html>
