@@ -515,9 +515,11 @@
       <div class="lane-head">
         <div><span class="ln">the world</span><span class="ls">real assets &middot; investors &middot; bidders &middot;
             acquirers</span></div>
-        <div><span class="ln">the basket</span><span class="ls">owned by token holders</span></div>
         <div><span class="ln">inixiatives</span><span class="ls">founders &amp; their investors</span></div>
-        <div><span class="ln">platform</span><span class="ls">treasury + operations</span></div>
+        <div><span class="ln">the basket</span><span class="ls">owned by token holders &mdash; assets &amp;
+            cash</span></div>
+        <div><span class="ln">the platform</span><span class="ls">treasury + operations &mdash; money only, never
+            assets</span></div>
       </div>
 
       <div class="phase-block">
@@ -525,23 +527,23 @@
         <h2>Genesis — <span>the basket is seeded</span></h2>
         <p class="desc">Early believers buy tokens at net asset value plus a disclosed fee. Every NAV dollar lands in
           the basket.</p>
-        <svg viewBox="0 0 1000 185" role="img" aria-label="Genesis flows">
-          <line class="lane-guide" x1="125" y1="0" x2="125" y2="185" />
-          <line class="lane-guide" x1="375" y1="0" x2="375" y2="185" />
-          <line class="lane-guide" x1="625" y1="0" x2="625" y2="185" />
-          <line class="lane-guide" x1="875" y1="0" x2="875" y2="185" />
-          <circle class="dot-cash" cx="125" cy="50" r="4" />
-          <path class="fl fl-cash" d="M 133 50 L 364 50" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="250" y="41" text-anchor="middle">cash at NAV — the seed</text>
-          <circle class="dot-token" cx="375" cy="95" r="4" />
-          <path class="fl fl-token" d="M 367 95 L 136 95" marker-end="url(#ah-token)" />
-          <text class="flow-label" x="250" y="86" text-anchor="middle">tokens issued, backed 1:1</text>
-          <text class="flow-vote" x="250" y="115" text-anchor="middle">tokens carry platform voting power — it vests
+        <svg viewBox="0 0 1000 210" role="img" aria-label="Genesis flows">
+          <line class="lane-guide" x1="125" y1="0" x2="125" y2="210" />
+          <line class="lane-guide" x1="375" y1="0" x2="375" y2="210" />
+          <line class="lane-guide" x1="625" y1="0" x2="625" y2="210" />
+          <line class="lane-guide" x1="875" y1="0" x2="875" y2="210" />
+          <circle class="dot-cash" cx="125" cy="55" r="4" />
+          <path class="fl fl-cash" d="M 133 55 Q 375 22 614 55" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="375" y="26" text-anchor="middle">cash at NAV — the seed</text>
+          <circle class="dot-token" cx="625" cy="100" r="4" />
+          <path class="fl fl-token" d="M 617 100 Q 375 67 136 100" marker-end="url(#ah-token)" />
+          <text class="flow-label" x="375" y="71" text-anchor="middle">tokens issued, backed 1:1</text>
+          <circle class="dot-fee" cx="125" cy="150" r="4" />
+          <path class="fl fl-fee" d="M 133 150 Q 500 113 864 150" marker-end="url(#ah-fee)" />
+          <text class="flow-label" x="500" y="117" text-anchor="middle">disclosed issuance fee</text>
+          <text class="flow-vote" x="500" y="177" text-anchor="middle">tokens carry platform voting power — it vests
             over checkpoints</text>
-          <circle class="dot-fee" cx="125" cy="145" r="4" />
-          <path class="fl fl-fee" d="M 133 145 Q 500 108 864 145" marker-end="url(#ah-fee)" />
-          <text class="flow-label" x="500" y="112" text-anchor="middle">disclosed issuance fee</text>
-          <text class="flow-result" x="500" y="177" text-anchor="middle">result: NAV $1.00 — fully backed, deliberately
+          <text class="flow-result" x="500" y="202" text-anchor="middle">result: NAV $1.00 — fully backed, deliberately
             boring</text>
         </svg>
       </div>
@@ -557,23 +559,23 @@
           <line class="lane-guide" x1="625" y1="0" x2="625" y2="305" />
           <line class="lane-guide" x1="875" y1="0" x2="875" y2="305" />
           <circle class="dot-asset" cx="125" cy="55" r="4" />
-          <path class="fl fl-asset" d="M 133 55 Q 375 22 614 55" marker-end="url(#ah-asset)" />
-          <text class="flow-label" x="375" y="26" text-anchor="middle">real assets come onto the rails —
+          <path class="fl fl-asset" d="M 133 55 L 364 55" marker-end="url(#ah-asset)" />
+          <text class="flow-label" x="250" y="46" text-anchor="middle">real assets come onto the rails —
             tokenized</text>
           <circle class="dot-cash" cx="125" cy="100" r="4" />
-          <path class="fl fl-cash" d="M 133 100 Q 375 67 614 100" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="375" y="71" text-anchor="middle">raises — into escrow, released on
+          <path class="fl fl-cash" d="M 133 100 L 364 100" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="250" y="91" text-anchor="middle">raises — into escrow, released on
             milestones</text>
-          <circle class="dot-fee" cx="625" cy="145" r="4" />
-          <path class="fl fl-fee" d="M 633 145 L 864 145" marker-end="url(#ah-fee)" />
-          <text class="flow-label" x="750" y="136" text-anchor="middle">tokenization + escrow fees</text>
+          <circle class="dot-fee" cx="375" cy="145" r="4" />
+          <path class="fl fl-fee" d="M 383 145 Q 625 112 864 145" marker-end="url(#ah-fee)" />
+          <text class="flow-label" x="625" y="116" text-anchor="middle">tokenization + escrow fees</text>
           <circle class="dot-cash" cx="125" cy="190" r="4" />
-          <path class="fl fl-cash" d="M 133 190 L 364 190" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="250" y="181" text-anchor="middle">trade tax — holders' share</text>
+          <path class="fl fl-cash" d="M 133 190 Q 375 157 614 190" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="375" y="161" text-anchor="middle">trade tax — holders' share</text>
           <circle class="dot-fee" cx="125" cy="235" r="4" />
           <path class="fl fl-fee" d="M 133 235 Q 500 198 864 235" marker-end="url(#ah-fee)" />
           <text class="flow-label" x="500" y="202" text-anchor="middle">trade tax — treasury share</text>
-          <text class="flow-vote" x="625" y="268" text-anchor="middle">inixiative tokens govern their own inixiative
+          <text class="flow-vote" x="375" y="268" text-anchor="middle">inixiative tokens govern their own inixiative
             — nobody outvotes them on it</text>
           <text class="flow-result" x="500" y="297" text-anchor="middle">result: NAV creeps up with usage — value in,
             zero mint</text>
@@ -591,23 +593,23 @@
           <line class="lane-guide" x1="625" y1="0" x2="625" y2="275" />
           <line class="lane-guide" x1="875" y1="0" x2="875" y2="275" />
           <circle class="dot-token" cx="125" cy="55" r="4" />
-          <path class="fl fl-token" d="M 133 55 Q 375 22 614 55" marker-end="url(#ah-token)" />
-          <text class="flow-label" x="375" y="26" text-anchor="middle">winner pays tokens for a private slice</text>
+          <path class="fl fl-token" d="M 133 55 L 364 55" marker-end="url(#ah-token)" />
+          <text class="flow-label" x="250" y="46" text-anchor="middle">winner pays tokens for a private slice</text>
           <circle class="dot-token" cx="875" cy="100" r="4" />
-          <path class="fl fl-token" d="M 867 100 L 636 100" marker-end="url(#ah-token)" />
-          <text class="flow-label" x="750" y="91" text-anchor="middle">mirror co-buy — best-efforts</text>
-          <circle class="dot-asset" cx="625" cy="145" r="4" />
-          <path class="fl fl-asset" d="M 617 145 L 386 145" marker-end="url(#ah-asset)" />
+          <path class="fl fl-token" d="M 867 100 Q 625 67 386 100" marker-end="url(#ah-token)" />
+          <text class="flow-label" x="625" y="71" text-anchor="middle">mirror co-buy — best-efforts</text>
+          <circle class="dot-asset" cx="375" cy="145" r="4" />
+          <path class="fl fl-asset" d="M 383 145 L 614 145" marker-end="url(#ah-asset)" />
           <text class="flow-label" x="500" y="136" text-anchor="middle">asset slices delivered</text>
-          <circle class="dot-token" cx="375" cy="190" r="4" />
-          <path class="fl fl-token" d="M 383 190 L 614 190" marker-end="url(#ah-token)" />
+          <circle class="dot-token" cx="625" cy="190" r="4" />
+          <path class="fl fl-token" d="M 617 190 L 386 190" marker-end="url(#ah-token)" />
           <text class="flow-label" x="500" y="181" text-anchor="middle">fresh tokens minted at NAV — balanced</text>
-          <text class="flow-vote" x="500" y="208" text-anchor="middle">their voting power vests over checkpoints — a
-            price mark alone never votes</text>
           <circle class="dot-cash" cx="125" cy="235" r="4" />
-          <path class="fl fl-cash" d="M 133 235 L 364 235" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="250" y="226" text-anchor="middle">door: cash in, fresh tokens out</text>
-          <text class="flow-result" x="500" y="267" text-anchor="middle">result: entry is NAV-neutral — the price was
+          <path class="fl fl-cash" d="M 133 235 Q 375 202 614 235" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="375" y="206" text-anchor="middle">door: cash in, fresh tokens out</text>
+          <text class="flow-vote" x="500" y="264" text-anchor="middle">their voting power vests over checkpoints — a
+            price mark alone never votes</text>
+          <text class="flow-result" x="500" y="290" text-anchor="middle">result: entry is NAV-neutral — the price was
             proved, not asserted</text>
         </svg>
       </div>
@@ -623,8 +625,8 @@
           <line class="lane-guide" x1="625" y1="0" x2="625" y2="205" />
           <line class="lane-guide" x1="875" y1="0" x2="875" y2="205" />
           <circle class="dot-cash" cx="125" cy="55" r="4" />
-          <path class="fl fl-cash" d="M 133 55 L 364 55" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="250" y="46" text-anchor="middle">tax share on every trade</text>
+          <path class="fl fl-cash" d="M 133 55 Q 375 22 614 55" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="375" y="26" text-anchor="middle">tax share on every trade</text>
           <circle class="dot-fee" cx="125" cy="100" r="4" />
           <path class="fl fl-fee" d="M 133 100 Q 500 63 864 100" marker-end="url(#ah-fee)" />
           <text class="flow-label" x="500" y="67" text-anchor="middle">service fees + tax share</text>
@@ -650,18 +652,18 @@
           <line class="lane-guide" x1="625" y1="0" x2="625" y2="255" />
           <line class="lane-guide" x1="875" y1="0" x2="875" y2="255" />
           <circle class="dot-cash" cx="125" cy="55" r="4" />
-          <path class="fl fl-cash" d="M 133 55 Q 375 22 614 55" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="375" y="26" text-anchor="middle">acquirer pays the sale price</text>
-          <circle class="dot-cash" cx="625" cy="100" r="4" />
-          <path class="fl fl-cash" d="M 617 100 L 386 100" marker-end="url(#ah-cash)" />
+          <path class="fl fl-cash" d="M 133 55 L 364 55" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="250" y="46" text-anchor="middle">acquirer pays the sale price</text>
+          <circle class="dot-cash" cx="375" cy="100" r="4" />
+          <path class="fl fl-cash" d="M 383 100 L 614 100" marker-end="url(#ah-cash)" />
           <text class="flow-label" x="500" y="91" text-anchor="middle">the basket's share of proceeds</text>
-          <circle class="dot-cash" cx="375" cy="145" r="4" />
-          <path class="fl fl-cash" d="M 367 145 L 136 145" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="250" y="136" text-anchor="middle">buyback &le; NAV — cash to selling
+          <circle class="dot-cash" cx="625" cy="145" r="4" />
+          <path class="fl fl-cash" d="M 617 145 Q 375 112 136 145" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="375" y="116" text-anchor="middle">buyback &le; NAV — cash to selling
             holders</text>
-          <text class="burn-x" x="360" y="196">&#10005;</text>
-          <text class="burn-label" x="380" y="195">bought-back tokens burned — supply contracts with reality</text>
-          <text class="flow-vote" x="380" y="215">their voting power is extinguished with them — power tied to live
+          <text class="burn-x" x="430" y="196">&#10005;</text>
+          <text class="burn-label" x="450" y="195">bought-back tokens burned — supply contracts with reality</text>
+          <text class="flow-vote" x="450" y="215">their voting power is extinguished with them — power tied to live
             exposure</text>
           <text class="flow-result" x="500" y="247" text-anchor="middle">result: holders who stay own a larger share of
             a smaller, honest basket</text>
