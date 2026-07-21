@@ -401,6 +401,34 @@
       font-weight: 500;
     }
 
+    /* slim steps list */
+    .steps-list {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .steps-list p {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    .steps-list span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gray);
+      letter-spacing: 0.15em;
+      margin-right: 0.9rem;
+    }
+
+    .steps-list strong {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--blue);
+      font-weight: 600;
+    }
+
     /* 4-across steps grid */
     .cards.steps {
       grid-template-columns: repeat(4, 1fr);
@@ -733,35 +761,15 @@
       </svg>
     </div>
 
-    <div class="cards steps">
-      <div class="card">
-        <span class="step">01</span>
-        <h3>tokenize</h3>
-        <p>Bring a real asset or project onto the platform — its ownership becomes tradeable tokens with rules the
-          asset's own community configures.</p>
-      </div>
-      <div class="card">
-        <span class="step">02</span>
-        <h3>discover the price</h3>
-        <p>At milestones, a slice of the asset goes to sealed-bid auction where honesty is the winning strategy. The
-          basket co-buys one cycle later, only when its holders vote to — at the price a real, motivated bidder
-          just proved, never at
-          a valuation anyone asserted.</p>
-      </div>
-      <div class="card">
-        <span class="step">03</span>
-        <h3>cash in, tokens out</h3>
-        <p>New tokens are created one way only: cash through the door, at backing price. The basket buys asset slices
-          with money it actually has, when its holders vote to — nothing is ever minted against a valuation, so
-          there's nothing to game.</p>
-      </div>
-      <div class="card">
-        <span class="step">04</span>
-        <h3>exit honestly</h3>
-        <p>When an asset sells back into the world, every owner is paid their share. The index's share buys back
-          tokens on the open market — never above their backing — and burns them. Supply contracts in step with
-          reality, in both directions.</p>
-      </div>
+    <div class="steps-list">
+      <p><span>01</span><strong>tokenize</strong> — real assets become tradeable tokens, with rules their own
+        community sets.</p>
+      <p><span>02</span><strong>price</strong> — sealed-bid auctions prove every price; nobody ever asserts a
+        valuation.</p>
+      <p><span>03</span><strong>co-buy</strong> — holders vote the basket's purchases, paid in cash it actually
+        holds; new tokens exist only when someone pays cash at backing price.</p>
+      <p><span>04</span><strong>exit</strong> — sales pay every owner; the basket's share buys back tokens, never
+        above backing, and burns them.</p>
     </div>
     <p class="steps-note"><strong>And everything in between sits in escrow.</strong> Whenever value is recognized
       before it's realized — a milestone funded, future capacity pre-sold — it's held against fully-escrowed collateral
