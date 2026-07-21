@@ -665,13 +665,14 @@
 
       <div class="phase-block">
         <div class="phase-tag">phase 4</div>
-        <h2>Exit — <span>supply tracks reality</span></h2>
-        <p class="desc">An asset sells off-platform. Every owner is paid their share. The basket's share buys back
-          tokens on the open market — never above backing — and burns them. Losses pass through the same pipe.</p>
-        <svg viewBox="0 0 1000 330" role="img" aria-label="Exit flows">
-          <line class="lane-guide" x1="167" y1="0" x2="167" y2="330" />
-          <line class="lane-guide" x1="500" y1="0" x2="500" y2="330" />
-          <line class="lane-guide" x1="833" y1="0" x2="833" y2="330" />
+        <h2>Exit — <span>reality settles up</span></h2>
+        <p class="desc">An asset sells off-platform. Every owner is paid their share; the basket's share arrives as
+          cash — a straight asset-for-cash swap, backing unchanged. And anyone who wants out uses the redemption door:
+          burn tokens, take cash at backing, up to the cash the basket holds. Losses pass through the same pipe.</p>
+        <svg viewBox="0 0 1000 345" role="img" aria-label="Exit flows">
+          <line class="lane-guide" x1="167" y1="0" x2="167" y2="345" />
+          <line class="lane-guide" x1="500" y1="0" x2="500" y2="345" />
+          <line class="lane-guide" x1="833" y1="0" x2="833" y2="345" />
           <circle class="dot-cash" cx="167" cy="55" r="4" />
           <path class="fl fl-cash" d="M 175 55 L 489 55" marker-end="url(#ah-cash)" />
           <text class="flow-label" x="333" y="46" text-anchor="middle">acquirer pays the sale price</text>
@@ -681,20 +682,24 @@
             acquirer</text>
           <circle class="dot-rwa" cx="833" cy="145" r="4" />
           <path class="fl fl-rwa" d="M 825 145 Q 500 112 181 145" marker-end="url(#ah-rwa)" />
+          <text class="burn-x" x="352" y="121">&#10005;</text>
           <text class="flow-label" x="500" y="116" text-anchor="middle">its RWA tokens retire at the registrar</text>
           <circle class="dot-cash" cx="500" cy="190" r="4" />
           <path class="fl fl-cash" d="M 508 190 L 819 190" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="666" y="181" text-anchor="middle">the basket's share of proceeds</text>
-          <circle class="dot-cash" cx="833" cy="235" r="4" />
-          <path class="fl fl-cash" d="M 825 235 Q 500 202 178 235" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="500" y="206" text-anchor="middle">buyback &le; backing — cash to selling
-            holders</text>
-          <text class="burn-x" x="560" y="271">&#10005;</text>
-          <text class="burn-label" x="580" y="270">bought-back tokens burned — supply contracts with reality</text>
-          <text class="flow-vote" x="580" y="290">their voting power is extinguished with them — power tied to live
-            exposure</text>
-          <text class="flow-result" x="500" y="322" text-anchor="middle">result: holders who stay own a larger share of
-            a smaller, honest basket</text>
+          <text class="flow-label" x="666" y="181" text-anchor="middle">the basket's share of proceeds — asset out,
+            cash in, backing unchanged</text>
+          <circle class="dot-token" cx="167" cy="235" r="4" />
+          <path class="fl fl-token" d="M 175 235 Q 500 202 822 235" marker-end="url(#ah-token)" />
+          <text class="burn-x" x="330" y="211">&#10005;</text>
+          <text class="flow-label" x="500" y="206" text-anchor="middle">redemption door: tokens in — burned</text>
+          <circle class="dot-cash" cx="833" cy="280" r="4" />
+          <path class="fl fl-cash" d="M 825 280 Q 500 247 178 280" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="500" y="251" text-anchor="middle">cash out at backing − spread, up to cash on
+            hand</text>
+          <text class="flow-vote" x="500" y="313" text-anchor="middle">redeemed tokens' voting power dies with them —
+            power tied to live exposure</text>
+          <text class="flow-result" x="500" y="338" text-anchor="middle">result: the price lives in a band — the door
+            caps the premium, redemption floors the discount</text>
         </svg>
       </div>
 
@@ -728,8 +733,9 @@
           </tr>
           <tr>
             <td>a token on the market</td>
-            <td>whatever buyers and sellers agree — it can drift from NAV. Exit buybacks purchase only at or below
-              NAV, so discounts get bought back and burned; premiums are never chased.</td>
+            <td>whatever buyers and sellers agree — but only inside a band. Above backing, anyone can create new tokens
+              at the door (capping the premium); below backing, anyone can burn tokens for cash at backing
+              (flooring the discount, up to the basket's cash on hand).</td>
           </tr>
         </tbody>
       </table>
