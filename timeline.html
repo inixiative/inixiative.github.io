@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>inixiative platform — timeline: how value moves</title>
+  <meta name="description"
+    content="The life of the inixiative platform, phase by phase: what every party puts in, what every party gets out, and every fee in the open.">
+  <meta property="og:title" content="inixiative platform — timeline">
+  <meta property="og:description" content="How the system works and where the value goes, phase by phase.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/inixiative/.github/main/brand/og-1200x630.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@inixiative">
+  <link rel="icon" type="image/png" sizes="32x32" href="icon-32x32.png">
+  <link rel="apple-touch-icon" href="icon-180x180.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0D1117;
+      --bg-surface: #161B22;
+      --blue: #58A6FF;
+      --blue-dim: #1F6FEB;
+      --gray: #6E7681;
+      --text: #C9D1D9;
+      --text-dim: #8B949E;
+      --border: #21262D;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .nav .home {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      text-decoration: none;
+    }
+
+    .nav .home .bracket {
+      color: var(--gray);
+    }
+
+    .nav .home .mark {
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .nav .cta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--blue);
+      text-decoration: none;
+      border: 1px solid rgba(88, 166, 255, 0.25);
+      border-radius: 6px;
+      padding: 0.4rem 1rem;
+      transition: all 0.2s;
+    }
+
+    .nav .cta:hover {
+      background: rgba(88, 166, 255, 0.08);
+    }
+
+    header.intro {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+    }
+
+    .tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      margin-bottom: 1.25rem;
+      opacity: 0.85;
+    }
+
+    header.intro h1 {
+      font-size: clamp(1.7rem, 4.5vw, 2.6rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    header.intro p {
+      color: var(--text-dim);
+      max-width: 620px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* ---- Timeline ---- */
+    .timeline {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: calc(2rem + 7px);
+      top: 3rem;
+      bottom: 2rem;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .phase {
+      position: relative;
+      padding-left: 3rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .phase::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--blue-dim);
+    }
+
+    .phase.live::before {
+      background: var(--blue);
+      border-color: var(--blue);
+    }
+
+    .phase-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin-bottom: 0.4rem;
+    }
+
+    .phase h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .phase h2 span {
+      color: var(--blue);
+    }
+
+    .phase>p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      max-width: 640px;
+      margin-bottom: 1.25rem;
+    }
+
+    .parties {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .party {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.15rem;
+    }
+
+    .party h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--blue);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .party .in,
+    .party .out {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      display: block;
+    }
+
+    .party .in {
+      color: var(--gray);
+    }
+
+    .party .out {
+      color: var(--text-dim);
+    }
+
+    .party .in::before {
+      content: '− ';
+      color: #d29922;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .party .out::before {
+      content: '+ ';
+      color: #3FB950;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ---- Fees ---- */
+    section.fees {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin-bottom: 1rem;
+    }
+
+    section.fees>p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      max-width: 640px;
+      margin-bottom: 1.5rem;
+    }
+
+    .fee-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      background: var(--bg-surface);
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 400;
+    }
+
+    td:first-child {
+      color: var(--blue);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    td {
+      color: var(--text-dim);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .fees-note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      border-left: 2px solid var(--blue-dim);
+      padding-left: 1.25rem;
+      max-width: 680px;
+    }
+
+    .fees-note strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .fine-print {
+      font-size: 0.75rem;
+      color: var(--gray);
+      max-width: 640px;
+      margin: 2rem auto 0;
+      text-align: center;
+      line-height: 1.7;
+      padding: 0 2rem;
+    }
+
+    .links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 3rem 2rem 4rem;
+    }
+
+    .links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .links a:hover {
+      color: var(--blue);
+      border-color: var(--blue-dim);
+      background: rgba(88, 166, 255, 0.04);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--gray);
+      font-size: 0.8rem;
+    }
+
+    footer a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    footer .copyright {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      margin-top: 0.75rem;
+      opacity: 0.6;
+    }
+
+    @media (max-width: 640px) {
+      .timeline::before {
+        left: calc(1.5rem + 7px);
+      }
+
+      .timeline {
+        padding: 2rem 1.5rem;
+      }
+
+      .phase {
+        padding-left: 2.5rem;
+      }
+
+      .parties {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="nav">
+    <a class="home" href="/"><span class="bracket">&lt;</span><span class="mark">iXi</span><span
+        class="bracket">&gt;</span></a>
+    <a class="cta" href="/platform#signup">get early access</a>
+  </nav>
+
+  <header class="intro">
+    <div class="tagline">the inixiative platform &mdash; timeline</div>
+    <h1>How the system works, and where the value goes.</h1>
+    <p>Phase by phase: what every party puts in, what every party gets out. If a flow isn't on this page, it doesn't
+      exist — that's the design.</p>
+  </header>
+
+  <div class="timeline">
+
+    <div class="phase live">
+      <div class="phase-tag">phase 0</div>
+      <h2>Genesis — <span>the basket is seeded</span></h2>
+      <p>Early believers buy tokens directly from the platform at net asset value plus a disclosed issuance fee. Every
+        dollar of NAV goes into the basket as cash. The token is fully backed from the first block — by design, it is
+        boring.</p>
+      <div class="parties">
+        <div class="party">
+          <h4>early holders</h4>
+          <span class="in">cash, at NAV + disclosed fee</span>
+          <span class="out">tokens backed 1:1 by the basket</span>
+        </div>
+        <div class="party">
+          <h4>the basket</h4>
+          <span class="in">&mdash;</span>
+          <span class="out">100% cash reserve, NAV $1.00</span>
+        </div>
+        <div class="party">
+          <h4>platform operator</h4>
+          <span class="in">builds &amp; runs the rails</span>
+          <span class="out">the disclosed issuance fee only</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-tag">phase 1</div>
+      <h2>Building — <span>initiatives arrive</span></h2>
+      <p>Founders tokenize real assets and projects. They raise from their own investors, in any currency, held in
+        platform escrow and released as milestones verify. Their tokens trade on the marketplace; a small tax on each
+        trade splits between the basket (holders' share) and the treasury (operations).</p>
+      <div class="parties">
+        <div class="party">
+          <h4>initiative founders</h4>
+          <span class="in">service fees for the rails</span>
+          <span class="out">a cap table, escrowed funding, their own governance</span>
+        </div>
+        <div class="party">
+          <h4>their investors</h4>
+          <span class="in">capital, any currency</span>
+          <span class="out">asset tokens; funds release only as delivery verifies</span>
+        </div>
+        <div class="party">
+          <h4>traders</h4>
+          <span class="in">a small trade tax</span>
+          <span class="out">a liquid market in real-asset tokens</span>
+        </div>
+        <div class="party">
+          <h4>token holders</h4>
+          <span class="in">&mdash;</span>
+          <span class="out">basket accretes the tax share &mdash; NAV creeps up with usage</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-tag">phase 2</div>
+      <h2>First IPO — <span>the basket becomes real</span></h2>
+      <p>An initiative hits its milestone and elects to IPO. A sealed-bid auction — where honest bidding is the winning
+        strategy — proves the price. Bids settle in platform tokens; bidders who need them can buy fresh tokens from
+        the platform at NAV. Only the slice delivered into the basket mints new tokens, balanced on both sides at the
+        proven price.</p>
+      <div class="parties">
+        <div class="party">
+          <h4>founders</h4>
+          <span class="in">a slice of their asset</span>
+          <span class="out">liquidity, a market-proven price, platform tokens</span>
+        </div>
+        <div class="party">
+          <h4>auction winner</h4>
+          <span class="in">tokens, at the second-highest price</span>
+          <span class="out">a private stake in a real asset</span>
+        </div>
+        <div class="party">
+          <h4>the basket</h4>
+          <span class="in">cash or treasury tokens (co-buy, when funded)</span>
+          <span class="out">real-asset slices at an arm's-length price</span>
+        </div>
+        <div class="party">
+          <h4>token holders</h4>
+          <span class="in">&mdash;</span>
+          <span class="out">the token now holds real assets, not just cash</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-tag">phase 3</div>
+      <h2>The flywheel — <span>usage compounds</span></h2>
+      <p>More initiatives, more trades, more IPOs. Tax flow funds the treasury's standing bid and its co-buys.
+        Staggered auction checkpoints keep every mark honest — no single price is ever load-bearing. The token
+        appreciates for exactly one reason: value entered the basket that no mint matched.</p>
+      <div class="parties">
+        <div class="party">
+          <h4>token holders</h4>
+          <span class="in">&mdash;</span>
+          <span class="out">appreciation = basket growth unmatched by mint</span>
+        </div>
+        <div class="party">
+          <h4>everyone with a stake</h4>
+          <span class="in">engagement</span>
+          <span class="out">direct governance &mdash; held tokens vote, no custodian in between</span>
+        </div>
+        <div class="party">
+          <h4>platform operator</h4>
+          <span class="in">runs auctions, escrow, checkpoints</span>
+          <span class="out">published service fees &mdash; nothing else</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-tag">phase 4</div>
+      <h2>Exit — <span>supply tracks reality</span></h2>
+      <p>An asset sells off-platform, in whatever currency the buyer pays. Every owner is paid their share. The
+        basket's share buys back tokens on the open market — never above NAV — and burns them. Supply contracts in step
+        with the value that left. Losses pass through the same pipe: the token tracks, in both directions, always.</p>
+      <div class="parties">
+        <div class="party">
+          <h4>founders &amp; investors</h4>
+          <span class="in">their asset</span>
+          <span class="out">their share of the sale, in the sale currency</span>
+        </div>
+        <div class="party">
+          <h4>holders who want out</h4>
+          <span class="in">tokens, sold into the buyback</span>
+          <span class="out">cash &mdash; a self-selected payout</span>
+        </div>
+        <div class="party">
+          <h4>holders who stay</h4>
+          <span class="in">&mdash;</span>
+          <span class="out">a larger share of a smaller, honest basket</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <section class="fees">
+    <div class="section-label">every fee, in the open</div>
+    <p>Every fee is a published, governed parameter. If the platform earns it, it's on this table.</p>
+    <div class="fee-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>fee</th>
+            <th>charged on</th>
+            <th>goes to</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>issuance fee</td>
+            <td>buying tokens from the platform (disclosed % over NAV)</td>
+            <td>platform maintenance</td>
+          </tr>
+          <tr>
+            <td>tokenization fee</td>
+            <td>bringing an asset onto the rails</td>
+            <td>platform maintenance</td>
+          </tr>
+          <tr>
+            <td>escrow fee</td>
+            <td>holding &amp; milestone-releasing raised funds</td>
+            <td>platform maintenance</td>
+          </tr>
+          <tr>
+            <td>trade tax</td>
+            <td>marketplace trades of asset tokens</td>
+            <td>split: basket (holders) + treasury (operations)</td>
+          </tr>
+          <tr>
+            <td>auction fee</td>
+            <td>running an IPO / checkpoint auction</td>
+            <td>treasury</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fees-note"><strong>Portability is priced, not banned.</strong> Initiatives that keep their tokens
+      tradeable only on the platform pay discounted service fees — their trade flow funds the whole system. Initiatives
+      that choose freely portable tokens pay full fees up front, because their off-platform trades contribute nothing.
+      Either way: the choice is the initiative's, and the price of it is public.</p>
+  </section>
+
+  <p class="fine-print">The inixiative platform is a research project in open design. Figures on this page are
+    illustrative mechanics, not offers, projections, or terms. Nothing here is an offer to sell, or a solicitation to
+    buy, securities or any other financial instrument.</p>
+
+  <div class="links">
+    <a href="/">home</a>
+    <a href="/platform">the platform</a>
+    <a href="https://github.com/inixiative/whitepaper">whitepaper</a>
+    <a href="https://inixiative.substack.com">substack</a>
+    <a href="mailto:aron.greenspan@inixiative.com">contact</a>
+  </div>
+
+  <footer>
+    Open to advisory engagements and collaboration. <a href="mailto:aron.greenspan@inixiative.com">Get in touch</a>.
+    <div class="copyright">&lt;iXi&gt; &copy; 2026</div>
+  </footer>
+
+</body>
+
+</html>
