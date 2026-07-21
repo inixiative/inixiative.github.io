@@ -359,8 +359,8 @@
     .flow-step {
       fill: var(--gray);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.1em;
+      font-size: 10.5px;
+      letter-spacing: 0.04em;
     }
 
     .flow-grid rect {
@@ -682,7 +682,7 @@
     <div class="section-label">how it works</div>
 
     <div class="lifecycle">
-      <svg viewBox="0 0 1000 250" role="img" aria-label="Asset lifecycle: a real asset is tokenized, priced by sealed-bid auction, minted into the index, and burned on exit">
+      <svg viewBox="0 42 1000 210" role="img" aria-label="Asset lifecycle: a real asset is tokenized, priced by sealed-bid auction, minted into the index, and burned on exit">
         <defs>
           <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M 0 1 L 9 5 L 0 9" fill="none" class="flow-arrowhead" />
@@ -694,12 +694,6 @@
         <line class="flow-line" x1="435" y1="122" x2="512" y2="122" marker-end="url(#arrow)" />
         <line class="flow-line" x1="715" y1="122" x2="792" y2="122" marker-end="url(#arrow)" />
         <path class="flow-line flow-return" d="M 880 176 C 860 236, 140 236, 100 176" marker-end="url(#arrow)" fill="none" />
-
-        <!-- connector labels -->
-        <text class="flow-step" x="213" y="106" text-anchor="middle">01 tokenize</text>
-        <text class="flow-step" x="473" y="106" text-anchor="middle">02 price</text>
-        <text class="flow-step" x="753" y="106" text-anchor="middle">03 mint</text>
-        <text class="flow-step" x="500" y="243" text-anchor="middle">04 supply tracks reality</text>
 
         <!-- node: real asset -->
         <rect class="flow-node" x="25" y="80" width="150" height="84" rx="10" />
@@ -730,6 +724,12 @@
         <rect class="flow-node" x="802" y="80" width="173" height="84" rx="10" />
         <text class="flow-title" x="888" y="116" text-anchor="middle">payout + burn</text>
         <text class="flow-sub" x="888" y="138" text-anchor="middle">real exit &#183; tokens retire</text>
+
+        <!-- connector labels (drawn last so nothing paints over them) -->
+        <text class="flow-step" x="218" y="110" text-anchor="middle">01 tokenize</text>
+        <text class="flow-step" x="478" y="110" text-anchor="middle">02 price</text>
+        <text class="flow-step" x="758" y="110" text-anchor="middle">03 mint</text>
+        <text class="flow-step" x="500" y="245" text-anchor="middle">04 supply tracks reality</text>
       </svg>
     </div>
 
