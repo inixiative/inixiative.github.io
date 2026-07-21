@@ -297,6 +297,110 @@
       letter-spacing: 0.15em;
     }
 
+    /* ---- Lifecycle diagram ---- */
+    .lifecycle {
+      margin-bottom: 2rem;
+    }
+
+    .lifecycle svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .flow-node {
+      fill: var(--bg-surface);
+      stroke: var(--border);
+      stroke-width: 1.5;
+    }
+
+    .flow-line {
+      stroke: var(--blue-dim);
+      stroke-width: 1.5;
+      stroke-dasharray: 5 5;
+      animation: flow 1.4s linear infinite;
+      opacity: 0.8;
+    }
+
+    .flow-return {
+      opacity: 0.45;
+    }
+
+    .flow-arrowhead {
+      stroke: var(--blue-dim);
+      stroke-width: 1.5;
+    }
+
+    @keyframes flow {
+      to {
+        stroke-dashoffset: -10;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flow-line {
+        animation: none;
+      }
+    }
+
+    .flow-title {
+      fill: var(--blue);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .flow-sub {
+      fill: var(--text-dim);
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+    }
+
+    .flow-step {
+      fill: var(--gray);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+    }
+
+    .flow-grid rect {
+      fill: rgba(88, 166, 255, 0.08);
+      stroke: var(--border);
+      stroke-width: 1;
+    }
+
+    .flow-grid .flow-cell-new {
+      fill: rgba(88, 166, 255, 0.45);
+      stroke: var(--blue);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        fill-opacity: 1;
+      }
+
+      50% {
+        fill-opacity: 0.4;
+      }
+    }
+
+    .steps-note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      border-left: 2px solid var(--blue-dim);
+      padding-left: 1.25rem;
+    }
+
+    .steps-note strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
     /* 4-across steps grid */
     .cards.steps {
       grid-template-columns: repeat(4, 1fr);
@@ -576,6 +680,59 @@
 
   <section>
     <div class="section-label">how it works</div>
+
+    <div class="lifecycle">
+      <svg viewBox="0 0 1000 250" role="img" aria-label="Asset lifecycle: a real asset is tokenized, priced by sealed-bid auction, minted into the index, and burned on exit">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 1 L 9 5 L 0 9" fill="none" class="flow-arrowhead" />
+          </marker>
+        </defs>
+
+        <!-- connectors -->
+        <line class="flow-line" x1="175" y1="122" x2="252" y2="122" marker-end="url(#arrow)" />
+        <line class="flow-line" x1="435" y1="122" x2="512" y2="122" marker-end="url(#arrow)" />
+        <line class="flow-line" x1="715" y1="122" x2="792" y2="122" marker-end="url(#arrow)" />
+        <path class="flow-line flow-return" d="M 880 176 C 860 236, 140 236, 100 176" marker-end="url(#arrow)" fill="none" />
+
+        <!-- connector labels -->
+        <text class="flow-step" x="213" y="106" text-anchor="middle">01 tokenize</text>
+        <text class="flow-step" x="473" y="106" text-anchor="middle">02 price</text>
+        <text class="flow-step" x="753" y="106" text-anchor="middle">03 mint</text>
+        <text class="flow-step" x="500" y="243" text-anchor="middle">04 supply tracks reality</text>
+
+        <!-- node: real asset -->
+        <rect class="flow-node" x="25" y="80" width="150" height="84" rx="10" />
+        <text class="flow-title" x="100" y="116" text-anchor="middle">real asset</text>
+        <text class="flow-sub" x="100" y="138" text-anchor="middle">a building &#183; a fund &#183; a farm</text>
+
+        <!-- node: auction -->
+        <rect class="flow-node" x="262" y="80" width="173" height="84" rx="10" />
+        <text class="flow-title" x="348" y="116" text-anchor="middle">sealed-bid auction</text>
+        <text class="flow-sub" x="348" y="138" text-anchor="middle">honesty wins &#183; price proved</text>
+
+        <!-- node: the index -->
+        <rect class="flow-node" x="522" y="52" width="193" height="140" rx="10" />
+        <text class="flow-title" x="618" y="82" text-anchor="middle">the index</text>
+        <g class="flow-grid">
+          <rect x="556" y="98" width="20" height="20" rx="4" />
+          <rect x="584" y="98" width="20" height="20" rx="4" />
+          <rect x="612" y="98" width="20" height="20" rx="4" />
+          <rect x="640" y="98" width="20" height="20" rx="4" />
+          <rect x="556" y="126" width="20" height="20" rx="4" />
+          <rect x="584" y="126" width="20" height="20" rx="4" />
+          <rect x="612" y="126" width="20" height="20" rx="4" />
+          <rect class="flow-cell-new" x="640" y="126" width="20" height="20" rx="4" />
+        </g>
+        <text class="flow-sub" x="618" y="174" text-anchor="middle">every trade feeds it</text>
+
+        <!-- node: exit -->
+        <rect class="flow-node" x="802" y="80" width="173" height="84" rx="10" />
+        <text class="flow-title" x="888" y="116" text-anchor="middle">payout + burn</text>
+        <text class="flow-sub" x="888" y="138" text-anchor="middle">real exit &#183; tokens retire</text>
+      </svg>
+    </div>
+
     <div class="cards steps">
       <div class="card">
         <span class="step">01</span>
@@ -604,6 +761,9 @@
           index burns. Supply contracts in step with reality — value transfers to everyone who remains.</p>
       </div>
     </div>
+    <p class="steps-note"><strong>And everything in between sits in escrow.</strong> Whenever value is recognized
+      before it's realized — a milestone funded, future capacity pre-sold — it's held against fully-escrowed collateral
+      and released only as delivery verifies. Nothing on the platform pays out on a promise.</p>
   </section>
 
   <section>
