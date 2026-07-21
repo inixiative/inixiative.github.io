@@ -589,28 +589,32 @@
       <div class="phase-block">
         <div class="phase-tag">phase 1b</div>
         <h2>Trading — <span>the tax engine starts</span></h2>
-        <p class="desc">The inixiative's tokens change hands. Every change of ownership is taxed a small percentage of
-          its value — valued at the asset's last auction mark, so it can't be dodged by mispricing the trade — and the
-          tax splits between the basket and the treasury.</p>
-        <svg viewBox="0 0 1000 215" role="img" aria-label="Trading and tax flows">
-          <line class="lane-guide" x1="100" y1="0" x2="100" y2="215" />
-          <line class="lane-guide" x1="300" y1="0" x2="300" y2="215" />
-          <line class="lane-guide" x1="500" y1="0" x2="500" y2="215" />
-          <line class="lane-guide" x1="700" y1="0" x2="700" y2="215" />
-          <line class="lane-guide" x1="900" y1="0" x2="900" y2="215" />
+        <p class="desc">The inixiative's tokens change hands — the trade itself is just a trade, value moving buyer to
+          seller. Each change of ownership pays a small tax on its value (at the asset's last auction mark, so it
+          can't be dodged by mispricing), split roughly 8:1:1 — most to the treasury, a sliver to the basket, a sliver
+          to the operator. The treasury is how the platform makes its own money; IPOs are how that money becomes
+          basket assets.</p>
+        <svg viewBox="0 0 1000 250" role="img" aria-label="Trading and tax flows">
+          <line class="lane-guide" x1="100" y1="0" x2="100" y2="250" />
+          <line class="lane-guide" x1="300" y1="0" x2="300" y2="250" />
+          <line class="lane-guide" x1="500" y1="0" x2="500" y2="250" />
+          <line class="lane-guide" x1="700" y1="0" x2="700" y2="250" />
+          <line class="lane-guide" x1="900" y1="0" x2="900" y2="250" />
           <path class="fl fl-token" d="M 48 55 L 152 55" marker-start="url(#ah-token)" marker-end="url(#ah-token)" />
           <text class="flow-label" x="30" y="41">inixiative tokens change hands — each ownership change is taxed a
             small % of its value</text>
           <circle class="dot-cash" cx="100" cy="100" r="4" />
-          <path class="fl fl-cash" d="M 108 100 Q 300 67 489 100" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="300" y="71" text-anchor="middle">that tax, holders' share — cash into the
-            basket</text>
+          <path class="fl fl-cash" d="M 108 100 Q 400 60 689 100" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="400" y="64" text-anchor="middle">tax ×8 — the treasury: the platform's own
+            earnings, spent by rules on co-buys</text>
           <circle class="dot-cash" cx="100" cy="145" r="4" />
-          <path class="fl fl-cash" d="M 108 145 Q 400 105 689 145" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="400" y="109" text-anchor="middle">that tax, treasury share — funds future
-            co-buys</text>
-          <text class="flow-result" x="500" y="200" text-anchor="middle">result: NAV creeps up with usage — value in,
-            zero mint</text>
+          <path class="fl fl-cash" d="M 108 145 Q 300 112 489 145" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="300" y="116" text-anchor="middle">tax ×1 — straight to the basket</text>
+          <circle class="dot-cash" cx="100" cy="190" r="4" />
+          <path class="fl fl-cash" d="M 108 190 Q 500 145 889 190" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="500" y="149" text-anchor="middle">tax ×1 — the operator</text>
+          <text class="flow-result" x="500" y="242" text-anchor="middle">result: the platform earns with usage — IPOs
+            convert those earnings into basket assets</text>
         </svg>
       </div>
 
@@ -663,10 +667,10 @@
           <line class="lane-guide" x1="900" y1="0" x2="900" y2="250" />
           <circle class="dot-cash" cx="100" cy="55" r="4" />
           <path class="fl fl-cash" d="M 108 55 Q 300 22 489 55" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="300" y="26" text-anchor="middle">trade tax — holders' share, every trade</text>
+          <text class="flow-label" x="300" y="26" text-anchor="middle">tax sliver — straight to the basket</text>
           <circle class="dot-cash" cx="100" cy="100" r="4" />
           <path class="fl fl-cash" d="M 108 100 Q 400 60 689 100" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="400" y="64" text-anchor="middle">trade tax — treasury share</text>
+          <text class="flow-label" x="400" y="64" text-anchor="middle">trade tax — mostly to the treasury, every trade</text>
           <circle class="dot-fee" cx="100" cy="145" r="4" />
           <path class="fl fl-fee" d="M 108 145 Q 500 100 889 145" marker-end="url(#ah-fee)" />
           <text class="flow-label" x="500" y="107" text-anchor="middle">service fees</text>
@@ -745,7 +749,7 @@
           <tr>
             <td>trade tax</td>
             <td>every change of ownership, at the last auction mark</td>
-            <td>split: basket (holders) + the treasury (co-buys, standing bid)</td>
+            <td>split &asymp; 8:1:1 — treasury (funds co-buys) / basket / operator</td>
           </tr>
           <tr>
             <td>auction fee</td>
