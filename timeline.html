@@ -546,7 +546,7 @@
           <text class="flow-label" x="300" y="71" text-anchor="middle">tokens issued, backed 1:1</text>
           <circle class="dot-fee" cx="100" cy="150" r="4" />
           <path class="fl fl-fee" d="M 108 150 Q 500 105 889 150" marker-end="url(#ah-fee)" />
-          <text class="flow-label" x="500" y="112" text-anchor="middle">disclosed issuance fee</text>
+          <text class="flow-label" x="500" y="112" text-anchor="middle">disclosed issuance fee — a slice of the cash paid</text>
           <text class="flow-vote" x="500" y="177" text-anchor="middle">tokens carry platform voting power — it vests
             over checkpoints</text>
           <text class="flow-result" x="500" y="202" text-anchor="middle">result: NAV $1.00 — fully backed, deliberately
@@ -555,17 +555,16 @@
       </div>
 
       <div class="phase-block">
-        <div class="phase-tag">phase 1</div>
-        <h2>Building — <span>inixiatives arrive</span></h2>
-        <p class="desc">Founders tokenize real assets and raise in any currency into platform escrow. Then their
-          tokens start changing hands — and every change of ownership is taxed a small percentage of its value (at the
-          asset's last auction mark), split between the basket and the treasury.</p>
-        <svg viewBox="0 0 1000 400" role="img" aria-label="Building flows">
-          <line class="lane-guide" x1="100" y1="0" x2="100" y2="400" />
-          <line class="lane-guide" x1="300" y1="0" x2="300" y2="400" />
-          <line class="lane-guide" x1="500" y1="0" x2="500" y2="400" />
-          <line class="lane-guide" x1="700" y1="0" x2="700" y2="400" /><line class="lane-guide" x1="900" y1="0"
-            x2="900" y2="400" />
+        <div class="phase-tag">phase 1a</div>
+        <h2>Founding — <span>an inixiative is born</span></h2>
+        <p class="desc">Founders raise in any currency into platform escrow — released only as milestones verify — buy
+          the real asset with it, and tokenize. The platform's service fees are paid in platform tokens.</p>
+        <svg viewBox="0 0 1000 265" role="img" aria-label="Founding flows">
+          <line class="lane-guide" x1="100" y1="0" x2="100" y2="265" />
+          <line class="lane-guide" x1="300" y1="0" x2="300" y2="265" />
+          <line class="lane-guide" x1="500" y1="0" x2="500" y2="265" />
+          <line class="lane-guide" x1="700" y1="0" x2="700" y2="265" />
+          <line class="lane-guide" x1="900" y1="0" x2="900" y2="265" />
           <circle class="dot-cash" cx="100" cy="55" r="4" />
           <path class="fl fl-cash" d="M 108 55 L 289 55" marker-end="url(#ah-cash)" />
           <text class="flow-label" x="200" y="46" text-anchor="middle">raises — cash into escrow</text>
@@ -576,24 +575,41 @@
           <path class="fl fl-asset" d="M 108 145 L 289 145" marker-end="url(#ah-asset)" />
           <text class="flow-label" x="200" y="136" text-anchor="middle">the real asset comes onto the rails —
             tokenized</text>
-          <path class="fl fl-token" d="M 48 195 L 152 195" marker-start="url(#ah-token)"
-            marker-end="url(#ah-token)" />
-          <text class="flow-label" x="30" y="181">inixiative tokens change hands — each ownership change is taxed a
-            small % of its value</text>
-          <circle class="dot-cash" cx="100" cy="240" r="4" />
-          <path class="fl fl-cash" d="M 108 240 Q 300 207 489 240" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="300" y="211" text-anchor="middle">that tax, holders' share — cash into the
-            basket</text>
-          <circle class="dot-cash" cx="100" cy="285" r="4" />
-          <path class="fl fl-cash" d="M 108 285 Q 400 245 689 285" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="400" y="249" text-anchor="middle">that tax, treasury share — funds future
-            co-buys</text>
-          <circle class="dot-fee" cx="300" cy="330" r="4" />
-          <path class="fl fl-fee" d="M 308 330 Q 600 290 889 330" marker-end="url(#ah-fee)" />
-          <text class="flow-label" x="600" y="294" text-anchor="middle">tokenization + escrow fees</text>
-          <text class="flow-vote" x="300" y="363" text-anchor="middle">inixiative tokens govern their own inixiative
+          <circle class="dot-fee" cx="300" cy="190" r="4" />
+          <path class="fl fl-fee" d="M 308 190 Q 600 150 889 190" marker-end="url(#ah-fee)" />
+          <text class="flow-label" x="600" y="154" text-anchor="middle">tokenization + escrow fees — paid in platform
+            tokens</text>
+          <text class="flow-vote" x="300" y="222" text-anchor="middle">inixiative tokens govern their own inixiative
             — nobody outvotes them on it</text>
-          <text class="flow-result" x="500" y="392" text-anchor="middle">result: NAV creeps up with usage — value in,
+          <text class="flow-result" x="500" y="252" text-anchor="middle">result: the inixiative is live — basket
+            untouched, zero mint</text>
+        </svg>
+      </div>
+
+      <div class="phase-block">
+        <div class="phase-tag">phase 1b</div>
+        <h2>Trading — <span>the tax engine starts</span></h2>
+        <p class="desc">The inixiative's tokens change hands. Every change of ownership is taxed a small percentage of
+          its value — valued at the asset's last auction mark, so it can't be dodged by mispricing the trade — and the
+          tax splits between the basket and the treasury.</p>
+        <svg viewBox="0 0 1000 215" role="img" aria-label="Trading and tax flows">
+          <line class="lane-guide" x1="100" y1="0" x2="100" y2="215" />
+          <line class="lane-guide" x1="300" y1="0" x2="300" y2="215" />
+          <line class="lane-guide" x1="500" y1="0" x2="500" y2="215" />
+          <line class="lane-guide" x1="700" y1="0" x2="700" y2="215" />
+          <line class="lane-guide" x1="900" y1="0" x2="900" y2="215" />
+          <path class="fl fl-token" d="M 48 55 L 152 55" marker-start="url(#ah-token)" marker-end="url(#ah-token)" />
+          <text class="flow-label" x="30" y="41">inixiative tokens change hands — each ownership change is taxed a
+            small % of its value</text>
+          <circle class="dot-cash" cx="100" cy="100" r="4" />
+          <path class="fl fl-cash" d="M 108 100 Q 300 67 489 100" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="300" y="71" text-anchor="middle">that tax, holders' share — cash into the
+            basket</text>
+          <circle class="dot-cash" cx="100" cy="145" r="4" />
+          <path class="fl fl-cash" d="M 108 145 Q 400 105 689 145" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="400" y="109" text-anchor="middle">that tax, treasury share — funds future
+            co-buys</text>
+          <text class="flow-result" x="500" y="200" text-anchor="middle">result: NAV creeps up with usage — value in,
             zero mint</text>
         </svg>
       </div>
@@ -626,7 +642,7 @@
           <text class="flow-label" x="300" y="206" text-anchor="middle">door: cash in, fresh tokens out</text>
           <circle class="dot-fee" cx="300" cy="266" r="4" />
           <path class="fl fl-fee" d="M 308 266 Q 600 230 889 266" marker-end="url(#ah-fee)" />
-          <text class="flow-label" x="600" y="234" text-anchor="middle">auction fee</text>
+          <text class="flow-label" x="600" y="234" text-anchor="middle">auction fee — paid in platform tokens</text>
           <text class="flow-vote" x="500" y="294" text-anchor="middle">their voting power vests over checkpoints — a
             price mark alone never votes</text>
           <text class="flow-result" x="500" y="315" text-anchor="middle">result: entry is NAV-neutral — the price was
