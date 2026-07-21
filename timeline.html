@@ -724,6 +724,41 @@
   </div>
 
   <section class="fees">
+    <div class="section-label">how pricing works</div>
+    <p>Nothing on the platform is priced by a model, an oracle, or anyone's opinion. Every number is either cash, or a
+      price somebody actually paid.</p>
+    <div class="fee-table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>what</th>
+            <th>how it's priced</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>an asset</td>
+            <td>sealed-bid auction — at IPO and at periodic checkpoints. The price counts only to the extent
+              unconnected bidders paid it, and it ages: the older the mark, the bigger its haircut, until the next
+              auction re-proves it.</td>
+          </tr>
+          <tr>
+            <td>a new token</td>
+            <td>NAV = (cash + every asset at its last auction price, haircut by age) &divide; tokens outstanding. The
+              door sells at NAV + a small spread; if the basket's marks get stale, the door pauses until a checkpoint
+              refreshes them.</td>
+          </tr>
+          <tr>
+            <td>a token on the market</td>
+            <td>whatever buyers and sellers agree — it can drift from NAV. Exit buybacks purchase only at or below
+              NAV, so discounts get bought back and burned; premiums are never chased.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="fees">
     <div class="section-label">every fee, in the open</div>
     <p>Every fee is a published, governed parameter. If the platform earns it, it's on this table.</p>
     <div class="fee-table-wrap">
