@@ -297,6 +297,57 @@
       letter-spacing: 0.15em;
     }
 
+    /* ---- Instrument rows ---- */
+    .instruments {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .instrument {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: clamp(1.5rem, 4vw, 3rem);
+      align-items: start;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .instrument:hover {
+      border-color: var(--blue-dim);
+      transform: translateY(-2px);
+    }
+
+    .instrument h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.05rem;
+      color: var(--blue);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .instrument p {
+      font-size: 1rem;
+      color: var(--text-dim);
+      line-height: 1.75;
+    }
+
+    .instrument a {
+      color: var(--blue);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-top: 0.6rem;
+    }
+
+    .instrument a:hover {
+      text-decoration: underline;
+    }
+
     /* ---- Pull quote ---- */
     .pull-quote {
       text-align: center;
@@ -435,6 +486,12 @@
       .cards {
         grid-template-columns: 1fr;
       }
+
+      .instrument {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        padding: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -475,18 +532,20 @@
 
   <section>
     <div class="section-label">the design &mdash; two instruments, one job each</div>
-    <div class="cards">
-      <div class="card">
+    <div class="instruments">
+      <div class="instrument">
         <h3>the transaction layer</h3>
         <p>A currency backed by energy: minted when a kilowatt-hour is produced, burned when it's consumed. Supply
           grows with real productive capacity — thermodynamics is the central bank, and thermodynamics doesn't do
-          bailouts.</p>
+          bailouts. This is the liquidity layer of the system.<br><a
+            href="https://inixiative.substack.com/p/the-energy-standard">Read: The Energy Standard &rarr;</a></p>
       </div>
-      <div class="card">
+      <div class="instrument">
         <h3>the store of value</h3>
         <p>An index of every real asset on the platform. A small tax on every trade accrues into it — the same proven
           mechanic as an exchange liquidity pool, generalized to real-world assets. It appreciates because the
-          marketplace is used, not because someone minted it.</p>
+          marketplace is used, not because someone minted it.<br><a
+            href="https://github.com/inixiative/whitepaper">Mechanism research &rarr;</a></p>
       </div>
     </div>
   </section>
