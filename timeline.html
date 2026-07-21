@@ -505,7 +505,7 @@
     <span class="l-token"><i></i> platform tokens</span>
     <span class="l-rwa"><i></i> inixiative (RWA) tokens</span>
     <span class="l-asset"><i></i> real assets</span>
-    <span class="l-vote"><i></i> voting power — moves only with held tokens, never with marks</span>
+    <span class="l-vote"><i></i> voting power — only held tokens vote, and only while they live</span>
   </div>
 
   <!-- shared arrowhead defs -->
@@ -562,7 +562,7 @@
           <path class="fl fl-token" d="M 825 100 Q 500 67 178 100" marker-end="url(#ah-token)" />
           <text class="flow-label" x="500" y="71" text-anchor="middle">tokens issued, backed 1:1</text>
           <text class="flow-vote" x="500" y="137" text-anchor="middle">tokens carry platform voting power — it vests
-            over checkpoints</text>
+            over cycles</text>
           <text class="flow-result" x="500" y="162" text-anchor="middle">result: fully backed, deliberately
             boring</text>
         </svg>
@@ -605,7 +605,7 @@
           <line class="lane-guide" x1="833" y1="0" x2="833" y2="120" />
           <path class="fl fl-rwa" d="M 115 55 L 219 55" marker-start="url(#ah-rwa)" marker-end="url(#ah-rwa)" />
           <text class="flow-label" x="100" y="41">inixiative tokens change hands — secondary trading begins</text>
-          <text class="flow-result" x="500" y="107" text-anchor="middle">result: NAV creeps up with usage — value in,
+          <text class="flow-result" x="500" y="107" text-anchor="middle">result: backing creeps up with usage — value in,
             zero mint</text>
         </svg>
       </div>
@@ -649,7 +649,7 @@
         <div class="phase-tag">phase 3</div>
         <h2>The flywheel — <span>usage compounds</span></h2>
         <p class="desc">More inixiatives, more trades, more IPOs. Taxes keep filling the basket's cash; voted co-buys
-          keep converting that cash into assets; staggered auction checkpoints keep every mark honest.</p>
+          keep converting that cash into assets; periodic re-auctions keep every price honest.</p>
         <svg viewBox="0 0 1000 110" role="img" aria-label="Flywheel">
           <line class="lane-guide" x1="167" y1="0" x2="167" y2="110" />
           <line class="lane-guide" x1="500" y1="0" x2="500" y2="110" />
@@ -694,8 +694,8 @@
           <text class="flow-label" x="500" y="206" text-anchor="middle">redemption door: tokens in — burned</text>
           <circle class="dot-cash" cx="833" cy="280" r="4" />
           <path class="fl fl-cash" d="M 825 280 Q 500 247 178 280" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="500" y="251" text-anchor="middle">cash out at backing − spread, up to cash on
-            hand</text>
+          <text class="flow-label" x="500" y="251" text-anchor="middle">cash out at backing minus the exit fee, up to cash
+            on hand</text>
           <text class="flow-vote" x="500" y="313" text-anchor="middle">redeemed tokens' voting power dies with them —
             power tied to live exposure</text>
           <text class="flow-result" x="500" y="338" text-anchor="middle">result: the price lives in a band — the door
@@ -721,15 +721,14 @@
         <tbody>
           <tr>
             <td>an asset</td>
-            <td>sealed-bid auction — at IPO and at periodic checkpoints. The price counts only to the extent
-              unconnected bidders paid it, and it ages: the older the mark, the bigger its haircut, until the next
-              auction re-proves it.</td>
+            <td>sealed-bid auction — at IPO, then at periodic re-auctions. Prices age: the older the last auction,
+              the bigger the haircut on it, until the next auction re-proves it.</td>
           </tr>
           <tr>
             <td>a new token</td>
-            <td>NAV = (cash + every asset at its last auction price, haircut by age) &divide; tokens outstanding. The
-              door sells at NAV + a small spread, paid in a governance-whitelisted currency; if the basket's marks get
-              stale, the door pauses until a checkpoint refreshes them.</td>
+            <td>backing per token = (cash + every asset at its last auction price, haircut by age) &divide; tokens
+              outstanding. The door sells at backing plus its fee and tax, in a governance-whitelisted currency; if
+              prices go stale, the door pauses until an auction refreshes them.</td>
           </tr>
           <tr>
             <td>a token on the market</td>
@@ -776,10 +775,10 @@
           <tr>
             <td>ownership changes (trades)</td>
             <td>small, immutable</td>
-            <td>governed, 0+ &mdash; valued at the last auction mark</td>
+            <td>governed, 0+ &mdash; valued at the last auction price</td>
           </tr>
           <tr>
-            <td>auctions (IPOs &amp; checkpoints)</td>
+            <td>auctions (IPOs &amp; re-auctions)</td>
             <td>small, immutable</td>
             <td>governed, 0+</td>
           </tr>
