@@ -618,9 +618,9 @@
           cleared price. Silence is a no, and you sit out votes on deals you're selling into. The basket pays cash it
           actually holds; tokens are only ever created at the door, for cash at backing price.</p>
         <svg viewBox="0 0 1000 300" role="img" aria-label="IPO flows">
-          <line class="lane-guide" x1="167" y1="0" x2="167" y2="300" />
-          <line class="lane-guide" x1="500" y1="0" x2="500" y2="300" />
-          <line class="lane-guide" x1="833" y1="0" x2="833" y2="300" />
+          <line class="lane-guide" x1="167" y1="0" x2="167" y2="330" />
+          <line class="lane-guide" x1="500" y1="0" x2="500" y2="330" />
+          <line class="lane-guide" x1="833" y1="0" x2="833" y2="330" />
           <circle class="dot-token" cx="167" cy="55" r="4" />
           <path class="fl fl-token" d="M 175 55 L 489 55" marker-end="url(#ah-token)" />
           <text class="flow-label" x="333" y="46" text-anchor="middle">winner pays tokens for a private slice</text>
@@ -668,25 +668,32 @@
         <h2>Exit — <span>supply tracks reality</span></h2>
         <p class="desc">An asset sells off-platform. Every owner is paid their share. The basket's share buys back
           tokens on the open market — never above backing — and burns them. Losses pass through the same pipe.</p>
-        <svg viewBox="0 0 1000 255" role="img" aria-label="Exit flows">
-          <line class="lane-guide" x1="167" y1="0" x2="167" y2="255" />
-          <line class="lane-guide" x1="500" y1="0" x2="500" y2="255" />
-          <line class="lane-guide" x1="833" y1="0" x2="833" y2="255" />
+        <svg viewBox="0 0 1000 330" role="img" aria-label="Exit flows">
+          <line class="lane-guide" x1="167" y1="0" x2="167" y2="330" />
+          <line class="lane-guide" x1="500" y1="0" x2="500" y2="330" />
+          <line class="lane-guide" x1="833" y1="0" x2="833" y2="330" />
           <circle class="dot-cash" cx="167" cy="55" r="4" />
           <path class="fl fl-cash" d="M 175 55 L 489 55" marker-end="url(#ah-cash)" />
           <text class="flow-label" x="333" y="46" text-anchor="middle">acquirer pays the sale price</text>
-          <circle class="dot-cash" cx="500" cy="100" r="4" />
-          <path class="fl fl-cash" d="M 508 100 L 819 100" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="666" y="91" text-anchor="middle">the basket's share of proceeds</text>
-          <circle class="dot-cash" cx="833" cy="145" r="4" />
-          <path class="fl fl-cash" d="M 825 145 Q 500 112 178 145" marker-end="url(#ah-cash)" />
-          <text class="flow-label" x="500" y="116" text-anchor="middle">buyback &le; backing — cash to selling
+          <circle class="dot-asset" cx="500" cy="100" r="4" />
+          <path class="fl fl-asset" d="M 492 100 L 178 100" marker-end="url(#ah-asset)" />
+          <text class="flow-label" x="333" y="91" text-anchor="middle">the asset leaves the rails — title to the
+            acquirer</text>
+          <circle class="dot-rwa" cx="833" cy="145" r="4" />
+          <path class="fl fl-rwa" d="M 825 145 Q 500 112 181 145" marker-end="url(#ah-rwa)" />
+          <text class="flow-label" x="500" y="116" text-anchor="middle">its RWA tokens retire at the registrar</text>
+          <circle class="dot-cash" cx="500" cy="190" r="4" />
+          <path class="fl fl-cash" d="M 508 190 L 819 190" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="666" y="181" text-anchor="middle">the basket's share of proceeds</text>
+          <circle class="dot-cash" cx="833" cy="235" r="4" />
+          <path class="fl fl-cash" d="M 825 235 Q 500 202 178 235" marker-end="url(#ah-cash)" />
+          <text class="flow-label" x="500" y="206" text-anchor="middle">buyback &le; backing — cash to selling
             holders</text>
-          <text class="burn-x" x="560" y="196">&#10005;</text>
-          <text class="burn-label" x="580" y="195">bought-back tokens burned — supply contracts with reality</text>
-          <text class="flow-vote" x="580" y="215">their voting power is extinguished with them — power tied to live
+          <text class="burn-x" x="560" y="271">&#10005;</text>
+          <text class="burn-label" x="580" y="270">bought-back tokens burned — supply contracts with reality</text>
+          <text class="flow-vote" x="580" y="290">their voting power is extinguished with them — power tied to live
             exposure</text>
-          <text class="flow-result" x="500" y="247" text-anchor="middle">result: holders who stay own a larger share of
+          <text class="flow-result" x="500" y="322" text-anchor="middle">result: holders who stay own a larger share of
             a smaller, honest basket</text>
         </svg>
       </div>
