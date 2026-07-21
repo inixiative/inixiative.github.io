@@ -496,8 +496,8 @@
     <h1>Where value is injected, and how it moves.</h1>
     <p>Three columns, five phases. Every arrow is a real transfer — if a flow isn't on this page, it doesn't exist.
       The basket is owned collectively by token holders — it holds the cash and the assets: token price = basket
-      &divide; supply. The operator (the company running the rails) appears only in the tax table below — a small
-      fixed cut of every action.</p>
+      &divide; supply. The operator (the company running the rails) appears only in the table below — a small
+      fixed fee on every action.</p>
   </header>
 
   <div class="legend">
@@ -597,8 +597,8 @@
       <div class="phase-block">
         <div class="phase-tag">phase 1b</div>
         <h2>Trading — <span>the tokens go live</span></h2>
-        <p class="desc">The inixiative's tokens change hands freely. Every action pays its taxes — the fixed operator
-          cut and the governed basket share, per the table below — so the basket fills with usage.</p>
+        <p class="desc">The inixiative's tokens change hands freely. Every action pays its fee (fixed, to the operator)
+          and its tax (governed, to the basket) — per the table below — so the basket fills with usage.</p>
         <svg viewBox="0 0 1000 120" role="img" aria-label="Trading flows">
           <line class="lane-guide" x1="167" y1="0" x2="167" y2="120" />
           <line class="lane-guide" x1="500" y1="0" x2="500" y2="120" />
@@ -728,44 +728,44 @@
   </section>
 
   <section class="fees">
-    <div class="section-label">taxes, not fees</div>
-    <p>One revenue model, two taxes. Every action on the platform pays a <strong style="color:var(--text)">small
-        operator tax that can never be raised</strong> — it's fixed in the constitution, not up for a vote. On top of
-      that, governance can set a <strong style="color:var(--text)">basket tax per action, from zero upward</strong> —
-      the holders deciding how fast their own pot fills. There is nothing else.</p>
+    <div class="section-label">fees &amp; taxes</div>
+    <p>One revenue model. Every action pays a <strong style="color:var(--text)">fee to the operator — small, and it can
+        never be raised</strong>: it's fixed in the constitution, not up for a vote. On top of that, governance can
+      set a <strong style="color:var(--text)">tax to the basket per action, from zero upward</strong> — the holders
+      deciding how fast their own pot fills. There is nothing else.</p>
     <div class="fee-table-wrap">
       <table>
         <thead>
           <tr>
             <th>action</th>
-            <th>operator tax</th>
-            <th>basket tax</th>
+            <th>operator fee (fixed)</th>
+            <th>basket tax (governed)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>creating tokens (the door)</td>
-            <td>small, fixed</td>
+            <td>small, immutable</td>
             <td>governed, 0+</td>
           </tr>
           <tr>
             <td>tokenizing an asset</td>
-            <td>small, fixed</td>
+            <td>small, immutable</td>
             <td>governed, 0+</td>
           </tr>
           <tr>
             <td>escrow custody &amp; release</td>
-            <td>small, fixed</td>
+            <td>small, immutable</td>
             <td>governed, 0+</td>
           </tr>
           <tr>
             <td>ownership changes (trades)</td>
-            <td>small, fixed</td>
+            <td>small, immutable</td>
             <td>governed, 0+ &mdash; valued at the last auction mark</td>
           </tr>
           <tr>
             <td>auctions (IPOs &amp; checkpoints)</td>
-            <td>small, fixed</td>
+            <td>small, immutable</td>
             <td>governed, 0+</td>
           </tr>
         </tbody>
