@@ -89,7 +89,7 @@
     </div>
 
     <div class="diagram">
-      <svg viewBox="0 0 900 330" role="img"
+      <svg viewBox="0 0 900 340" role="img"
         aria-label="Timeline of a policy: proposal spent from budget, deliberation window, vote, passage, unpaid maturation window, reviews at years 1, 3, 7, 15, persistence pay while confirmed, revocation branch">
         <defs>
           <pattern id="hatch-g" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
@@ -106,10 +106,11 @@
         <text class="flow-sub" x="62" y="222" text-anchor="middle">budget spent &middot; staked</text>
         <circle cx="212" cy="170" r="7" fill="var(--purple)" />
         <text class="flow-title t-text" x="212" y="204" text-anchor="middle" font-size="12.5">vote window</text>
-        <text class="flow-sub" x="212" y="222" text-anchor="middle">points move until lock</text>
+        <text class="flow-sub" x="212" y="222" text-anchor="middle">points move</text>
+        <text class="flow-sub" x="212" y="238" text-anchor="middle">until lock</text>
         <circle cx="330" cy="170" r="7" fill="var(--blue)" />
         <text class="flow-title t-text" x="330" y="204" text-anchor="middle" font-size="12.5">passed</text>
-        <text class="flow-sub" x="330" y="222" text-anchor="middle">engagement + approval —</text>
+        <text class="flow-sub" x="330" y="222" text-anchor="middle">floor + majority</text>
         <text class="flow-sub" x="330" y="238" text-anchor="middle">silence never counts</text>
         <rect x="337" y="158" width="106" height="24" fill="url(#hatch-g)" stroke="var(--border)" />
         <text class="flow-step" x="390" y="140" text-anchor="middle">maturation window · unpaid</text>
@@ -122,16 +123,18 @@
         <text class="flow-title t-green" x="672" y="198" text-anchor="middle" font-size="12">y7</text>
         <circle cx="820" cy="170" r="6" fill="var(--green)" />
         <text class="flow-title t-green" x="820" y="198" text-anchor="middle" font-size="12">y15</text>
-        <text class="flow-step" x="645" y="92" text-anchor="middle">public reconfirmation · exponential backoff · review burden logarithmic per policy</text>
+        <text class="flow-step t-red" x="560" y="64" text-anchor="middle">flaggable for emergency review any time past maturation</text>
+        <text class="flow-step" x="645" y="88" text-anchor="middle">public reconfirmation &middot; exponential backoff</text>
+        <text class="flow-step" x="645" y="104" text-anchor="middle">review burden logarithmic per policy</text>
+        <path d="M560 112 l-8 22 h7 l-8 22" stroke="var(--red)" stroke-width="2.5" fill="none" />
         <text class="flow-sub t-green" x="515" y="228" text-anchor="middle">$ $</text>
         <text class="flow-sub t-green" x="616" y="228" text-anchor="middle">$ $</text>
         <text class="flow-sub t-green" x="746" y="228" text-anchor="middle">$ $</text>
-        <text class="flow-sub" x="646" y="248" text-anchor="middle">persistence pay accrues while the policy stands; each review renews the verdict</text>
-        <path d="M560 108 l-8 22 h7 l-8 22" stroke="var(--red)" stroke-width="2.5" fill="none" />
-        <text class="flow-step t-red" x="560" y="96" text-anchor="middle">flaggable for emergency review any time past maturation</text>
-        <path d="M672 178 C 672 252, 630 272, 584 276" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="5 4" fill="none" />
-        <text class="flow-title t-red" x="410" y="282" font-size="12.5">repealed or not reconfirmed → pay stops,</text>
-        <text class="flow-title t-red" x="410" y="300" font-size="12.5">and jurisdiction may demote with it</text>
+        <text class="flow-sub" x="545" y="256" text-anchor="middle">persistence pay accrues while the policy stands</text>
+        <text class="flow-sub" x="545" y="272" text-anchor="middle">each review renews the verdict</text>
+        <path d="M672 178 C 705 215, 722 258, 700 294" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="5 4" fill="none" />
+        <text class="flow-title t-red" x="690" y="308" text-anchor="middle" font-size="12.5">repealed or not reconfirmed → pay stops,</text>
+        <text class="flow-title t-red" x="690" y="326" text-anchor="middle" font-size="12.5">and jurisdiction may demote with it</text>
       </svg>
     </div>
   </section>
