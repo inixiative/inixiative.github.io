@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>In context — multi-scale governance — inixiative</title>
+  <meta name="description" content="Where this proposal sits among governance frameworks and live DAO practice — and the decisions still deliberately open.">
+  <meta property="og:title" content="In context — multi-scale governance">
+  <meta property="og:description" content="Where this proposal sits among governance frameworks and live DAO practice — and the decisions still deliberately open.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/inixiative/.github/main/brand/og-1200x630.png">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@inixiative">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
+  <link rel="apple-touch-icon" href="/icon-180x180.png">
+  <link rel="stylesheet" href="/proposals/style.css">
+</head>
+
+<body>
+
+  <nav class="nav">
+    <a class="home" href="/"><span class="bracket">&lt;</span><span class="mark">iXi</span><span
+        class="bracket">&gt;</span></a>
+    <a class="crumb" href="/proposals/governance/">proposal 01 &middot; multi-scale governance</a>
+  </nav>
+
+  <section>
+    <div class="section-label">chapter 15 &middot; context &amp; open decisions</div>
+    <h2>In <em>context</em></h2>
+    <div class="prose">
+      <p>This proposal was not designed in a vacuum, and it should be legible to people who already think in the
+        field's categories. Two reference points matter most: the trade-off vocabulary of the Project Liberty
+        Institute &amp; BlockchainGov <a
+          href="https://www.projectliberty.io/wp-content/uploads/2024/06/PL_Toolkit_Report_v7.pdf">Blockchain
+          Governance Toolkit</a>, and the live governance experiments running in major DAOs.</p>
+      <p>The toolkit asks designers to position themselves on three trade-offs, then to safeguard against their own
+        dominant tendency. This design takes strong positions and carries the matching safeguard for each:</p>
+    </div>
+
+    <div class="dial">
+      <div class="dial-ends"><span>expediency</span><span class="active">participation</span></div>
+      <div class="dial-track"><div class="dial-mark" style="left: 82%;"></div></div>
+      <p class="dial-note"><strong>Heavily participatory</strong> — open agenda-setting, the public verdict on every
+        policy, citizen custody of the meta-rules. Safeguarded by decay and floors:</p>
+      <div class="chips">
+        <span class="chip">delegation decay + caps</span>
+        <span class="chip">affirmative engagement floors</span>
+        <span class="chip">delegate attention for low-salience domains</span>
+        <span class="chip">scope-locked portfolios: defense, currency, pandemics</span>
+      </div>
+    </div>
+
+    <div class="dial">
+      <div class="dial-ends"><span>immutability</span><span class="active">adaptability</span></div>
+      <div class="dial-track"><div class="dial-mark" style="left: 75%;"></div></div>
+      <p class="dial-note"><strong>Adaptive by default</strong> — every policy reviewable and challengeable; nothing
+        survives on inertia. Safeguarded by a constitutional layer:</p>
+      <div class="chips">
+        <span class="chip">meta-rules at constitutional viscosity</span>
+        <span class="chip">maturation windows</span>
+        <span class="chip">deliberation lag</span>
+        <span class="chip">"settled" &ne; immutable</span>
+      </div>
+    </div>
+
+    <div class="dial">
+      <div class="dial-ends"><span>determinism</span><span class="active">discretion</span></div>
+      <div class="dial-track"><div class="dial-mark" style="left: 58%;"></div></div>
+      <p class="dial-note"><strong>Discretionary at the core</strong> — human judgment is the confirmation signal —
+        with determinism exactly where capture pressure peaks:</p>
+      <div class="chips">
+        <span class="chip">dumb, procedural removal levers</span>
+        <span class="chip">automatic demotion</span>
+        <span class="chip">algorithmic boundaries</span>
+        <span class="chip">zero-sum budget</span>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p style="margin-top: 2rem;">The toolkit's feedback-loop chapter urges designers to "leverage humans as
+        sensors." That phrase could be this proposal's epigraph — the sensor network of chapter 3 <em>is</em>
+        humans-as-sensors, wired by chapter 7 directly into the pay of the people being sensed.</p>
+
+      <h3>against live practice</h3>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>arbitrum dao</th>
+            <th>optimism collective</th>
+            <th class="col-this">this proposal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lead">who proposes</td>
+            <td>Token holders above a threshold</td>
+            <td>Largely Foundation-shaped agenda</td>
+            <td class="col-this">Leaders, from a scarce staked budget</td>
+          </tr>
+          <tr>
+            <td class="lead">who decides</td>
+            <td>Token-weighted vote, direct or via delegates</td>
+            <td>Bicameral: Token House + Citizens' House</td>
+            <td class="col-this">Delegates with earned, decaying, revocable weight</td>
+          </tr>
+          <tr>
+            <td class="lead">who removes</td>
+            <td>Elections; DAO can restructure the Security Council</td>
+            <td>Citizens' House vetoes protocol upgrades; Token House removes Foundation directors</td>
+            <td class="col-this">Citizens hold the verdict and the gates; emergency review open to citizens and delegates</td>
+          </tr>
+          <tr>
+            <td class="lead">weighting basis</td>
+            <td>Capital (ARB holdings)</td>
+            <td>Capital + attested personhood</td>
+            <td class="col-this">Persons; weight inputs set by the broadest tier</td>
+          </tr>
+          <tr>
+            <td class="lead">constitutional layer</td>
+            <td>Constitutional AIPs, higher thresholds</td>
+            <td>Working Constitution, Foundation-stewarded</td>
+            <td class="col-this">Meta-rules: citizen custody, slowest cadence</td>
+          </tr>
+          <tr>
+            <td class="lead">review / sunset</td>
+            <td>None — decisions persist by default</td>
+            <td>Seasonal reflection, informal</td>
+            <td class="col-this">Exponential-backoff reconfirmation + emergency review</td>
+          </tr>
+          <tr>
+            <td class="lead">emergency powers</td>
+            <td>Security Council (12 elected, 9-of-12)</td>
+            <td>Foundation + Security Council</td>
+            <td class="col-this">Short scope-locked class; sanction is personnel</td>
+          </tr>
+          <tr>
+            <td class="lead">proposer pay</td>
+            <td>None structural</td>
+            <td>Retroactive funding rewards impact, not passage</td>
+            <td class="col-this">Civic wage + persistence pay while confirmed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose">
+      <p style="margin-top: 1.5rem;">The skeleton is recognizable — Arbitrum's delegates-plus-constitution,
+        Optimism's separation of chambers, and older ancestors too: Switzerland's facultative referendum is the
+        direct model for chapter 8's interrupts. But four things exist nowhere in current DAO practice:
+        person-weights set by the governed themselves, pay bound to confirmed durability, the public verdict as a
+        standing power over every policy, and subsidiarity as a discovered quantity with an asymmetric ratchet.</p>
+
+      <h3>deliberately open</h3>
+    </div>
+
+    <div class="steps-list">
+      <p><span>01</span>The citizen petition valve that mints a proposal from below — threshold design open
+        (chapter 5).</p>
+      <p><span>02</span>Tally visibility during voting windows — engagement public, direction sealed, is the leading
+        candidate (chapter 6).</p>
+      <p><span>03</span>Who certifies spillover claims for subsidiarity routing — the adjudicating body is
+        undecided; false claims must cost their claimants either way (chapter 9).</p>
+      <p><span>04</span>The boundary algorithm's objective function — held in the meta-rules, on the slowest cadence;
+        the function itself is open (chapter 10).</p>
+      <p><span>05</span>The enumerated scope-locked portfolio class — explicitly listed, and short (chapter 9).</p>
+      <p><span>06</span>The weighting inputs for delegation — deliberately left to the meta-rules layer itself
+        (chapter 12).</p>
+    </div>
+
+    <div class="prose" style="margin-top: 2.5rem;">
+      <p>Part Two of this series, <a href="https://inixiative.substack.com/p/the-energy-standard">The Energy
+          Standard</a>, takes up the settlement layer — a kWh-backed currency completing the coordination substrate:
+        governance as the decision layer, energy-denominated money as the layer it settles on.</p>
+    </div>
+  </section>
+
+  <section id="discuss" class="tight">
+    <div class="signup">
+      <h2>Argue with this.</h2>
+      <p>Chapter 14 exists because we want it attacked. Follow the work, or come take a swing.</p>
+      <div class="embed">
+        <iframe src="https://inixiative.substack.com/embed" width="480" height="150" frameborder="0"
+          scrolling="no"></iframe>
+      </div>
+      <div class="or">or</div>
+      <a class="button button-ghost"
+        href="mailto:aron.greenspan@inixiative.com?subject=On%20the%20governance%20proposal">tell us where it breaks
+        &rarr;</a>
+    </div>
+  </section>
+  <div class="chapter-nav">
+    <a href="/proposals/governance/attack-surfaces/"><span class="dir">&larr; previous</span>Where it could break</a>
+  </div>
+  <div class="links">
+    <a href="/proposals/governance/">contents</a>
+    <a href="/proposals/">all proposals</a>
+    <a href="https://github.com/inixiative/whitepaper">whitepaper</a>
+    <a href="https://inixiative.substack.com">substack</a>
+  </div>
+
+  <footer>
+    Open to advisory engagements and collaboration. <a href="mailto:aron.greenspan@inixiative.com">Get in touch</a>.
+    <div class="copyright">&lt;iXi&gt; &copy; 2026</div>
+  </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Governance is search — multi-scale governance — inixiative</title>
+  <meta name="description" content="There is no correct answer to discover once — governance is a search process, and the design problem is tuning the mutation rate.">
+  <meta property="og:title" content="Governance is search — multi-scale governance">
+  <meta property="og:description" content="There is no correct answer to discover once — governance is a search process, and the design problem is tuning the mutation rate.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/inixiative/.github/main/brand/og-1200x630.png">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@inixiative">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
+  <link rel="apple-touch-icon" href="/icon-180x180.png">
+  <link rel="stylesheet" href="/proposals/style.css">
+</head>
+
+<body>
+
+  <nav class="nav">
+    <a class="home" href="/"><span class="bracket">&lt;</span><span class="mark">iXi</span><span
+        class="bracket">&gt;</span></a>
+    <a class="crumb" href="/proposals/governance/">proposal 01 &middot; multi-scale governance</a>
+  </nav>
+
+  <section>
+    <div class="section-label">chapter 02 &middot; the theory</div>
+    <h2>Governance is <em>search</em></h2>
+    <div class="prose">
+      <p>The fundamental premise of this proposal is that nobody — not us, not any theorist, not any AI — knows the
+        right way to govern a society, because "the right way" is not a fact waiting to be discovered. It moves as
+        technology, demography, and culture move. Governance is therefore not a problem you solve; it is a
+        <strong>search</strong> you run, forever. The whitepaper states its own position bluntly: <em>there is no
+        universal answer — the answer is the search.</em> What you can design is the search infrastructure: how
+        variations get generated, how they get tested, how the winners get kept and the losers get pruned.</p>
+
+      <h3>the oldest search algorithm</h3>
+      <p>Biology solved this problem four billion years ago, and its solution has a shape worth copying. Evolution
+        runs on three operations — <strong>variation, selection, retention</strong> — and the whole trick is in the
+        tuning. Mutate too fast and you destroy everything that works; the organism dies of noise. Mutate too slowly
+        and the environment moves out from under you; the organism dies of stasis. Stability is the ur-selection
+        pressure: DNA replication is error-corrected down to roughly one mistake per hundred million base pairs,
+        which is why working genetic patterns persist across millions of years — while controlled variation is
+        concentrated exactly where experimentation pays. Stability where change kills; exploration where change
+        teaches.</p>
+      <p>Governance needs exactly this structure, and almost never has it. Constitutions that can be amended in one
+        angry season have no error-correction; legal systems where nothing can ever be repealed have no mutation.
+        The two failure modes of political history — chaos and sclerosis — are a mutation rate tuned wrong in
+        opposite directions.</p>
+
+      <h3>the two dials</h3>
+      <p>This proposal manages the trade-off with two explicit axes, and every mechanism in it can be located on
+        them. <strong>Consistency versus exploration:</strong> rule of law, precedent, and uniform rules pull one
+        way; local experimentation and policy variance pull the other. <strong>Exit versus check:</strong> the right
+        to leave a polity whose rules you reject pulls one way; the right to constrain neighbors whose behavior
+        spills onto you pulls the other. A mechanism that maximizes any pole destroys the system — pure consistency
+        is sclerosis, pure exploration is chaos, pure exit is atomization, pure check is empire.</p>
+    </div>
+
+    <div class="diagram">
+      <svg viewBox="0 0 900 440" role="img" aria-label="Quadrant of mechanisms plotted on consistency versus exploration and right of check versus right of exit">
+        <line x1="80" y1="220" x2="820" y2="220" stroke="var(--border)" stroke-width="1.5" />
+        <line x1="450" y1="46" x2="450" y2="400" stroke="var(--border)" stroke-width="1.5" />
+        <text class="flow-role" x="76" y="210" fill="var(--gray)">CONSISTENCY</text>
+        <text class="flow-role" x="824" y="210" fill="var(--gray)" text-anchor="end">EXPLORATION</text>
+        <text class="flow-role" x="450" y="30" fill="var(--gray)" text-anchor="middle">RIGHT OF CHECK</text>
+        <text class="flow-role" x="450" y="424" fill="var(--gray)" text-anchor="middle">RIGHT OF EXIT</text>
+        <circle cx="265" cy="120" r="6" fill="var(--blue)" />
+        <text class="flow-sub t-text" x="265" y="100" text-anchor="middle">promotion on proven spillover &middot; ch.9</text>
+        <circle cx="610" cy="100" r="6" fill="var(--blue)" />
+        <text class="flow-sub t-text" x="610" y="80" text-anchor="middle">emergency review of any policy &middot; ch.8</text>
+        <circle cx="195" cy="285" r="6" fill="var(--purple)" />
+        <text class="flow-sub t-text" x="195" y="309" text-anchor="middle">meta-rule viscosity &middot; ch.12</text>
+        <circle cx="285" cy="180" r="6" fill="var(--purple)" />
+        <text class="flow-sub t-text" x="285" y="162" text-anchor="middle">backoff reviews &middot; precedent &middot; ch.8</text>
+        <circle cx="672" cy="300" r="6" fill="var(--gold)" />
+        <text class="flow-sub t-text" x="672" y="324" text-anchor="middle">demotion drift &middot; ch.9</text>
+        <circle cx="580" cy="352" r="6" fill="var(--green)" />
+        <text class="flow-sub t-text" x="580" y="376" text-anchor="middle">household border-switching &middot; ch.10</text>
+        <circle cx="705" cy="252" r="6" fill="var(--green)" />
+        <text class="flow-sub t-text" x="705" y="236" text-anchor="middle">intensity buys local jurisdiction &middot; ch.9</text>
+      </svg>
+    </div>
+
+    <div class="prose">
+      <h3>risk-proportional friction</h3>
+      <p>The practical translation is that different kinds of change should face different mutation rates. The
+        whitepaper's design rule: <em>make experimentation cheap; make foundational changes deliberate.</em>
+        Time-bounded local experiments clear a low bar — that's the variation generator. Persistent infrastructure
+        clears a supermajority — that's error correction. The constitutional layer moves slowest of all (chapter
+        12). Stability emerges from the high bar required to change or scale things up; adaptation emerges from the
+        low bar required to try things locally. The result behaves, in the whitepaper's phrase, like an
+        <strong>evolutionary ecology</strong>: stability at the large scale, experimentation at the small scale, and
+        long-term accountability for every decision.</p>
+      <p>Everything else in this proposal — the tiers, the voting, the pay, the review cadences, the subsidiarity
+        ratchet — is this one idea applied to a different part of the machine: <strong>tune the mutation rate to
+        the blast radius.</strong></p>
+    </div>
+  </section>
+  <div class="chapter-nav">
+    <a href="/proposals/governance/the-problem/"><span class="dir">&larr; previous</span>What we are designing against</a>
+    <a class="next" href="/proposals/governance/the-signal/"><span class="dir">next &rarr;</span>The signal, not the prescription</a>
+  </div>
+  <div class="links">
+    <a href="/proposals/governance/">contents</a>
+    <a href="/proposals/">all proposals</a>
+    <a href="https://github.com/inixiative/whitepaper">whitepaper</a>
+    <a href="https://inixiative.substack.com">substack</a>
+  </div>
+
+  <footer>
+    Open to advisory engagements and collaboration. <a href="mailto:aron.greenspan@inixiative.com">Get in touch</a>.
+    <div class="copyright">&lt;iXi&gt; &copy; 2026</div>
+  </footer>
+
+</body>
+
+</html>
