@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>inixiative proposals — open designs for cooperation at scale</title>
+  <meta name="description"
+    content="Compositions from the inixiative mechanism catalog, published to be argued with. Proposal 01: multi-scale governance — an executive that structurally cannot accumulate power.">
+  <meta property="og:title" content="inixiative proposals">
+  <meta property="og:description" content="Mechanism compositions for cooperation at scale. Drafts move when the criticism lands.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/inixiative/.github/main/brand/og-1200x630.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@inixiative">
+  <meta name="twitter:title" content="inixiative proposals">
+  <meta name="twitter:description" content="Open mechanism designs for cooperation at scale.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/inixiative/.github/main/brand/og-1200x630.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icon-32x32.png">
+  <link rel="apple-touch-icon" href="icon-180x180.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0D1117;
+      --bg-surface: #161B22;
+      --blue: #58A6FF;
+      --blue-dim: #1F6FEB;
+      --gray: #6E7681;
+      --text: #C9D1D9;
+      --text-dim: #8B949E;
+      --border: #21262D;
+      --purple: #BC8CFF;
+      --gold: #D29922;
+      --green: #3FB950;
+      --red: #F85149;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeUp 0.6s ease-out both;
+    }
+
+    .fade-in:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .fade-in:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    /* ---- Nav ---- */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .nav .home {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      text-decoration: none;
+    }
+
+    .nav .home .bracket {
+      color: var(--gray);
+    }
+
+    .nav .home .mark {
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .nav .cta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--blue);
+      text-decoration: none;
+      border: 1px solid rgba(88, 166, 255, 0.25);
+      border-radius: 6px;
+      padding: 0.4rem 1rem;
+      transition: all 0.2s;
+    }
+
+    .nav .cta:hover {
+      background: rgba(88, 166, 255, 0.08);
+    }
+
+    /* ---- Hero ---- */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 55vh;
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(88, 166, 255, 0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      margin-bottom: 1.75rem;
+      font-weight: 400;
+      opacity: 0.85;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 5vw, 3.2rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      max-width: 720px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+
+    .subtitle {
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      color: var(--text-dim);
+      max-width: 580px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    /* ---- Sections ---- */
+    section {
+      padding: 4rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin-bottom: 2rem;
+    }
+
+    section h2 {
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+    }
+
+    section h2 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+
+    /* ---- Thesis ---- */
+    .thesis {
+      border-left: 2px solid var(--blue-dim);
+      padding-left: 2rem;
+      margin-top: 0.5rem;
+    }
+
+    .thesis p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--text-dim);
+      margin-bottom: 1.25rem;
+    }
+
+    .thesis p:last-child {
+      margin-bottom: 0;
+    }
+
+    .thesis strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ---- Cards ---- */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+
+    .card:hover {
+      border-color: var(--blue-dim);
+      transform: translateY(-2px);
+    }
+
+    .card h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--blue);
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+
+    .card h3 a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .card h3 a:hover {
+      text-decoration: underline;
+    }
+
+    .card p {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+      line-height: 1.55;
+    }
+
+    .card p a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .card p a:hover {
+      text-decoration: underline;
+    }
+
+    .card .step {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gray);
+      display: block;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.15em;
+    }
+
+    .tags {
+      margin-top: 0.85rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      color: var(--gray);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.2rem 0.6rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .tag.status {
+      color: var(--blue);
+      border-color: rgba(88, 166, 255, 0.2);
+      font-weight: 500;
+    }
+
+    /* ---- Diagrams ---- */
+    .diagram {
+      margin: 2rem 0 1rem;
+      overflow-x: auto;
+    }
+
+    .diagram svg {
+      width: 100%;
+      min-width: 720px;
+      height: auto;
+      display: block;
+    }
+
+    .flow-node {
+      fill: var(--bg-surface);
+      stroke: var(--border);
+      stroke-width: 1.5;
+    }
+
+    .flow-line {
+      stroke: var(--blue-dim);
+      stroke-width: 1.5;
+      stroke-dasharray: 5 5;
+      animation: flow 1.4s linear infinite;
+      opacity: 0.8;
+    }
+
+    .flow-solid {
+      stroke: var(--blue-dim);
+      stroke-width: 1.5;
+    }
+
+    .flow-arrowhead {
+      stroke: var(--blue-dim);
+      stroke-width: 1.5;
+    }
+
+    @keyframes flow {
+      to {
+        stroke-dashoffset: -10;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flow-line {
+        animation: none;
+      }
+    }
+
+    .flow-title {
+      fill: var(--blue);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .flow-sub {
+      fill: var(--text-dim);
+      font-family: 'Inter', sans-serif;
+      font-size: 11.5px;
+    }
+
+    .flow-step {
+      fill: var(--gray);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.04em;
+    }
+
+    .flow-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .t-gold { fill: var(--gold); }
+    .t-purple { fill: var(--purple); }
+    .t-blue { fill: var(--blue); }
+    .t-green { fill: var(--green); }
+    .t-red { fill: var(--red); }
+    .t-text { fill: var(--text); }
+
+    .diagram-note {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      border-left: 2px solid var(--blue-dim);
+      padding-left: 1.25rem;
+    }
+
+    .diagram-note strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ---- Dials ---- */
+    .dial {
+      margin: 2.25rem 0;
+    }
+
+    .dial-ends {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 0.6rem;
+    }
+
+    .dial-ends .active {
+      color: var(--blue);
+    }
+
+    .dial-track {
+      position: relative;
+      height: 6px;
+      border-radius: 3px;
+      background: linear-gradient(to right, var(--border), var(--blue-dim));
+    }
+
+    .dial-mark {
+      position: absolute;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      transform: translate(-50%, -50%) rotate(45deg);
+      background: var(--bg);
+      border: 2.5px solid var(--blue);
+      border-radius: 3px;
+    }
+
+    .dial-note {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-top: 0.85rem;
+    }
+
+    .dial-note strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.25rem 0.7rem;
+      background: var(--bg-surface);
+    }
+
+    /* ---- Table ---- */
+    .tablewrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg-surface);
+      margin-top: 0.5rem;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 660px;
+      font-size: 0.85rem;
+    }
+
+    th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: left;
+      color: var(--gray);
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--blue-dim);
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text-dim);
+      line-height: 1.55;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td.lead {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .col-this {
+      background: rgba(88, 166, 255, 0.05);
+      color: var(--text);
+    }
+
+    /* ---- Pull quote ---- */
+    .pull-quote {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .pull-quote blockquote {
+      font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+      font-weight: 300;
+      color: var(--text);
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .pull-quote blockquote em {
+      font-style: normal;
+      color: var(--blue);
+    }
+
+    /* ---- Open decisions list ---- */
+    .steps-list {
+      display: grid;
+      gap: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .steps-list p {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    .steps-list span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gray);
+      letter-spacing: 0.15em;
+      margin-right: 0.9rem;
+    }
+
+    /* ---- Signup ---- */
+    .signup {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .signup h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .signup>p {
+      color: var(--text-dim);
+      max-width: 520px;
+      margin: 0 auto 2rem;
+      font-weight: 300;
+    }
+
+    .signup .embed {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .signup iframe {
+      border: none;
+      background: transparent;
+      max-width: 100%;
+    }
+
+    .signup .or {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      margin-bottom: 1.5rem;
+    }
+
+    .button {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      text-decoration: none;
+      border-radius: 6px;
+      padding: 0.7rem 1.5rem;
+      transition: all 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .button-ghost {
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+    }
+
+    .button-ghost:hover {
+      color: var(--blue);
+      border-color: var(--blue-dim);
+    }
+
+    /* ---- Footer ---- */
+    .links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem 2rem 4rem;
+    }
+
+    .links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .links a:hover {
+      color: var(--blue);
+      border-color: var(--blue-dim);
+      background: rgba(88, 166, 255, 0.04);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--gray);
+      font-size: 0.8rem;
+      font-family: 'Inter', sans-serif;
+    }
+
+    footer a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    footer .copyright {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      margin-top: 0.75rem;
+      opacity: 0.6;
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        min-height: 45vh;
+        padding: 3rem 1.5rem;
+      }
+
+      section {
+        padding: 3rem 1.5rem;
+      }
+
+      .thesis {
+        padding-left: 1.25rem;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="nav">
+    <a class="home" href="/"><span class="bracket">&lt;</span><span class="mark">iXi</span><span
+        class="bracket">&gt;</span></a>
+    <a class="cta" href="#discuss">argue with this</a>
+  </nav>
+
+  <div class="hero">
+    <div class="tagline fade-in">proposals</div>
+    <h1 class="fade-in">Designs for cooperation at scale, <em>published to be argued with</em>.</h1>
+    <p class="subtitle fade-in">The <a href="https://github.com/inixiative/whitepaper"
+        style="color: var(--blue); text-decoration: none;">whitepaper</a> is the catalog — a research map of
+      governance mechanisms and the equilibria they create. Each proposal here is a <em
+        style="font-style: normal; color: var(--text);">composition</em>: mechanisms from the catalog assembled into
+      one working design, incentives and attack surfaces stated, open decisions carried explicitly. Drafts move when
+      the criticism lands.</p>
+  </div>
+
+  <section>
+    <div class="section-label">the proposals</div>
+    <div class="cards">
+      <div class="card">
+        <span class="step">PROPOSAL 01</span>
+        <h3><a href="#governance">multi-scale governance</a></h3>
+        <p>The decision layer. An example composition from the mechanism catalog: an executive that structurally
+          cannot accumulate power — propose, decide, and kill split across three tiers, with subsidiarity discovered
+          rather than decreed. <a href="#governance">Read below &darr;</a></p>
+        <div class="tags">
+          <span class="tag">composition</span>
+          <span class="tag status">draft · part one</span>
+        </div>
+      </div>
+      <div class="card">
+        <span class="step">PROPOSAL 02</span>
+        <h3><a href="https://inixiative.substack.com/p/the-energy-standard">the energy standard</a></h3>
+        <p>The settlement layer. A currency backed by energy — minted when a kilowatt-hour is produced, burned when
+          it's consumed. Thermodynamics is the central bank.
+          <a href="https://inixiative.substack.com/p/the-energy-standard">Read on Substack &rarr;</a></p>
+        <div class="tags">
+          <span class="tag">currency</span>
+          <span class="tag status">part two</span>
+        </div>
+      </div>
+      <div class="card">
+        <span class="step">PROPOSAL 03</span>
+        <h3><a href="/platform">the store of value</a></h3>
+        <p>The asset layer. A marketplace for real-world assets with a basket-backed token — every price
+          auction-proven, every token created for cash at backing.
+          <a href="/platform">Platform &rarr;</a> &middot; <a href="/timeline">Timeline &rarr;</a></p>
+        <div class="tags">
+          <span class="tag">rwa</span>
+          <span class="tag status">research</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- PROPOSAL 01 · MULTI-SCALE GOVERNANCE                          -->
+  <!-- ============================================================ -->
+
+  <section id="governance">
+    <div class="section-label">proposal 01 &middot; multi-scale governance &middot; draft for discussion</div>
+    <h2>No good emperors.</h2>
+    <div class="thesis">
+      <p><strong>Any system whose performance depends on the virtue of its occupant has no error-correction</strong> —
+        it is waiting for its variance to kill it. Rome's Five Good Emperors were an adoption-selection fluke that
+        reverted to Commodus the moment heredity reasserted itself. The design target is an executive that
+        structurally cannot accumulate excessive power, constrained by the layers beneath it — and containment that
+        runs both directions, because the constraint layer is itself where surplus elites lodge and extract.</p>
+      <p><strong>Signals, not proxies.</strong> The system measures terminal values, not instrumental ones: are you
+        happy? Is society fair? Are elites treated the same as everyone else? If you work hard, can you get ahead?
+        These cannot be Goodharted the way GDP can, because the felt experience is the target rather than a stand-in
+        for it. What remains gameable is perception-formation itself — which makes the epistemic environment the
+        load-bearing wall of the entire system.</p>
+      <p><strong>Counterweighted, not neutral.</strong> All power aggregates upward by default. So centralization
+        always requires fresh affirmative consent from the base, and decentralization is the ambient drift. Trust in
+        leaders is designed to be an output of the mechanism — earned through legible incentives and revocable
+        power — never an input it depends on.</p>
+    </div>
+
+    <p class="diagram-note" style="margin-top: 2.5rem;"><strong>One catalog, many possible compositions — this is
+        one.</strong> The whitepaper maps mechanism-space without prescribing; communities compose the tools that fit
+      their context. This proposal assembles, among others:
+      <a href="https://github.com/inixiative/whitepaper/blob/main/docs/03_mechanisms.md"
+        style="color: var(--blue); text-decoration: none;">the mechanism catalog &rarr;</a></p>
+    <div class="chips">
+      <span class="chip">point voting &amp; allocation · §6.3</span>
+      <span class="chip">governance tickrate · §6.4</span>
+      <span class="chip">long-horizon alignment · §6.5</span>
+      <span class="chip">leadership accountability · §6.7A</span>
+      <span class="chip">delegation · §6.9</span>
+      <span class="chip">jurisdiction &amp; overlap · §6.10</span>
+      <span class="chip">anti-capture architecture · §6.12</span>
+      <span class="chip">identity &amp; anti-sybil · §6.2</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">plate i &middot; separation of powers by function</div>
+    <h2>Propose &middot; decide &middot; <em>kill</em></h2>
+    <div class="thesis">
+      <p>The masses can kill but not draft; delegates can decide but not propose; politicians can propose but not
+        decide. Each tier is incomplete without the others — and the rules for entering and weighting the upper tiers
+        belong exclusively to the lowest one. That is the answer to <em>quis custodiet ipsos custodes</em>: custody
+        of the custodian-rules is held by everyone.</p>
+    </div>
+
+    <div class="diagram">
+      <svg viewBox="0 0 900 350" role="img"
+        aria-label="Three tiers: politicians propose, delegates decide, the masses retain and kill; the meta-rules layer beneath is held by the masses alone">
+        <defs>
+          <marker id="arrow-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7"
+            orient="auto-start-reverse">
+            <path d="M 0 1 L 9 5 L 0 9" fill="none" class="flow-arrowhead" />
+          </marker>
+        </defs>
+
+        <!-- politicians -->
+        <rect class="flow-node" x="20" y="50" width="255" height="130" rx="10" />
+        <rect x="20" y="50" width="255" height="4" rx="2" fill="var(--gold)" />
+        <text class="flow-role t-gold" x="38" y="82">POLITICIANS</text>
+        <text class="flow-title t-text" x="38" y="106">propose</text>
+        <text class="flow-sub" x="38" y="130">Scarce, priced proposal slots.</text>
+        <text class="flow-sub" x="38" y="148">Paid only for laws that survive</text>
+        <text class="flow-sub" x="38" y="166">confirmation, year after year.</text>
+
+        <line class="flow-line" x1="275" y1="115" x2="322" y2="115" marker-end="url(#arrow-g)" />
+        <text class="flow-step" x="299" y="100" text-anchor="middle">drafts</text>
+
+        <!-- delegates -->
+        <rect class="flow-node" x="325" y="50" width="255" height="130" rx="10" />
+        <rect x="325" y="50" width="255" height="4" rx="2" fill="var(--purple)" />
+        <text class="flow-role t-purple" x="343" y="82">DELEGATES</text>
+        <text class="flow-title t-text" x="343" y="106">decide</text>
+        <text class="flow-sub" x="343" y="130">Vote on passage with delegated,</text>
+        <text class="flow-sub" x="343" y="148">revocable, decaying weight —</text>
+        <text class="flow-sub" x="343" y="166">attention on behalf of the absent.</text>
+
+        <line class="flow-line" x1="580" y1="115" x2="627" y2="115" marker-end="url(#arrow-g)" />
+        <text class="flow-step" x="604" y="100" text-anchor="middle">laws</text>
+
+        <!-- masses -->
+        <rect class="flow-node" x="630" y="50" width="255" height="130" rx="10" />
+        <rect x="630" y="50" width="255" height="4" rx="2" fill="var(--blue)" />
+        <text class="flow-role t-blue" x="648" y="82">THE MASSES</text>
+        <text class="flow-title t-text" x="648" y="106">set agenda &middot; retain &middot; kill</text>
+        <text class="flow-sub" x="648" y="130">Open agenda-setting, retention</text>
+        <text class="flow-sub" x="648" y="148">votes, the invalidation lever —</text>
+        <text class="flow-sub" x="648" y="166">and custody of the meta-rules.</text>
+
+        <!-- meta band -->
+        <rect x="20" y="262" width="865" height="66" rx="10" fill="rgba(88, 166, 255, 0.06)" stroke="var(--border)" />
+        <text class="flow-role t-blue" x="38" y="290">META-RULES LAYER &middot; HELD BY THE MASSES ALONE</text>
+        <text class="flow-sub" x="38" y="312">How delegation is earned, what inputs carry weight, how tiers are entered — the one thing the custodians can never touch.</text>
+
+        <!-- connectors to meta band -->
+        <line class="flow-solid" x1="147" y1="262" x2="147" y2="188" stroke-dasharray="4 4" marker-end="url(#arrow-g)" />
+        <line class="flow-solid" x1="452" y1="262" x2="452" y2="188" stroke-dasharray="4 4" marker-end="url(#arrow-g)" />
+        <line class="flow-solid" x1="757" y1="188" x2="757" y2="256" marker-end="url(#arrow-g)" />
+        <text class="flow-step" x="158" y="228">governs entry &amp; weighting</text>
+        <text class="flow-step" x="463" y="228">governs entry &amp; weighting</text>
+        <text class="flow-step" x="768" y="228">exclusive custody</text>
+
+        <text class="flow-step" x="452" y="28" text-anchor="middle">anyone may raise questions to the open forum — mapping what society cares about is the base democratic task</text>
+      </svg>
+    </div>
+    <p class="diagram-note"><strong>Agenda power is priced, not hidden.</strong> Each politician holds a fixed number
+      of use-it-or-lose-it proposal slots per cycle. Agenda-setting theory identifies the proposer as the most
+      powerful actor in any voting system; existing legislatures hide that power in committee chairs and calendars.
+      Here it is explicit, budgeted, and scarce — messaging-bills and legislative spam become irrational.</p>
+  </section>
+
+  <section>
+    <div class="section-label">plate ii &middot; the life of a law</div>
+    <h2>Pay for <em>confirmed durability</em></h2>
+    <div class="thesis">
+      <p>Politicians are paid well — for what they pass, and for every year a passed law remains both intact and
+        confirmed by the perception metrics. A law that survives on inertia pays nothing; a law that survives on
+        merit pays for decades. The settling window a politician attaches to their own policy is unpaid, so the only
+        profit-maximizing declaration is an honest estimate of the policy's horizon. And because retention belongs to
+        the masses, someone is always paid to keep making the case for every standing law — nothing survives purely
+        by being forgotten.</p>
+    </div>
+
+    <div class="diagram">
+      <svg viewBox="0 0 900 330" role="img"
+        aria-label="Timeline of a law: slot spent, deliberation lag, vote window, passage, unpaid settling window, reconfirmation reviews at years 1, 2, 5, 10, 20, with interrupts and a failure branch">
+        <defs>
+          <pattern id="hatch-g" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+            <rect width="7" height="7" fill="rgba(88, 166, 255, 0.05)" />
+            <line x1="0" y1="0" x2="0" y2="7" stroke="var(--border)" stroke-width="2" />
+          </pattern>
+        </defs>
+
+        <line class="flow-solid" x1="30" y1="170" x2="880" y2="170" opacity="0.6" />
+
+        <!-- deliberation lag -->
+        <rect x="88" y="160" width="94" height="20" fill="url(#hatch-g)" stroke="var(--border)" />
+        <text class="flow-step" x="135" y="140" text-anchor="middle">deliberation lag</text>
+        <text class="flow-step" x="135" y="126" text-anchor="middle">one full period</text>
+
+        <!-- nodes -->
+        <circle cx="62" cy="170" r="7" fill="var(--gold)" />
+        <text class="flow-title t-text" x="62" y="204" text-anchor="middle" font-size="12.5">slot spent</text>
+        <text class="flow-sub" x="62" y="222" text-anchor="middle">costly signal</text>
+
+        <circle cx="212" cy="170" r="7" fill="var(--purple)" />
+        <text class="flow-title t-text" x="212" y="204" text-anchor="middle" font-size="12.5">vote window</text>
+        <text class="flow-sub" x="212" y="222" text-anchor="middle">revocable until lock</text>
+
+        <circle cx="330" cy="170" r="7" fill="var(--blue)" />
+        <text class="flow-title t-text" x="330" y="204" text-anchor="middle" font-size="12.5">passed</text>
+        <text class="flow-sub" x="330" y="222" text-anchor="middle">approval quorum —</text>
+        <text class="flow-sub" x="330" y="238" text-anchor="middle">silence never counts</text>
+
+        <!-- settling window -->
+        <rect x="337" y="158" width="106" height="24" fill="url(#hatch-g)" stroke="var(--border)" />
+        <text class="flow-step" x="390" y="140" text-anchor="middle">settling window · unpaid</text>
+        <text class="flow-step" x="390" y="126" text-anchor="middle">honest horizon = max profit</text>
+
+        <!-- reviews -->
+        <circle cx="465" cy="170" r="6" fill="var(--green)" />
+        <text class="flow-title t-green" x="465" y="198" text-anchor="middle" font-size="12">y1</text>
+        <circle cx="522" cy="170" r="6" fill="var(--green)" />
+        <text class="flow-title t-green" x="522" y="198" text-anchor="middle" font-size="12">y2</text>
+        <circle cx="604" cy="170" r="6" fill="var(--green)" />
+        <text class="flow-title t-green" x="604" y="198" text-anchor="middle" font-size="12">y5</text>
+        <circle cx="712" cy="170" r="6" fill="var(--green)" />
+        <text class="flow-title t-green" x="712" y="198" text-anchor="middle" font-size="12">y10</text>
+        <circle cx="850" cy="170" r="6" fill="var(--green)" />
+        <text class="flow-title t-green" x="850" y="198" text-anchor="middle" font-size="12">y20</text>
+
+        <text class="flow-step" x="655" y="92" text-anchor="middle">mass reconfirmation · exponential backoff · review burden logarithmic per law</text>
+
+        <!-- annuity -->
+        <text class="flow-sub t-green" x="493" y="228" text-anchor="middle">$</text>
+        <text class="flow-sub t-green" x="562" y="228" text-anchor="middle">$ $</text>
+        <text class="flow-sub t-green" x="656" y="228" text-anchor="middle">$ $ $</text>
+        <text class="flow-sub t-green" x="778" y="228" text-anchor="middle">$ $ $ $</text>
+        <text class="flow-sub" x="656" y="248" text-anchor="middle">annuity accrues while confirmed</text>
+
+        <!-- interrupt -->
+        <path d="M560 108 l-8 22 h7 l-8 22" stroke="var(--red)" stroke-width="2.5" fill="none" />
+        <text class="flow-step t-red" x="560" y="96" text-anchor="middle">interrupt: challengeable any time past settling</text>
+
+        <!-- failure branch -->
+        <path d="M712 178 C 712 252, 668 272, 620 276" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="5 4"
+          fill="none" />
+        <text class="flow-title t-red" x="440" y="282" font-size="12.5">fails confirmation → annuity ends,</text>
+        <text class="flow-title t-red" x="440" y="300" font-size="12.5">jurisdiction demotes with its tax share</text>
+      </svg>
+    </div>
+    <p class="diagram-note"><strong>&ldquo;Locked in&rdquo; means no scheduled poll — never immutable.</strong> Past
+      its settling window any law is challengeable at any time, by citizens spending points or delegates spending
+      weight past a modest threshold. Repealing your own obsolete law becomes rational: a dead metric was paying zero
+      anyway.</p>
+  </section>
+
+  <section>
+    <div class="section-label">plate iii &middot; subsidiarity as a discovered quantity</div>
+    <h2>The asymmetric <em>ratchet</em></h2>
+    <div class="thesis">
+      <p>The scale of an issue is not decreed constitutionally; it is discovered by the mechanism. Issues that
+        consistently fail to draw engagement at a scale drop to the level below — sustained national indifference
+        reveals an issue was never national. Failure demotes too: when a policy fails its confirmation reviews,
+        jurisdiction drops instead of the failing program receiving more money. Jurisdiction is the rent; competence
+        is the only way to pay it.</p>
+    </div>
+
+    <div class="diagram">
+      <svg viewBox="0 0 900 430" role="img"
+        aria-label="Ladder of scales from neighborhood to nation; demotion is automatic drift downward, promotion is voted and requires proven spillover">
+        <!-- ladder -->
+        <rect class="flow-node" x="340" y="26" width="220" height="52" rx="10" stroke="var(--blue-dim)" />
+        <text class="flow-title t-text" x="450" y="58" text-anchor="middle">nation</text>
+        <rect class="flow-node" x="340" y="102" width="220" height="52" rx="10" />
+        <text class="flow-title t-text" x="450" y="134" text-anchor="middle">state / province</text>
+        <rect class="flow-node" x="340" y="178" width="220" height="52" rx="10" />
+        <text class="flow-title t-text" x="450" y="210" text-anchor="middle">county</text>
+        <rect class="flow-node" x="340" y="254" width="220" height="52" rx="10" />
+        <text class="flow-title t-text" x="450" y="286" text-anchor="middle">city</text>
+        <rect class="flow-node" x="340" y="330" width="220" height="52" rx="10" />
+        <text class="flow-title t-text" x="450" y="362" text-anchor="middle">neighborhood</text>
+
+        <!-- demotion (left, wide) -->
+        <path d="M240 42 h46 v300 h24 l-47 60 l-47 -60 h24 z" fill="rgba(110, 118, 129, 0.12)"
+          stroke="var(--border)" />
+        <text class="flow-role" x="206" y="130" fill="var(--text-dim)" transform="rotate(-90 206 130)"
+          text-anchor="end">DEMOTION · AUTOMATIC</text>
+        <text class="flow-sub" x="24" y="160">Sustained indifference across cycles,</text>
+        <text class="flow-sub" x="24" y="178">or repeated failed confirmation,</text>
+        <text class="flow-sub" x="24" y="196">drops the issue — portfolio and</text>
+        <text class="flow-sub" x="24" y="214">tax share together.</text>
+        <text class="flow-sub t-red" x="24" y="244">Failure demotes; it is never</text>
+        <text class="flow-sub t-red" x="24" y="262">reframed as underfunding.</text>
+
+        <!-- promotion (right, narrow) -->
+        <path d="M636 385 h12 v-300 h15 l-21 -44 l-21 44 h15 z" fill="none" stroke="var(--blue)" stroke-width="1.5" />
+        <text class="flow-role t-blue" x="686" y="126" transform="rotate(90 686 126)">PROMOTION · VOTED, COSTLY</text>
+        <text class="flow-sub" x="712" y="160">Requires demonstrated</text>
+        <text class="flow-sub" x="712" y="178">cross-border spillover and</text>
+        <text class="flow-sub" x="712" y="196">fresh base-layer consent,</text>
+        <text class="flow-sub" x="712" y="214">every time. Costless to</text>
+        <text class="flow-sub" x="712" y="232">resist; hard to pass.</text>
+        <text class="flow-step" x="712" y="262">harm inside a boundary is</text>
+        <text class="flow-step" x="712" y="278">their experiment; harm that</text>
+        <text class="flow-step" x="712" y="294">crosses is jurisdiction</text>
+
+        <!-- scope locks -->
+        <text class="flow-step t-gold" x="574" y="40">🔒 scope-locked: defense, currency, pandemics</text>
+        <text class="flow-step" x="574" y="56">cannot demote — the sanction is personnel</text>
+        <text class="flow-step" x="340" y="416">⚓ carbon · aquifers · antibiotics: supra-local footprint — cannot demote on apathy</text>
+      </svg>
+    </div>
+    <p class="diagram-note"><strong>An intense minority cannot capture the national scale</strong> — their engagement
+      alone cannot clear a national floor. What intensity buys is jurisdiction at their own scale, where their rules
+      bind only themselves: self-governance, not dominion over the indifferent.</p>
+  </section>
+
+  <div class="pull-quote">
+    <blockquote>Under low civic energy this system does not seize into vetocracy or slide into strongman demand — it
+      decomposes toward smaller scales. <em>Apathy buys smallness, not tyranny.</em></blockquote>
+  </div>
+
+  <section>
+    <div class="section-label">plate iv &middot; the two axes</div>
+    <h2>Every mechanism sits on <em>two tensions</em></h2>
+    <div class="thesis">
+      <p>Consistency — rule of law, precedent, uniform rules — against exploration: local experimentation and policy
+        variance. And the right of exit — leave a polity whose rules you reject — against the right of check:
+        constrain neighbors whose behavior spills onto you. Each mechanism in the design serves an identifiable
+        pole.</p>
+    </div>
+
+    <div class="diagram">
+      <svg viewBox="0 0 900 440" role="img" aria-label="Quadrant of mechanisms plotted on consistency versus exploration and right of check versus right of exit">
+        <line x1="80" y1="220" x2="820" y2="220" stroke="var(--border)" stroke-width="1.5" />
+        <line x1="450" y1="46" x2="450" y2="400" stroke="var(--border)" stroke-width="1.5" />
+        <text class="flow-role" x="76" y="210" fill="var(--gray)">CONSISTENCY</text>
+        <text class="flow-role" x="824" y="210" fill="var(--gray)" text-anchor="end">EXPLORATION</text>
+        <text class="flow-role" x="450" y="30" fill="var(--gray)" text-anchor="middle">RIGHT OF CHECK</text>
+        <text class="flow-role" x="450" y="424" fill="var(--gray)" text-anchor="middle">RIGHT OF EXIT</text>
+
+        <circle cx="265" cy="120" r="6" fill="var(--blue)" />
+        <text class="flow-sub t-text" x="265" y="100" text-anchor="middle">promotion on proven spillover</text>
+        <circle cx="610" cy="100" r="6" fill="var(--blue)" />
+        <text class="flow-sub t-text" x="610" y="80" text-anchor="middle">interrupt challenges to any law</text>
+        <circle cx="195" cy="285" r="6" fill="var(--purple)" />
+        <text class="flow-sub t-text" x="195" y="309" text-anchor="middle">meta-rules viscosity</text>
+        <circle cx="285" cy="180" r="6" fill="var(--purple)" />
+        <text class="flow-sub t-text" x="285" y="162" text-anchor="middle">backoff reviews · precedent</text>
+        <circle cx="665" cy="180" r="6" fill="var(--gold)" />
+        <text class="flow-sub t-text" x="665" y="162" text-anchor="middle">demotion drift</text>
+        <circle cx="615" cy="330" r="6" fill="var(--green)" />
+        <text class="flow-sub t-text" x="615" y="354" text-anchor="middle">household border-switching</text>
+        <circle cx="705" cy="268" r="6" fill="var(--green)" />
+        <text class="flow-sub t-text" x="705" y="250" text-anchor="middle">intensity buys local jurisdiction</text>
+      </svg>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">known attack surfaces &middot; carried, not papered over</div>
+    <h2>No system stays uncaptured. The design question is the <em>capture rate</em>.</h2>
+    <div class="cards" style="margin-top: 2rem;">
+      <div class="card">
+        <h3>goodhart, managed</h3>
+        <p>Terminal-value metrics remove the proxy gap; gaming relocates to perception-formation and the
+          weight-setting layer. Countermeasures: metric rotation, adversarial red-teaming, keeping the recursive
+          weight-setting layer genuinely contested.</p>
+      </div>
+      <div class="card">
+        <h3>delegation concentration</h3>
+        <p>Every liquid-democracy deployment with data collapsed into power-law super-delegates. Counter-pressure is
+          built in: delegation decay, per-delegate caps, instant revocability, quadratic damping on accumulated
+          weight.</p>
+      </div>
+      <div class="card">
+        <h3>quorum-busting</h3>
+        <p>Strategic abstention killed the Italian referendum system. Answered by approval quorums — silence never
+          counts as a vote — and by counting delegated weight, which makes starving an issue legible and punishable
+          by revocation.</p>
+      </div>
+      <div class="card">
+        <h3>sabotage-to-demote</h3>
+        <p>A faction preferring local control can try to make the national program fail. Demotion requires consistent
+          failure across the backoff schedule, not one bad year — and sabotage of delivery is legible in the
+          perception layer in ways mere underperformance is not.</p>
+      </div>
+      <div class="card">
+        <h3>attribution</h3>
+        <p>Voters punish incumbents for droughts and shark attacks. Mitigations: atomic laws (omnibus bills are
+          attribution-laundering), per-proposal horizons, deliberative panels between raw approval and verdict, and
+          AI as legibility infrastructure — never as verdict-issuer.</p>
+      </div>
+      <div class="card">
+        <h3>the epistemic environment</h3>
+        <p>The cheapest attack on a perception-metric system is manufacturing perception — including manufactured
+          apathy. Three privacy regimes hold the line: anonymous at the ballot, pseudonymous-persistent at
+          delegation, fully public in office.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">familiar categories &middot; the blockchain governance toolkit</div>
+    <h2>Where this sits in <em>known frameworks</em></h2>
+    <div class="thesis">
+      <p>In the trade-off vocabulary of Project Liberty &amp; BlockchainGov's <a
+          href="https://www.projectliberty.io/wp-content/uploads/2024/06/PL_Toolkit_Report_v7.pdf"
+          style="color: var(--blue); text-decoration: none;">Blockchain Governance Toolkit</a>: pick your positions,
+        pick your primitives, then safeguard against your own dominant flavor. This design takes strong positions —
+        and pairs each with the toolkit's own recommended safeguard class.</p>
+    </div>
+
+    <div class="dial">
+      <div class="dial-ends"><span>expediency</span><span class="active">participation</span></div>
+      <div class="dial-track">
+        <div class="dial-mark" style="left: 82%;"></div>
+      </div>
+      <p class="dial-note"><strong>Heavily participatory</strong> — open agenda-setting, mass retention, mass-held
+        meta-rules, person-weighted voting. Safeguarded natively:</p>
+      <div class="chips">
+        <span class="chip">delegation decay + caps</span>
+        <span class="chip">approval quorums</span>
+        <span class="chip">delegate attention for low-salience domains</span>
+        <span class="chip">scope-locked expediency class</span>
+      </div>
+    </div>
+
+    <div class="dial">
+      <div class="dial-ends"><span>immutability</span><span class="active">adaptability</span></div>
+      <div class="dial-track">
+        <div class="dial-mark" style="left: 75%;"></div>
+      </div>
+      <p class="dial-note"><strong>Adaptive by default</strong> — every law reviewable and challengeable; nothing
+        survives on inertia. The toolkit's safeguard for heavy adaptability is a formal constitution — here, the
+        meta-rules layer with constitutional viscosity:</p>
+      <div class="chips">
+        <span class="chip">meta-rules: longest windows, highest thresholds</span>
+        <span class="chip">settling windows</span>
+        <span class="chip">deliberation lag</span>
+        <span class="chip">"locked in" ≠ immutable</span>
+      </div>
+    </div>
+
+    <div class="dial">
+      <div class="dial-ends"><span>determinism</span><span class="active">discretion</span></div>
+      <div class="dial-track">
+        <div class="dial-mark" style="left: 58%;"></div>
+      </div>
+      <p class="dial-note"><strong>Discretionary at the core</strong> — human judgment via perception metrics is the
+        confirmation signal — but deterministic exactly where capture pressure is highest:</p>
+      <div class="chips">
+        <span class="chip">maximally dumb, procedural kill switch</span>
+        <span class="chip">automatic demotion</span>
+        <span class="chip">algorithmic boundaries</span>
+        <span class="chip">zero-sum budget by construction</span>
+      </div>
+    </div>
+
+    <p class="dial-note" style="margin-top: 2.5rem;"><strong>And the toolkit's feedback-loop step, verbatim:</strong>
+      it urges designers to &ldquo;leverage humans as sensors.&rdquo; That is this design's central wager — the
+      confirmation layer <em>is</em> humans-as-sensors, and the durability annuity wires the sensor readings directly
+      to the lawmaker's pay.</p>
+  </section>
+
+  <section>
+    <div class="section-label">against current dao practice</div>
+    <h2>The skeleton is recognizable. <em>Four things exist nowhere yet.</em></h2>
+    <div class="tablewrap">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>arbitrum dao</th>
+            <th>optimism collective</th>
+            <th class="col-this">this design</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="lead">who proposes</td>
+            <td>Token holders above a threshold</td>
+            <td>Largely Foundation-shaped agenda</td>
+            <td class="col-this">Politicians, from scarce priced slots</td>
+          </tr>
+          <tr>
+            <td class="lead">who decides</td>
+            <td>Token-weighted vote via delegates</td>
+            <td>Bicameral: Token House + Citizens' House</td>
+            <td class="col-this">Delegates with earned, revocable, decaying weight</td>
+          </tr>
+          <tr>
+            <td class="lead">who removes</td>
+            <td>Elections; DAO can restructure the Security Council</td>
+            <td>Houses veto each other on some tracks</td>
+            <td class="col-this">Masses alone: retention, interrupts, invalidation</td>
+          </tr>
+          <tr>
+            <td class="lead">weighting basis</td>
+            <td>Capital (ARB holdings)</td>
+            <td>Capital + attested personhood</td>
+            <td class="col-this">Persons; weight inputs set democratically in the meta-rules</td>
+          </tr>
+          <tr>
+            <td class="lead">constitutional layer</td>
+            <td>Constitutional AIPs, higher thresholds</td>
+            <td>Working Constitution, Foundation-stewarded</td>
+            <td class="col-this">Meta-rules: mass-only custody, slowest cadence</td>
+          </tr>
+          <tr>
+            <td class="lead">review / sunset</td>
+            <td>None — decisions persist by default</td>
+            <td>Seasonal reflection, informal</td>
+            <td class="col-this">Exponential-backoff reconfirmation + interrupts</td>
+          </tr>
+          <tr>
+            <td class="lead">emergency powers</td>
+            <td>Security Council (12 elected, 9-of-12)</td>
+            <td>Foundation emergency powers</td>
+            <td class="col-this">Short scope-locked class; sanction is personnel</td>
+          </tr>
+          <tr>
+            <td class="lead">proposer pay</td>
+            <td>None structural</td>
+            <td>Retroactive public-goods funding</td>
+            <td class="col-this">Durability annuity — paid while the law stays confirmed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="diagram-note"><strong>Nowhere yet:</strong> person-weights set by the governed themselves,
+      pay-for-confirmed-durability, retention as a standing mass power, and subsidiarity as a discovered quantity
+      with an asymmetric ratchet.</p>
+  </section>
+
+  <section>
+    <div class="section-label">open decisions &middot; carried explicitly</div>
+    <div class="steps-list">
+      <p><span>01</span>The citizen proposal-slot valve — a petition path that mints a slot from below, so the
+        politician class can't become an agenda oligopoly.</p>
+      <p><span>02</span>Tally visibility during voting windows — live tallies herd, sealed tallies starve
+        deliberation. Candidate middle: engagement public, direction sealed until lock.</p>
+      <p><span>03</span>Who certifies subsidiarity routing — spillover claims need an adjudicator; false claims cost
+        the claimants their points.</p>
+      <p><span>04</span>The boundary algorithm's objective function — &ldquo;the algorithm decides&rdquo; always
+        means &ldquo;whoever specifies the objective function decides.&rdquo; It lives in the meta-rules, on the
+        slowest cadence.</p>
+      <p><span>05</span>The enumerated scope-locked portfolio class — explicitly listed, and short.</p>
+      <p><span>06</span>The weighting inputs for delegation — deliberately left to the meta-rules layer itself.</p>
+    </div>
+  </section>
+
+  <section id="discuss">
+    <div class="signup">
+      <h2>Argue with this.</h2>
+      <p>These proposals are drafts in open design — the attack surfaces are listed because we want them attacked.
+        Follow the work, or come take a swing.</p>
+      <div class="embed">
+        <iframe src="https://inixiative.substack.com/embed" width="480" height="150" frameborder="0"
+          scrolling="no"></iframe>
+      </div>
+      <div class="or">or</div>
+      <a class="button button-ghost"
+        href="mailto:aron.greenspan@inixiative.com?subject=On%20the%20governance%20proposal">tell us where it breaks
+        &rarr;</a>
+    </div>
+  </section>
+
+  <div class="links">
+    <a href="/">home</a>
+    <a href="/platform">platform</a>
+    <a href="/timeline">timeline</a>
+    <a href="https://github.com/inixiative/whitepaper">whitepaper</a>
+    <a href="https://inixiative.substack.com">substack</a>
+    <a href="mailto:aron.greenspan@inixiative.com">contact</a>
+  </div>
+
+  <footer>
+    Open to advisory engagements and collaboration. <a href="mailto:aron.greenspan@inixiative.com">Get in touch</a>.
+    <div class="copyright">&lt;iXi&gt; &copy; 2026</div>
+  </footer>
+
+</body>
+
+</html>
