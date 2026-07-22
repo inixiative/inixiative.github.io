@@ -34,19 +34,67 @@
         width is not a luxury but the difference between a system that hears its citizens and one that merely counts
         them.</p>
 
-      <h3>the parable of the five voters</h3>
-      <p>Five people face a proposal, A. Two of them like it. Three of them strongly oppose it — but they're split
-        on what they'd prefer instead. Under binary voting, A wins: two votes for, and the opposition's intensity
-        counts for nothing because a vote has no magnitude. The outcome is exactly backwards from what the group
-        actually wants — a minority's mild preference defeats a majority's strong objection, because the channel
-        couldn't carry the word <em>strong</em>.</p>
-      <p>Now give each voter a budget of points, spendable for <em>or against</em> anything on the docket. The two
-        supporters put +1, +1 on A; they like it, but not enough to spend more. The three opponents put &minus;2,
-        &minus;2, &minus;2 — they don't need to agree on an alternative to register that this matters to them. Net:
-        &minus;4. A loses. Nothing exotic happened; the system simply translated political will correctly, because
-        the signal carried three dimensions instead of one: <strong>engagement</strong> (did you spend attention on
-        this at all), <strong>direction</strong> (for or against), and <strong>magnitude</strong> (how much of your
-        scarce budget it was worth to you).</p>
+      <div class="box">
+        <div class="box-label">aside &middot; a wider channel</div>
+        <h4>The parable of the five voters</h4>
+        <p>Five voters face a field of candidates: A and the others. Two of the five like A. Three strongly oppose
+          A — but they're split on which of the others they'd prefer instead. Under binary voting, A wins — two
+          marks against a scattered one, one, one — and the opposition's intensity counts for nothing because a
+          mark has no magnitude. The outcome is exactly backwards from what the group actually wants: a minority's
+          mild preference defeats a majority's strong objection, because the channel couldn't carry the word
+          <em>strong</em>.</p>
+        <p>Now give each voter a budget of points, spendable for <em>or against</em> anyone on the ballot. The two
+          supporters put +1, +1 on A; they like A, but not enough to spend more. The three opponents put &minus;2,
+          &minus;2, &minus;2 — they don't need to agree on an alternative to register that this matters to them.
+          Net: &minus;4. A loses. Nothing exotic happened; the system simply translated political will correctly,
+          because the signal carried three dimensions instead of one: <strong>engagement</strong> (did you spend
+          attention on this at all), <strong>direction</strong> (for or against), and <strong>magnitude</strong>
+          (how much of your scarce budget it was worth to you).</p>
+        <div class="diagram" style="margin: 1.4rem 0 0.25rem;">
+          <svg viewBox="0 0 900 320" role="img"
+            aria-label="Before and after: under one-mark plurality voting candidate A wins two votes against a split one-one-one field; under point voting the same five voters produce plus two against minus six, net minus four, and A loses">
+            <text class="flow-role" x="30" y="34">BEFORE &middot; ONE MARK EACH</text>
+
+            <rect x="60" y="132" width="64" height="32" rx="4" fill="rgba(63,185,80,0.22)" stroke="var(--green)" />
+            <rect x="60" y="168" width="64" height="32" rx="4" fill="rgba(63,185,80,0.22)" stroke="var(--green)" />
+            <rect x="160" y="168" width="64" height="32" rx="4" fill="rgba(248,81,73,0.18)" stroke="var(--red)" />
+            <rect x="250" y="168" width="64" height="32" rx="4" fill="rgba(248,81,73,0.18)" stroke="var(--red)" />
+            <rect x="340" y="168" width="64" height="32" rx="4" fill="rgba(248,81,73,0.18)" stroke="var(--red)" />
+            <line x1="48" y1="204" x2="416" y2="204" stroke="var(--border)" stroke-width="1.5" />
+            <text class="flow-sub" x="92" y="124" text-anchor="middle">2</text>
+            <text class="flow-sub" x="192" y="160" text-anchor="middle">1</text>
+            <text class="flow-sub" x="282" y="160" text-anchor="middle">1</text>
+            <text class="flow-sub" x="372" y="160" text-anchor="middle">1</text>
+            <text class="flow-sub" x="92" y="226" text-anchor="middle">A</text>
+            <text class="flow-sub" x="192" y="226" text-anchor="middle">B</text>
+            <text class="flow-sub" x="282" y="226" text-anchor="middle">C</text>
+            <text class="flow-sub" x="372" y="226" text-anchor="middle">D</text>
+            <text class="flow-step" x="92" y="246" text-anchor="middle">candidate A</text>
+            <text class="flow-step" x="282" y="246" text-anchor="middle">the others — the opposition splits</text>
+            <text class="flow-title t-red" x="232" y="280" text-anchor="middle">A wins — 2 beats 1&middot;1&middot;1</text>
+            <text class="flow-sub" x="232" y="300" text-anchor="middle">a majority's strong objection, invisible</text>
+
+            <line x1="455" y1="44" x2="455" y2="286" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="5 4" />
+
+            <text class="flow-role" x="505" y="34">AFTER &middot; POINTS, FOR OR AGAINST</text>
+            <line x1="500" y1="150" x2="870" y2="150" stroke="var(--border)" stroke-width="1.5" />
+            <rect x="515" y="122" width="48" height="28" rx="4" fill="rgba(63,185,80,0.22)" stroke="var(--green)" />
+            <rect x="587" y="122" width="48" height="28" rx="4" fill="rgba(63,185,80,0.22)" stroke="var(--green)" />
+            <rect x="659" y="150" width="48" height="56" rx="4" fill="rgba(248,81,73,0.18)" stroke="var(--red)" />
+            <rect x="731" y="150" width="48" height="56" rx="4" fill="rgba(248,81,73,0.18)" stroke="var(--red)" />
+            <rect x="803" y="150" width="48" height="56" rx="4" fill="rgba(248,81,73,0.18)" stroke="var(--red)" />
+            <text class="flow-sub" x="539" y="114" text-anchor="middle">+1</text>
+            <text class="flow-sub" x="611" y="114" text-anchor="middle">+1</text>
+            <text class="flow-sub" x="683" y="224" text-anchor="middle">&minus;2</text>
+            <text class="flow-sub" x="755" y="224" text-anchor="middle">&minus;2</text>
+            <text class="flow-sub" x="827" y="224" text-anchor="middle">&minus;2</text>
+            <text class="flow-step" x="575" y="94" text-anchor="middle">the two supporters</text>
+            <text class="flow-step" x="755" y="246" text-anchor="middle">the three opponents — no coordination needed</text>
+            <text class="flow-title t-green" x="687" y="280" text-anchor="middle">A loses — net &minus;4</text>
+            <text class="flow-sub" x="687" y="300" text-anchor="middle">engagement &middot; direction &middot; magnitude</text>
+          </svg>
+        </div>
+      </div>
 
       <h3>what the three dimensions buy</h3>
       <p>Each citizen receives a modest point budget per cycle. The budget forces prioritization — you cannot scream
