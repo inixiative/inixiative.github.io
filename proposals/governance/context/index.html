@@ -34,7 +34,7 @@
         field's categories. Two reference points matter most: the trade-off vocabulary of the Project Liberty
         Institute &amp; BlockchainGov <a
           href="https://www.projectliberty.io/wp-content/uploads/2024/06/PL_Toolkit_Report_v7.pdf">Blockchain
-          Governance Toolkit</a>, and the live governance experiments running in major DAOs.</p>
+          Governance Toolkit</a>, a published framework for designing and comparing online governance systems, and the live governance experiments running in major DAOs — decentralized autonomous organizations, online communities that vote directly on their own rules and treasuries. The two compared below, Arbitrum and Optimism, are large public blockchain networks whose users vote on how the network is run and what its treasury funds.</p>
       <p>The toolkit asks designers to position themselves on three trade-offs, then to safeguard against their own
         dominant tendency. This design takes strong positions and carries the matching safeguard for each:</p>
     </div>
@@ -100,30 +100,30 @@
           <tr>
             <td class="lead">who proposes</td>
             <td>Token holders above a threshold</td>
-            <td>Largely Foundation-shaped agenda</td>
-            <td class="col-this">Leaders, from a scarce staked budget</td>
+            <td>Agenda largely shaped by the Optimism Foundation, the nonprofit stewarding the network</td>
+            <td class="col-this">Leaders, from a scarce proposal budget with their own standing staked on it</td>
           </tr>
           <tr>
             <td class="lead">who decides</td>
             <td>Token-weighted vote, direct or via delegates</td>
-            <td>Bicameral: Token House + Citizens' House</td>
+            <td>Bicameral: Token House (weight by tokens held) + Citizens' House (one verified person, one vote)</td>
             <td class="col-this">Delegates with earned, decaying, revocable weight</td>
           </tr>
           <tr>
             <td class="lead">who removes</td>
             <td>Elections; DAO can restructure the Security Council</td>
-            <td>Both houses jointly remove Foundation directors; Citizens' House vetoes protocol upgrades</td>
+            <td>Both houses jointly remove Foundation directors; the Citizens' House, the person-weighted chamber, vetoes protocol upgrades</td>
             <td class="col-this">Citizens hold the verdict and the gates; emergency review open to citizens and delegates</td>
           </tr>
           <tr>
             <td class="lead">weighting basis</td>
-            <td>Capital (ARB holdings)</td>
-            <td>Capital + attested personhood</td>
+            <td>Capital (holdings of ARB, Arbitrum's governance token)</td>
+            <td>Capital + attested personhood (a verified claim to be a unique human)</td>
             <td class="col-this">Persons; weight inputs set by the broadest tier</td>
           </tr>
           <tr>
             <td class="lead">constitutional layer</td>
-            <td>Constitutional AIPs, higher thresholds</td>
+            <td>Constitutional AIPs (Arbitrum Improvement Proposals), higher thresholds</td>
             <td>Working Constitution, Foundation-stewarded</td>
             <td class="col-this">Meta-rules: citizen custody, slowest cadence</td>
           </tr>
@@ -131,11 +131,11 @@
             <td class="lead">review / sunset</td>
             <td>None — decisions persist by default</td>
             <td>Seasonal reflection, informal</td>
-            <td class="col-this">Exponential-backoff reconfirmation + emergency review</td>
+            <td class="col-this">Reconfirmation at widening intervals (1, 3, 7, 15 years) + emergency review</td>
           </tr>
           <tr>
             <td class="lead">emergency powers</td>
-            <td>Security Council (12 elected, 9-of-12)</td>
+            <td>Security Council (12 elected; 9 must agree to act)</td>
             <td>Foundation + Security Council</td>
             <td class="col-this">Short scope-locked class; sanction is personnel</td>
           </tr>
@@ -151,7 +151,7 @@
 
     <div class="prose">
       <p style="margin-top: 1.5rem;">The skeleton is recognizable — Arbitrum's delegates-plus-constitution,
-        Optimism's separation of chambers, and older ancestors too: Switzerland's facultative referendum is the
+        Optimism's separation of chambers, and older ancestors too: Switzerland's facultative referendum — where enough signatures force a law parliament has already passed to a public vote — is the
         direct model for chapter 8's interrupts. But four things exist nowhere in current DAO practice:
         person-weights set by the governed themselves, pay bound to confirmed durability, the public verdict as a
         standing power over every policy, and subsidiarity as a discovered quantity with an asymmetric ratchet.</p>
@@ -164,9 +164,9 @@
         (chapter 5).</p>
       <p><span>02</span>Tally visibility during voting windows — engagement public, direction sealed, is the leading
         candidate (chapter 6).</p>
-      <p><span>03</span>Who certifies spillover claims for subsidiarity routing — the adjudicating body is
+      <p><span>03</span>Who certifies spillover claims for subsidiarity routing — who rules that a local decision's effects cross into neighboring jurisdictions, which is what licenses moving the power upward. The adjudicating body is
         undecided; false claims must cost their claimants either way (chapter 9).</p>
-      <p><span>04</span>The boundary algorithm's objective function — held in the meta-rules, on the slowest cadence;
+      <p><span>04</span>The boundary algorithm's objective function — the criteria it is told to optimize when it draws jurisdictional lines — held in the meta-rules, on the slowest cadence;
         the function itself is open (chapter 10).</p>
       <p><span>05</span>The enumerated scope-locked portfolio class — explicitly listed, and short (chapter 9).</p>
       <p><span>06</span>The weighting inputs for delegation — deliberately left to the meta-rules layer itself
