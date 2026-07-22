@@ -75,49 +75,92 @@
     </div>
 
     <div class="diagram">
-      <svg viewBox="0 0 900 350" role="img"
-        aria-label="Three tiers: leaders propose, delegates decide, citizens judge and remove; the meta-rules layer beneath is held by citizens alone">
+      <svg viewBox="0 0 900 580" role="img"
+        aria-label="The three tiers and the ladder: leaders propose, delegates decide, citizens judge and remove; retention of leaders belongs to citizens; people move by lot into the candidate pool, by delegation into delegate seats, by delegate election into leader seats, and return to the pool when service ends; the meta-rules beneath are held by the broadest tier alone">
         <defs>
           <marker id="arrow-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7"
             orient="auto-start-reverse">
             <path d="M 0 1 L 9 5 L 0 9" fill="none" class="flow-arrowhead" />
           </marker>
         </defs>
-        <rect class="flow-node" x="20" y="50" width="255" height="130" rx="10" />
-        <rect x="20" y="50" width="255" height="4" rx="2" fill="var(--gold)" />
-        <text class="flow-role t-gold" x="38" y="82">LEADERS</text>
-        <text class="flow-title t-text" x="38" y="106">propose</text>
-        <text class="flow-sub" x="38" y="130">A scarce proposal budget,</text>
-        <text class="flow-sub" x="38" y="148">staked on. Paid for how long</text>
-        <text class="flow-sub" x="38" y="166">their policies keep working.</text>
-        <line class="flow-line" x1="275" y1="115" x2="322" y2="115" marker-end="url(#arrow-g)" />
-        <text class="flow-step" x="299" y="100" text-anchor="middle">drafts</text>
-        <rect class="flow-node" x="325" y="50" width="255" height="130" rx="10" />
-        <rect x="325" y="50" width="255" height="4" rx="2" fill="var(--purple)" />
-        <text class="flow-role t-purple" x="343" y="82">DELEGATES</text>
-        <text class="flow-title t-text" x="343" y="106">decide</text>
-        <text class="flow-sub" x="343" y="130">Vote on passage with earned,</text>
-        <text class="flow-sub" x="343" y="148">decaying, instantly revocable</text>
-        <text class="flow-sub" x="343" y="166">weight — attention for the absent.</text>
-        <line class="flow-line" x1="580" y1="115" x2="627" y2="115" marker-end="url(#arrow-g)" />
-        <text class="flow-step" x="604" y="100" text-anchor="middle">laws</text>
-        <rect class="flow-node" x="630" y="50" width="255" height="130" rx="10" />
-        <rect x="630" y="50" width="255" height="4" rx="2" fill="var(--blue)" />
-        <text class="flow-role t-blue" x="648" y="82">CITIZENS</text>
-        <text class="flow-title t-text" x="648" y="106">set agenda &middot; judge &middot; remove</text>
-        <text class="flow-sub" x="648" y="130">Open agenda-setting, the verdict</text>
-        <text class="flow-sub" x="648" y="148">on every standing law, removal of</text>
-        <text class="flow-sub" x="648" y="166">leaders — and the meta-rules.</text>
-        <rect x="20" y="262" width="865" height="66" rx="10" fill="rgba(88, 166, 255, 0.06)" stroke="var(--border)" />
-        <text class="flow-role t-blue" x="38" y="290">THE META-RULES &middot; HELD BY THE BROADEST TIER ALONE</text>
-        <text class="flow-sub" x="38" y="312">How delegation is earned, what inputs carry weight, how the upper tiers are entered — the one thing the custodians can never touch.</text>
-        <line class="flow-solid" x1="147" y1="262" x2="147" y2="188" stroke-dasharray="4 4" marker-end="url(#arrow-g)" />
-        <line class="flow-solid" x1="452" y1="262" x2="452" y2="188" stroke-dasharray="4 4" marker-end="url(#arrow-g)" />
-        <line class="flow-solid" x1="757" y1="188" x2="757" y2="256" marker-end="url(#arrow-g)" />
-        <text class="flow-step" x="158" y="228">governs entry &amp; weighting</text>
-        <text class="flow-step" x="463" y="228">governs entry &amp; weighting</text>
-        <text class="flow-step" x="768" y="228">exclusive custody</text>
-        <text class="flow-step" x="452" y="28" text-anchor="middle">anyone may raise questions to the open forum — mapping what society cares about is the base democratic task</text>
+
+        <text class="flow-step" x="452" y="24" text-anchor="middle">anyone may raise questions to the open forum — mapping what society cares about is the base democratic task</text>
+
+        <!-- power circuit -->
+        <rect class="flow-node" x="20" y="44" width="255" height="118" rx="10" />
+        <rect x="20" y="44" width="255" height="4" rx="2" fill="var(--gold)" />
+        <text class="flow-role t-gold" x="38" y="74">LEADERS</text>
+        <text class="flow-title t-text" x="38" y="98">propose</text>
+        <text class="flow-sub" x="38" y="122">A scarce, staked proposal budget.</text>
+        <text class="flow-sub" x="38" y="140">Paid while their policies stand.</text>
+
+        <line class="flow-line" x1="275" y1="103" x2="322" y2="103" marker-end="url(#arrow-g)" />
+        <text class="flow-step" x="299" y="90" text-anchor="middle">drafts</text>
+
+        <rect class="flow-node" x="325" y="44" width="255" height="118" rx="10" />
+        <rect x="325" y="44" width="255" height="4" rx="2" fill="var(--purple)" />
+        <text class="flow-role t-purple" x="343" y="74">DELEGATES</text>
+        <text class="flow-title t-text" x="343" y="98">decide</text>
+        <text class="flow-sub" x="343" y="122">Vote passage with earned, decaying,</text>
+        <text class="flow-sub" x="343" y="140">instantly revocable weight.</text>
+
+        <line class="flow-line" x1="580" y1="103" x2="627" y2="103" marker-end="url(#arrow-g)" />
+        <text class="flow-step" x="604" y="90" text-anchor="middle">laws</text>
+
+        <rect class="flow-node" x="630" y="44" width="255" height="118" rx="10" />
+        <rect x="630" y="44" width="255" height="4" rx="2" fill="var(--blue)" />
+        <text class="flow-role t-blue" x="648" y="74">CITIZENS</text>
+        <text class="flow-title t-text" x="648" y="98">set agenda &middot; judge &middot; remove</text>
+        <text class="flow-sub" x="648" y="122">The verdict on every law, the gates</text>
+        <text class="flow-sub" x="648" y="140">on every leader, the meta-rules.</text>
+
+        <!-- retention arc: citizens hold every leader's seat -->
+        <path d="M 700 164 C 620 212, 230 212, 152 168" stroke="var(--blue)" stroke-width="1.5" fill="none"
+          marker-end="url(#arrow-g)" />
+        <text class="flow-step t-blue" x="430" y="222" text-anchor="middle">retention — approval gates: public legitimacy, not delegate favor, holds every leader's seat</text>
+
+        <!-- the ladder -->
+        <text class="flow-role" x="452" y="268" fill="var(--gray)" text-anchor="middle">THE LADDER &middot; HOW PEOPLE MOVE BETWEEN TIERS</text>
+
+        <rect class="flow-node" x="20" y="288" width="125" height="58" rx="10" />
+        <text class="flow-title t-text" x="82" y="313" text-anchor="middle" font-size="13">citizenry</text>
+        <text class="flow-sub" x="82" y="333" text-anchor="middle">everyone eligible</text>
+
+        <line class="flow-line" x1="145" y1="317" x2="198" y2="317" marker-end="url(#arrow-g)" />
+        <text class="flow-step" x="172" y="304" text-anchor="middle">lot</text>
+
+        <rect class="flow-node" x="202" y="288" width="168" height="58" rx="10" stroke="var(--blue-dim)" />
+        <text class="flow-title t-text" x="286" y="313" text-anchor="middle" font-size="13">candidate pool</text>
+        <text class="flow-sub" x="286" y="333" text-anchor="middle">refreshed by lot each cycle</text>
+
+        <line class="flow-line" x1="370" y1="317" x2="423" y2="317" marker-end="url(#arrow-g)" />
+        <text class="flow-step" x="397" y="304" text-anchor="middle">delegation</text>
+
+        <rect class="flow-node" x="427" y="288" width="140" height="58" rx="10" stroke="var(--purple)" />
+        <text class="flow-title t-purple" x="497" y="313" text-anchor="middle" font-size="13">delegate</text>
+        <text class="flow-sub" x="497" y="333" text-anchor="middle">threshold weight earned</text>
+
+        <line class="flow-line" x1="567" y1="317" x2="648" y2="317" marker-end="url(#arrow-g)" />
+        <text class="flow-step" x="607" y="304" text-anchor="middle">elected by delegates</text>
+
+        <rect class="flow-node" x="652" y="288" width="228" height="58" rx="10" stroke="var(--gold)" />
+        <text class="flow-title t-gold" x="766" y="313" text-anchor="middle" font-size="13">leader's seat</text>
+        <text class="flow-sub" x="766" y="333" text-anchor="middle">term-locked &middot; delegation weight released</text>
+
+        <!-- return: service ends -> pool -->
+        <path d="M 766 346 C 766 396, 430 404, 292 350" stroke="var(--gray)" stroke-width="1.5" fill="none"
+          stroke-dasharray="5 4" marker-end="url(#arrow-g)" />
+        <text class="flow-step" x="560" y="398" text-anchor="middle">service ends → return to the pool &middot; an office bar never bars delegacy</text>
+
+        <!-- return: falls out of favor -> lottery -->
+        <path d="M 497 346 C 497 442, 190 450, 86 350" stroke="var(--gray)" stroke-width="1.5" fill="none"
+          stroke-dasharray="5 4" marker-end="url(#arrow-g)" />
+        <text class="flow-step" x="300" y="444" text-anchor="middle">falls out of favor → rejoins the lottery like everyone else &middot; no campaigning back in</text>
+
+        <!-- meta-rules foundation -->
+        <rect x="20" y="486" width="865" height="70" rx="10" fill="rgba(88, 166, 255, 0.06)" stroke="var(--border)" />
+        <text class="flow-role t-blue" x="38" y="514">THE META-RULES &middot; HELD BY THE BROADEST TIER ALONE</text>
+        <text class="flow-sub" x="38" y="536">How the lot is drawn, how delegation is earned and weighted, how seats are entered — every rung of the ladder above runs on rules only citizens can write.</text>
       </svg>
     </div>
 
