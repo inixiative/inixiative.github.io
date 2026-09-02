@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aron Greenspan — infrastructure engineering</title>
+  <meta name="description"
+    content="Aron Greenspan builds infrastructure primitives that compose. Open to staff and principal engineering, founding roles, agent-infrastructure work, and advisory engagements.">
+  <meta property="og:title" content="Aron Greenspan">
+  <meta property="og:description" content="Infrastructure primitives that compose. Open to staff, principal, and founding engineering roles.">
+  <meta property="og:image" content="https://www.inixiative.com/og-1200x630.png">
+  <meta property="og:url" content="https://www.inixiative.com/aron/">
+  <meta property="og:type" content="profile">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Aron Greenspan">
+  <meta name="twitter:description" content="Infrastructure primitives that compose.">
+  <meta name="twitter:image" content="https://www.inixiative.com/og-1200x630.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
+  <link rel="apple-touch-icon" href="/icon-180x180.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0D1117; --bg-surface: #161B22; --blue: #58A6FF; --blue-dim: #1F6FEB;
+      --gray: #6E7681; --text: #C9D1D9; --text-dim: #8B949E; --border: #21262D;
+      --border-mid: #30363D; --purple: #BC8CFF; --green: #3FB950;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: var(--blue); }
+    .nav { max-width: 820px; margin: 0 auto; padding: 1.75rem 2rem 0; }
+    .nav a { font-family: var(--mono); font-size: .78rem; color: var(--gray); text-decoration: none; }
+    .nav a:hover { color: var(--blue); }
+    main { max-width: 820px; margin: 0 auto; padding: 3rem 2rem 2rem; }
+    .avail {
+      display: inline-flex; align-items: center; gap: .5rem; font-family: var(--mono);
+      font-size: .72rem; color: var(--green); border: 1px solid rgba(63,185,80,.3);
+      background: rgba(63,185,80,.06); border-radius: 20px; padding: .35rem .85rem; margin-bottom: 1.5rem;
+    }
+    .avail::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+    h1 { font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 700; letter-spacing: -.025em; margin-bottom: .75rem; }
+    .lede { font-size: 1.15rem; font-weight: 300; color: var(--text-dim); line-height: 1.75; max-width: 660px; }
+    .lede strong { color: var(--text); font-weight: 500; }
+    h2 {
+      font-family: var(--mono); font-size: .74rem; color: var(--gray); text-transform: uppercase;
+      letter-spacing: .25em; margin: 3.25rem 0 1.25rem; font-weight: 500;
+    }
+    p { margin-bottom: 1rem; color: var(--text-dim); }
+    p strong { color: var(--text); font-weight: 500; }
+    .tracks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .track { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; }
+    .track h3 { font-size: .95rem; font-weight: 600; margin-bottom: .4rem; color: var(--text); }
+    .track p { font-size: .85rem; margin: 0; line-height: 1.6; }
+    .work { border-left: 2px solid var(--border-mid); padding-left: 1.5rem; margin-bottom: 2rem; }
+    .work h3 { font-family: var(--mono); font-size: 1rem; margin-bottom: .5rem; }
+    .work h3 a { text-decoration: none; }
+    .work h3 a:hover { text-decoration: underline; }
+    .work .meta { font-family: var(--mono); font-size: .72rem; color: var(--gray); margin-bottom: .6rem; }
+    .work p { font-size: .92rem; margin-bottom: .5rem; }
+    ul { margin: 0 0 1rem 1.1rem; color: var(--text-dim); }
+    li { margin-bottom: .5rem; font-size: .95rem; }
+    li strong { color: var(--text); font-weight: 500; }
+    .stack { font-family: var(--mono); font-size: .82rem; color: var(--text-dim); line-height: 2; }
+    .links { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .links a {
+      color: var(--text-dim); text-decoration: none; font-family: var(--mono); font-size: .78rem;
+      padding: .55rem 1.15rem; border: 1px solid var(--border); border-radius: 6px; transition: all .2s;
+    }
+    .links a:hover { color: var(--blue); border-color: var(--blue-dim); }
+    .links a.primary { color: var(--blue); border-color: var(--blue-dim); }
+    footer { max-width: 820px; margin: 3rem auto 0; padding: 2rem; border-top: 1px solid var(--border); color: var(--gray); font-size: .78rem; }
+    @media (max-width: 640px) { main { padding: 2rem 1.5rem; } .work { padding-left: 1rem; } .tracks { grid-template-columns: 1fr; } }
+  </style>
+</head>
+
+<body>
+
+  <div class="nav"><a href="/">&larr; inixiative</a></div>
+
+  <main>
+    <div class="avail">available for work</div>
+    <h1>Aron Greenspan</h1>
+    <p class="lede">
+      <strong>I build infrastructure primitives that compose.</strong> A rules AST that compiles to
+      three execution targets. A permissions engine that walks relationships instead of checking role
+      strings. A production framework that consumes both — and the agent tooling I use to build all
+      of it.
+    </p>
+
+    <h2>What I'm looking for</h2>
+    <div class="tracks">
+      <div class="track">
+        <h3>Staff / principal IC</h3>
+        <p>Systems design across boundaries — the work where the leverage is in how the pieces compose, not in any one service.</p>
+      </div>
+      <div class="track">
+        <h3>Founding engineer</h3>
+        <p>Full-stack breadth with production discipline: auth, tenancy, jobs, infrastructure and frontend, shipped and tested.</p>
+      </div>
+      <div class="track">
+        <h3>Agent infrastructure</h3>
+        <p>The tooling layer for coding agents — sessions, orchestration, evaluation, and codebase representations that don't drift.</p>
+      </div>
+      <div class="track">
+        <h3>Advisory / contract</h3>
+        <p>Architecture review, authorization and multi-tenancy design, or standing up the security-critical foundation once, properly.</p>
+      </div>
+    </div>
+
+    <h2>Selected work</h2>
+
+    <div class="work">
+      <h3><a href="https://github.com/inixiative/template">template</a></h3>
+      <div class="meta">~95,000 lines of hand-written TypeScript · 4 apps · 6 packages · 205 test files · 39 doc modules</div>
+      <p>
+        A production SaaS foundation where the security-critical subsystems are built, tested and
+        composed rather than stubbed. ReBAC authorization over the real data graph, multi-tenancy
+        carried through the query and permission layers, field-level encryption with a scheduled
+        key-rotation job, an app-events bus, webhooks, and 111 route modules that auto-register,
+        emit OpenAPI 3.1, and regenerate a typed SDK.
+      </p>
+      <p><a href="https://github.com/inixiative/template/blob/main/COMPARISONS.md">17 subsystems benchmarked against Auth0, Clerk, Permit.io, Hasura and Temporal &rarr;</a></p>
+    </div>
+
+    <div class="work">
+      <h3><a href="https://github.com/inixiative/json-rules">json-rules</a> &middot; <a href="https://github.com/inixiative/permissions">permissions</a> &middot; <a href="https://github.com/inixiative/transitions">transitions</a></h3>
+      <div class="meta">the composable spine</div>
+      <p>
+        One serializable <code>Condition</code> AST with 38 operators and three backends: evaluate in
+        memory, compile to a Prisma query, or compile to a PostgreSQL <code>WHERE</code> clause.
+        Authorization, workflow guards, form logic and query filtering then become the
+        <em>same primitive</em> pointed at different questions — so a rule authored once is
+        enforceable at whichever layer it has to run.
+      </p>
+    </div>
+
+    <div class="work">
+      <h3><a href="https://github.com/inixiative/foundry">foundry</a> &middot; <a href="https://github.com/inixiative/agent-session">agent-session</a> &middot; <a href="https://github.com/inixiative/atlas">atlas</a></h3>
+      <div class="meta">agent-native development</div>
+      <p>
+        Coding agents as a first-class part of the toolchain, and the tooling that makes that
+        reliable: persistent streaming agent sessions instead of one-shot invocations, orchestration
+        with context layers and capability gating, and a codebase map that only ever asserts what is
+        mechanically true so it cannot drift.
+      </p>
+      <p><a href="https://bench.inixiative.com">bench — an agentic-engineering benchmark scored on cruft vs. elegance &rarr;</a></p>
+    </div>
+
+    <h2>How I work</h2>
+    <ul>
+      <li><strong>Find the primitive.</strong> Most systems re-solve the same problem badly in five places. The win is usually one small, enforceable model that all five become consumers of.</li>
+      <li><strong>Purpose before mechanism.</strong> Working a mechanism without holding what it is <em>for</em> produces category errors that feel like progress — stripping the load-bearing part, calling a dead snapshot fine.</li>
+      <li><strong>Guards live in the primitive.</strong> Once, at the boundary — not replicated at every call site, and not re-checking a contract a library already guarantees.</li>
+      <li><strong>Documentation that cannot lie.</strong> Comments rot. Generated maps constrained to mechanical truth don't. Prefer the second.</li>
+      <li><strong>Composition over accumulation.</strong> Twelve repositories that form one system are worth more than twelve that merely coexist.</li>
+    </ul>
+
+    <h2>Stack</h2>
+    <p class="stack">
+      TypeScript · Bun · Hono · PostgreSQL · Prisma 7 · React · TanStack · Vite · Tailwind v4 ·
+      Redis · BullMQ · Turborepo · Docker · GitHub Actions
+    </p>
+
+    <h2>Also</h2>
+    <p>
+      I write about governance and institutional design — treating the cost of coordination as an
+      engineering problem rather than a political one.
+      <a href="/proposals">Designs for cooperation at scale &rarr;</a>
+    </p>
+
+    <h2>Get in touch</h2>
+    <div class="links">
+      <a class="primary" href="mailto:aron.greenspan@inixiative.com">aron.greenspan@inixiative.com</a>
+      <a href="https://github.com/agreenspan">github</a>
+      <a href="https://github.com/inixiative">@inixiative</a>
+      <a href="https://inixiative.substack.com">substack</a>
+      <a href="https://x.com/inixiative">twitter/x</a>
+    </div>
+  </main>
+
+  <footer>&lt;iXi&gt; &copy; 2026</footer>
+
+</body>
+
+</html>
