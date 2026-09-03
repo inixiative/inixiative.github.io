@@ -74,8 +74,8 @@
 
     /* ---------- doors ---------- */
     .doors {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
-      max-width: 820px; margin: 3rem auto 0; padding: 0 2rem; width: 100%;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+      max-width: 1040px; margin: 3rem auto 0; padding: 0 2rem; width: 100%;
     }
     .door {
       display: block; text-decoration: none; color: inherit; text-align: left;
@@ -85,12 +85,14 @@
     }
     .door:hover { transform: translateY(-3px); background: var(--bg-raise); }
     .door.build:hover { border-color: var(--blue-dim); }
+    .door.agentic:hover { border-color: var(--gold); }
     .door.think:hover { border-color: var(--purple); }
     .door-k {
       font-family: var(--mono); font-size: .7rem; letter-spacing: .28em;
       text-transform: uppercase; margin-bottom: .7rem;
     }
     .door.build .door-k { color: var(--blue); }
+    .door.agentic .door-k { color: var(--gold); }
     .door.think .door-k { color: var(--purple); }
     .door h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: .45rem; letter-spacing: -.01em; }
     .door p { font-size: .875rem; color: var(--text-dim); line-height: 1.6; }
@@ -219,8 +221,11 @@
     }
     footer .copyright { font-family: var(--mono); font-size: .7rem; margin-top: .75rem; opacity: .6; }
 
+    @media (max-width: 940px) {
+      .doors { grid-template-columns: 1fr; max-width: 620px; }
+    }
+
     @media (max-width: 760px) {
-      .doors { grid-template-columns: 1fr; }
       .think-panel { grid-template-columns: 1fr; }
       section { padding: 3.25rem 1.5rem; }
       .hero { padding: 3.5rem 1.5rem 2rem; }
@@ -235,22 +240,29 @@
     <div class="logo fade-in"><span class="bracket">&lt;</span><span class="mark">iXi</span><span class="bracket">&gt;</span></div>
     <div class="tagline fade-in d1">technology for cooperation</div>
     <p class="hero-sub fade-in d2">
-      <strong>Infrastructure primitives that compose.</strong> One serializable rules AST with three
-      execution targets, relationship-based authorization built on it, and a production framework that
-      consumes both.
+      <strong>Infrastructure primitives that compose, and the agent-native method that builds
+      them.</strong> A rules AST with three execution targets. A production framework on top of it &mdash;
+      95,000 lines of TypeScript, almost none of it typed by hand. And the governance work all of it
+      is for: coordination as an engineering problem.
     </p>
   </div>
 
   <div class="doors fade-in d3">
-    <a class="door build" href="#build">
-      <div class="door-k">build</div>
-      <h2>The code</h2>
-      <p>Twelve open-source repositories that form a single composable stack — from a rules engine up to a production SaaS framework.</p>
-      <div class="door-meta">~95k LOC · 205 test files · TypeScript</div>
+    <a class="door build" href="#primitives">
+      <div class="door-k">primitives</div>
+      <h2>The composable stack</h2>
+      <p>A rules AST with three execution targets, relationship-based authorization built on it, and a production SaaS framework that consumes both.</p>
+      <div class="door-meta">8 repositories · ~95k curated LOC</div>
+    </a>
+    <a class="door agentic" href="#agentic">
+      <div class="door-k">agentic</div>
+      <h2>How it gets built</h2>
+      <p>The tooling and conventions that let coding agents produce a large system that stays coherent — and a benchmark that measures whether they do.</p>
+      <div class="door-meta">sessions · orchestration · evaluation</div>
     </a>
     <a class="door think" href="#think">
-      <div class="door-k">think</div>
-      <h2>The governance work</h2>
+      <div class="door-k">whitepaper</div>
+      <h2>Governance design</h2>
       <p>Designs for cooperation at scale: how groups set rules, hold each other accountable, and invest together without a central referee.</p>
       <div class="door-meta">16 chapters · proposals · vocabulary</div>
     </a>
@@ -260,8 +272,8 @@
     <div class="whoami fade-in d3">built by <a href="/aron/">Aron Greenspan</a> &mdash; currently available for work</div>
   </div>
 
-  <section id="build">
-    <div class="section-label">build &mdash; the engineering</div>
+  <section id="primitives">
+    <div class="section-label">primitives &mdash; the composable stack</div>
 
     <div class="stats">
       <div class="stat"><div class="stat-n">~95k</div><div class="stat-l">curated lines of TypeScript, excluding generated code</div></div>
@@ -410,7 +422,7 @@
       </p>
     </div>
 
-    <div class="section-label">the primitives</div>
+    <div class="section-label">the packages</div>
     <div class="cards">
       <div class="card" id="json-rules">
         <h3><a href="https://github.com/inixiative/json-rules">json-rules</a></h3>
@@ -454,11 +466,20 @@
       </div>
     </div>
 
-    <div class="section-label" style="margin-top:3.5rem">agent-native development</div>
+  </section>
+
+  <hr class="rule">
+
+  <section id="agentic">
+    <div class="section-label">agentic &mdash; how it gets built</div>
     <p class="section-intro">
-      I build with coding agents as part of the toolchain, and I build the tooling that makes that
-      work reliably — persistent sessions, orchestration, and codebase representations an agent can
-      actually navigate.
+      The stack above was built with coding agents, and it holds together because the conventions came
+      before the code. That is the actual work: persistent sessions instead of one-shot invocations,
+      orchestration with context layers and capability gating, a codebase map that only asserts what is
+      mechanically true so it cannot drift, and a benchmark that scores whether an agent left the
+      repository better or barely working. <a href="#atlas">atlas</a> and <a href="#gloss">gloss</a>
+      belong to this story too &mdash; they ship as packages in the stack above, but they exist so an
+      agent can navigate a codebase it did not write.
     </p>
     <div class="cards">
       <div class="card" id="foundry">
@@ -503,7 +524,7 @@
   <hr class="rule">
 
   <section id="think">
-    <div class="section-label">think &mdash; governance and institutional design</div>
+    <div class="section-label">whitepaper &mdash; governance and institutional design</div>
     <div class="think-panel">
       <div>
         <h3>Designs for cooperation at scale</h3>
