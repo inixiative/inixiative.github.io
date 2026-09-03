@@ -423,6 +423,10 @@
     </div>
 
     <div class="section-label">the packages</div>
+    <p class="section-intro">
+      Ordered by what depends on what. <code>json-rules</code> sits underneath most of the
+      stack, and <code>template</code> consumes four of these directly.
+    </p>
     <div class="cards">
       <div class="card" id="json-rules">
         <h3><a href="https://github.com/inixiative/json-rules">json-rules</a></h3>
@@ -434,11 +438,6 @@
         <p><span class="why">RBAC, ABAC and ReBAC in one engine.</span> Relationship-walking checks with per-row grants. The app-specific part — which model a relation points at — is injected, so the core stays generic.</p>
         <div class="tags"><span class="tag">authorization</span><span class="tag">rebac</span><span class="tag">prisma</span></div>
       </div>
-      <div class="card" id="atlas">
-        <h3><a href="https://github.com/inixiative/atlas">atlas</a></h3>
-        <p><span class="why">A codebase map that cannot lie.</span> Reads <code>@atlas</code> annotations, validates them against a repo-owned concept registry, and only ever asserts what is mechanically true — never maturity or correctness.</p>
-        <div class="tags"><span class="tag">documentation</span><span class="tag">ai-agents</span></div>
-      </div>
       <div class="card" id="transitions">
         <h3><a href="https://github.com/inixiative/transitions">transitions</a></h3>
         <p><span class="why">Lifecycles as predicates.</span> A stateless primitive that guards a proposed state change and computes which transitions are currently available — so workflow rules and permission rules speak one language.</p>
@@ -448,6 +447,11 @@
         <h3><a href="https://github.com/inixiative/prisma-map">prisma-map</a></h3>
         <p><span class="why">Schema reflection at runtime.</span> Extracts models, fields, relations, foreign-key direction and enums from a generated Prisma client, so authority can be expressed over the real data graph without coupling to Prisma internals. Supports v6 and v7.</p>
         <div class="tags"><span class="tag">prisma</span><span class="tag">introspection</span></div>
+      </div>
+      <div class="card" id="atlas">
+        <h3><a href="https://github.com/inixiative/atlas">atlas</a></h3>
+        <p><span class="why">A codebase map that cannot lie.</span> Reads <code>@atlas</code> annotations, validates them against a repo-owned concept registry, and only ever asserts what is mechanically true — never maturity or correctness.</p>
+        <div class="tags"><span class="tag">documentation</span><span class="tag">ai-agents</span></div>
       </div>
       <div class="card" id="rules-builder">
         <h3><a href="https://github.com/inixiative/rules-builder">rules-builder</a></h3>
