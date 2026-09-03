@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 590" role="img" aria-labelledby="ecoTitle ecoDesc">
+  <title id="ecoTitle">The inixiative ecosystem</title>
+  <desc id="ecoDesc">json-rules and prisma-map are roots with no dependencies. permissions, transitions, atlas and rules-builder build on json-rules. prisma-map is injected into permissions at runtime. config supplies CI and build presets to the libraries. template consumes json-rules, permissions, atlas and prisma-map. Separately, agent-session powers foundry.</desc>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#30363D"/>
+    </marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1F6FEB"/>
+    </marker>
+    <marker id="ahd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6E7681"/>
+    </marker>
+  </defs>
+  <style>
+    .bx  { fill:#161B22; stroke:#30363D; stroke-width:1.5; rx:8; }
+    .bxc { fill:#0D2E5B; stroke:#58A6FF; stroke-width:2; rx:8; }
+    .bxt { fill:#161B22; stroke:#58A6FF; stroke-width:2; rx:8; }
+    .nm  { font-family:'JetBrains Mono',ui-monospace,monospace; font-size:14px; font-weight:700; fill:#C9D1D9; text-anchor:middle; }
+    .nmc { font-family:'JetBrains Mono',ui-monospace,monospace; font-size:17px; font-weight:700; fill:#58A6FF; text-anchor:middle; }
+    .sb  { font-family:Inter,system-ui,sans-serif; font-size:10.5px; fill:#8B949E; text-anchor:middle; }
+    .ed  { stroke:#30363D; stroke-width:1.5; fill:none; }
+    .edb { stroke:#1F6FEB; stroke-width:1.5; fill:none; }
+    .dsh { stroke:#6E7681; stroke-width:1.4; fill:none; stroke-dasharray:5 4; }
+    .lb  { font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10px; fill:#6E7681; text-anchor:middle; }
+    .tier{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:9.5px; fill:#484F58; letter-spacing:.16em; }
+  </style>
+
+  <!-- tier 1: roots -->
+  <text class="tier" x="14" y="36">NO DEPENDENCIES</text>
+  <rect class="bx" x="40" y="46" width="170" height="56"/>
+  <text class="nm" x="125" y="70">prisma-map</text>
+  <text class="sb" x="125" y="88">runtime model map</text>
+
+  <rect class="bxc" x="360" y="42" width="220" height="64"/>
+  <text class="nmc" x="470" y="70">json-rules</text>
+  <text class="sb"  x="470" y="90">one AST · memory · Prisma · SQL</text>
+
+  <rect class="bx" x="710" y="46" width="170" height="56"/>
+  <text class="nm" x="795" y="70">config</text>
+  <text class="sb" x="795" y="88">shared toolchain</text>
+
+  <!-- json-rules fans out -->
+  <path class="edb" d="M470,106 L470,150 L169,150 L169,186" marker-end="url(#ahb)"/>
+  <path class="edb" d="M470,106 L470,150 L363,150 L363,186" marker-end="url(#ahb)"/>
+  <path class="edb" d="M470,106 L470,150 L557,150 L557,186" marker-end="url(#ahb)"/>
+  <path class="edb" d="M470,106 L470,150 L751,150 L751,186" marker-end="url(#ahb)"/>
+
+  <!-- prisma-map injected into permissions -->
+  <path class="dsh" d="M125,102 L125,168 L169,168 L169,186" marker-end="url(#ahd)"/>
+  <text class="lb" x="86" y="140">injected</text>
+
+  <!-- config presets -->
+  <path class="dsh" d="M795,102 L795,168 L751,168 L751,186" marker-end="url(#ahd)"/>
+  <text class="lb" x="855" y="140">CI + presets</text>
+
+  <!-- tier 2 -->
+  <text class="tier" x="14" y="178">BUILT ON JSON-RULES</text>
+  <rect class="bx" x="84"  y="188" width="170" height="58"/>
+  <text class="nm" x="169" y="212">permissions</text>
+  <text class="sb" x="169" y="231">RBAC · ABAC · ReBAC</text>
+
+  <rect class="bx" x="278" y="188" width="170" height="58"/>
+  <text class="nm" x="363" y="212">transitions</text>
+  <text class="sb" x="363" y="231">lifecycle guards</text>
+
+  <rect class="bx" x="472" y="188" width="170" height="58"/>
+  <text class="nm" x="557" y="212">atlas</text>
+  <text class="sb" x="557" y="231">codebase map</text>
+
+  <rect class="bx" x="666" y="188" width="170" height="58"/>
+  <text class="nm" x="751" y="212">rules-builder</text>
+  <text class="sb" x="751" y="231">headless builder UI</text>
+
+  <!-- collector into template -->
+  <path class="ed" d="M169,246 L169,330"/>
+  <path class="ed" d="M557,246 L557,330"/>
+  <path class="ed" d="M169,330 L557,330"/>
+  <path class="ed" d="M470,330 L470,374" marker-end="url(#ah)"/>
+
+  <!-- tier 3 -->
+  <text class="tier" x="14" y="384">THE FRAMEWORK</text>
+  <rect class="bxt" x="332" y="376" width="276" height="70"/>
+  <text class="nmc" x="470" y="402">template</text>
+  <text class="sb"  x="470" y="421">production SaaS framework · ~95k LOC</text>
+  <text class="sb"  x="470" y="437">consumes json-rules · permissions · atlas · prisma-map</text>
+
+  <!-- agent stack -->
+  <line x1="14" y1="500" x2="906" y2="500" stroke="#21262D" stroke-width="1"/>
+  <text class="tier" x="14" y="528">THE AGENT STACK</text>
+  <rect class="bx" x="330" y="536" width="180" height="44"/>
+  <text class="nm" x="420" y="563">agent-session</text>
+  <rect class="bx" x="590" y="536" width="180" height="44"/>
+  <text class="nm" x="680" y="563">foundry</text>
+  <path class="ed" d="M510,558 L584,558" marker-end="url(#ah)"/>
+</svg>
