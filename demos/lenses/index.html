@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lens workbench — inixiative demos</title>
+  <meta name="description" content="Explore delegated lenses, JSON permissions, and rules across source data and temporary AI-derived facts. Watch the flow, then try the public workbench.">
+  <link rel="canonical" href="https://www.inixiative.com/demos/lenses/">
+  <meta property="og:title" content="Lens workbench — inixiative">
+  <meta property="og:description" content="Platform → organization → customer. Delegate a lens, combine two field maps, and test the boundaries. Watch the flow and try the public demo.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.inixiative.com/demos/lenses/">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
+  <link rel="apple-touch-icon" href="/icon-180x180.png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+    :root { color-scheme: dark; --bg:#0d1117; --surface:#161b22; --text:#e6edf3; --muted:#9da7b3; --blue:#58a6ff; --line:#30363d; --mono:'JetBrains Mono',ui-monospace,monospace; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font:1rem/1.65 'Inter',system-ui,sans-serif; }
+    a { color:var(--blue); text-underline-offset:.2em; }
+    a:focus-visible, summary:focus-visible, video:focus-visible { outline:3px solid var(--blue); outline-offset:5px; }
+    .skip { position:absolute; top:-5rem; left:1rem; z-index:2; background:var(--surface); padding:.7rem; }
+    .skip:focus { top:1rem; }
+    header, main, footer { width:min(1080px,calc(100% - 3rem)); margin-inline:auto; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1.6rem 0; border-bottom:1px solid var(--line); }
+    .brand { font:700 1.3rem var(--mono); text-decoration:none; }
+    .brand span { color:var(--muted); font-weight:400; }
+    header .back { color:var(--muted); font-size:.875rem; text-decoration:none; }
+    .intro { padding:3.5rem 0 2.4rem; display:grid; grid-template-columns:1fr auto; gap:2rem; align-items:end; }
+    .eyebrow { margin:0 0 .85rem; color:var(--blue); font:.75rem/1.5 var(--mono); letter-spacing:.12em; text-transform:uppercase; }
+    h1 { font-size:clamp(2.5rem,6vw,4.1rem); line-height:1.05; letter-spacing:-.045em; margin:0 0 1rem; }
+    .lede { color:var(--muted); max-width:650px; margin:0; font-size:1.0625rem; }
+    .launch { display:inline-flex; align-items:center; justify-content:center; padding:.9rem 1.25rem; border:1px solid var(--blue); background:var(--blue); color:#0d1117; border-radius:.5rem; font-weight:600; text-decoration:none; white-space:nowrap; transition:background .15s; }
+    .launch:hover { background:#8bc3ff; }
+    .launch-note { margin:.65rem 0 0; color:var(--muted); font-size:.875rem; }
+    .watch { border:1px solid var(--line); border-radius:.8rem; overflow:hidden; background:var(--surface); }
+    .watch-top { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.5rem; padding:1rem 1.25rem; }
+    .watch-top h2 { font-size:1rem; font-weight:500; margin:0; }
+    .watch-top span { color:var(--muted); font:.75rem/1.5 var(--mono); }
+    video { display:block; width:100%; aspect-ratio:16/9; background:#090c10; }
+    .caption { font-size:.875rem; color:var(--muted); margin:.85rem 0 0; }
+    .steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem; margin:2.5rem 0; padding:0; list-style:none; }
+    .steps li { border-top:1px solid var(--line); padding-top:1.2rem; }
+    .step-label { display:block; color:var(--blue); font:.75rem/1.5 var(--mono); margin-bottom:.6rem; }
+    h3 { font-size:1.125rem; font-weight:600; margin:0 0 .4rem; }
+    .steps p { margin:0; color:var(--muted); font-size:.9375rem; }
+    .try { padding:1.6rem; background:var(--surface); border:1px solid var(--line); border-radius:.6rem; }
+    .try h2 { font-size:1.25rem; margin:0 0 .5rem; }
+    .try p { margin:.4rem 0; }
+    .try .note { color:var(--muted); font-size:.875rem; margin-top:.8rem; }
+    code { font-family:var(--mono); font-size:.9em; }
+    details { margin-top:1.5rem; }
+    summary { cursor:pointer; color:var(--blue); font-size:.9375rem; width:fit-content; }
+    pre { padding:1rem; border:1px solid var(--line); border-radius:.5rem; overflow:auto; font:.875rem/1.65 var(--mono); color:var(--text); }
+    footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; padding:2rem 0; margin-top:2rem; color:var(--muted); font-size:.875rem; }
+    footer nav { display:flex; gap:1.2rem; flex-wrap:wrap; }
+    footer a { color:var(--muted); }
+    @media(max-width:760px) { .intro { grid-template-columns:1fr; padding-top:2.25rem; gap:1.4rem; } .steps { grid-template-columns:1fr; gap:1.5rem; } header,main,footer { width:calc(100% - 2rem); } .launch { white-space:normal; } }
+    @media(prefers-reduced-motion:reduce) { .launch { transition:none; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to demo</a>
+  <header>
+    <a class="brand" href="/" aria-label="inixiative home"><span>&lt;</span>iXi<span>&gt;</span></a>
+    <a class="back" href="/">inixiative / demos</a>
+  </header>
+  <main id="main">
+    <section class="intro" aria-labelledby="title">
+      <div>
+        <p class="eyebrow">Interactive demo · work in progress</p>
+        <h1 id="title">Lens workbench</h1>
+        <p class="lede">Delegate access from platform to organization to customer. Combine shipment data and temporary inferred facts through one lens. Then test its boundaries.</p>
+      </div>
+      <div>
+        <a class="launch" href="https://template-lens-workbench.aron-greenspan782310.chatgpt.site/">Open the workbench &nbsp;↗</a>
+        <p class="launch-note">Public sandbox · sample data · no sign-in</p>
+      </div>
+    </section>
+    <section class="watch" aria-labelledby="watch-title">
+      <div class="watch-top">
+        <h2 id="watch-title">Watch the system at work</h2>
+        <span>2:58 · narrated · English captions</span>
+      </div>
+      <video controls playsinline preload="none" poster="poster.jpg" aria-label="Lens workbench walkthrough">
+        <source src="https://template-lens-workbench.aron-greenspan782310.chatgpt.site/workbench-flow.mp4" type="video/mp4">
+        <track kind="captions" src="walkthrough.vtt" srclang="en" label="English" default>
+        <p>Your browser cannot play this video. <a href="https://template-lens-workbench.aron-greenspan782310.chatgpt.site/workbench-flow.mp4">Open the walkthrough</a>.</p>
+      </video>
+    </section>
+    <p class="caption">Actual workbench footage. Guided AI proposals are labeled; permission checks, lens validation, and query execution are real.</p>
+    <ol class="steps">
+      <li><span class="step-label">01 / DELEGATE</span><h3>Narrow the lens</h3><p>The platform defines the surface. Organizations narrow it for customers. Bound identities and ABAC, RBAC, and ReBAC policies determine access.</p></li>
+      <li><span class="step-label">02 / REASON</span><h3>Connect two field maps</h3><p>Infer an ownership handoff from shipment notes. Bridge the temporary EAV table to source data, then combine facts, nested groups, and ranked windows in one predicate.</p></li>
+      <li><span class="step-label">03 / VERIFY</span><h3>Push the boundaries</h3><p>Try a hidden field or another customer’s data. Revoke access and see stale results. Expire the facts and evaluate again. Definitions and predicates are serializable JSON.</p></li>
+    </ol>
+    <section class="try" aria-labelledby="try-title">
+      <h2 id="try-title">Try the bridge flow</h2>
+      <p>In the workbench, choose <strong>Derive new facts → Load guided inference → Write a rule</strong>.</p>
+      <p class="note">Use Sofía’s Andes and Pacific lenses to compare ownership handoffs with required laboratory review. The public build currently uses guided AI examples; free-form model calls are not enabled. Temporary facts stay in memory and never write to the source database.</p>
+      <details>
+        <summary>Inspect the bridge definition</summary>
+        <pre><code>{
+  "endpoints": [
+    { "fieldMap": "demo", "model": "Shipment", "on": "id" },
+    { "fieldMap": "facts", "model": "DerivedFact", "on": "shipmentId" }
+  ],
+  "cardinality": "oneToMany"
+}</code></pre>
+      </details>
+    </section>
+  </main>
+  <footer>
+    <span>&lt;iXi&gt; inixiative · 2026</span>
+    <nav aria-label="Libraries behind the demo">
+      <a href="https://github.com/inixiative/json-rules">json-rules</a>
+      <a href="https://github.com/inixiative/permissions">permissions</a>
+      <a href="https://github.com/inixiative/rules-builder">rules-builder</a>
+    </nav>
+  </footer>
+</body>
+</html>
