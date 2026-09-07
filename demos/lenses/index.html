@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Rules & lenses engine — inixiative demos</title>
+  <title>The engine for your AI SaaS — inixiative demos</title>
   <meta name="description" content="Define data boundaries, decide access, and query synthetic facts with serializable JSON. Three engine walkthroughs and an interactive workbench.">
   <link rel="canonical" href="https://www.inixiative.com/demos/lenses/">
-  <meta property="og:title" content="Rules & lenses engine — inixiative">
-  <meta property="og:description" content="Trace JSON lenses, permission policies, and predicates through validation and execution. See boundaries hold and answers become stale when their dependencies change.">
+  <meta property="og:title" content="The engine for your AI SaaS — inixiative">
+  <meta property="og:description" content="Trace JSON lenses, permission policies, and predicates through validation and execution. See boundaries hold and previously valid rules become stale when an upstream lens narrows.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.inixiative.com/demos/lenses/">
   <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
@@ -85,8 +85,8 @@
     <section class="intro" aria-labelledby="title">
       <div>
         <p class="eyebrow">Interactive demo · work in progress</p>
-        <h1 id="title">Rules &amp; lenses engine</h1>
-        <p class="lede">Define the data an agent can use. Decide who can access it. Turn interpretations into facts you can query. The definitions are JSON, and the engine enforces them. Shipment records provide the sample data; bring the engine to your own application.</p>
+        <h1 id="title">The engine for your AI SaaS.</h1>
+        <p class="lede">Give your AI SaaS a foundation for scoped data access, executable rules, and queryable AI interpretations. Agents propose JSON; the engine validates it against their lenses and executes the permitted queries. Shipment records are sample input for this workbench.</p>
       </div>
       <div>
         <a class="launch" href="https://template-lens-workbench.aron-greenspan782310.chatgpt.site/">Open the workbench &nbsp;↗</a>
@@ -101,15 +101,15 @@
         <button type="button" data-episode="2" aria-pressed="false"><strong>03 / Synthetic facts</strong><span>Evidence → typed facts → combined rules</span></button>
       </div>
       <div class="watch-top"><h3 id="episode-title">Lenses: a JSON boundary around a query</h3><span id="runtime"></span></div>
-      <video id="engine-video" controls playsinline preload="metadata" poster="media/lenses.jpg" aria-label="Lenses engine walkthrough" src="media/lenses.mp4">
-        <track kind="captions" src="media/lenses.vtt" srclang="en" label="English" default>
-        <p>Your browser cannot play this video. <a href="media/lenses.mp4">Open the lenses video</a>.</p>
+      <video id="engine-video" controls playsinline preload="metadata" poster="media/lenses.jpg?v=ai-saas-2" aria-label="Lenses engine walkthrough" src="media/lenses.mp4?v=ai-saas-2">
+        <track kind="captions" src="media/lenses.vtt?v=ai-saas-2" srclang="en" label="English" default>
+        <p>Your browser cannot play this video. <a href="media/lenses.mp4?v=ai-saas-2">Open the lenses video</a>.</p>
       </video>
       <div class="player-tools">
         <label class="seek-label" for="seek">Seek in video <output id="position">0:00</output></label>
         <input id="seek" type="range" min="0" max="143" step="0.1" value="0" disabled aria-label="Seek in video">
         <div id="chapters" aria-label="Video chapters"></div>
-        <p id="video-error" hidden>The video could not load. <a id="direct-video" href="media/lenses.mp4">Open it directly</a>.</p>
+        <p id="video-error" hidden>The video could not load. <a id="direct-video" href="media/lenses.mp4?v=ai-saas-2">Open it directly</a>.</p>
       </div>
     </section>
     <p class="caption">Recorded engine responses, with readable JSON and real execution results. Synthetic-fact inference uses a prepared AI example. Each video stands on its own.</p>
@@ -119,8 +119,8 @@
       <li><span class="step-label">03 / SYNTHETIC FACTS</span><h3>Make an interpretation queryable</h3><p>Infer something the original fields don’t say. Represent it as a typed fact with evidence, connect it through a bridge, and write one predicate across source records and derived interpretations.</p></li>
     </ol>
     <section class="try" aria-labelledby="staleness-title">
-      <h2 id="staleness-title">A stale answer has lost its basis</h2>
-      <p>When an upstream lens, source query, or permission removes information an answer relied on, that answer must be checked again. Staleness describes a changed dependency. It is separate from how old the information is or when a temporary fact expires.</p>
+      <h2 id="staleness-title">A stale rule no longer fits its lens</h2>
+      <p>A rule is built against a lens. If upstream narrowing removes a field or relation the rule uses, that rule is no longer valid: it is stale. The validator shows the broken reference, and the predicate must be revised to fit the current lens. Fewer matching records, old results, and expired facts are separate concerns.</p>
     </section>
     <section class="try" aria-labelledby="try-title">
       <h2 id="try-title">Try it yourself</h2>
@@ -152,30 +152,30 @@
     "id": "lenses",
     "title": "Lenses",
     "description": "A JSON boundary around a query",
-    "duration": 143,
+    "duration": 147,
     "chapters": [
       {
         "time": 0,
         "title": "A boundary your application can use"
       },
       {
-        "time": 22.95,
+        "time": 22.98,
         "title": "Narrow, then bind an identity"
       },
       {
-        "time": 47.05,
+        "time": 47.08,
         "title": "The question is JSON, too"
       },
       {
-        "time": 70.63,
+        "time": 70.65,
         "title": "From predicate to database query"
       },
       {
-        "time": 96.38,
-        "title": "Upstream changes propagate"
+        "time": 96.4,
+        "title": "Upstream narrowing makes a rule stale"
       },
       {
-        "time": 119.17,
+        "time": 123.33,
         "title": "An out-of-bounds predicate is rejected"
       }
     ]
@@ -184,7 +184,7 @@
     "id": "permissions",
     "title": "Permissions",
     "description": "Who can receive a lens—and what changes when access changes",
-    "duration": 141,
+    "duration": 146,
     "chapters": [
       {
         "time": 0,
@@ -203,11 +203,11 @@
         "title": "Remove access upstream"
       },
       {
-        "time": 98.2,
+        "time": 103.02,
         "title": "Old access cannot be replayed"
       },
       {
-        "time": 117.92,
+        "time": 122.75,
         "title": "Changing a role changes the decision"
       }
     ]
@@ -216,7 +216,7 @@
     "id": "synthetic-facts",
     "title": "Synthetic facts",
     "description": "Reason over evidence, then query the interpretation",
-    "duration": 175,
+    "duration": 177,
     "chapters": [
       {
         "time": 0,
@@ -240,10 +240,10 @@
       },
       {
         "time": 124.38,
-        "title": "A changed source invalidates the answer"
+        "title": "Upstream narrowing invalidates the rule"
       },
       {
-        "time": 151.68,
+        "time": 153.63,
         "title": "Facts stay inside the lens"
       }
     ]
@@ -270,9 +270,9 @@
       const next = Number(button.dataset.episode); if (next === selected) return;
       video.pause(); selected = next; const episode = episodes[selected];
       document.querySelectorAll('[data-episode]').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.episode) === selected)));
-      video.src = 'media/' + episode.id + '.mp4'; video.poster = 'media/' + episode.id + '.jpg';
+      video.src = 'media/' + episode.id + '.mp4?v=ai-saas-2'; video.poster = 'media/' + episode.id + '.jpg?v=ai-saas-2';
       video.setAttribute('aria-label', episode.title + ' engine walkthrough');
-      const track = document.createElement('track'); Object.assign(track, {kind:'captions', src:'media/' + episode.id + '.vtt', srclang:'en', label:'English', default:true});
+      const track = document.createElement('track'); Object.assign(track, {kind:'captions', src:'media/' + episode.id + '.vtt?v=ai-saas-2', srclang:'en', label:'English', default:true});
       video.replaceChildren(track); video.load(); seek.disabled = true; seek.value = 0; position.textContent = '0:00';
       document.getElementById('video-error').hidden = true;
       document.getElementById('direct-video').href = video.src;

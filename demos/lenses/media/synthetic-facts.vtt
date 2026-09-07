@@ -60,29 +60,29 @@ predicate. Two shipments match. A ranked-window question about the second-longes
 00:01:56.506 --> 00:02:00.875
 leaves one. You can inspect the rule and the result at each stage.
 
-00:02:04.375 --> 00:02:09.851
-Now narrow the upstream lens to Standard shipments. The source query no longer
+00:02:04.375 --> 00:02:10.060
+Now the platform removes the synthetic-fact relation from its lens. Our combined rule
 
-00:02:09.851 --> 00:02:15.748
-includes the Express records behind our answer. That earlier answer is stale because
+00:02:10.060 --> 00:02:15.812
+still references that relation. It was valid before; under the inherited narrowing, it
 
-00:02:15.748 --> 00:02:21.435
-its supporting input changed. The old request is rejected, and a fresh evaluation
+00:02:15.812 --> 00:02:21.563
+is invalid. That is rule staleness. The source records are still there, and an allowed
 
-00:02:21.435 --> 00:02:27.332
-returns no matches. This is dependency invalidation, separate from a fact’s optional
+00:02:21.563 --> 00:02:26.981
+source-only rule still works. We have to revise the combined predicate to fit the
 
-00:02:27.332 --> 00:02:28.175
-expiry time.
+00:02:26.981 --> 00:02:30.125
+lens. Waiting or refreshing does not repair it.
 
-00:02:31.675 --> 00:02:37.357
+00:02:33.625 --> 00:02:39.307
 An invented fact for another customer’s shipment cannot bring that shipment into the
 
-00:02:37.357 --> 00:02:43.107
+00:02:39.307 --> 00:02:45.057
 result. The engine checks the entity, source evidence, and lens instance before using
 
-00:02:43.107 --> 00:02:48.857
+00:02:45.057 --> 00:02:50.807
 a fact. The agent can propose an interpretation and a predicate. It cannot use either
 
-00:02:48.857 --> 00:02:51.225
+00:02:50.807 --> 00:02:53.175
 one to widen the underlying access.

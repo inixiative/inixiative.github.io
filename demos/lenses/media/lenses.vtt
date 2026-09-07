@@ -1,73 +1,76 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:05.855
-This is a rules and lenses engine. A lens describes which fields and records a query
+00:00:00.000 --> 00:00:05.960
+This is the engine for your AI SaaS. A lens describes which fields and records a query
 
-00:00:05.855 --> 00:00:11.363
+00:00:05.960 --> 00:00:11.435
 is allowed to use. We are using shipment records as sample input. The same idea
 
-00:00:11.363 --> 00:00:16.940
+00:00:11.435 --> 00:00:16.979
 belongs inside your own application. Start with the definition on the left, then
 
-00:00:16.940 --> 00:00:19.450
+00:00:16.979 --> 00:00:19.475
 follow what the engine does with it.
 
-00:00:22.950 --> 00:00:28.867
+00:00:22.975 --> 00:00:28.892
 Here, the platform hides internal cost. It gives an organization a narrower lens,
 
-00:00:28.867 --> 00:00:34.710
+00:00:28.892 --> 00:00:34.735
 bound to that organization. The organization passes a further narrowed lens to a
 
-00:00:34.710 --> 00:00:40.847
+00:00:34.735 --> 00:00:40.872
 customer. Binding supplies the identity in the rule. The inherited conditions remain
 
-00:00:40.847 --> 00:00:43.550
+00:00:40.872 --> 00:00:43.575
 in force; a child cannot remove them.
 
-00:00:47.050 --> 00:00:52.615
+00:00:47.075 --> 00:00:52.640
 A predicate is a condition that selects matching records. This one asks for at least
 
-00:00:52.615 --> 00:00:58.180
+00:00:52.640 --> 00:00:58.205
 two related events, where each event is a customs hold lasting twelve hours or more.
 
-00:00:58.180 --> 00:01:03.746
+00:00:58.205 --> 00:01:03.771
 The all group means both conditions must match the same event. This structure can be
 
-00:01:03.746 --> 00:01:07.125
+00:01:03.771 --> 00:01:07.150
 written by a person, a visual builder, or an agent.
 
-00:01:10.625 --> 00:01:16.305
+00:01:10.650 --> 00:01:16.330
 The engine first validates the predicate against the lens. It combines the predicate
 
-00:01:16.305 --> 00:01:21.986
+00:01:16.330 --> 00:01:22.011
 with inherited restrictions and resolves the identity bindings. To Prisma translates
 
-00:01:21.986 --> 00:01:27.735
+00:01:22.011 --> 00:01:27.760
 that combined condition into a query plan. Here, the plan groups related events, then
 
-00:01:27.735 --> 00:01:32.875
+00:01:27.760 --> 00:01:32.900
 fetches the matching shipments. These are results from an actual engine run.
 
-00:01:36.375 --> 00:01:42.039
-Now the platform adds an Express-only condition. The organization and customer inherit
+00:01:36.400 --> 00:01:41.439
+Now the platform removes delay hours from the event fields it exposes. The
 
-00:01:42.039 --> 00:01:47.507
-it. Our previous answer was produced under the earlier lens, so it is marked stale.
+00:01:41.439 --> 00:01:47.159
+organization and customer inherit that narrowing. Our existing rule still uses delay
 
-00:01:47.507 --> 00:01:52.974
-That means it needs to be checked again against its changed dependency. It does not
+00:01:47.159 --> 00:01:52.947
+hours, so it is no longer valid. This is a stale rule: the upstream lens it was based
 
-00:01:52.974 --> 00:01:55.675
-mean the shipment records have grown old.
+00:01:52.947 --> 00:01:58.667
+on no longer supports it. Re-running cannot fix it. The predicate must change to fit
 
-00:01:59.175 --> 00:02:05.245
+00:01:58.667 --> 00:01:59.825
+the current lens.
+
+00:02:03.325 --> 00:02:09.395
 Finally, ask for internal cost. That field is outside the lens, so validation rejects
 
-00:02:05.245 --> 00:02:10.887
+00:02:09.395 --> 00:02:15.037
 the predicate before execution. Even an always-true condition cannot remove the
 
-00:02:10.887 --> 00:02:16.886
+00:02:15.037 --> 00:02:21.036
 customer binding. The engine accepts flexible questions, while the lens controls the
 
-00:02:16.886 --> 00:02:19.100
+00:02:21.036 --> 00:02:23.250
 boundary they must stay inside.
