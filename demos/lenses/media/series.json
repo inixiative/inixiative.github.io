@@ -1,0 +1,102 @@
+[
+  {
+    "id": "lenses",
+    "title": "Lenses",
+    "description": "A JSON boundary around a query",
+    "duration": 143,
+    "chapters": [
+      {
+        "time": 0,
+        "title": "A boundary your application can use"
+      },
+      {
+        "time": 22.95,
+        "title": "Narrow, then bind an identity"
+      },
+      {
+        "time": 47.05,
+        "title": "The question is JSON, too"
+      },
+      {
+        "time": 70.63,
+        "title": "From predicate to database query"
+      },
+      {
+        "time": 96.38,
+        "title": "Upstream changes propagate"
+      },
+      {
+        "time": 119.17,
+        "title": "An out-of-bounds predicate is rejected"
+      }
+    ]
+  },
+  {
+    "id": "permissions",
+    "title": "Permissions",
+    "description": "Who can receive a lens—and what changes when access changes",
+    "duration": 141,
+    "chapters": [
+      {
+        "time": 0,
+        "title": "Who gets the lens?"
+      },
+      {
+        "time": 23.05,
+        "title": "Groups, roles, and relationships"
+      },
+      {
+        "time": 50.8,
+        "title": "An allowed question reaches the engine"
+      },
+      {
+        "time": 74.72,
+        "title": "Remove access upstream"
+      },
+      {
+        "time": 98.2,
+        "title": "Old access cannot be replayed"
+      },
+      {
+        "time": 117.92,
+        "title": "Changing a role changes the decision"
+      }
+    ]
+  },
+  {
+    "id": "synthetic-facts",
+    "title": "Synthetic facts",
+    "description": "Reason over evidence, then query the interpretation",
+    "duration": 175,
+    "chapters": [
+      {
+        "time": 0,
+        "title": "When the answer is not a source field"
+      },
+      {
+        "time": 25.3,
+        "title": "Give the interpretation a typed shape"
+      },
+      {
+        "time": 52.23,
+        "title": "Connect two field maps"
+      },
+      {
+        "time": 77.13,
+        "title": "Put source fields and facts in one rule"
+      },
+      {
+        "time": 99.83,
+        "title": "Follow both execution stages"
+      },
+      {
+        "time": 124.38,
+        "title": "A changed source invalidates the answer"
+      },
+      {
+        "time": 151.68,
+        "title": "Facts stay inside the lens"
+      }
+    ]
+  }
+]

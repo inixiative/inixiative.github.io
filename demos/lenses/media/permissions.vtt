@@ -1,0 +1,73 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:06.240
+A lens controls the data surface. A permission policy controls who can receive that
+
+00:00:06.240 --> 00:00:12.707
+lens. Both are JSON. In this example, an organization must be active and on a Pro plan
+
+00:00:12.707 --> 00:00:18.873
+before it receives the platform lens. Watch the policy and its evaluated decisions
+
+00:00:18.873 --> 00:00:19.550
+together.
+
+00:00:23.050 --> 00:00:29.165
+The all group requires every condition inside it. An attribute rule checks whether the
+
+00:00:29.165 --> 00:00:34.997
+customer relationship is active. A relationship rule follows the customer link and
+
+00:00:34.997 --> 00:00:40.686
+requires reader access. Roles can inherit actions: in this demo, an analyst also
+
+00:00:40.686 --> 00:00:46.802
+qualifies as a reader. These are executable rules, not instructions asking an agent to
+
+00:00:46.802 --> 00:00:47.300
+behave.
+
+00:00:50.800 --> 00:00:56.616
+Sofia can receive lenses from two providers. Her predicate asks for delayed shipments.
+
+00:00:56.616 --> 00:01:02.229
+The server checks the current catalog, validates the predicate within each selected
+
+00:01:02.229 --> 00:01:07.911
+lens, and translates the bounded queries through To Prisma. The answer contains only
+
+00:01:07.911 --> 00:01:11.225
+records returned through those authorized lenses.
+
+00:01:14.725 --> 00:01:20.767
+Now change Pacific from Pro to Starter. Its lens disappears from Sofia’s catalog. The
+
+00:01:20.767 --> 00:01:26.667
+earlier two-provider answer is stale because its permission dependency changed. The
+
+00:01:26.667 --> 00:01:32.567
+workbench hides that answer until it is run again. The new result includes only the
+
+00:01:32.567 --> 00:01:34.699
+provider she can still access.
+
+00:01:38.199 --> 00:01:44.170
+Try sending the old Pacific lens identifier again. The server rejects it because that
+
+00:01:44.170 --> 00:01:50.140
+lens is no longer available in this context. A saved query is not a saved permission.
+
+00:01:50.140 --> 00:01:54.424
+The current policy must still allow the request when it runs.
+
+00:01:57.924 --> 00:02:04.175
+We can narrow the customer policy to require the analyst action. Mateo is a viewer, so
+
+00:02:04.175 --> 00:02:10.426
+the Andes lens is unavailable to him. Change his role to analyst, and that same policy
+
+00:02:10.426 --> 00:02:16.532
+allows it. The JSON stays visible while the engine evaluates changing attributes and
+
+00:02:16.532 --> 00:02:17.549
+relationships.

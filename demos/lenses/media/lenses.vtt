@@ -1,0 +1,73 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.855
+This is a rules and lenses engine. A lens describes which fields and records a query
+
+00:00:05.855 --> 00:00:11.363
+is allowed to use. We are using shipment records as sample input. The same idea
+
+00:00:11.363 --> 00:00:16.940
+belongs inside your own application. Start with the definition on the left, then
+
+00:00:16.940 --> 00:00:19.450
+follow what the engine does with it.
+
+00:00:22.950 --> 00:00:28.867
+Here, the platform hides internal cost. It gives an organization a narrower lens,
+
+00:00:28.867 --> 00:00:34.710
+bound to that organization. The organization passes a further narrowed lens to a
+
+00:00:34.710 --> 00:00:40.847
+customer. Binding supplies the identity in the rule. The inherited conditions remain
+
+00:00:40.847 --> 00:00:43.550
+in force; a child cannot remove them.
+
+00:00:47.050 --> 00:00:52.615
+A predicate is a condition that selects matching records. This one asks for at least
+
+00:00:52.615 --> 00:00:58.180
+two related events, where each event is a customs hold lasting twelve hours or more.
+
+00:00:58.180 --> 00:01:03.746
+The all group means both conditions must match the same event. This structure can be
+
+00:01:03.746 --> 00:01:07.125
+written by a person, a visual builder, or an agent.
+
+00:01:10.625 --> 00:01:16.305
+The engine first validates the predicate against the lens. It combines the predicate
+
+00:01:16.305 --> 00:01:21.986
+with inherited restrictions and resolves the identity bindings. To Prisma translates
+
+00:01:21.986 --> 00:01:27.735
+that combined condition into a query plan. Here, the plan groups related events, then
+
+00:01:27.735 --> 00:01:32.875
+fetches the matching shipments. These are results from an actual engine run.
+
+00:01:36.375 --> 00:01:42.039
+Now the platform adds an Express-only condition. The organization and customer inherit
+
+00:01:42.039 --> 00:01:47.507
+it. Our previous answer was produced under the earlier lens, so it is marked stale.
+
+00:01:47.507 --> 00:01:52.974
+That means it needs to be checked again against its changed dependency. It does not
+
+00:01:52.974 --> 00:01:55.675
+mean the shipment records have grown old.
+
+00:01:59.175 --> 00:02:05.245
+Finally, ask for internal cost. That field is outside the lens, so validation rejects
+
+00:02:05.245 --> 00:02:10.887
+the predicate before execution. Even an always-true condition cannot remove the
+
+00:02:10.887 --> 00:02:16.886
+customer binding. The engine accepts flexible questions, while the lens controls the
+
+00:02:16.886 --> 00:02:19.100
+boundary they must stay inside.
