@@ -1,100 +1,109 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:05.685
-One platform, its organizations, and their customers. Each has data, context, and an
+00:00:00.000 --> 00:00:04.703
+Imagine you’re tracking deliveries across two shipping companies. You want an
 
-00:00:05.685 --> 00:00:11.100
-agent. Guided proposals are labeled; validation and database execution are real.
+00:00:04.703 --> 00:00:09.956
+assistant to spot the problems that need attention. But it should only use information
 
-00:00:13.101 --> 00:00:18.081
-The platform exposes shipments and hides internal cost. The visual editor and agent
+00:00:09.956 --> 00:00:11.300
+you’re allowed to see.
 
-00:00:18.081 --> 00:00:21.081
-both author the same serializable JSON definition.
+00:00:14.802 --> 00:00:20.895
+A lens defines the slice of information someone is allowed to use. Here, the delivery
 
-00:00:23.081 --> 00:00:28.221
-Active Pro organizations receive the lens. Delegation binds each organization on the
+00:00:20.895 --> 00:00:25.627
+platform shares shipment details, but keeps internal costs hidden.
 
-00:00:28.221 --> 00:00:30.791
-server. The permission policy is JSON too.
+00:00:29.127 --> 00:00:34.506
+The platform also decides which companies get that view. Here, an active Pro
 
-00:00:32.794 --> 00:00:37.544
-Andes narrows to Express shipments for active Gold customers who can read. Standard
+00:00:34.506 --> 00:00:39.602
+subscription is required. Each company gets access to its own shipments.
 
-00:00:37.544 --> 00:00:41.263
-shipments disappear. The customer binding is added by the server.
+00:00:43.104 --> 00:00:49.315
+Andes can share a smaller view with its customers. Here, that means Express deliveries
 
-00:00:43.805 --> 00:00:49.270
-Sofía can use both providers. Mateo cannot use this Gold-only lens. Switching context
+00:00:49.315 --> 00:00:54.154
+for eligible customers. The limits set by the platform still apply.
 
-00:00:49.270 --> 00:00:52.035
-changes the catalog and the available data.
+00:00:57.655 --> 00:01:03.143
+Sofia has access to both shipping companies. Mateo has different access. Switch
 
-00:00:54.036 --> 00:00:58.789
-Which shipments need intervention? Start with nested shipment conditions. The authored
+00:01:03.143 --> 00:01:08.355
+between them, and the information available changes with the person asking.
 
-00:00:58.789 --> 00:01:03.266
-predicate is validated and combined with inherited restrictions before execution.
+00:01:11.856 --> 00:01:17.463
+Which deliveries need attention? A rule turns that question into something precise.
 
-00:01:05.266 --> 00:01:10.480
-These shipments have deliberately different histories. One long hold, repeated shorter
+00:01:17.463 --> 00:01:22.867
+Before it runs, the system checks that it only uses information this customer is
 
-00:01:10.480 --> 00:01:15.573
-holds, tied delays, and empty histories. Counts and totals select different records.
+00:01:22.867 --> 00:01:23.881
+allowed to see.
 
-00:01:15.573 --> 00:01:17.756
-Inspect the real grouped query plan.
+00:01:27.381 --> 00:01:33.221
+One long delay and several repeated delays can point to different problems. We can ask
 
-00:01:20.661 --> 00:01:25.768
-Filter customs holds, sort by delay, skip the worst, and inspect the next. This
+00:01:33.221 --> 00:01:37.431
+about either. The answers come from the same shipment history.
 
-00:01:25.768 --> 00:01:29.131
-general window runs through check on scoped records.
+00:01:42.827 --> 00:01:48.306
+We can even ask: was the second-longest hold serious, too? That helps separate a
 
-00:01:31.132 --> 00:01:36.278
-Now read the notes. Customs has released one shipment, but broker and carrier disagree
+00:01:48.306 --> 00:01:50.702
+recurring problem from one bad day.
 
-00:01:36.278 --> 00:01:41.365
-about who books pickup. Another awaits a scheduled laboratory review. Similar delays;
+00:01:54.202 --> 00:02:00.037
+Now read the notes. This shipment has cleared customs, but nobody agrees who should
 
-00:01:41.365 --> 00:01:42.502
-different problems.
+00:02:00.037 --> 00:02:05.871
+arrange collection. Another is waiting for a required lab result. Both are delayed.
 
-00:01:44.502 --> 00:01:49.608
-The guided inference tags an ownership handoff and cites its evidence. Live inference
+00:02:05.871 --> 00:02:08.752
+Only one needs someone to take ownership.
 
-00:01:49.608 --> 00:01:54.775
-uses the prompt when a model key is configured. These are in-memory entity, attribute,
+00:02:12.254 --> 00:02:18.220
+That gives us a useful label: an ownership handoff. We can inspect the notes behind it
 
-00:01:54.775 --> 00:01:59.702
-value records, with an explanation and expiry. Nothing is written to the database.
+00:02:18.220 --> 00:02:24.186
+before trusting the interpretation. The label has an expiry time, so an old conclusion
 
-00:02:01.702 --> 00:02:07.094
-The lens connects two field maps through a one-to-many bridge. One predicate combines
+00:02:24.186 --> 00:02:26.129
+doesn’t stay around forever.
 
-00:02:07.094 --> 00:02:12.359
-Express priority, repeated holds, and an inferred handoff. Add a ranked window: two
+00:02:29.631 --> 00:02:35.468
+Now combine the delivery details with that interpretation. Show Express shipments with
 
-00:02:12.359 --> 00:02:17.687
-matches become one. Expire the facts, and that match disappears. Evaluation stays in
+00:02:35.468 --> 00:02:41.306
+repeated holds and an ownership problem. We can put those conditions in a single rule.
 
-00:02:17.687 --> 00:02:18.132
-memory.
+00:02:44.806 --> 00:02:50.813
+Two shipments match. Another question, about the second-longest hold, leaves just one.
 
-00:02:20.132 --> 00:02:25.404
-Try hiding internal cost inside an OR branch. The actual validator rejects it. Ask for
+00:02:50.813 --> 00:02:54.656
+You can see exactly which delivery needs a closer look.
 
-00:02:25.404 --> 00:02:30.063
-another customer: the bound identity stays fixed and the query returns zero.
+00:02:58.155 --> 00:03:04.230
+Now expire the labels. That match disappears. The next answer needs fresh evidence.
 
-00:02:32.062 --> 00:02:37.245
-Change Pacific to Starter. Its lens disappears and the earlier answer becomes stale.
+00:03:07.730 --> 00:03:13.171
+What if we ask for something outside our access? Internal costs are refused. Asking
 
-00:02:37.245 --> 00:02:39.282
-Run again: only Andes can answer.
+00:03:13.171 --> 00:03:17.105
+for another customer’s shipments doesn’t give us their data.
 
-00:02:41.283 --> 00:02:46.578
-Lenses, permissions, predicates, and derived facts are JSON. Inspect them, change
+00:03:20.606 --> 00:03:26.453
+Access can change, too. Remove a company’s eligibility, and its shipments disappear.
 
-00:02:46.578 --> 00:02:49.913
-them, and watch the runtime enforce the boundaries.
+00:03:26.453 --> 00:03:30.631
+The earlier answer is marked out of date until we ask again.
+
+00:03:34.133 --> 00:03:40.595
+These definitions are written in JSON: a text format that people and software can both
+
+00:03:40.595 --> 00:03:46.682
+read. A person or an assistant can propose a change. The same access limits still
+
+00:03:46.682 --> 00:03:47.133
+apply.

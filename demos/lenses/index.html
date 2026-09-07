@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Lens workbench — inixiative demos</title>
-  <meta name="description" content="Explore delegated lenses, JSON permissions, and rules across source data and temporary AI-derived facts. Watch the flow, then try the public workbench.">
+  <meta name="description" content="See how a customer can ask an AI assistant about delayed deliveries while staying within their access. Watch the story, then try the public demo.">
   <link rel="canonical" href="https://www.inixiative.com/demos/lenses/">
   <meta property="og:title" content="Lens workbench — inixiative">
-  <meta property="og:description" content="Platform → organization → customer. Delegate a lens, combine two field maps, and test the boundaries. Watch the flow and try the public demo.">
+  <meta property="og:description" content="Follow deliveries across two shipping companies. Decide what a customer can see, spot the problem in the notes, and test what happens when access changes.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.inixiative.com/demos/lenses/">
   <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png">
@@ -70,7 +70,7 @@
       <div>
         <p class="eyebrow">Interactive demo · work in progress</p>
         <h1 id="title">Lens workbench</h1>
-        <p class="lede">Delegate access from platform to organization to customer. Combine shipment data and temporary inferred facts through one lens. Then test its boundaries.</p>
+        <p class="lede">Follow a customer’s deliveries across two shipping companies. Decide what they can see, ask why shipments are stuck, and watch what happens when access changes.</p>
       </div>
       <div>
         <a class="launch" href="https://template-lens-workbench.aron-greenspan782310.chatgpt.site/">Open the workbench &nbsp;↗</a>
@@ -80,26 +80,26 @@
     <section class="watch" aria-labelledby="watch-title">
       <div class="watch-top">
         <h2 id="watch-title">Watch the system at work</h2>
-        <span>2:58 · narrated · English captions</span>
+        <span>3:51 · narrated · English captions</span>
       </div>
       <video controls playsinline preload="none" poster="poster.jpg" aria-label="Lens workbench walkthrough">
-        <source src="https://template-lens-workbench.aron-greenspan782310.chatgpt.site/workbench-flow.mp4" type="video/mp4">
-        <track kind="captions" src="walkthrough.vtt" srclang="en" label="English" default>
-        <p>Your browser cannot play this video. <a href="https://template-lens-workbench.aron-greenspan782310.chatgpt.site/workbench-flow.mp4">Open the walkthrough</a>.</p>
+        <source src="https://template-lens-workbench.aron-greenspan782310.chatgpt.site/workbench-flow.mp4?v=story-20260907" type="video/mp4">
+        <track kind="captions" src="walkthrough.vtt?v=story-20260907" srclang="en" label="English" default>
+        <p>Your browser cannot play this video. <a href="https://template-lens-workbench.aron-greenspan782310.chatgpt.site/workbench-flow.mp4?v=story-20260907">Open the walkthrough</a>.</p>
       </video>
     </section>
-    <p class="caption">Actual workbench footage. Guided AI proposals are labeled; permission checks, lens validation, and query execution are real.</p>
+    <p class="caption">Actual demo footage. The AI responses in this recording are prepared examples. The access checks and results run in the demo.</p>
     <ol class="steps">
-      <li><span class="step-label">01 / DELEGATE</span><h3>Narrow the lens</h3><p>The platform defines the surface. Organizations narrow it for customers. Bound identities and ABAC, RBAC, and ReBAC policies determine access.</p></li>
-      <li><span class="step-label">02 / REASON</span><h3>Connect two field maps</h3><p>Infer an ownership handoff from shipment notes. Bridge the temporary EAV table to source data, then combine facts, nested groups, and ranked windows in one predicate.</p></li>
-      <li><span class="step-label">03 / VERIFY</span><h3>Push the boundaries</h3><p>Try a hidden field or another customer’s data. Revoke access and see stale results. Expire the facts and evaluate again. Definitions and predicates are serializable JSON.</p></li>
+      <li><span class="step-label">01 / SHARE</span><h3>Set what someone can see</h3><p>A lens defines which records and details someone is allowed to use. A company can give its customers a smaller view while keeping the original limits.</p></li>
+      <li><span class="step-label">02 / UNDERSTAND</span><h3>Find the problem in the notes</h3><p>Two deliveries can both say “delayed” for different reasons. An assistant can suggest which need someone to take ownership, with evidence you can inspect.</p></li>
+      <li><span class="step-label">03 / CHECK</span><h3>Try a question outside your access</h3><p>Ask for a hidden cost, switch customers, or remove access. See which questions are refused and when an earlier answer needs to be refreshed.</p></li>
     </ol>
     <section class="try" aria-labelledby="try-title">
-      <h2 id="try-title">Try the bridge flow</h2>
+      <h2 id="try-title">Try it yourself</h2>
       <p>In the workbench, choose <strong>Derive new facts → Load guided inference → Write a rule</strong>.</p>
-      <p class="note">Use Sofía’s Andes and Pacific lenses to compare ownership handoffs with required laboratory review. The public build currently uses guided AI examples; free-form model calls are not enabled. Temporary facts stay in memory and never write to the source database.</p>
+      <p class="note">Start as Sofía, with access to Andes and Pacific. Compare a delivery with nobody arranging collection against one waiting for a required lab result. Guided examples are available now; open-ended AI questions aren’t enabled in this public preview.</p>
       <details>
-        <summary>Inspect the bridge definition</summary>
+        <summary>For developers: the connection as JSON</summary>
         <pre><code>{
   "endpoints": [
     { "fieldMap": "demo", "model": "Shipment", "on": "id" },
