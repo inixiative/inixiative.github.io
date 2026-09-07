@@ -1,0 +1,37 @@
+The engine in action
+
+1. Three perspectives, one engine
+
+Let’s use the actual workbench. The three columns are three perspectives on the same application: its platform, an organization, and a customer. Shipments are our sample data. The product we are demonstrating is the rules and lenses engine underneath. Start with Lenses. At each stage, we need to distinguish the surfaces we receive from the surfaces we author for someone else.
+
+2. Author a surface; inspect its JSON
+
+The platform starts from its schema. It creates a lens called Shipment visibility. Open it and look at the visible fields: internal cost is excluded. The definition tab shows the same choice as JSON. This is behavior expressed as data. The engine interprets it. A platform can also compose a new lens from an existing one, preserving the parent’s limits.
+
+3. Receive a lens, then delegate it
+
+The organization can see the lens it received from the platform, with its organization identity bound into it. Below that is My shipments, the lens this organization authored for customers. The customer sees available lenses grouped by provider. This distinction matters: receiving a surface gives you a starting point. Delegating it adds restrictions; it cannot undo the restrictions you inherited.
+
+4. Follow the data through its relations
+
+Now open the platform’s data. There are three organizations. Open Andes and follow its shipments, then open one shipment and inspect its events. These are related records, not flattened labels. The organization’s own data view contains its shipments. The customer’s view contains only the records returned through its permitted lenses. Including a relation lets you inspect the history behind a result.
+
+5. One predicate, two execution paths
+
+In the organization’s data view, choose One rule, two paths. Begin with a single condition: status equals delayed. Run both. On the left, Check evaluates the allowed records in memory. On the right, To Prisma translates that same condition into database filters and fetches matching records. Compare the results: the same six shipments, with the same permitted fields and events. There is one rule definition to maintain.
+
+6. A more demanding question
+
+Replace the simple condition with Relation counts. Now the rule asks for at least two events where both tests pass: customs hold, and at least twelve hours of delay. The conditions are nested inside the relation. Run both again. Inspect the generated plan: this question needs an event grouping step, then a shipment query. The engine performs that translation. You changed the JSON, without writing a new query handler.
+
+7. Ask the surface; test its boundary
+
+Before asking an AI to write a predicate, let it discover its surface. Here we inspect the customer’s available fields and their meanings. This metadata response is supplied by the application. Now try using internal cost, a field the parent excluded. The request is rejected. The engine checks the proposed rule against the lens; knowing a field’s name does not make that field available.
+
+8. A valid rule can become stale
+
+Next, run a customer rule that uses event delay hours. It is valid and returns matches. Now the platform narrows the upstream lens by removing delay hours. Open the old query again. The validator marks the rule stale and identifies the field it can no longer use. This is not information aging. The surface that made the rule valid has changed. Revise the rule to use an available field, and it can run again.
+
+9. Permissions are executable definitions too
+
+Open Access. Each lens has a policy built from conditions, and the inspector shows who passes it. The platform requires an active Pro organization. Change Andes to Starter and watch its inherited lens disappear, along with the customer’s lens from that provider. The source records still exist. Access changed because the engine evaluated different inputs. Rules, lenses, and permissions are dynamic JSON building blocks for your AI SaaS.

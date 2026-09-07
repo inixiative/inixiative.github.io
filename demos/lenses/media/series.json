@@ -146,5 +146,49 @@
         "title": "Reasoning can expand without expanding authority"
       }
     ]
+  },
+  {
+    "id": "app-tour",
+    "title": "The engine in action",
+    "description": "Inside the workbench · discover, compose, query, and test the boundaries",
+    "duration": 283,
+    "chapters": [
+      {
+        "time": 0,
+        "title": "Three perspectives, one engine"
+      },
+      {
+        "time": 29.7,
+        "title": "Author a surface; inspect its JSON"
+      },
+      {
+        "time": 58.81,
+        "title": "Receive a lens, then delegate it"
+      },
+      {
+        "time": 89.83,
+        "title": "Follow the data through its relations"
+      },
+      {
+        "time": 121.31,
+        "title": "One predicate, two execution paths"
+      },
+      {
+        "time": 153.51,
+        "title": "A more demanding question"
+      },
+      {
+        "time": 185.61,
+        "title": "Ask the surface; test its boundary"
+      },
+      {
+        "time": 216.21,
+        "title": "A valid rule can become stale"
+      },
+      {
+        "time": 248.76,
+        "title": "Permissions are executable definitions too"
+      }
+    ]
   }
 ]

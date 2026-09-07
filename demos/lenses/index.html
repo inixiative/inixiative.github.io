@@ -59,7 +59,7 @@
     @media(prefers-reduced-motion:reduce) { .launch { transition:none; } }
       button { font:inherit; color:var(--text); cursor:pointer; }
     button:focus-visible, input:focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
-    .episode-picker { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.6rem; padding:0 1.25rem 1rem; }
+    .episode-picker { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:.6rem; padding:0 1.25rem 1rem; }
     .episode-picker button { background:var(--bg); border:1px solid var(--line); border-radius:.4rem; padding:.9rem; text-align:left; }
     .episode-picker button[aria-pressed="true"] { border-color:var(--blue); background:#17283c; }
     .episode-picker strong { display:block; color:var(--blue); font-size:.9rem; }
@@ -101,21 +101,22 @@
         <button type="button" data-episode="1" aria-pressed="false"><strong>01 / Lenses</strong><span>Schema surfaces → ownership → delegation</span></button>
         <button type="button" data-episode="2" aria-pressed="false"><strong>02 / Permissions</strong><span>Attributes → roles → access decisions</span></button>
         <button type="button" data-episode="3" aria-pressed="false"><strong>03 / Synthetic facts</strong><span>Interpretations → typed facts → bounded rules</span></button>
+        <button type="button" data-episode="4" aria-pressed="false"><strong>04 / The engine in action</strong><span>Inside the app → real queries → changing boundaries</span></button>
       </div>
       <div class="watch-top"><h3 id="episode-title">Rules engines: start with one condition</h3><span id="runtime"></span></div>
-      <video id="engine-video" controls playsinline preload="metadata" poster="media/intro.jpg?v=lessons-3" aria-label="Rules engines engine walkthrough" src="media/intro.mp4?v=lessons-3">
-        <track kind="captions" src="media/intro.vtt?v=lessons-3" srclang="en" label="English" default>
-        <p>Your browser cannot play this video. <a href="media/intro.mp4?v=lessons-3">Open the introduction</a>.</p>
+      <video id="engine-video" controls playsinline preload="metadata" poster="media/intro.jpg?v=app-tour-1" aria-label="Rules engines engine walkthrough" src="media/intro.mp4?v=app-tour-1">
+        <track kind="captions" src="media/intro.vtt?v=app-tour-1" srclang="en" label="English" default>
+        <p>Your browser cannot play this video. <a href="media/intro.mp4?v=app-tour-1">Open the introduction</a>.</p>
       </video>
       <div class="player-tools">
         <label class="seek-label" for="seek">Seek in video <output id="position">0:00</output></label>
         <input id="seek" type="range" min="0" max="143" step="0.1" value="0" disabled aria-label="Seek in video">
         <div id="chapters" aria-label="Video chapters"></div>
-        <p id="video-error" hidden>The video could not load. <a id="direct-video" href="media/intro.mp4?v=lessons-3">Open it directly</a>.</p>
+        <p id="video-error" hidden>The video could not load. <a id="direct-video" href="media/intro.mp4?v=app-tour-1">Open it directly</a>.</p>
       </div>
     </section>
-    <p class="caption"><a id="transcript" href="media/intro.txt?v=lessons-3">Read the lesson transcript</a></p>
-    <p class="caption">Recorded engine responses, with readable JSON and real execution results. Synthetic-fact inference uses a prepared AI example. Start with the introduction, then build on each concept.</p>
+    <p class="caption"><a id="transcript" href="media/intro.txt?v=app-tour-1">Read the lesson transcript</a></p>
+    <p class="caption">Start with the concept lessons, then watch The engine in action: an actual workbench recording with lenses, related data, two execution paths, and changing boundaries. Synthetic-fact inference in the concept lesson uses a prepared AI example.</p>
     <ol class="steps">
       <li><span class="step-label">00 / RULES ENGINES</span><h3>Start with a condition</h3><p>See records pass or fail one test. Learn what a predicate is, how groups combine conditions, and how the engine evaluates data or translates a supported rule into a database query.</p></li>
       <li><span class="step-label">01 / LENSES</span><h3>Define the data boundary</h3><p>A lens describes the fields and records a query can use. Narrow it, bind an identity, and follow a nested predicate into a database query. Try to cross the boundary and see validation reject it.</p></li>
@@ -299,6 +300,50 @@
         "title": "Reasoning can expand without expanding authority"
       }
     ]
+  },
+  {
+    "id": "app-tour",
+    "title": "The engine in action",
+    "description": "Inside the workbench · discover, compose, query, and test the boundaries",
+    "duration": 283,
+    "chapters": [
+      {
+        "time": 0,
+        "title": "Three perspectives, one engine"
+      },
+      {
+        "time": 29.7,
+        "title": "Author a surface; inspect its JSON"
+      },
+      {
+        "time": 58.81,
+        "title": "Receive a lens, then delegate it"
+      },
+      {
+        "time": 89.83,
+        "title": "Follow the data through its relations"
+      },
+      {
+        "time": 121.31,
+        "title": "One predicate, two execution paths"
+      },
+      {
+        "time": 153.51,
+        "title": "A more demanding question"
+      },
+      {
+        "time": 185.61,
+        "title": "Ask the surface; test its boundary"
+      },
+      {
+        "time": 216.21,
+        "title": "A valid rule can become stale"
+      },
+      {
+        "time": 248.76,
+        "title": "Permissions are executable definitions too"
+      }
+    ]
   }
 ];
     const video = document.getElementById('engine-video');
@@ -317,15 +362,15 @@
       document.getElementById('episode-title').textContent = episode.title + ': ' + episode.description;
       document.getElementById('runtime').textContent = time(episode.duration);
       seek.max = episode.duration;
-      document.getElementById('transcript').href = 'media/' + episode.id + '.txt?v=lessons-3';
+      document.getElementById('transcript').href = 'media/' + episode.id + '.txt?v=app-tour-1';
     }
     document.querySelectorAll('[data-episode]').forEach(button => button.addEventListener('click', () => {
       const next = Number(button.dataset.episode); if (next === selected) return;
       video.pause(); selected = next; const episode = episodes[selected];
       document.querySelectorAll('[data-episode]').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.episode) === selected)));
-      video.src = 'media/' + episode.id + '.mp4?v=lessons-3'; video.poster = 'media/' + episode.id + '.jpg?v=lessons-3';
+      video.src = 'media/' + episode.id + '.mp4?v=app-tour-1'; video.poster = 'media/' + episode.id + '.jpg?v=app-tour-1';
       video.setAttribute('aria-label', episode.title + ' engine walkthrough');
-      const track = document.createElement('track'); Object.assign(track, {kind:'captions', src:'media/' + episode.id + '.vtt?v=lessons-3', srclang:'en', label:'English', default:true});
+      const track = document.createElement('track'); Object.assign(track, {kind:'captions', src:'media/' + episode.id + '.vtt?v=app-tour-1', srclang:'en', label:'English', default:true});
       video.replaceChildren(track); video.load(); seek.disabled = true; seek.value = 0; position.textContent = '0:00';
       document.getElementById('video-error').hidden = true;
       document.getElementById('direct-video').href = video.src;
