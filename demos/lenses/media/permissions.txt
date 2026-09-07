@@ -1,0 +1,25 @@
+Permissions
+
+1. Who is allowed to receive this lens?
+
+A lens describes a permitted view of data. A permission policy decides who may receive that view or perform an action. We build those decisions from the same predicate language. Here, an organization must be active and on the Pro plan. Each test evaluates information about the organization. The all group requires both to pass. The resulting decision determines whether that organization receives the platform lens.
+
+2. Start with attributes
+
+An attribute is simply a property of something: whether a relationship is active, which plan an organization has, or which region it belongs to. A permission rule can test those properties just as a data query tests a shipment’s status. That is attribute-based access control. The name sounds specialized, but the mechanism is familiar: evaluate a condition against the relevant data, then use the result to allow or deny an action.
+
+3. Add roles and relationships
+
+A role gives a named set of capabilities, such as viewer or analyst. A relationship describes how one record is connected to another, such as a customer’s membership in an organization. Here, the policy follows the customer relationship and requires the reader action. An analyst can inherit that action. Combining attributes, roles, and relationships lets the policy express both who someone is in this context and what they are allowed to do.
+
+4. Show the decision and the available lenses
+
+Sofia has access through two organizations. The evaluated catalog shows the lens each organization makes available to her. An agent can ask which lenses it may use before asking for data across them. This predicate asks for delayed records. Each selected lens is checked separately, and each query retains its own identity bindings. Combining the answers does not combine the organizations into an unrestricted data source.
+
+5. Change policy data while the system runs
+
+Now change Pacific’s plan from Pro to Starter. The same policy evaluates the new value and denies access, so its lens disappears from Sofia’s catalog. These definitions and their inputs are dynamic data. They can be serialized and persisted; they are not a deployment-time configuration file. In this demo the change takes effect without redeploying the application. Earlier results are hidden, and the next allowed query uses the remaining lens.
+
+6. Recheck access at execution time
+
+An agent may remember an old lens identifier, but remembering it is not permission to use it. Replaying the old identifier now fails. Changing Mateo’s role also changes the evaluated decision under a policy that requires analyst access. This is access evaluation and revocation. Rule staleness is a separate question: did upstream narrowing make the predicate itself invalid? The application needs both checks, because valid syntax alone does not establish access.

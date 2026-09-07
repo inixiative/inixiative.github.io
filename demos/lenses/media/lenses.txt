@@ -1,0 +1,33 @@
+Lenses
+
+1. First, what is a schema?
+
+A schema describes the shape of your data: the kinds of records, their fields, and the relationships between them. Here, a shipment has a status and a customer identifier, and it has a list of related events. A field map describes that shape to the engine. Before asking an agent to query anything, we can give it a smaller, permitted surface of this schema. We call that surface a lens.
+
+2. A lens describes a limited view
+
+A lens describes what can be seen and queried: which fields, which relationships, and which records are available. Here, the platform omits internal cost. The other fields remain usable. This is more than hiding a column in the interface. A predicate that tries to use the excluded field also fails validation. The surface shown to the agent and the boundary enforced by the engine must agree.
+
+3. Use identity to enforce ownership
+
+Limiting fields answers what information is available. Limiting records answers whose information is available. The platform binds an organization identity into the inherited rule. The organization then binds the customer identity. Binding means supplying a trusted value for a named input. The agent does not choose that identity. Our customer can ask flexible questions, but those questions are combined with the ownership conditions supplied by the application.
+
+4. Delegation preserves the parent’s limits
+
+Imagine three sets, each inside the previous one: the platform’s data, an organization’s data, and a customer’s data within that organization. When the organization delegates its lens, it can preserve the existing view or narrow it further. It cannot widen it. This property is called monotonic narrowing. Along a delegation chain, restrictions accumulate; they do not disappear. A child cannot restore a field its parent removed or cancel its inherited ownership conditions.
+
+5. An agent can inspect its permitted surface
+
+Before writing a query, an agent should be able to ask: which lenses are available to me? Which fields and relationships can I use? What values does status accept? The catalog and field maps supply those answers. They describe structure and available options; your application should also supply business meanings where needed. These are prepared discovery examples grounded in the actual exposed surface. The agent should not guess a field or infer access from a friendly name.
+
+6. Validate the question inside the lens
+
+Now that the agent knows its surface, it can form a more detailed question. This predicate asks for at least two related events, each of which is a customs hold with twelve or more delay hours. All means both tests must match the same event. The engine validates these references against the lens, combines the question with inherited restrictions, and builds the database plan. The grouping step counts qualifying events before matching shipments are returned.
+
+7. When upstream narrowing makes a rule stale
+
+Suppose that predicate was valid yesterday. Today, the platform removes delay hours from the fields its lens exposes. The organization and customer inherit the change, but the old predicate still refers to delay hours. The rule is now invalid under the lens it was based on. That is rule staleness. The validator identifies the broken reference. Re-running the same predicate cannot repair it; the rule must be revised to fit the new surface.
+
+8. The boundary survives a permissive question
+
+Try asking for internal cost, or adding an always-true branch to a question about another customer. The hidden field is rejected, and the permissive branch still cannot remove the trusted ownership conditions. That is why delegation is useful for agents: they can explore the surface they receive, while the engine preserves its limits. We have explained what a lens contains. Next we need to decide who is allowed to receive one.

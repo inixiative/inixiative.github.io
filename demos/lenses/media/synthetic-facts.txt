@@ -1,0 +1,33 @@
+Synthetic facts
+
+1. Some questions require interpretation
+
+So far, our rules have used information already represented in fields. But consider these two delayed records. One note says customs has cleared, yet nobody will arrange collection. The other says a required lab result is pending and names someone following up. The shared status does not explain the difference. An AI can read the permitted evidence and reason about whether an unresolved ownership handoff is the real problem.
+
+2. Turn the interpretation into a fact
+
+To use that interpretation in a rule, give it a structured form. Entity identifies the record it concerns. Attribute names what is being described. Value holds the proposed answer. This is the entity, attribute, value pattern, often shortened to E A V. Here the attribute is intervention, and the text value is ownership handoff. The explanation and citations make the interpretation inspectable. It remains an AI hypothesis, not a guaranteed truth.
+
+3. Explain what the new attribute means
+
+Now an agent can ask: what does intervention mean, and which values can I query? That meaning must come from an explicit attribute definition, not a guess about a name. In this example it distinguishes a missing ownership handoff from regulatory review or insufficient evidence. The fact rows use typed values, such as text or numbers, so a predicate can compare them consistently. The schema describes the shape; the attribute definition explains how to interpret it.
+
+4. Connect the facts to the permitted records
+
+The original shipment fields and the synthetic fact fields live in different field maps. A bridge describes how they relate: shipment identifier on one side, fact shipment identifier on the other. One shipment may have several facts, so the relation is one to many. The lens can expose this relation just like any other. An agent can discover it, traverse it in a predicate, and see which fields it is permitted to use.
+
+5. Use one rule across both kinds of information
+
+Now build the question gradually. Require Express priority. Require at least two customs holds. Then require a related fact whose attribute is intervention and whose value is ownership handoff. The nested all group inside the fact relation means those last two tests must match the same fact row. One predicate now combines recorded information with an AI interpretation. The interpretation participates in the rule language instead of remaining only a paragraph in a chat.
+
+6. Follow the evaluation step by step
+
+The source query first retrieves records within the lens. The permitted synthetic facts are connected to those records, and Check evaluates the combined predicate. Two records match. We can ask a more specific question using a window: order the holds by delay, skip the longest, and inspect the next one. That leaves one match. A window selects a portion of an ordered list. Each stage is explicit, inspectable, and still constrained by the lens.
+
+7. Narrow the surface, and the old rule breaks
+
+Now the platform removes the synthetic-fact relation from its lens. The combined predicate still tries to traverse that relation, so it is no longer valid. The source records still exist, and a source-only predicate still works. This is rule staleness caused by upstream narrowing. It does not depend on a clock. The agent must revise its predicate to fit the new surface, just as it would after losing access to a source field.
+
+8. Reasoning can expand without expanding authority
+
+Finally, attach an invented fact to another customer’s record. It cannot bring that record into the allowed result. The engine checks scope and provenance before using the fact. This is how the pieces fit together: an agent discovers a permitted surface, proposes interpretations and predicates, and receives results through enforced boundaries. We used shipping notes to make the reasoning visible. The same architecture can support your own entities, relationships, and AI-assisted workflows.

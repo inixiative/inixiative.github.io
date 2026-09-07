@@ -1,0 +1,115 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:05.407
+Suppose your application needs to find records whose status is delayed. For each
+
+00:00:05.407 --> 00:00:11.220
+record, ask one question: is its status equal to delayed? The answer is either true or
+
+00:00:11.220 --> 00:00:16.965
+false. A condition like this is called a predicate. That word names something simple:
+
+00:00:16.965 --> 00:00:22.778
+a test that a record either passes or fails. We will build the rest of the system from
+
+00:00:22.778 --> 00:00:23.725
+this one idea.
+
+00:00:28.225 --> 00:00:34.185
+Here is the same question written as JSON. Field tells us which part of the record to
+
+00:00:34.185 --> 00:00:39.725
+inspect. Operator tells us how to compare it. Value is what we compare it with.
+
+00:00:39.725 --> 00:00:45.685
+Together they say: status equals delayed. JSON is a way to represent structured data.
+
+00:00:45.685 --> 00:00:51.716
+Here, it represents the question itself. A person, a visual editor, or an AI agent can
+
+00:00:51.716 --> 00:00:53.750
+all produce this same object.
+
+00:00:58.250 --> 00:01:03.789
+Now ask for records that are both delayed and Express priority. The all group means
+
+00:01:03.789 --> 00:01:08.927
+every condition inside it must pass. Change the group to any, and one passing
+
+00:01:08.927 --> 00:01:14.600
+condition is enough. These groups can contain other groups. That is nesting: a larger
+
+00:01:14.600 --> 00:01:20.273
+question built from smaller questions. You can read the rule from the outside inward,
+
+00:01:20.273 --> 00:01:21.875
+one condition at a time.
+
+00:01:26.375 --> 00:01:31.266
+The rules engine is the software that interprets these conditions and evaluates them
+
+00:01:31.266 --> 00:01:36.215
+against data. Given the same predicate and the same inputs, it applies the same tests
+
+00:01:36.215 --> 00:01:41.165
+consistently. The AI can reason about which question to ask; the engine decides which
+
+00:01:41.165 --> 00:01:46.172
+records satisfy the resulting rule. In this demo, predicates select records or produce
+
+00:01:46.172 --> 00:01:51.122
+permission decisions. They do not themselves send emails or perform business actions.
+
+00:01:51.122 --> 00:01:54.150
+Your application chooses what to do with the result.
+
+00:01:58.650 --> 00:02:03.995
+Our engine supports two useful paths. Check evaluates a predicate against data already
+
+00:02:03.995 --> 00:02:09.279
+supplied to it. To Prisma translates supported predicates into a database query plan,
+
+00:02:09.279 --> 00:02:14.563
+so the database can find matching records. Here, both paths answer the same question.
+
+00:02:14.563 --> 00:02:19.908
+More advanced rules can describe related records, counts, groups, and ordered windows.
+
+00:02:19.908 --> 00:02:25.192
+Some need several query steps; some are evaluated with Check. The engine reports what
+
+00:02:25.192 --> 00:02:26.125
+it can support.
+
+00:02:30.625 --> 00:02:36.196
+Instead of giving an agent an unrestricted database connection, your application can
+
+00:02:36.196 --> 00:02:41.700
+ask it to propose a predicate. The agent first receives a description of what it is
+
+00:02:41.700 --> 00:02:46.940
+allowed to query. It produces JSON, the engine validates that JSON, and only an
+
+00:02:46.940 --> 00:02:52.644
+allowed query is executed. This separates deciding what to ask from enforcing what may
+
+00:02:52.644 --> 00:02:57.950
+run. The next lesson explains the description of that permitted surface: a lens.
+
+00:03:02.450 --> 00:03:07.707
+These rules are serializable: you can turn them into JSON, store them, load them, and
+
+00:03:07.707 --> 00:03:12.469
+edit them while your application is running. Changing a rule does not require
+
+00:03:12.469 --> 00:03:17.726
+deploying new application code. Validation still happens before use. We use shipments
+
+00:03:17.726 --> 00:03:22.859
+here because their fields and relationships make useful examples. The same building
+
+00:03:22.859 --> 00:03:27.993
+blocks can describe your own application data. This is the engine for your AI SaaS;
+
+00:03:27.993 --> 00:03:30.899
+the shipping interface is only a demonstration.

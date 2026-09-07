@@ -1,0 +1,29 @@
+Rules engines
+
+1. Start with a question about a record
+
+Suppose your application needs to find records whose status is delayed. For each record, ask one question: is its status equal to delayed? The answer is either true or false. A condition like this is called a predicate. That word names something simple: a test that a record either passes or fails. We will build the rest of the system from this one idea.
+
+2. Write that condition as data
+
+Here is the same question written as JSON. Field tells us which part of the record to inspect. Operator tells us how to compare it. Value is what we compare it with. Together they say: status equals delayed. JSON is a way to represent structured data. Here, it represents the question itself. A person, a visual editor, or an AI agent can all produce this same object.
+
+3. Combine small tests into larger rules
+
+Now ask for records that are both delayed and Express priority. The all group means every condition inside it must pass. Change the group to any, and one passing condition is enough. These groups can contain other groups. That is nesting: a larger question built from smaller questions. You can read the rule from the outside inward, one condition at a time.
+
+4. What the rules engine does
+
+The rules engine is the software that interprets these conditions and evaluates them against data. Given the same predicate and the same inputs, it applies the same tests consistently. The AI can reason about which question to ask; the engine decides which records satisfy the resulting rule. In this demo, predicates select records or produce permission decisions. They do not themselves send emails or perform business actions. Your application chooses what to do with the result.
+
+5. Evaluate data, or translate the question
+
+Our engine supports two useful paths. Check evaluates a predicate against data already supplied to it. To Prisma translates supported predicates into a database query plan, so the database can find matching records. Here, both paths answer the same question. More advanced rules can describe related records, counts, groups, and ordered windows. Some need several query steps; some are evaluated with Check. The engine reports what it can support.
+
+6. Give an agent a rule language
+
+Instead of giving an agent an unrestricted database connection, your application can ask it to propose a predicate. The agent first receives a description of what it is allowed to query. It produces JSON, the engine validates that JSON, and only an allowed query is executed. This separates deciding what to ask from enforcing what may run. The next lesson explains the description of that permitted surface: a lens.
+
+7. Dynamic definitions for your application
+
+These rules are serializable: you can turn them into JSON, store them, load them, and edit them while your application is running. Changing a rule does not require deploying new application code. Validation still happens before use. We use shipments here because their fields and relationships make useful examples. The same building blocks can describe your own application data. This is the engine for your AI SaaS; the shipping interface is only a demonstration.

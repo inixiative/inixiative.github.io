@@ -1,101 +1,149 @@
 [
   {
-    "id": "lenses",
-    "title": "Lenses",
-    "description": "A JSON boundary around a query",
-    "duration": 147,
+    "id": "intro",
+    "title": "Rules engines",
+    "description": "Start here · from a condition to an executable rule",
+    "duration": 215,
     "chapters": [
       {
         "time": 0,
-        "title": "A boundary your application can use"
+        "title": "Start with a question about a record"
       },
       {
-        "time": 22.98,
-        "title": "Narrow, then bind an identity"
+        "time": 28.23,
+        "title": "Write that condition as data"
       },
       {
-        "time": 47.08,
-        "title": "The question is JSON, too"
+        "time": 58.25,
+        "title": "Combine small tests into larger rules"
       },
       {
-        "time": 70.65,
-        "title": "From predicate to database query"
+        "time": 86.38,
+        "title": "What the rules engine does"
       },
       {
-        "time": 96.4,
-        "title": "Upstream narrowing makes a rule stale"
+        "time": 118.65,
+        "title": "Evaluate data, or translate the question"
       },
       {
-        "time": 123.33,
-        "title": "An out-of-bounds predicate is rejected"
+        "time": 150.63,
+        "title": "Give an agent a rule language"
+      },
+      {
+        "time": 182.45,
+        "title": "Dynamic definitions for your application"
+      }
+    ]
+  },
+  {
+    "id": "lenses",
+    "title": "Lenses",
+    "description": "A permitted surface · ownership · delegation",
+    "duration": 257,
+    "chapters": [
+      {
+        "time": 0,
+        "title": "First, what is a schema?"
+      },
+      {
+        "time": 28.7,
+        "title": "A lens describes a limited view"
+      },
+      {
+        "time": 59.5,
+        "title": "Use identity to enforce ownership"
+      },
+      {
+        "time": 93.85,
+        "title": "Delegation preserves the parent’s limits"
+      },
+      {
+        "time": 126.52,
+        "title": "An agent can inspect its permitted surface"
+      },
+      {
+        "time": 159.5,
+        "title": "Validate the question inside the lens"
+      },
+      {
+        "time": 192.3,
+        "title": "When upstream narrowing makes a rule stale"
+      },
+      {
+        "time": 225.78,
+        "title": "The boundary survives a permissive question"
       }
     ]
   },
   {
     "id": "permissions",
     "title": "Permissions",
-    "description": "Who can receive a lens—and what changes when access changes",
-    "duration": 146,
+    "description": "Use executable conditions to decide access",
+    "duration": 196,
     "chapters": [
       {
         "time": 0,
-        "title": "Who gets the lens?"
+        "title": "Who is allowed to receive this lens?"
       },
       {
-        "time": 23.05,
-        "title": "Groups, roles, and relationships"
+        "time": 31.98,
+        "title": "Start with attributes"
       },
       {
-        "time": 50.8,
-        "title": "An allowed question reaches the engine"
+        "time": 63.88,
+        "title": "Add roles and relationships"
       },
       {
-        "time": 74.72,
-        "title": "Remove access upstream"
+        "time": 97.17,
+        "title": "Show the decision and the available lenses"
       },
       {
-        "time": 103.02,
-        "title": "Old access cannot be replayed"
+        "time": 130.18,
+        "title": "Change policy data while the system runs"
       },
       {
-        "time": 122.75,
-        "title": "Changing a role changes the decision"
+        "time": 163.48,
+        "title": "Recheck access at execution time"
       }
     ]
   },
   {
     "id": "synthetic-facts",
     "title": "Synthetic facts",
-    "description": "Reason over evidence, then query the interpretation",
-    "duration": 177,
+    "description": "Let AI interpretations participate in bounded rules",
+    "duration": 258,
     "chapters": [
       {
         "time": 0,
-        "title": "When the answer is not a source field"
+        "title": "Some questions require interpretation"
       },
       {
-        "time": 25.3,
-        "title": "Give the interpretation a typed shape"
+        "time": 32.23,
+        "title": "Turn the interpretation into a fact"
       },
       {
-        "time": 52.23,
-        "title": "Connect two field maps"
+        "time": 66.33,
+        "title": "Explain what the new attribute means"
       },
       {
-        "time": 77.13,
-        "title": "Put source fields and facts in one rule"
+        "time": 98.55,
+        "title": "Connect the facts to the permitted records"
       },
       {
-        "time": 99.83,
-        "title": "Follow both execution stages"
+        "time": 129.35,
+        "title": "Use one rule across both kinds of information"
       },
       {
-        "time": 124.38,
-        "title": "Upstream narrowing invalidates the rule"
+        "time": 161.65,
+        "title": "Follow the evaluation step by step"
       },
       {
-        "time": 153.63,
-        "title": "Facts stay inside the lens"
+        "time": 193.58,
+        "title": "Narrow the surface, and the old rule breaks"
+      },
+      {
+        "time": 225.1,
+        "title": "Reasoning can expand without expanding authority"
       }
     ]
   }

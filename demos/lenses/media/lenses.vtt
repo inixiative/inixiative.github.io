@@ -1,76 +1,139 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:05.960
-This is the engine for your AI SaaS. A lens describes which fields and records a query
+00:00:00.000 --> 00:00:05.433
+A schema describes the shape of your data: the kinds of records, their fields, and the
 
-00:00:05.960 --> 00:00:11.435
-is allowed to use. We are using shipment records as sample input. The same idea
+00:00:05.433 --> 00:00:10.741
+relationships between them. Here, a shipment has a status and a customer identifier,
 
-00:00:11.435 --> 00:00:16.979
-belongs inside your own application. Start with the definition on the left, then
+00:00:10.741 --> 00:00:16.049
+and it has a list of related events. A field map describes that shape to the engine.
 
-00:00:16.979 --> 00:00:19.475
-follow what the engine does with it.
+00:00:16.049 --> 00:00:21.419
+Before asking an agent to query anything, we can give it a smaller, permitted surface
 
-00:00:22.975 --> 00:00:28.892
-Here, the platform hides internal cost. It gives an organization a narrower lens,
+00:00:21.419 --> 00:00:24.200
+of this schema. We call that surface a lens.
 
-00:00:28.892 --> 00:00:34.735
-bound to that organization. The organization passes a further narrowed lens to a
+00:00:28.700 --> 00:00:34.446
+A lens describes what can be seen and queried: which fields, which relationships, and
 
-00:00:34.735 --> 00:00:40.872
-customer. Binding supplies the identity in the rule. The inherited conditions remain
+00:00:34.446 --> 00:00:40.193
+which records are available. Here, the platform omits internal cost. The other fields
 
-00:00:40.872 --> 00:00:43.575
-in force; a child cannot remove them.
+00:00:40.193 --> 00:00:45.805
+remain usable. This is more than hiding a column in the interface. A predicate that
 
-00:00:47.075 --> 00:00:52.640
-A predicate is a condition that selects matching records. This one asks for at least
+00:00:45.805 --> 00:00:51.551
+tries to use the excluded field also fails validation. The surface shown to the agent
 
-00:00:52.640 --> 00:00:58.205
-two related events, where each event is a customs hold lasting twelve hours or more.
+00:00:51.551 --> 00:00:55.000
+and the boundary enforced by the engine must agree.
 
-00:00:58.205 --> 00:01:03.771
-The all group means both conditions must match the same event. This structure can be
+00:00:59.500 --> 00:01:05.027
+Limiting fields answers what information is available. Limiting records answers whose
 
-00:01:03.771 --> 00:01:07.150
-written by a person, a visual builder, or an agent.
+00:01:05.027 --> 00:01:10.100
+information is available. The platform binds an organization identity into the
 
-00:01:10.650 --> 00:01:16.330
-The engine first validates the predicate against the lens. It combines the predicate
+00:01:10.100 --> 00:01:15.302
+inherited rule. The organization then binds the customer identity. Binding means
 
-00:01:16.330 --> 00:01:22.011
-with inherited restrictions and resolves the identity bindings. To Prisma translates
+00:01:15.302 --> 00:01:20.830
+supplying a trusted value for a named input. The agent does not choose that identity.
 
-00:01:22.011 --> 00:01:27.760
-that combined condition into a query plan. Here, the plan groups related events, then
+00:01:20.830 --> 00:01:26.163
+Our customer can ask flexible questions, but those questions are combined with the
 
-00:01:27.760 --> 00:01:32.900
-fetches the matching shipments. These are results from an actual engine run.
+00:01:26.163 --> 00:01:29.350
+ownership conditions supplied by the application.
 
-00:01:36.400 --> 00:01:41.439
-Now the platform removes delay hours from the event fields it exposes. The
+00:01:33.850 --> 00:01:38.226
+Imagine three sets, each inside the previous one: the platform’s data, an
 
-00:01:41.439 --> 00:01:47.159
-organization and customer inherit that narrowing. Our existing rule still uses delay
+00:01:38.226 --> 00:01:42.842
+organization’s data, and a customer’s data within that organization. When the
 
-00:01:47.159 --> 00:01:52.947
-hours, so it is no longer valid. This is a stale rule: the upstream lens it was based
+00:01:42.842 --> 00:01:47.577
+organization delegates its lens, it can preserve the existing view or narrow it
 
-00:01:52.947 --> 00:01:58.667
-on no longer supports it. Re-running cannot fix it. The predicate must change to fit
+00:01:47.577 --> 00:01:52.433
+further. It cannot widen it. This property is called monotonic narrowing. Along a
 
-00:01:58.667 --> 00:01:59.825
-the current lens.
+00:01:52.433 --> 00:01:57.229
+delegation chain, restrictions accumulate; they do not disappear. A child cannot
 
-00:02:03.325 --> 00:02:09.395
-Finally, ask for internal cost. That field is outside the lens, so validation rejects
+00:01:57.229 --> 00:02:02.024
+restore a field its parent removed or cancel its inherited ownership conditions.
 
-00:02:09.395 --> 00:02:15.037
-the predicate before execution. Even an always-true condition cannot remove the
+00:02:06.524 --> 00:02:11.642
+Before writing a query, an agent should be able to ask: which lenses are available to
 
-00:02:15.037 --> 00:02:21.036
-customer binding. The engine accepts flexible questions, while the lens controls the
+00:02:11.642 --> 00:02:16.518
+me? Which fields and relationships can I use? What values does status accept? The
 
-00:02:21.036 --> 00:02:23.250
-boundary they must stay inside.
+00:02:16.518 --> 00:02:21.454
+catalog and field maps supply those answers. They describe structure and available
+
+00:02:21.454 --> 00:02:26.632
+options; your application should also supply business meanings where needed. These are
+
+00:02:26.632 --> 00:02:31.688
+prepared discovery examples grounded in the actual exposed surface. The agent should
+
+00:02:31.688 --> 00:02:35.000
+not guess a field or infer access from a friendly name.
+
+00:02:39.500 --> 00:02:44.464
+Now that the agent knows its surface, it can form a more detailed question. This
+
+00:02:44.464 --> 00:02:49.678
+predicate asks for at least two related events, each of which is a customs hold with
+
+00:02:49.678 --> 00:02:55.015
+twelve or more delay hours. All means both tests must match the same event. The engine
+
+00:02:55.015 --> 00:03:00.042
+validates these references against the lens, combines the question with inherited
+
+00:03:00.042 --> 00:03:05.379
+restrictions, and builds the database plan. The grouping step counts qualifying events
+
+00:03:05.379 --> 00:03:07.800
+before matching shipments are returned.
+
+00:03:12.300 --> 00:03:17.803
+Suppose that predicate was valid yesterday. Today, the platform removes delay hours
+
+00:03:17.803 --> 00:03:23.306
+from the fields its lens exposes. The organization and customer inherit the change,
+
+00:03:23.306 --> 00:03:28.876
+but the old predicate still refers to delay hours. The rule is now invalid under the
+
+00:03:28.876 --> 00:03:34.246
+lens it was based on. That is rule staleness. The validator identifies the broken
+
+00:03:34.246 --> 00:03:39.948
+reference. Re-running the same predicate cannot repair it; the rule must be revised to
+
+00:03:39.948 --> 00:03:41.275
+fit the new surface.
+
+00:03:45.775 --> 00:03:50.944
+Try asking for internal cost, or adding an always-true branch to a question about
+
+00:03:50.944 --> 00:03:56.433
+another customer. The hidden field is rejected, and the permissive branch still cannot
+
+00:03:56.433 --> 00:04:01.858
+remove the trusted ownership conditions. That is why delegation is useful for agents:
+
+00:04:01.858 --> 00:04:07.219
+they can explore the surface they receive, while the engine preserves its limits. We
+
+00:04:07.219 --> 00:04:12.644
+have explained what a lens contains. Next we need to decide who is allowed to receive
+
+00:04:12.644 --> 00:04:12.900
+one.

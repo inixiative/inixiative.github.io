@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The engine for your AI SaaS — inixiative demos</title>
-  <meta name="description" content="Define data boundaries, decide access, and query synthetic facts with serializable JSON. Three engine walkthroughs and an interactive workbench.">
+  <meta name="description" content="Define data boundaries, decide access, and query synthetic facts with serializable JSON. Four step-by-step lessons and an interactive workbench.">
   <link rel="canonical" href="https://www.inixiative.com/demos/lenses/">
   <meta property="og:title" content="The engine for your AI SaaS — inixiative">
   <meta property="og:description" content="Trace JSON lenses, permission policies, and predicates through validation and execution. See boundaries hold and previously valid rules become stale when an upstream lens narrows.">
@@ -39,7 +39,7 @@
     .watch-top span { color:var(--muted); font:.75rem/1.5 var(--mono); }
     video { display:block; width:100%; aspect-ratio:16/9; background:#090c10; }
     .caption { font-size:.875rem; color:var(--muted); margin:.85rem 0 0; }
-    .steps { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem; margin:2.5rem 0; padding:0; list-style:none; }
+    .steps { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:2rem; margin:2.5rem 0; padding:0; list-style:none; }
     .steps li { border-top:1px solid var(--line); padding-top:1.2rem; }
     .step-label { display:block; color:var(--blue); font:.75rem/1.5 var(--mono); margin-bottom:.6rem; }
     h3 { font-size:1.125rem; font-weight:600; margin:0 0 .4rem; }
@@ -59,7 +59,7 @@
     @media(prefers-reduced-motion:reduce) { .launch { transition:none; } }
       button { font:inherit; color:var(--text); cursor:pointer; }
     button:focus-visible, input:focus-visible { outline:3px solid var(--blue); outline-offset:3px; }
-    .episode-picker { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.6rem; padding:0 1.25rem 1rem; }
+    .episode-picker { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.6rem; padding:0 1.25rem 1rem; }
     .episode-picker button { background:var(--bg); border:1px solid var(--line); border-radius:.4rem; padding:.9rem; text-align:left; }
     .episode-picker button[aria-pressed="true"] { border-color:var(--blue); background:#17283c; }
     .episode-picker strong { display:block; color:var(--blue); font-size:.9rem; }
@@ -72,6 +72,7 @@
     #chapters button:hover { background:#223043; }
     #chapters span { color:var(--blue); font-variant-numeric:tabular-nums; margin-right:.4rem; }
     .try + .try { margin-top:1rem; }
+    @media(min-width:601px) and (max-width:900px) { .episode-picker, .steps { grid-template-columns:repeat(2,minmax(0,1fr)); } }
     @media(max-width:600px) { .episode-picker, #chapters { grid-template-columns:1fr; } }
   </style>
 </head>
@@ -94,26 +95,29 @@
       </div>
     </section>
     <section class="watch" aria-labelledby="watch-title">
-      <div class="watch-top"><h2 id="watch-title">Three ways into the engine</h2><span>Choose a concept · narrated · English captions</span></div>
+      <div class="watch-top"><h2 id="watch-title">Learn the engine, step by step</h2><span>Start with Video 0 · narrated · English captions</span></div>
       <div class="episode-picker" aria-label="Choose a video">
-        <button type="button" data-episode="0" aria-pressed="true"><strong>01 / Lenses</strong><span>Boundaries → predicates → database query</span></button>
-        <button type="button" data-episode="1" aria-pressed="false"><strong>02 / Permissions</strong><span>Policies → access → revocation</span></button>
-        <button type="button" data-episode="2" aria-pressed="false"><strong>03 / Synthetic facts</strong><span>Evidence → typed facts → combined rules</span></button>
+        <button type="button" data-episode="0" aria-pressed="true"><strong>00 / Rules engines</strong><span>Conditions → predicates → evaluation</span></button>
+        <button type="button" data-episode="1" aria-pressed="false"><strong>01 / Lenses</strong><span>Schema surfaces → ownership → delegation</span></button>
+        <button type="button" data-episode="2" aria-pressed="false"><strong>02 / Permissions</strong><span>Attributes → roles → access decisions</span></button>
+        <button type="button" data-episode="3" aria-pressed="false"><strong>03 / Synthetic facts</strong><span>Interpretations → typed facts → bounded rules</span></button>
       </div>
-      <div class="watch-top"><h3 id="episode-title">Lenses: a JSON boundary around a query</h3><span id="runtime"></span></div>
-      <video id="engine-video" controls playsinline preload="metadata" poster="media/lenses.jpg?v=ai-saas-2" aria-label="Lenses engine walkthrough" src="media/lenses.mp4?v=ai-saas-2">
-        <track kind="captions" src="media/lenses.vtt?v=ai-saas-2" srclang="en" label="English" default>
-        <p>Your browser cannot play this video. <a href="media/lenses.mp4?v=ai-saas-2">Open the lenses video</a>.</p>
+      <div class="watch-top"><h3 id="episode-title">Rules engines: start with one condition</h3><span id="runtime"></span></div>
+      <video id="engine-video" controls playsinline preload="metadata" poster="media/intro.jpg?v=lessons-3" aria-label="Rules engines engine walkthrough" src="media/intro.mp4?v=lessons-3">
+        <track kind="captions" src="media/intro.vtt?v=lessons-3" srclang="en" label="English" default>
+        <p>Your browser cannot play this video. <a href="media/intro.mp4?v=lessons-3">Open the introduction</a>.</p>
       </video>
       <div class="player-tools">
         <label class="seek-label" for="seek">Seek in video <output id="position">0:00</output></label>
         <input id="seek" type="range" min="0" max="143" step="0.1" value="0" disabled aria-label="Seek in video">
         <div id="chapters" aria-label="Video chapters"></div>
-        <p id="video-error" hidden>The video could not load. <a id="direct-video" href="media/lenses.mp4?v=ai-saas-2">Open it directly</a>.</p>
+        <p id="video-error" hidden>The video could not load. <a id="direct-video" href="media/intro.mp4?v=lessons-3">Open it directly</a>.</p>
       </div>
     </section>
-    <p class="caption">Recorded engine responses, with readable JSON and real execution results. Synthetic-fact inference uses a prepared AI example. Each video stands on its own.</p>
+    <p class="caption"><a id="transcript" href="media/intro.txt?v=lessons-3">Read the lesson transcript</a></p>
+    <p class="caption">Recorded engine responses, with readable JSON and real execution results. Synthetic-fact inference uses a prepared AI example. Start with the introduction, then build on each concept.</p>
     <ol class="steps">
+      <li><span class="step-label">00 / RULES ENGINES</span><h3>Start with a condition</h3><p>See records pass or fail one test. Learn what a predicate is, how groups combine conditions, and how the engine evaluates data or translates a supported rule into a database query.</p></li>
       <li><span class="step-label">01 / LENSES</span><h3>Define the data boundary</h3><p>A lens describes the fields and records a query can use. Narrow it, bind an identity, and follow a nested predicate into a database query. Try to cross the boundary and see validation reject it.</p></li>
       <li><span class="step-label">02 / PERMISSIONS</span><h3>Decide who receives it</h3><p>A permission policy decides who can receive a lens. Combine attributes, roles, and relationships in JSON. Change access upstream and watch the available lenses and query results change.</p></li>
       <li><span class="step-label">03 / SYNTHETIC FACTS</span><h3>Make an interpretation queryable</h3><p>Infer something the original fields don’t say. Represent it as a typed fact with evidence, connect it through a bridge, and write one predicate across source records and derived interpretations.</p></li>
@@ -124,8 +128,8 @@
     </section>
     <section class="try" aria-labelledby="try-title">
       <h2 id="try-title">Try it yourself</h2>
-      <p>Open <strong>Watch the series</strong>, or explore the three columns: platform, organization, and customer. Inspect the lenses and permission groups, edit their JSON with the headless rules builder, then run a predicate and inspect its execution.</p>
-      <p class="note">For synthetic facts, choose Derive new facts → Load guided inference → Write a rule. The public preview uses guided AI examples with real engine validation and execution. Open-ended AI questions are not enabled.</p>
+      <p>Start with <strong>Video 0: Rules engines</strong>, then explore the three columns: platform, organization, and customer. Inspect the lenses and permission groups, edit their JSON with the headless rules builder, then run a predicate and inspect its execution.</p>
+      <p class="note">For synthetic facts, choose Derive new facts → Load guided inference → Write a rule. Ask “Which lenses can I use?” or “What values does status accept?” for current metadata without a model key. The public preview uses guided inference examples with real engine validation and execution. Open-ended AI questions are not enabled.</p>
       <details>
         <summary>For developers: the connection as JSON</summary>
         <pre><code>{
@@ -149,102 +153,150 @@
   <script>
     const episodes = [
   {
-    "id": "lenses",
-    "title": "Lenses",
-    "description": "A JSON boundary around a query",
-    "duration": 147,
+    "id": "intro",
+    "title": "Rules engines",
+    "description": "Start here · from a condition to an executable rule",
+    "duration": 215,
     "chapters": [
       {
         "time": 0,
-        "title": "A boundary your application can use"
+        "title": "Start with a question about a record"
       },
       {
-        "time": 22.98,
-        "title": "Narrow, then bind an identity"
+        "time": 28.23,
+        "title": "Write that condition as data"
       },
       {
-        "time": 47.08,
-        "title": "The question is JSON, too"
+        "time": 58.25,
+        "title": "Combine small tests into larger rules"
       },
       {
-        "time": 70.65,
-        "title": "From predicate to database query"
+        "time": 86.38,
+        "title": "What the rules engine does"
       },
       {
-        "time": 96.4,
-        "title": "Upstream narrowing makes a rule stale"
+        "time": 118.65,
+        "title": "Evaluate data, or translate the question"
       },
       {
-        "time": 123.33,
-        "title": "An out-of-bounds predicate is rejected"
+        "time": 150.63,
+        "title": "Give an agent a rule language"
+      },
+      {
+        "time": 182.45,
+        "title": "Dynamic definitions for your application"
+      }
+    ]
+  },
+  {
+    "id": "lenses",
+    "title": "Lenses",
+    "description": "A permitted surface · ownership · delegation",
+    "duration": 257,
+    "chapters": [
+      {
+        "time": 0,
+        "title": "First, what is a schema?"
+      },
+      {
+        "time": 28.7,
+        "title": "A lens describes a limited view"
+      },
+      {
+        "time": 59.5,
+        "title": "Use identity to enforce ownership"
+      },
+      {
+        "time": 93.85,
+        "title": "Delegation preserves the parent’s limits"
+      },
+      {
+        "time": 126.52,
+        "title": "An agent can inspect its permitted surface"
+      },
+      {
+        "time": 159.5,
+        "title": "Validate the question inside the lens"
+      },
+      {
+        "time": 192.3,
+        "title": "When upstream narrowing makes a rule stale"
+      },
+      {
+        "time": 225.78,
+        "title": "The boundary survives a permissive question"
       }
     ]
   },
   {
     "id": "permissions",
     "title": "Permissions",
-    "description": "Who can receive a lens—and what changes when access changes",
-    "duration": 146,
+    "description": "Use executable conditions to decide access",
+    "duration": 196,
     "chapters": [
       {
         "time": 0,
-        "title": "Who gets the lens?"
+        "title": "Who is allowed to receive this lens?"
       },
       {
-        "time": 23.05,
-        "title": "Groups, roles, and relationships"
+        "time": 31.98,
+        "title": "Start with attributes"
       },
       {
-        "time": 50.8,
-        "title": "An allowed question reaches the engine"
+        "time": 63.88,
+        "title": "Add roles and relationships"
       },
       {
-        "time": 74.72,
-        "title": "Remove access upstream"
+        "time": 97.17,
+        "title": "Show the decision and the available lenses"
       },
       {
-        "time": 103.02,
-        "title": "Old access cannot be replayed"
+        "time": 130.18,
+        "title": "Change policy data while the system runs"
       },
       {
-        "time": 122.75,
-        "title": "Changing a role changes the decision"
+        "time": 163.48,
+        "title": "Recheck access at execution time"
       }
     ]
   },
   {
     "id": "synthetic-facts",
     "title": "Synthetic facts",
-    "description": "Reason over evidence, then query the interpretation",
-    "duration": 177,
+    "description": "Let AI interpretations participate in bounded rules",
+    "duration": 258,
     "chapters": [
       {
         "time": 0,
-        "title": "When the answer is not a source field"
+        "title": "Some questions require interpretation"
       },
       {
-        "time": 25.3,
-        "title": "Give the interpretation a typed shape"
+        "time": 32.23,
+        "title": "Turn the interpretation into a fact"
       },
       {
-        "time": 52.23,
-        "title": "Connect two field maps"
+        "time": 66.33,
+        "title": "Explain what the new attribute means"
       },
       {
-        "time": 77.13,
-        "title": "Put source fields and facts in one rule"
+        "time": 98.55,
+        "title": "Connect the facts to the permitted records"
       },
       {
-        "time": 99.83,
-        "title": "Follow both execution stages"
+        "time": 129.35,
+        "title": "Use one rule across both kinds of information"
       },
       {
-        "time": 124.38,
-        "title": "Upstream narrowing invalidates the rule"
+        "time": 161.65,
+        "title": "Follow the evaluation step by step"
       },
       {
-        "time": 153.63,
-        "title": "Facts stay inside the lens"
+        "time": 193.58,
+        "title": "Narrow the surface, and the old rule breaks"
+      },
+      {
+        "time": 225.1,
+        "title": "Reasoning can expand without expanding authority"
       }
     ]
   }
@@ -265,14 +317,15 @@
       document.getElementById('episode-title').textContent = episode.title + ': ' + episode.description;
       document.getElementById('runtime').textContent = time(episode.duration);
       seek.max = episode.duration;
+      document.getElementById('transcript').href = 'media/' + episode.id + '.txt?v=lessons-3';
     }
     document.querySelectorAll('[data-episode]').forEach(button => button.addEventListener('click', () => {
       const next = Number(button.dataset.episode); if (next === selected) return;
       video.pause(); selected = next; const episode = episodes[selected];
       document.querySelectorAll('[data-episode]').forEach(b => b.setAttribute('aria-pressed', String(Number(b.dataset.episode) === selected)));
-      video.src = 'media/' + episode.id + '.mp4?v=ai-saas-2'; video.poster = 'media/' + episode.id + '.jpg?v=ai-saas-2';
+      video.src = 'media/' + episode.id + '.mp4?v=lessons-3'; video.poster = 'media/' + episode.id + '.jpg?v=lessons-3';
       video.setAttribute('aria-label', episode.title + ' engine walkthrough');
-      const track = document.createElement('track'); Object.assign(track, {kind:'captions', src:'media/' + episode.id + '.vtt?v=ai-saas-2', srclang:'en', label:'English', default:true});
+      const track = document.createElement('track'); Object.assign(track, {kind:'captions', src:'media/' + episode.id + '.vtt?v=lessons-3', srclang:'en', label:'English', default:true});
       video.replaceChildren(track); video.load(); seek.disabled = true; seek.value = 0; position.textContent = '0:00';
       document.getElementById('video-error').hidden = true;
       document.getElementById('direct-video').href = video.src;
