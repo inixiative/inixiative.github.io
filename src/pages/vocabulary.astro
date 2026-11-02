@@ -29,7 +29,7 @@ const github = "https://github.com/inixiative/.github/blob/main/VOCABULARY.md";
           el.innerHTML = marked.parse(md, { gfm: true });
         })
         .catch(function (err) {
-          el.innerHTML = '<p>Could not load the vocabulary (' + err.message + '). Read it on <a href="' + el.dataset.github + '">GitHub</a>.</p>';
+          el.textContent = "Could not load the vocabulary (" + err.message + "). Read it on GitHub: " + el.dataset.github;
         });
     })();
   </script>

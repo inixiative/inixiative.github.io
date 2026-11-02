@@ -31,7 +31,7 @@
   --blue: hsl(var(--governance-primary));
   --blue-dim: hsl(var(--governance-primary) / 0.55);
   --purple: hsl(var(--governance-quaternary));
-  --gold: hsl(var(--building-blocks-primary));
+  --gold: hsl(var(--warning));
   --green: hsl(var(--governance-tertiary));
   --red: hsl(var(--error));
   --display: var(--font-display);

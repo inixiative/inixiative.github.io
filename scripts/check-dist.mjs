@@ -29,8 +29,10 @@ const externalPaths = ["/rules-builder/"];
 
 for (const page of pages) {
   const html = readFileSync(page, "utf8");
-  for (const [, href] of html.matchAll(/\s(?:href|src)="([^"]+)"/g)) {
-    if (!href.startsWith("/") || href.startsWith("//")) continue;
+  for (const [, raw] of html.matchAll(/\s(?:href|src)="([^"]+)"/g)) {
+    if (/^(?:[a-z]+:|\/\/)/i.test(raw)) continue;
+    // Relative links resolve against the page's own URL.
+    const href = raw.startsWith("/") || raw.startsWith("#") ? raw : new URL(raw, `https://x${page.replace(dist, "")}`).pathname;
     if (externalPaths.some((p) => href.startsWith(p))) continue;
     const [path, hash] = href.split("#");
     const target = path === "" ? page : resolve(path);
