@@ -1,0 +1,27 @@
+---
+import Mark from "./Mark.astro";
+interface Props { current?: string }
+const { current } = Astro.props;
+const links = [
+  { href: "/agentic/", label: "Agentic", key: "agentic" },
+  { href: "/building-blocks/", label: "Building blocks", key: "building-blocks" },
+  { href: "/governance/", label: "Governance", key: "governance" },
+  { href: "/open-source/", label: "Open source", key: "open-source" },
+];
+---
+<header class="shell">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="/"><Mark /></a>
+    <ul class="nav-links">
+      {links.map((link) => (
+        <li><a href={link.href} aria-current={current === link.key ? "page" : undefined}>{link.label}</a></li>
+      ))}
+    </ul>
+    <a class="button button-secondary" data-size="small" href="https://github.com/inixiative">GitHub</a>
+  </nav>
+  <ul class="nav-links-compact">
+    {links.map((link) => (
+      <li><a href={link.href} aria-current={current === link.key ? "page" : undefined}>{link.label}</a></li>
+    ))}
+  </ul>
+</header>

@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- Source of public/og-1200x630.png. Render after `bun run prepare-static`:
+     bunx playwright screenshot --viewport-size=1200,630 "file://$PWD/scripts/og-card.html" public/og-1200x630.png -->
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../public/theme/public.css">
+<link rel="stylesheet" href="../public/theme/domains.css">
+<link rel="stylesheet" href="../public/theme/marketing.css">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  .card-og { box-sizing: border-box; width: 1200px; height: 630px; padding: 72px 80px; display: flex; flex-direction: column; justify-content: space-between; }
+  .ixi { font-family: var(--font-mono); font-size: 96px; letter-spacing: -0.02em; line-height: 1; }
+  .ixi-bracket { color: #6e7681; }
+  .ixi-mark { color: #58a6ff; font-weight: 700; }
+  h1 { margin: 0; font-family: var(--font-display); font-size: 72px; font-weight: 750; letter-spacing: -0.03em; line-height: 1.04; }
+  .doors { display: flex; gap: 40px; font-family: var(--font-mono); font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .doors span { display: inline-flex; align-items: center; gap: 14px; color: hsl(var(--app-primary)); }
+  .doors span::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: hsl(var(--app-primary)); box-shadow: 0 0 14px hsl(var(--app-primary)); }
+  .url { font-family: var(--font-mono); font-size: 22px; color: hsl(var(--muted-foreground)); }
+  .foot { display: flex; justify-content: space-between; align-items: end; }
+</style>
+</head>
+<body class="marketing" data-domain="inixiative">
+  <div class="card-og">
+    <span class="ixi"><span class="ixi-bracket">&lt;</span><span class="ixi-mark">iXi</span><span class="ixi-bracket">&gt;</span></span>
+    <h1>Technology for cooperation.</h1>
+    <div class="foot">
+      <div class="doors">
+        <span data-domain="agentic">Agentic</span>
+        <span data-domain="building-blocks">Building blocks</span>
+        <span data-domain="governance">Governance</span>
+      </div>
+      <span class="url">inixiative.com</span>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+# written by scripts/prepare-static.mjs
+/public/theme/
+/public/proposals/
+/public/moving-forward/

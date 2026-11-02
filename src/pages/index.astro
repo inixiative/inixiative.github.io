@@ -1,0 +1,97 @@
+---
+import Base from "../layouts/Base.astro";
+import Mark from "../components/Mark.astro";
+---
+<Base
+  title="inixiative: technology for cooperation"
+  description="Agentic tools that work the way you do, the open building blocks they're made from, and designs for cooperation at scale."
+  domain="inixiative"
+>
+  <script slot="head" is:inline>
+    // Every primitive's GitHub homepage, and posts from before the rebuild, link to /#<repo>.
+    // Those sections now live on their own pages; send the old anchors there.
+    (function () {
+      var id = location.hash.slice(1);
+      if (!id) return;
+      var blocks = ["primitives", "template", "json-rules", "permissions", "transitions", "prisma-map", "atlas", "rules-builder", "config", "gloss", "conditional-form", "hivemind"];
+      var agentic = ["foundry", "agent-session", "archive", "signet", "kcp", "kingdom", "oracle", "bench"];
+      var target = null;
+      if (id === "think" || id === "governance") target = "/governance/";
+      else if (id === "agentic") target = "/agentic/";
+      else if (id === "building-blocks") target = "/building-blocks/";
+      else if (id === "foundry-oracle") target = "/agentic/#oracle";
+      else if (blocks.indexOf(id) !== -1) target = "/building-blocks/#" + id;
+      else if (agentic.indexOf(id) !== -1) target = "/agentic/#" + id;
+      if (target) location.replace(target);
+    })();
+  </script>
+
+  <section class="hero">
+    <span class="hero-mark"><Mark /></span>
+    <h1 class="display-1">Technology for cooperation.</h1>
+    <p class="lede">
+      Agentic tools that keep your agents working the way you do. The open building blocks they're
+      made from. And designs for how people cooperate at scale.
+    </p>
+  </section>
+
+  <section class="section" aria-labelledby="doors-title">
+    <h2 id="doors-title" class="eyebrow" data-quiet>Three doors</h2>
+    <div class="card-grid doors">
+      <a class="card" data-domain="agentic" href="/agentic/">
+        <span class="eyebrow"><span class="status-dot"></span>Agentic</span>
+        <h3>An agent that works like you do.</h3>
+        <p>Foundry is the workspace around your agent. Kingdom decides who and what can reach your work. Archive keeps every session.</p>
+        <p class="meta">Foundry · Kingdom · Archive · Signet · KCP</p>
+      </a>
+      <a class="card" data-domain="building-blocks" href="/building-blocks/">
+        <span class="eyebrow"><span class="status-dot"></span>Building blocks</span>
+        <h3>Stop rediscovering what you need to build.</h3>
+        <p>A SaaS backend template you own, and the open libraries it is built from: rules, permissions, lifecycles and the tooling around them.</p>
+        <p class="meta">template · json-rules · permissions · transitions</p>
+      </a>
+      <a class="card" data-domain="governance" href="/governance/">
+        <span class="eyebrow"><span class="status-dot"></span>Governance</span>
+        <h3>Designs for cooperation at scale.</h3>
+        <p>The whitepaper and the proposals: how groups set rules, hold each other accountable, and invest together without a central referee.</p>
+        <p class="meta">proposals · whitepaper · vocabulary</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>How it fits</span>
+      <h2>One system, three layers.</h2>
+    </div>
+    <div class="layers">
+      <div class="layer" data-domain="building-blocks">
+        <span class="eyebrow">Building blocks</span>
+        <p>Open libraries for rules, permissions and lifecycles, and a template that wires them into a working backend.</p>
+      </div>
+      <span class="layer-arrow" aria-hidden="true">→</span>
+      <div class="layer" data-domain="agentic">
+        <span class="eyebrow">Agentic</span>
+        <p>Foundry, Kingdom and Archive are built on those blocks. They bring what you've decided into every agent session, and control who can reach what.</p>
+      </div>
+      <span class="layer-arrow" aria-hidden="true">→</span>
+      <div class="layer" data-domain="governance">
+        <span class="eyebrow">Governance</span>
+        <p>The design work it all serves: how groups set rules and cooperate at scale without a central referee.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" data-compact>
+    <div class="text">
+      <p>
+        <strong>Most of it is open source.</strong> The building blocks, Archive, agent-session, Signet and KCP are MIT.
+        Foundry is source-available. Kingdom and Oracle are closed.
+      </p>
+    </div>
+    <div class="actions">
+      <a class="text-link" href="/open-source/">What's open and why</a>
+      <a class="text-link" href="https://github.com/inixiative">github.com/inixiative</a>
+    </div>
+  </section>
+</Base>

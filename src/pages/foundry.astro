@@ -1,0 +1,146 @@
+---
+import Base from "../layouts/Base.astro";
+const essay = "https://inixiative.substack.com/p/the-real-problem-with-ai-coding-isnt";
+---
+<Base
+  title="Foundry: the voice of the codebase · inixiative"
+  description="Foundry is the workspace around your agent. What you've already decided reaches every session, on the Claude Code, Codex and Muse subscriptions you already pay for."
+  domain="agentic"
+  current="agentic"
+>
+  <section class="hero">
+    <span class="eyebrow"><span class="status-dot" data-live></span>Foundry</span>
+    <h1 class="display-1">Stop repeating yourself to Claude.</h1>
+    <p class="subhead">The voice of the codebase.</p>
+    <p class="lede">
+      Foundry is the workspace around your agent. It works with Claude Code, Codex and Muse, and with
+      apps that speak ACP. What you've already decided reaches every session.
+    </p>
+    <div class="actions">
+      <a class="button" href="https://github.com/inixiative/foundry">Foundry on GitHub</a>
+      <a class="text-link" href={essay}>Read why we built it</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="split">
+      <div class="text">
+        <span class="eyebrow" data-quiet>The problem</span>
+        <h2 class="display-3">Every session starts half-amnesiac.</h2>
+        <p>
+          You pay a re-alignment tax. You explain your conventions again, your past decisions again, your
+          taste again. The model is outside your control, and so is the harness it runs in.
+        </p>
+        <p>
+          Your corpus is the one layer you control: your docs, your rules, your <code>CLAUDE.md</code>.
+          Foundry gives you a real tool to control it.
+        </p>
+      </div>
+      <div class="text">
+        <span class="eyebrow" data-quiet>The bet</span>
+        <h2 class="display-3">Told the right thing, the agent does what you want.</h2>
+        <p>
+          The bet is that your corrections compile into docs that tell it automatically. In early runs, when
+          Aron's corrections reached the agent before it planned, the plans came out right. Oracle runs the
+          loop that tunes those docs.
+        </p>
+        <p>
+          The longer version is the essay{" "}<a href={essay}>The Real Problem With AI Coding Isn't Capability. It's Alignment.</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>What it does</span>
+      <h2>Five things Foundry is for.</h2>
+    </div>
+    <ol class="pitches">
+      <li class="pitch">
+        <h3>Stop repeating yourself to Claude.</h3>
+        <p>
+          What you've already decided reaches every session. Wardens notice what your request touches and
+          point at what your codebase already has, and where it's written down. They never block. Your
+          agent decides.
+        </p>
+      </li>
+      <li class="pitch">
+        <h3>Every agent you pay for, in one place.</h3>
+        <p>
+          Claude Code, Codex and Muse on your own subscriptions. Each thread picks its worker, and every
+          session is captured.
+        </p>
+      </li>
+      <li class="pitch">
+        <h3>Stop being a meat proxy.</h3>
+        <p>Your agent, their agent and the people in one thread, hashing out the work.</p>
+        <div class="tags"><span class="tag" data-tone="open">Host side built</span><span class="tag" data-tone="progress">Joiner view in progress</span></div>
+      </li>
+      <li class="pitch">
+        <h3>Stop checking a dozen apps.</h3>
+        <p>Work comes to you, already understood.</p>
+        <div class="tags"><span class="tag" data-tone="progress">In progress</span></div>
+      </li>
+      <li class="pitch">
+        <h3>Set up your repo.</h3>
+        <p>Foundry reads your repo and builds the docs and Wardens.</p>
+        <div class="tags"><span class="tag" data-tone="progress">In progress</span></div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>How Wardens work</span>
+      <h2>They point. Your agent decides.</h2>
+      <p class="lede">
+        Each Warden knows one region of your docs and code. Together they are the chorus, and they speak up
+        only when your request is in their region.
+      </p>
+    </div>
+    <ol class="steps">
+      <li><strong>You ask in plain words.</strong> In Claude Code, Codex or an ACP app, the way you already work.</li>
+      <li><strong>Wardens notice what it touches.</strong> Each one checks whether the request is in its part of your codebase.</li>
+      <li><strong>They point at what exists.</strong> The primitive, the pattern, and the doc section where it's written down. They never block.</li>
+      <li><strong>Your agent decides.</strong> It builds with that in view, on your machine.</li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="split">
+      <div class="text">
+        <span class="eyebrow" data-quiet>Runs on your subscription</span>
+        <h2 class="display-3">No API key. No proxy.</h2>
+        <p>
+          Foundry runs on your machine and uses the Claude Code, Codex and Muse logins you already have.
+          Every session runs in the real harness, on your own subscription. Kingdom can hold those logins
+          for you and give each project its own pool.
+        </p>
+      </div>
+      <div class="text">
+        <span class="eyebrow" data-quiet>License</span>
+        <h2 class="display-3">Source-available.</h2>
+        <p>
+          Foundry is under BSL 1.1. It is free to use, including at work. You may not resell it. It
+          becomes MIT in April 2030. The core engine and the ACP adapter are MIT today.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>Run it</span>
+      <h2>Clone it and set it up.</h2>
+    </div>
+    <pre class="code"><span class="prompt">$ </span>git clone https://github.com/inixiative/foundry.git
+<span class="prompt">$ </span>cd foundry &amp;&amp; bun install
+<span class="prompt">$ </span>bun run setup
+<span class="prompt">$ </span>bun run start</pre>
+    <div class="actions">
+      <a class="button" href="https://github.com/inixiative/foundry">Foundry on GitHub</a>
+      <a class="text-link" href="/agentic/">The rest of the agentic tools</a>
+    </div>
+  </section>
+</Base>
