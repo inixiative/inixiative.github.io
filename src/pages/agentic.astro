@@ -55,6 +55,7 @@ import StackMap from "../components/StackMap.astro";
         </div>
         <div class="actions">
           <a class="button" href="/foundry/">How Foundry works</a>
+          <a class="button button-secondary" href="/foundry/demo/">Try the demo</a>
           <a class="button button-secondary" href="https://github.com/inixiative/foundry">GitHub</a>
         </div>
       </div>
@@ -73,11 +74,12 @@ import StackMap from "../components/StackMap.astro";
       <span class="eyebrow" data-quiet>How it works</span>
       <h2>Your machine does the work, and Kingdom holds the credentials.</h2>
       <p class="lede">
-        Agents run on your computer, on your own subscriptions. Anything that crosses to a teammate or a
-        provider goes through Kingdom, on a Signet the owner can take back.
+        Your agent runs inside Foundry on your computer, on your own subscriptions. Steps 1 to 3 follow one
+        request; 4 and 5 are how it learns. Anything that crosses to a teammate or a provider goes through Kingdom, on a Signet the
+        owner can take back.
       </p>
     </div>
-    <StackMap view="whole" focus="agentic" />
+    <StackMap view="foundry-kingdom" />
   </section>
 
   <section class="section">

@@ -344,6 +344,9 @@ const glyphs: Record<string, string> = {
   foundry: "M5 7 H19 M5 12 H19 M5 17 H13",
   archive: "M4 5 H20 V9 H4 Z M5 9 V19 H19 V9 M10 13 H14",
   "agent-session": "M5 7 L10 12 L5 17 M12 17 H19",
+  agent: "M5 7 L10 12 L5 17 M12 17 H19",
+  wardens: "M4 12 H17 M12 7 L17 12 L12 17",
+  codebase: "M9 7 L4 12 L9 17 M15 7 L20 12 L15 17 M13.5 5 L10.5 19",
   kcp: "M5 7 L10 12 L5 17 M12 17 H19",
   signet: "M12 4 A8 8 0 1 1 11.99 4 Z M12 8 V16 M8 12 H16",
   oracle: "M3 12 Q12 4 21 12 Q12 20 3 12 Z M12 9 A3 3 0 1 1 11.99 9 Z",
@@ -368,40 +371,78 @@ const onTop = (id: string, x: number, y: number, z: number, s: number, frac = 0.
   return { t: "glyph", c: crest ? "glyph glyph-crest" : "glyph", d, m: [k * CX, k * CY, -k * CX, k * CY, ex, ey] };
 };
 
-/** The size of a node's label chip in the whole picture: tag on top, short description below. */
-const chipSize = (n: StackNode): [number, number] => {
-  const tag = n.tag ?? n.label;
-  return [Math.max(tag.length * 6.6 + (n.id === "kingdom" ? 16 : 0), textWidth(n.short ?? "", 13.6, true)) + 20, 36];
-};
+/** The size of a node's label chip in the isometric views: tag on top, short description below, a step number in front. */
+const chipSize = (tag: string, desc: string, crest = false, step?: number): [number, number] => [
+  Math.max(tag.length * 6.6 + (crest ? 16 : 0), textWidth(desc, 13.6, true)) + 20 + (step ? 26 : 0),
+  36,
+];
 
 type Box = { x: number; y: number; w: number; h: number };
 const hits = (a: Box, b: Box, m = 4) => a.x < b.x + b.w + m && b.x < a.x + a.w + m && a.y < b.y + b.h + m && b.y < a.y + a.h + m;
 
-type IsoPlace = { id: string; x: number; y: number; z: number; s?: number; h?: number; sub?: string; dy?: number; dx?: number; bare?: boolean };
+type IsoPlace = {
+  id: string;
+  x: number;
+  y: number;
+  z: number;
+  /** Footprint along x (and along y, unless `sd` is given), in grid units. */
+  s?: number;
+  sd?: number;
+  h?: number;
+  sub?: string;
+  dy?: number;
+  dx?: number;
+  bare?: boolean;
+  /** This view's short description, in place of the data's. */
+  line?: string;
+  /** A numbered step in the story the view tells. */
+  step?: number;
+  /** This view's colour for the piece, in place of the data's. */
+  tone?: string;
+  /** More blocks of the same piece, as offsets from the first (Wardens are many small agents). */
+  copies?: Pt[];
+};
+
+const half = (p: IsoPlace): [number, number] => {
+  const s = (p.s ?? 0.8) / 2;
+  return [s, p.sd !== undefined ? p.sd / 2 : s];
+};
+
+const cube = (x: number, y: number, z: number, s: number, sy: number, h: number): Prim[] => [
+  { t: "poly", c: "face-side", pts: [iso(x - s, y + sy, z + h), iso(x + s, y + sy, z + h), iso(x + s, y + sy, z), iso(x - s, y + sy, z)] },
+  { t: "poly", c: "face-front", pts: [iso(x + s, y - sy, z + h), iso(x + s, y + sy, z + h), iso(x + s, y + sy, z), iso(x + s, y - sy, z)] },
+  { t: "poly", c: "face-top", pts: [iso(x - s, y - sy, z + h), iso(x + s, y - sy, z + h), iso(x + s, y + sy, z + h), iso(x - s, y + sy, z + h)] },
+];
+
+const descOf = (p: IsoPlace, n: StackNode) => p.line ?? n.short ?? "";
+const chipOf = (p: IsoPlace, n: StackNode) => chipSize(n.tag ?? n.label, descOf(p, n), n.id === "kingdom", p.step);
 
 const isoNode = (p: IsoPlace, es: StackEdge[]): SceneNode => {
   const n = byId.get(p.id);
   if (!n) throw new Error(`map: unknown node ${p.id}`);
-  const s = (p.s ?? 0.8) / 2;
+  const [s, sy] = half(p);
   const h = p.h ?? 14;
   const { x, y, z } = p;
-  const prims: Prim[] = [
-    { t: "poly", c: "face-side", pts: [iso(x - s, y + s, z + h), iso(x + s, y + s, z + h), iso(x + s, y + s, z), iso(x - s, y + s, z)] },
-    { t: "poly", c: "face-front", pts: [iso(x + s, y - s, z + h), iso(x + s, y + s, z + h), iso(x + s, y + s, z), iso(x + s, y - s, z)] },
-    { t: "poly", c: "face-top", pts: [iso(x - s, y - s, z + h), iso(x + s, y - s, z + h), iso(x + s, y + s, z + h), iso(x - s, y + s, z + h)] },
-  ];
-  const mark = onTop(n.id, x, y, z + h, s);
-  if (mark) prims.push(mark);
+  const prims: Prim[] = [];
+  // Back to front, so nearer blocks of the same piece cover farther ones.
+  const blocks: Pt[] = [[0, 0], ...(p.copies ?? [])].sort((a, b) => a[0] + a[1] - (b[0] + b[1]));
+  for (const [ox, oy] of blocks) {
+    prims.push(...cube(x + ox, y + oy, z, s, sy, h));
+    const mark = onTop(n.id, x + ox, y + oy, z + h, Math.min(s, sy));
+    if (mark) prims.push(mark);
+  }
   const [ax, ay] = iso(x, y, z + h);
-  if (p.bare) return { id: n.id, label: n.label, href: n.href, aria: ariaFor(n, es), tier: n.tier, look: look(n), prims };
+  const tone = p.tone ? look(n).replace(/tone-\w+/, `tone-${p.tone}`) : look(n);
+  if (p.bare) return { id: n.id, label: n.label, href: n.href, aria: ariaFor(n, es), tier: n.tier, look: tone, prims };
   const crest = n.id === "kingdom";
   const flag = n.state === "progress";
   if (flag) {
     // Under construction: a scaffold frame around the block, its dashes travelling slowly.
     const g = s + 0.14;
+    const gy = sy + 0.14;
     const hh = h + 8;
-    const c = [iso(x - g, y + g, z), iso(x + g, y + g, z), iso(x + g, y - g, z)];
-    const t = [iso(x - g, y - g, z + hh), iso(x + g, y - g, z + hh), iso(x + g, y + g, z + hh), iso(x - g, y + g, z + hh)];
+    const c = [iso(x - g, y + gy, z), iso(x + g, y + gy, z), iso(x + g, y - gy, z)];
+    const t = [iso(x - g, y - gy, z + hh), iso(x + g, y - gy, z + hh), iso(x + g, y + gy, z + hh), iso(x - g, y + gy, z + hh)];
     const d =
       `M ${t.map((q) => q.join(" ")).join(" L ")} Z ` +
       `M ${t[3].join(" ")} L ${c[0].join(" ")} M ${t[2].join(" ")} L ${c[1].join(" ")} M ${t[1].join(" ")} L ${c[2].join(" ")} ` +
@@ -410,20 +451,136 @@ const isoNode = (p: IsoPlace, es: StackEdge[]): SceneNode => {
   }
   // The one label shape: the tag (repo name) on top, the short description below.
   const tag = n.tag ?? n.label;
-  const desc = n.short ?? "";
-  const [cw, ch] = chipSize(n);
+  const desc = descOf(p, n);
+  const [cw, ch] = chipOf(p, n);
   const cx = ax + (p.dx ?? 0);
   const cy = ay - (p.dy ?? 22) - ch;
   prims.push({ t: "path", c: "leader", d: `M ${ax} ${ay} L ${cx} ${cy + ch}` });
   prims.push({ t: "rect", c: "chip", x: cx - cw / 2, y: cy, w: cw, h: ch, r: 6 });
   let tx = cx - cw / 2 + 10;
+  if (p.step) {
+    prims.push({ t: "rect", c: "step-badge", x: tx, y: cy + 9, w: 18, h: 18, r: 9 });
+    prims.push({ t: "text", c: "step-num", x: tx + 9, y: cy + 22, s: String(p.step), a: "middle" });
+    tx += 26;
+  }
+  const dx0 = tx;
   if (crest) {
     prims.push({ t: "crest", c: "crest", x: tx, y: cy + 5, size: 11 });
     tx += 16;
   }
   prims.push({ t: "text", c: "tag-text", x: tx, y: cy + 14, s: tag });
-  prims.push({ t: "text", c: "desc", x: cx - cw / 2 + 10, y: cy + 29, s: desc });
-  return { id: n.id, label: n.label, href: n.href, aria: ariaFor(n, es), tier: n.tier, look: `${look(n)}${n.id === "kingdom" ? " is-focal" : ""}${n.id === "project" ? " is-goal" : ""}`, prims };
+  prims.push({ t: "text", c: "desc", x: dx0, y: cy + 29, s: desc });
+  const looks = `${tone}${n.id === "kingdom" ? " is-focal" : ""}${n.id === "project" ? " is-goal" : ""}`;
+  return { id: n.id, label: n.label, href: n.href, aria: ariaFor(n, es), tier: n.tier, look: looks, prims, short: desc, step: p.step };
+};
+
+/** What an isometric view needs to lay out its pieces: anchors, edges along plates and between them, chip placement. */
+const isoKit = (places: IsoPlace[]) => {
+  const pl = Object.fromEntries(places.map((p) => [p.id, p]));
+  const topOf = (id: string): Pt => {
+    const p = pl[id];
+    return iso(p.x, p.y, p.z + (p.h ?? 14));
+  };
+  const footOf = (id: string): Pt => {
+    const p = pl[id];
+    return iso(p.x, p.y, p.z);
+  };
+  const beam = (b: string, u: string, kind: "uses" | "runs" = "uses") => {
+    const [ax, ay] = topOf(b);
+    const [bx, by] = footOf(u);
+    const lift = (ay - by) * 0.45;
+    return edgeOf(b, u, kind, `M ${ax} ${ay} C ${ax} ${ay - lift} ${bx} ${by + lift} ${bx} ${by}`, true);
+  };
+  /** A trace painted on a plate: along x, then along y. */
+  const trace = (b: string, u: string, z: number, kind: "uses" | "runs" = "runs", yFirst = false) => {
+    const pb = pl[b];
+    const pu = pl[u];
+    const mid: Pt = yFirst ? iso(pb.x, pu.y, z) : iso(pu.x, pb.y, z);
+    return edgeOf(b, u, kind, route([iso(pb.x, pb.y, z), mid, iso(pu.x, pu.y, z)], 8));
+  };
+  // Place every chip where it covers no other chip, block or label: nearest free spot above its block.
+  const textBox = (p: Prim): Box | null => {
+    if (p.t !== "text") return null;
+    const size = p.c.includes("tier-label") ? 17 : p.c.includes("tier-line") ? 12 : 11.5;
+    const w = textWidth(p.s, size, size > 13);
+    const x = p.a === "end" ? p.x - w : p.a === "middle" ? p.x - w / 2 : p.x;
+    return { x, y: p.y - size, w, h: size + 4 };
+  };
+  const blockBox = (q: IsoPlace): Box => {
+    const [s0, sy0] = half(q);
+    const h0 = q.h ?? 14;
+    const [lx] = iso(q.x - s0, q.y + sy0, q.z);
+    const [rx] = iso(q.x + s0, q.y - sy0, q.z);
+    const [, ty] = iso(q.x - s0, q.y - sy0, q.z + h0);
+    const [, by] = iso(q.x + s0, q.y + sy0, q.z);
+    return { x: lx, y: ty, w: rx - lx, h: by - ty };
+  };
+  /** `own`: pieces whose chip must also clear their own block (a wide slab). `lines`: points on drawn lines to keep clear. */
+  const placeChips = (labels: Prim[], first: string[], opts: { own?: string[]; lines?: Pt[] } = {}) => {
+    const taken: Box[] = labels.map(textBox).filter((b): b is Box => !!b);
+    for (const [px, py] of opts.lines ?? []) taken.push({ x: px - 1, y: py - 1, w: 2, h: 2 });
+    const blocks = places.map((q) => ({ id: q.id, box: blockBox(q) }));
+    const order = [...places].filter((q) => !q.bare).sort((a, b) => (first.indexOf(b.id) + 1 ? 1 : 0) - (first.indexOf(a.id) + 1 ? 1 : 0));
+    for (const q of order) {
+      const n = byId.get(q.id)!;
+      const [cw, ch] = chipOf(q, n);
+      const [ax, ay] = iso(q.x, q.y, q.z + (q.h ?? 14));
+      const others = blocks.filter((b) => b.id !== q.id || opts.own?.includes(q.id)).map((b) => b.box);
+      let best: { dx: number; dy: number; cost: number } | null = null;
+      for (let dy = -70; dy <= 150; dy += 4)
+        for (let dx = -230; dx <= 230; dx += 8) {
+          const box = { x: ax + dx - cw / 2, y: ay - dy - ch, w: cw, h: ch };
+          if (taken.some((t) => hits(box, t)) || others.some((t) => hits(box, t, 2))) continue;
+          const cost = Math.abs(dx) * 0.9 + Math.abs(dy - 14) + (dy < 6 ? 60 : 0);
+          if (!best || cost < best.cost) best = { dx, dy, cost };
+        }
+      if (!best) console.warn(`map: no free spot for ${q.id}'s label`);
+      const pick = best ?? { dx: q.dx ?? 0, dy: q.dy ?? 22 };
+      q.dx = pick.dx;
+      q.dy = pick.dy;
+      taken.push({ x: ax + pick.dx - cw / 2, y: ay - pick.dy - ch, w: cw, h: ch });
+    }
+  };
+  return { pl, topOf, footOf, beam, trace, placeChips };
+};
+
+/** Fit a view box to what is drawn. */
+const fitBox = (layers: Layer[], pad = 10): Scene["box"] => {
+  const xs: number[] = [];
+  const ys: number[] = [];
+  for (const l of layers)
+    for (const it of l.items) {
+      const prims = "node" in it ? it.node.prims : "edge" in it ? [] : [it];
+      for (const p of prims) {
+        if (p.t === "poly") for (const [px, py] of p.pts) (xs.push(px), ys.push(py));
+        if (p.t === "rect") (xs.push(p.x, p.x + p.w), ys.push(p.y, p.y + p.h));
+        if (p.t === "text") {
+          const size = p.c.includes("tier-label") ? 20 : p.c.includes("tier-line") ? 12 : 13;
+          const w = textWidth(p.s, size, size > 13);
+          xs.push(p.a === "end" ? p.x - w : p.a === "middle" ? p.x + w / 2 : p.x + w);
+          ys.push(p.y - size, p.y + 4);
+        }
+      }
+    }
+  const minX = Math.min(...xs) - pad;
+  const minY = Math.min(...ys) - pad;
+  return [Math.floor(minX), Math.floor(minY), Math.ceil(Math.max(...xs) + pad - minX), Math.ceil(Math.max(...ys) + pad - minY)];
+};
+
+/** A plate's name and line, written at its left corner (or under its right corner). */
+const plateLabel = (spec: PlateSpec, tier: string, text: string, line: string): Prim[] => {
+  const [lx, ly] = iso(spec.x, spec.y + spec.d, spec.z);
+  return [
+    { t: "text", x: lx - 18, y: ly - 4, s: text, c: `tier-label tone-${tier}`, a: "end" },
+    { t: "text", x: lx - 18, y: ly + 14, s: line, c: "tier-line", a: "end" },
+  ];
+};
+const plateLabelRight = (spec: PlateSpec, tier: string, text: string, line: string): Prim[] => {
+  const [lx, ly] = iso(spec.x + spec.w, spec.y + spec.d, spec.z - spec.t);
+  return [
+    { t: "text", x: lx + 10, y: ly + 34, s: text, c: `tier-label tone-${tier}`, a: "middle" },
+    { t: "text", x: lx + 10, y: ly + 52, s: line, c: "tier-line", a: "middle" },
+  ];
 };
 
 const wholeScene = (): Scene => {
@@ -471,28 +628,7 @@ const wholeScene = (): Scene => {
   ];
   const ids = places.map((p) => p.id);
   const es = allEdges.filter((e) => ids.includes(e.base) && ids.includes(e.user));
-  const pl = Object.fromEntries(places.map((p) => [p.id, p]));
-  const topOf = (id: string): Pt => {
-    const p = pl[id];
-    return iso(p.x, p.y, p.z + (p.h ?? 14));
-  };
-  const footOf = (id: string): Pt => {
-    const p = pl[id];
-    return iso(p.x, p.y, p.z);
-  };
-  const beam = (b: string, u: string, kind: "uses" | "runs" = "uses") => {
-    const [ax, ay] = topOf(b);
-    const [bx, by] = footOf(u);
-    const lift = (ay - by) * 0.45;
-    return edgeOf(b, u, kind, `M ${ax} ${ay} C ${ax} ${ay - lift} ${bx} ${by + lift} ${bx} ${by}`, true);
-  };
-  /** A trace painted on a plate: along x, then along y. */
-  const trace = (b: string, u: string, z: number, kind: "uses" | "runs" = "runs", yFirst = false) => {
-    const pb = pl[b];
-    const pu = pl[u];
-    const mid: Pt = yFirst ? iso(pb.x, pu.y, z) : iso(pu.x, pb.y, z);
-    return edgeOf(b, u, kind, route([iso(pb.x, pb.y, z), mid, iso(pu.x, pu.y, z)], 8));
-  };
+  const { pl, topOf, beam, trace, placeChips } = isoKit(places);
 
   const baseTraces = [
     trace("prisma-map", "json-rules", Z.base, "uses"),
@@ -526,13 +662,7 @@ const wholeScene = (): Scene => {
     ...["worktrees", "init", "ci-rules"].map((id) => edgeOf(id, "template", "uses", "")),
   ];
 
-  const label = (spec: PlateSpec, tier: string, text: string, line: string): Prim[] => {
-    const [lx, ly] = iso(spec.x, spec.y + spec.d, spec.z);
-    return [
-      { t: "text", x: lx - 18, y: ly - 4, s: text, c: `tier-label tone-${tier}`, a: "end" },
-      { t: "text", x: lx - 18, y: ly + 14, s: line, c: "tier-line", a: "end" },
-    ];
-  };
+  const label = plateLabel;
   const trio = (): Prim[] => {
     const [tx, ty] = iso(dx.x + dx.w, dx.y + dx.d, Z.dx - dx.t);
     return [
@@ -540,62 +670,14 @@ const wholeScene = (): Scene => {
       { t: "text", x: tx + 10, y: ty + 84, s: "come with template", c: "micro-label", a: "middle" },
     ];
   };
-  const labelRight = (spec: PlateSpec, tier: string, text: string, line: string): Prim[] => {
-    const [lx, ly] = iso(spec.x + spec.w, spec.y + spec.d, spec.z - spec.t);
-    return [
-      { t: "text", x: lx + 10, y: ly + 34, s: text, c: `tier-label tone-${tier}`, a: "middle" },
-      { t: "text", x: lx + 10, y: ly + 52, s: line, c: "tier-line", a: "middle" },
-    ];
-  };
-  // Place every chip where it covers no other chip, block or tier label: nearest free spot above its block.
-  const textBox = (p: Prim): Box | null => {
-    if (p.t !== "text") return null;
-    const size = p.c.includes("tier-label") ? 17 : p.c.includes("tier-line") ? 12 : 11.5;
-    const w = textWidth(p.s, size, size > 13);
-    const x = p.a === "end" ? p.x - w : p.a === "middle" ? p.x - w / 2 : p.x;
-    return { x, y: p.y - size, w, h: size + 4 };
-  };
-  const blockBox = (q: IsoPlace): Box => {
-    const s0 = (q.s ?? 0.8) / 2;
-    const h0 = q.h ?? 14;
-    const [lx] = iso(q.x - s0, q.y + s0, q.z);
-    const [rx] = iso(q.x + s0, q.y - s0, q.z);
-    const [, ty] = iso(q.x - s0, q.y - s0, q.z + h0);
-    const [, by] = iso(q.x + s0, q.y + s0, q.z);
-    return { x: lx, y: ty, w: rx - lx, h: by - ty };
-  };
-  const placeChips = (labels: Prim[]) => {
-    const taken: Box[] = labels.map(textBox).filter((b): b is Box => !!b);
-    const blocks = places.map((q) => ({ id: q.id, box: blockBox(q) }));
-    const first = ["kingdom", "foundry", "project", "template"];
-    const order = [...places].filter((q) => !q.bare).sort((a, b) => (first.indexOf(b.id) + 1 ? 1 : 0) - (first.indexOf(a.id) + 1 ? 1 : 0));
-    for (const q of order) {
-      const n = byId.get(q.id)!;
-      const [cw, ch] = chipSize(n);
-      const [ax, ay] = iso(q.x, q.y, q.z + (q.h ?? 14));
-      const others = blocks.filter((b) => b.id !== q.id).map((b) => b.box);
-      let best: { dx: number; dy: number; cost: number } | null = null;
-      for (let dy = -70; dy <= 150; dy += 4)
-        for (let dx = -230; dx <= 230; dx += 8) {
-          const box = { x: ax + dx - cw / 2, y: ay - dy - ch, w: cw, h: ch };
-          if (taken.some((t) => hits(box, t)) || others.some((t) => hits(box, t, 2))) continue;
-          const cost = Math.abs(dx) * 0.9 + Math.abs(dy - 14) + (dy < 6 ? 60 : 0);
-          if (!best || cost < best.cost) best = { dx, dy, cost };
-        }
-      if (!best) console.warn(`map: no free spot for ${q.id}'s label`);
-      const pick = best ?? { dx: q.dx ?? 0, dy: q.dy ?? 22 };
-      q.dx = pick.dx;
-      q.dy = pick.dy;
-      taken.push({ x: ax + pick.dx - cw / 2, y: ay - pick.dy - ch, w: cw, h: ch });
-    }
-  };
+  const labelRight = plateLabelRight;
   placeChips([
     ...label(base, "amber", "Building blocks", "The libraries template is made of"),
     ...label(agentic, "lime", "Agentic", "Agents that work like you do"),
     ...label(gov, "violet", "Governance", "Cooperation at scale"),
     ...labelRight(dx, "teal", "Developer experience", "Tools that help you work"),
     ...trio(),
-  ]);
+  ], ["kingdom", "foundry", "project", "template"]);
   const nodesIn = (tier: string, z?: number) =>
     places
       .filter((p) => byId.get(p.id)?.tier === tier && (z === undefined || p.z === z))
@@ -623,26 +705,6 @@ const wholeScene = (): Scene => {
     { c: "tier", tier: "governance", items: plate(lsPlate) },
     { c: "nodes", tier: "governance", items: nodesIn("governance", lsPlate.z) },
   ];
-  // Fit the view box to what is drawn.
-  const xs: number[] = [];
-  const ys: number[] = [];
-  for (const l of layers)
-    for (const it of l.items) {
-      const prims = "node" in it ? it.node.prims : "edge" in it ? [] : [it];
-      for (const p of prims) {
-        if (p.t === "poly") for (const [px, py] of p.pts) (xs.push(px), ys.push(py));
-        if (p.t === "rect") (xs.push(p.x, p.x + p.w), ys.push(p.y, p.y + p.h));
-        if (p.t === "text") {
-          const size = p.c.includes("tier-label") ? 20 : p.c.includes("tier-line") ? 12 : 13;
-          const w = textWidth(p.s, size, size > 13);
-          xs.push(p.a === "end" ? p.x - w : p.a === "middle" ? p.x + w / 2 : p.x + w);
-          ys.push(p.y - size, p.y + 4);
-        }
-      }
-    }
-  const pad = 10;
-  const minX = Math.min(...xs) - pad;
-  const minY = Math.min(...ys) - pad;
   return {
     view: "whole",
     title: "The whole picture",
@@ -650,15 +712,149 @@ const wholeScene = (): Scene => {
       "Three tiers. At the base, the template layer: the whole SaaS app, made of the building blocks prisma-map, json-rules, permissions, transitions and rules-builder; beside it, developer experience: atlas, gloss and config, with the worktrees, init and CI rules that come with template. " +
       "Above them, the agentic tools: Foundry, agent-session, Archive, KCP, Signet, Kingdom (the permission hub), Oracle, bench, and Artifactory (planned). " +
       "At the top, governance: the Inixiative project (planned), a time-series governance platform with tokenization and the goal, which the whitepaper explains and feeds into; Livestock (planned, closed source) sits just above it, a product that uses the platform.",
-    box: [Math.floor(minX), Math.floor(minY), Math.ceil(Math.max(...xs) + pad - minX), Math.ceil(Math.max(...ys) + pad - minY)],
+    box: fitBox(layers),
     layers,
   };
 };
 
-export type View = "whole" | "blocks" | "vocabulary" | "agentic";
+/* ------------------------------------------------------------------------------------------------ */
+/* Foundry and Kingdom (/agentic): how a request runs through Foundry on your machine, and how Kingdom holds the
+   keys to everything outside it. Same blocks, plates and label shape as the whole picture, read in numbered steps. */
+
+const foundryKingdomScene = (): Scene => {
+  // Laid out on a grid, then spread by G so the labels have room around the blocks.
+  const G = 1.25;
+  const g = (v: number) => Math.round(v * G * 100) / 100;
+  const spec = (p: PlateSpec): PlateSpec => ({ ...p, x: g(p.x), y: g(p.y), w: g(p.w), d: g(p.d) });
+  const machine = spec({ x: 0, y: 0, w: 8, d: 6.2, z: 0, t: 12, c: "plate tone-lime" });
+  const hosted = spec({ x: 9.6, y: 0, w: 5.8, d: 6.2, z: 0, t: 12, c: "plate plate-light tone-slate" });
+  const loop = spec({ x: 0.3, y: 0.2, w: 2.6, d: 1.9, z: 210, t: 8, c: "plate plate-light tone-slate" });
+  const F = 16; // Foundry's top: your agent and the Wardens stand on it.
+  const raw: IsoPlace[] = [
+    { id: "foundry", x: 3.4, y: 2.7, z: 0, s: 4.4, sd: 3.4, h: F, line: "The workspace around your agent" },
+    { id: "agent", x: 3.5, y: 3.2, z: F, s: 0.9, h: 30, step: 1, line: "You ask. Your agent decides." },
+    { id: "wardens", x: 4.7, y: 1.9, z: F, s: 0.5, h: 11, step: 2, line: "Notice what your request touches", copies: [[-1.3, -0.1], [-2.6, 0.2], [-2.7, 1.6], [0.3, 1.5]] },
+    { id: "codebase", x: 6.9, y: 1.1, z: 0, s: 1.1, h: 26, step: 3, line: "Wardens point your agent here" },
+    { id: "template", x: 3.8, y: 5.6, z: 0, s: 0.7, h: 12, line: "Comes with its Wardens built" },
+    { id: "archive", x: 1.4, y: 5.4, z: 0, h: 16, step: 4, line: "Keeps every session" },
+    { id: "kcp", x: 6.4, y: 5.5, z: 0, s: 0.7, h: 14, line: "Your command-line tools, via Kingdom" },
+    { id: "oracle", x: 1.6, y: 1.15, z: loop.z, h: 18, step: 5, line: "Checks fixes stick, proposes changes" },
+    { id: "signet", x: 10.4, y: 2.6, z: 0, s: 0.6, h: 12, line: "A pass you can take back" },
+    { id: "kingdom", x: 12.4, y: 2.6, z: 0, s: 1.3, h: 50, line: "Your accounts, and who may use them" },
+    { id: "integrations", x: 14.5, y: 1.0, z: 0, line: "GitHub, Slack, Linear" },
+    { id: "teammates", x: 14.5, y: 4.2, z: 0, line: "Them and their agents" },
+    { id: "artifactory", x: 12.7, y: 5.3, z: 0, s: 0.7, h: 12, tone: "lime", line: "Share what agents make" },
+  ];
+  const places = raw.map((p) => ({
+    ...p,
+    x: g(p.x),
+    y: g(p.y),
+    s: g(p.s ?? 0.8),
+    sd: p.sd === undefined ? undefined : g(p.sd),
+    copies: p.copies?.map(([cx, cy]): Pt => [g(cx), g(cy)]),
+  }));
+  const ids = places.map((p) => p.id);
+  const es = allEdges.filter((e) => ids.includes(e.base) && ids.includes(e.user));
+  const { pl, topOf, footOf, placeChips } = isoKit(places);
+  const lines: Pt[] = [];
+  /** A trace painted on a plate through grid points (unspread). */
+  const flat = (pts: Pt[], z: number) => {
+    const sp = pts.map(([x, y]) => iso(g(x), g(y), z));
+    for (let i = 1; i < sp.length; i++) for (let t = 0; t <= 1; t += 0.05) lines.push([sp[i - 1][0] + (sp[i][0] - sp[i - 1][0]) * t, sp[i - 1][1] + (sp[i][1] - sp[i - 1][1]) * t]);
+    return route(sp, 8);
+  };
+  const curve = ([ax, ay]: Pt, [bx, by]: Pt, k = 0.45) => {
+    const lift = (ay - by) * k;
+    const c1: Pt = [ax, ay - lift];
+    const c2: Pt = [bx, by + lift];
+    for (let t = 0; t <= 1; t += 0.025) {
+      const u = 1 - t;
+      lines.push([u * u * u * ax + 3 * u * u * t * c1[0] + 3 * u * t * t * c2[0] + t * t * t * bx, u * u * u * ay + 3 * u * u * t * c1[1] + 3 * u * t * t * c2[1] + t * t * t * by]);
+    }
+    return `M ${ax} ${ay} C ${c1.join(" ")} ${c2.join(" ")} ${bx} ${by}`;
+  };
+  const at = (id: string, dx: number, dy: number, z: number) => iso(pl[id].x + g(dx), pl[id].y + g(dy), z);
+  const K0 = raw.find((p) => p.id === "kingdom")!;
+  const kcp0 = raw.find((p) => p.id === "kcp")!;
+  const tm0 = raw.find((p) => p.id === "teammates")!;
+  const in0 = raw.find((p) => p.id === "integrations")!;
+  const ar0 = raw.find((p) => p.id === "artifactory")!;
+
+  // How a request runs, on your machine: the Wardens point at your agent from all around it.
+  const w = pl.wardens;
+  const spokes = [[0, 0] as Pt, ...(w.copies ?? [])]
+    .map(([ox, oy]) => `M ${iso(w.x + ox, w.y + oy, F + 5).join(" ")} L ${at("agent", 0, 0, F + 14).join(" ")}`)
+    .join(" ");
+  const ground = [
+    edgeOf("foundry", "archive", "runs", flat([[1.4, 4.4], [1.4, 5.0]], 0)),
+    // Kingdom: everything that leaves your machine goes through a Signet.
+    edgeOf("kingdom", "foundry", "runs", flat([[K0.x, K0.y], [5.6, K0.y]], 0)),
+    edgeOf("kingdom", "kcp", "runs", flat([[K0.x - 0.5, K0.y], [K0.x - 0.5, kcp0.y], [kcp0.x, kcp0.y]], 0)),
+    edgeOf("kingdom", "teammates", "runs", flat([[K0.x, K0.y + 0.4], [tm0.x - 0.9, K0.y + 0.4], [tm0.x - 0.9, tm0.y], [tm0.x, tm0.y]], 0)),
+    edgeOf("integrations", "kingdom", "runs", flat([[in0.x, in0.y], [K0.x, in0.y], [K0.x, K0.y]], 0)),
+    edgeOf("kingdom", "artifactory", "runs", flat([[K0.x + 0.3, K0.y], [K0.x + 0.3, ar0.y], [ar0.x, ar0.y]], 0)),
+    // The Signet is the pass on each of those lines: hovering it lights what it opens.
+    ...["foundry", "kcp", "kingdom"].map((u) => edgeOf("signet", u, "uses", "")),
+    edgeOf("foundry", "agent", "runs", ""),
+  ];
+  const [ox, oy] = footOf("oracle");
+  const raised = [
+    edgeOf("codebase", "wardens", "runs", curve(topOf("codebase"), at("wardens", 0.25, 0, F + 11), 0.3), true),
+    edgeOf("template", "wardens", "runs", curve(topOf("template"), at("wardens", -2.7, 1.6, F + 11), 0.3), true),
+    // The loop: Archive keeps the session, Oracle checks whether a correction stuck and tunes the Wardens.
+    edgeOf("archive", "oracle", "runs", curve(topOf("archive"), [ox - 30, oy + 12], 0.55), true),
+    edgeOf("oracle", "wardens", "runs", curve([ox + 34, oy + 10], at("wardens", -2.6, 0.2, F + 11), -0.4), true),
+  ];
+
+  const machineLabel = plateLabel(machine, "lime", "On your machine", "Your agent, on your own subscription");
+  const [hx, hy] = iso(hosted.x + hosted.w, hosted.y + hosted.d, 0);
+  const hostedLabel: Prim[] = [
+    { t: "text", x: hx + 24, y: hy - 4, s: "Hosted", c: "tier-label tone-slate" },
+    { t: "text", x: hx + 24, y: hy + 14, s: "Kingdom holds the keys", c: "tier-line" },
+  ];
+  const loopLabel = plateLabel(loop, "slate", "Learning from corrections", "Closed source");
+  placeChips([...machineLabel, ...hostedLabel, ...loopLabel], ["agent", "wardens", "codebase", "archive", "oracle", "kingdom", "foundry"], {
+    own: ["foundry", "codebase", "kingdom", "kcp", "signet"],
+    lines,
+  });
+  const node = (id: string) => ({ node: isoNode(pl[id], es) });
+  const layers: Layer[] = [
+    { c: "tier", tier: "hosted", items: [...plate(hosted), ...hostedLabel] },
+    { c: "tier", tier: "agentic", items: [...plate(machine), ...machineLabel] },
+    { c: "edges", items: ground.map((edge) => ({ edge })) },
+    { c: "nodes", tier: "hosted", items: ["integrations", "signet", "kingdom", "artifactory", "teammates"].map(node) },
+    { c: "nodes", tier: "agentic", items: ["codebase", "foundry", "template", "kcp", "archive"].map(node) },
+    { c: "edges", items: [{ edge: edgeOf("wardens", "agent", "runs", spokes) }] },
+    { c: "edges", items: raised.map((edge) => ({ edge })) },
+    { c: "nodes", tier: "agentic", items: ["wardens", "agent"].map(node) },
+    { c: "tier", tier: "loop", items: [...plate(loop), ...loopLabel] },
+    { c: "nodes", tier: "loop", items: ["oracle"].map(node) },
+  ];
+  return {
+    view: "foundry-kingdom",
+    title: "How Foundry works, and where Kingdom fits",
+    desc:
+      "On your machine, your agent (Claude Code or Codex) runs inside Foundry on your own subscription. 1: you ask your agent. 2: Wardens, small expert agents built from your docs (under construction: they come built in repos made from template, and building them for any repo is in progress), " +
+      "notice what the request touches. 3: they point your agent at what your codebase already has, and where it's written down; your agent decides what to use. " +
+      "Then the loop that learns: 4: Archive keeps every session. 5: Oracle (closed source) checks whether a correction stuck, and proposes changes to the docs and Wardens. " +
+      "A codebase built from template comes with its Wardens built. Hosted: Kingdom (closed source, under construction) holds your accounts, such as GitHub, Slack and Linear, " +
+      "and anything that uses them goes through a Signet, a pass the owner can take back: Foundry pairs with Kingdom on one, teammates and their agents come in on one, " +
+      "and KCP (under construction) will run your command-line tools through Kingdom. Artifactory, for sharing what agents make, is planned.",
+    box: fitBox(layers, 14),
+    layers,
+  };
+};
+
+export type View = "whole" | "blocks" | "vocabulary" | "agentic" | "foundry-kingdom";
 
 export const sceneFor = (view: View): Scene =>
-  view === "whole" ? wholeScene() : view === "agentic" ? agenticScene() : librariesScene(view);
+  view === "whole"
+    ? wholeScene()
+    : view === "agentic"
+      ? agenticScene()
+      : view === "foundry-kingdom"
+        ? foundryKingdomScene()
+        : librariesScene(view);
 
 /** The relations a view draws, for the text alternative and the stacked small-screen layout. */
 export const relationsFor = (scene: Scene) => {
