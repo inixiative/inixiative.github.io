@@ -5,6 +5,7 @@ import "../styles/stack-map.css";
 import { byId, edges as allEdges, nodes as allNodes, tiers } from "../data/stack";
 import { renderSvg } from "../map/render";
 import { relationsFor, sceneFor, type View } from "../map/views";
+import StackMapKey from "./StackMapKey.astro";
 
 interface Props {
   view: View;
@@ -35,10 +36,11 @@ const relations = ordered.map((n) => {
 type Stack = { key: string; label: string; tone: string; ids: string[]; note?: string }[];
 const stacks: Record<View, Stack> = {
   whole: [
-    { key: "governance", label: "Governance", tone: "violet", ids: ["whitepaper", "project"] },
+    { key: "governance", label: "Governance", tone: "violet", ids: ["project", "livestock", "whitepaper"], note: "The project is the goal, Livestock a product on it; the whitepaper explains why" },
     { key: "agentic", label: "Agentic", tone: "lime", ids: ["foundry", "kingdom", "signet", "archive", "agent-session", "kcp", "oracle", "bench", "artifactory"] },
     { key: "developer-experience", label: "Developer experience", tone: "slate", ids: ["atlas", "gloss", "config", "worktrees", "init", "ci-rules"], note: "Beside the stack: tools that help you work" },
-    { key: "building-blocks", label: "Building blocks", tone: "amber", ids: ["template", "rules-builder", "transitions", "permissions", "json-rules", "prisma-map"], note: "template on top, prisma-map at the base" },
+    { key: "template", label: "Template", tone: "amber", ids: ["template"], note: "The whole SaaS app, resting on the building blocks" },
+    { key: "building-blocks", label: "Building blocks", tone: "amber", ids: ["rules-builder", "transitions", "permissions", "json-rules", "prisma-map"], note: "prisma-map at the base" },
   ],
   blocks: [
     { key: "libraries", label: "The libraries", tone: "amber", ids: ["template", "rules-builder", "transitions", "permissions", "json-rules", "prisma-map"], note: "template on top, prisma-map at the base" },
@@ -56,7 +58,7 @@ const stacks: Record<View, Stack> = {
   ],
 };
 const sceneNode = new Map(nodes.map((n) => [n.id, n]));
-const focusTiers = focus === "building-blocks" ? ["building-blocks", "developer-experience"] : focus ? [focus] : null;
+const focusTiers = focus === "building-blocks" ? ["template", "building-blocks", "developer-experience"] : focus ? [focus] : null;
 const stack = stacks[view].filter((g) => !focusTiers || focusTiers.includes(g.key)).map((g) => ({
   ...g,
   items: g.ids.filter((i) => shown.has(i)).map((i) => {
@@ -68,33 +70,10 @@ const stack = stacks[view].filter((g) => !focusTiers || focusTiers.includes(g.ke
   }),
 }));
 
-const legend: Record<View, { c: string; t: string }[]> = {
-  whole: [
-    { c: "key-open", t: "Open source" },
-    { c: "key-closed", t: "Closed" },
-    { c: "key-planned", t: "Planned" },
-    { c: "key-progress", t: "In progress" },
-    { c: "key-signet", t: "Through a Signet" },
-  ],
-  blocks: [
-    { c: "key-uses", t: "Built on" },
-    { c: "key-structural", t: "Reads prisma-map's map" },
-    { c: "key-next", t: "Next" },
-    { c: "key-progress", t: "In progress" },
-  ],
-  vocabulary: [
-    { c: "key-uses", t: "Built on" },
-    { c: "key-structural", t: "Reads prisma-map's map" },
-    { c: "key-next", t: "Next" },
-  ],
-  agentic: [
-    { c: "key-signet", t: "Through a Signet" },
-    { c: "key-runs", t: "Runs" },
-    { c: "key-closed", t: "Closed" },
-    { c: "key-planned", t: "Planned" },
-    { c: "key-progress", t: "In progress" },
-  ],
-};
+const keyText =
+  "How to read the map: colour shows which part a piece belongs to (amber building blocks, slate developer experience, lime agentic, blue outside your machine, violet governance; charcoal marks closed source and pink marks a connection that goes through a Signet). " +
+  "Fill shows status: a solid block is done, a block in scaffolding is under construction, a dashed outline is planned. " +
+  "Lines show the relation: solid builds on or runs with, dotted reads prisma-map's map, pink goes through a Signet, a scaffold-dashed line is being built in, a long-dashed grey line reaches a planned piece.";
 const readoutHint = view === "whole" ? "Hover or focus any piece to light what it builds on and what builds on it." : "Hover or focus a piece to light what it builds on and what builds on it.";
 void tiers;
 void edges;
@@ -107,14 +86,14 @@ void edges;
       ))}
     </div>
   )}
-  <div class="map-canvas">
-    <Fragment set:html={svg} />
+  <div class="map-stage">
+    {!hero && <StackMapKey view={view} />}
+    <div class="map-canvas">
+      <Fragment set:html={svg} />
+    </div>
   </div>
   <div class="map-foot">
     <p class="map-readout" aria-live="polite" data-hint={readoutHint}>{readoutHint}</p>
-    <ul class="map-legend" aria-label="Key">
-      {legend[view].map((k) => <li class={k.c}>{k.t}</li>)}
-    </ul>
   </div>
 
   <div class="map-stacked">
@@ -140,14 +119,15 @@ void edges;
 
   <details class="map-text">
     <summary>Read the map as text</summary>
+    <p>{keyText}</p>
     <ul>
       {relations.map(({ n, on, runs }) => (
         <li>
           <strong>{n.label}</strong>: {n.line}.
           {n.licence === "closed" && " Closed source."}
           {n.state === "planned" && " Planned."}
-          {n.state === "progress" && " In progress."}
-          {on.length > 0 && ` Built on ${on.join(", ")}.`}
+          {n.state === "progress" && " Under construction."}
+          {on.length > 0 && ` Built on ${on.join(", ")}.`.replace(/ \(next\)/g, " (under construction)")}
           {runs.map((r) => ` ${r[0].toUpperCase()}${r.slice(1)}.`).join("")}
         </li>
       ))}
@@ -170,7 +150,7 @@ void edges;
   };
 
   const small = window.matchMedia("(max-width: 760px)");
-  for (const fig of document.querySelectorAll<HTMLElement>(".stack-map")) {
+  for (const fig of document.querySelectorAll<HTMLElement>("figure.stack-map")) {
     const svg = fig.querySelector("svg");
     if (!svg) continue;
     // Under 760px the drawing is a picture above the slabs, which carry the links.

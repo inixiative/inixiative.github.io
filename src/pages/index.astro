@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
 import StackMap from "../components/StackMap.astro";
+import StackMapKey from "../components/StackMapKey.astro";
 
 import BlocksDiagram from "../components/diagrams/BlocksDiagram.astro";
 import ToolsDiagram from "../components/diagrams/ToolsDiagram.astro";
@@ -66,6 +67,7 @@ const tiers = [
         I'm Aron Greenspan. inixiative is a decade of lessons from building software, packaged so I
         don't have to figure the same things out on every project, and so you can start from them too.
       </p>
+      <StackMapKey view="whole" standalone />
     </div>
     <div class="hero-map">
       <StackMap view="whole" hero />

@@ -255,7 +255,7 @@
 .map-svg .is-planned .leader {
   fill: hsl(var(--background) / 0.4);
   stroke: hsl(var(--tone) / 0.7);
-  stroke-dasharray: 4 4;
+  stroke-dasharray: 7 5;
 }
 .map-svg .is-planned text { fill: hsl(var(--muted-foreground)); }
 
@@ -383,57 +383,6 @@
   color: hsl(var(--muted-foreground));
 }
 .stack-map[data-active] .map-readout { color: hsl(var(--foreground)); }
-.map-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap-2) var(--gap-5);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: var(--text-caption);
-  color: hsl(var(--muted-foreground));
-}
-.map-legend li {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--gap-2);
-}
-.map-legend li::before {
-  content: "";
-  flex: none;
-  width: 14px;
-  height: 10px;
-  border-radius: 2px;
-}
-.map-legend .key-open::before {
-  background: hsl(var(--agentic-primary) / 0.25);
-  box-shadow: inset 0 0 0 1px hsl(var(--agentic-primary) / 0.7);
-}
-.map-legend .key-closed::before {
-  background: hsl(var(--map-charcoal));
-  box-shadow: inset 0 0 0 1px hsl(var(--foreground) / 0.45);
-}
-.map-legend .key-planned::before {
-  border: 1px dashed hsl(var(--muted-foreground));
-}
-.map-legend .key-progress::before {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: hsl(var(--warning));
-}
-.map-legend :is(.key-signet, .key-runs, .key-uses, .key-next, .key-structural)::before {
-  width: 22px;
-  height: 0;
-  border-radius: 0;
-  border-top: 2px solid;
-}
-.map-legend .key-signet::before { border-color: hsl(var(--agentic-quaternary)); }
-.map-legend .key-runs::before { border-color: hsl(var(--agentic-primary)); }
-.map-legend .key-uses::before { border-color: hsl(var(--building-blocks-primary)); }
-.map-legend .key-next::before { border-top-style: dashed; border-color: hsl(var(--building-blocks-primary)); }
-.map-legend .key-structural::before { border-top: 3px dotted hsl(var(--muted-foreground)); }
-
 .map-text {
   font-size: var(--text-small);
   color: hsl(var(--muted-foreground));
@@ -521,7 +470,7 @@
   .slab li.is-closed > * { color: hsl(var(--map-charcoal-ink)); }
   .slab li.is-planned { background: none; box-shadow: none; border: 1px dashed hsl(var(--tone) / 0.6); }
   .slab li.is-progress > :first-child::after {
-    content: "in progress";
+    content: "under construction";
     margin-left: var(--gap-2);
     font-family: var(--font-body);
     font-weight: 500;
@@ -688,3 +637,107 @@
 }
 .stack-map.is-focused { max-width: 58rem; margin-inline: auto; }
 .stack-map.is-focused .map-canvas { padding: var(--gap-6) var(--gap-5); }
+
+/* The template layer is the building-blocks plate itself. */
+.map-svg .node.is-plate { cursor: pointer; }
+.map-svg .node.is-plate.is-focus .plate-rim,
+.map-svg .node.is-plate:focus-visible .plate-rim { stroke-width: 3; }
+.map-svg .node.is-plate:focus-visible .plate-top { stroke: hsl(var(--ring)); stroke-width: 2; }
+
+/* The Inixiative project is the goal: the largest block on the top plate, planned but present. */
+.map-svg .is-goal.is-planned :is(.face-front, .face-top, .face-side) {
+  fill: hsl(var(--tone) / 0.16);
+  stroke: hsl(var(--tone) / 0.9);
+  stroke-dasharray: 5 4;
+}
+.map-svg .is-goal.is-planned .face-top { fill: hsl(var(--tone) / 0.3); }
+.map-svg .is-goal.is-planned .chip { fill: hsl(var(--card)); stroke: hsl(var(--tone) / 0.8); stroke-dasharray: none; }
+.map-svg .is-goal.is-planned text { fill: hsl(var(--foreground)); }
+.map-svg .is-goal.is-planned .line { fill: hsl(var(--tone)); }
+.map-svg .is-goal.is-planned .glyph { opacity: 0.9; }
+.map-svg .is-goal .face-front { filter: drop-shadow(0 0 16px hsl(var(--tone) / 0.35)); }
+.map-svg .edge[data-base="whitepaper"] { stroke: hsl(var(--governance-primary) / 0.85); stroke-width: 2.25; }
+@media (max-width: 760px) {
+  .slab li.is-goal.is-planned { border: 1px solid hsl(var(--tone) / 0.8); background: hsl(var(--tone) / 0.14); }
+}
+
+/* Under construction: one motif everywhere, scaffolding whose dashes travel slowly. */
+.map-svg .scaffold {
+  fill: none;
+  stroke: hsl(var(--foreground) / 0.8);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 3;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.map-svg .edge.is-next { stroke: hsl(var(--foreground) / 0.75); stroke-dasharray: 3 3; stroke-width: 1.6; }
+@media (prefers-reduced-motion: no-preference) {
+  .map-svg .scaffold { animation: map-build 1.8s linear infinite; }
+  .map-svg .edge.is-next { animation: map-build-line 2.4s linear infinite !important; opacity: 1; }
+}
+@keyframes map-build { to { stroke-dashoffset: -12; } }
+@keyframes map-build-line { to { stroke-dashoffset: -20; } }
+.map-svg .edge.is-planned { stroke: hsl(var(--muted-foreground) / 0.7); stroke-dasharray: 7 5; }
+
+/* ---- The key: colour = part, fill = status, lines = relation ------------------------------ */
+
+.map-stage { position: relative; display: grid; gap: var(--gap-4); }
+.map-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-3) var(--gap-7);
+  font-size: var(--text-caption);
+  color: hsl(var(--muted-foreground));
+}
+.key-group { display: grid; gap: var(--gap-2); align-content: start; }
+.key-title {
+  font-size: var(--text-micro);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: hsl(var(--subtle-foreground));
+}
+.key-group ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-1) var(--gap-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.key-group li { display: inline-flex; align-items: center; gap: var(--gap-2); }
+.key-swatch { width: auto; flex: none; overflow: visible; }
+.key-swatch .edge { opacity: 1 !important; stroke-dashoffset: 0; }
+.key-swatch .edge[class] { animation-name: none; }
+.key-swatch .edge.is-next { animation: map-build-line 2.4s linear infinite !important; }
+@media (prefers-reduced-motion: reduce) { .key-swatch .edge.is-next { animation: none !important; } }
+
+/* On the homepage the key sits under the words, beside the drawing, in view with it. */
+.map-key.is-standalone {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: var(--gap-4) var(--gap-8);
+  margin-top: var(--gap-2);
+}
+.map-key.is-standalone .key-group ul { display: grid; gap: 3px; }
+.map-key.is-standalone .key-group:nth-child(3) { grid-column: 1 / -1; }
+.map-key.is-standalone .key-group:nth-child(3) ul { grid-template-columns: repeat(2, max-content); column-gap: var(--gap-8); }
+.key-group li { white-space: nowrap; }
+@media (max-width: 520px) {
+  .map-key.is-standalone,
+  .map-key.is-standalone .key-group:nth-child(3) ul { grid-template-columns: 1fr; }
+  .map-key.is-standalone .key-group:nth-child(-n + 2) { grid-column: auto; }
+  .map-key.is-standalone { grid-template-columns: repeat(2, max-content); column-gap: var(--gap-6); }
+}
+/* Status patterns win over part colours on lines: construction and planned read the same everywhere. */
+.stack-map .map-svg .edge.is-next { stroke: hsl(var(--foreground) / 0.75); }
+.stack-map .map-svg .edge.is-planned { stroke: hsl(var(--muted-foreground) / 0.7); }
+@media (max-width: 760px) {
+  .stack-map:not(.view-whole) .map-key { display: none; }
+}
+/* One column: the key follows the drawing it explains. */
+@media (max-width: 1080px) {
+  .hero-split > .hero-copy { display: contents; }
+  .hero-split > .hero-map { order: 2; }
+  .hero-split .map-key.is-standalone { order: 3; }
+}
+.stack-map .key-swatch .edge { display: inline !important; }

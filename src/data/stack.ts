@@ -55,7 +55,7 @@ export const nodes: StackNode[] = [
   { id: "worktrees", label: "worktrees", tier: "developer-experience", group: "template-tooling", licence: "MIT", line: "A worktree per task, with its own database and ports", href: "/building-blocks/#worktrees" },
   { id: "init", label: "init", tier: "developer-experience", group: "template-tooling", licence: "MIT", line: "Sets up hosting, database and secrets for a new project", href: "/building-blocks/#init" },
   { id: "ci-rules", label: "CI rules", tier: "developer-experience", group: "template-tooling", licence: "MIT", line: "Checks that hold the codebase to its own conventions", href: "/building-blocks/#ci-rules" },
-  { id: "template", label: "template", tier: "building-blocks", group: "template", licence: "MIT", state: "progress", line: "The whole SaaS app, built from the libraries", href: "/building-blocks/#template" },
+  { id: "template", label: "template", tier: "building-blocks", group: "template", licence: "MIT", line: "The whole SaaS app, built from the libraries", href: "/building-blocks/#template" },
 
   // Agentic
   { id: "foundry", label: "Foundry", tier: "agentic", group: "machine", licence: "BSL 1.1", line: "The workspace around your agent", href: "/agentic/#foundry" },
@@ -72,7 +72,8 @@ export const nodes: StackNode[] = [
 
   // Governance
   { id: "whitepaper", label: "The whitepaper", tier: "governance", group: "governance", licence: "none", line: "How groups set rules and hold each other to them", href: "/governance/" },
-  { id: "project", label: "The Inixiative project", tier: "governance", group: "governance", licence: "none", state: "planned", line: "Tools for people, and their agents, to cooperate", href: "/governance/" },
+  { id: "project", label: "The Inixiative project", tier: "governance", group: "governance", licence: "none", state: "planned", line: "A time-series governance platform, with tokenization", href: "/governance/" },
+  { id: "livestock", label: "Livestock", tier: "governance", group: "governance", licence: "none", state: "planned", line: "Tokenized cattle trusts in Uruguay and Argentina, a product on the platform" },
 ];
 
 const byLabel = (id: string) => (id === "ci-rules" ? "CI rules" : id);
@@ -135,6 +136,8 @@ export const edges: StackEdge[] = [
   { base: "foundry", user: "agent-session", kind: "runs", why: "Foundry runs each agent session on your machine" },
   { base: "foundry", user: "archive", kind: "runs", why: "Foundry sends every session to Archive" },
   { base: "foundry", user: "oracle", kind: "runs", why: "Oracle measures and tunes Foundry's docs and Wardens" },
+  { base: "whitepaper", user: "project", kind: "runs", why: "the whitepaper explains why; the Inixiative project is the goal" },
+  { base: "project", user: "livestock", kind: "runs", why: "Livestock is a product that runs on the Inixiative platform" },
 ];
 
 export const byId = new Map(nodes.map((n) => [n.id, n]));

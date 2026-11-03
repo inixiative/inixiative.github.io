@@ -37,7 +37,7 @@ const ariaFor = (n: StackNode, es: StackEdge[]) => {
   const parts = [`${n.label}: ${n.line}.`];
   if (n.licence === "closed") parts.push("Closed source.");
   if (n.state === "planned") parts.push("Planned.");
-  if (n.state === "progress") parts.push("In progress.");
+  if (n.state === "progress") parts.push("Under construction.");
   const on = es.filter((e) => e.kind === "uses" && e.user === n.id);
   const by = es.filter((e) => e.kind === "uses" && e.base === n.id);
   if (on.length) parts.push(`Built on ${list(on.map((e) => e.base))}.`);
@@ -51,7 +51,8 @@ const ariaFor = (n: StackNode, es: StackEdge[]) => {
 const edgeOf = (base: string, user: string, kind: StackEdge["kind"], d: string, cross = false): SceneEdge => {
   const e = allEdges.find((x) => x.base === base && x.user === user && x.kind === kind);
   if (!e) throw new Error(`map: no ${kind} edge ${base} -> ${user} in data/stack.ts`);
-  return { base, user, kind, signet: e.signet, next: e.next, structural: e.structural, why: e.why, d, cross };
+  const planned = byId.get(base)?.state === "planned" || byId.get(user)?.state === "planned";
+  return { base, user, kind, signet: e.signet, next: e.next && !planned, planned, structural: e.structural, why: e.why, d, cross };
 };
 
 /* ------------------------------------------------------------------------------------------------ */
@@ -85,7 +86,9 @@ const brickNode = (p: Place, es: StackEdge[], tier: string): SceneNode => {
   if (p.w < 100) prims.push({ t: "text", x: p.x + p.w / 2, y: nameY - 1, s: n.label, c: "name name-small", a: "middle" });
   else prims.push({ t: "text", x: tx, y: nameY, s: n.label, c: big ? "name name-big" : "name" });
   if (line) prims.push({ t: "text", x: tx, y: nameY + (big ? 22 : 18), s: line, c: "line" });
-  const flag = n.state === "planned" ? "planned" : n.state === "progress" ? "in progress" : n.licence === "closed" ? "closed" : "";
+  const flag = n.state === "planned" ? "planned" : n.state === "progress" ? "under construction" : n.licence === "closed" ? "closed" : "";
+  // Under construction: scaffolding around the brick, its dashes travelling slowly.
+  if (n.state === "progress") prims.unshift({ t: "rect", c: "scaffold", x: p.x - 6, y: p.y - DY - 6, w: p.w + DX + 12, h: h + DY + 12, r: 4 });
   if (flag) {
     const fw = textWidth(flag, 10.5) + 16;
     prims.push({ t: "rect", c: "flag-plate", x: p.x + p.w - fw - 10, y: p.y + 9, w: fw, h: 18, r: 9 });
@@ -285,7 +288,7 @@ const agenticScene = (): Scene => {
     desc:
       "Foundry runs on your machine with agent-session and Archive. Kingdom is the permission hub: your integrations connect to it, " +
       "and anything that uses an integration goes through a Signet. Foundry and a local Archive pair with Kingdom through a Signet; " +
-      "KCP will run your CLIs through Kingdom (in progress). Oracle measures and tunes Foundry. Artifactory is planned.",
+      "KCP will run your CLIs through Kingdom (under construction). Oracle measures and tunes Foundry. Artifactory is planned.",
     box: [-30, -30, 1240, 740],
     modes: [
       { id: "runs", label: "How they run" },
@@ -345,6 +348,8 @@ const glyphs: Record<string, string> = {
   oracle: "M3 12 Q12 4 21 12 Q12 20 3 12 Z M12 9 A3 3 0 1 1 11.99 9 Z",
   bench: "M6 19 V13 M10 19 V8 M14 19 V11 M18 19 V5",
   whitepaper: "M6 3 H15 L19 7 V21 H6 Z M9 10 H16 M9 13.5 H16 M9 17 H13",
+  livestock: "M8 4 H16 L19 9 V20 H5 V9 Z M12 7 A1.5 1.5 0 1 1 11.99 7 Z",
+  project: "M3 12 A6 6 0 1 0 15 12 A6 6 0 1 0 3 12 Z M9 12 A6 6 0 1 0 21 12 A6 6 0 1 0 9 12 Z",
   atlas: "M3 6 L9 4 L15 6 L21 4 V18 L15 20 L9 18 L3 20 Z M9 4 V18 M15 6 V20",
   gloss: "M3 4 H12 V20 H3 Z M15 7 H21 M15 12 H21 M15 17 H19",
   config: "M4 7 H20 M4 12 H20 M4 17 H20 M9 5 V9 M15 10 V14 M11 15 V19",
@@ -378,10 +383,22 @@ const isoNode = (p: IsoPlace, es: StackEdge[]): SceneNode => {
   if (mark) prims.push(mark);
   const [ax, ay] = iso(x, y, z + h);
   if (p.bare) return { id: n.id, label: n.label, href: n.href, aria: ariaFor(n, es), tier: n.tier, look: look(n), prims };
-  const size = n.id === "kingdom" || n.id === "foundry" || n.id === "template" ? 15 : 13;
+  const size = n.id === "kingdom" || n.id === "foundry" || n.id === "project" ? 15 : 13;
   const crest = n.id === "kingdom";
   const flag = n.state === "progress";
-  const tw = textWidth(n.label, size, true) + (crest ? 18 : 0) + (flag ? 12 : 0);
+  const tw = textWidth(n.label, size, true) + (crest ? 18 : 0);
+  if (flag) {
+    // Under construction: a scaffold frame around the block, its dashes travelling slowly.
+    const g = s + 0.14;
+    const hh = h + 8;
+    const c = [iso(x - g, y + g, z), iso(x + g, y + g, z), iso(x + g, y - g, z)];
+    const t = [iso(x - g, y - g, z + hh), iso(x + g, y - g, z + hh), iso(x + g, y + g, z + hh), iso(x - g, y + g, z + hh)];
+    const d =
+      `M ${t.map((q) => q.join(" ")).join(" L ")} Z ` +
+      `M ${t[3].join(" ")} L ${c[0].join(" ")} M ${t[2].join(" ")} L ${c[1].join(" ")} M ${t[1].join(" ")} L ${c[2].join(" ")} ` +
+      `M ${t[3].join(" ")} L ${c[1].join(" ")} M ${t[2].join(" ")} L ${c[2].join(" ")}`;
+    prims.push({ t: "path", c: "scaffold", d });
+  }
   const cw = Math.max(tw, p.sub ? textWidth(p.sub, 11) + 4 : 0) + 20;
   const ch = p.sub ? 38 : 24;
   const cx = ax + (p.dx ?? 0);
@@ -394,21 +411,21 @@ const isoNode = (p: IsoPlace, es: StackEdge[]): SceneNode => {
     tx += 18;
   }
   prims.push({ t: "text", c: size > 14 ? "name name-chip name-big" : "name name-chip", x: tx, y: cy + 16.5, s: n.label });
-  if (flag) prims.push({ t: "rect", c: "progress-dot", x: cx + cw / 2 - 16, y: cy + 9, w: 6, h: 6, r: 3 });
   if (p.sub) prims.push({ t: "text", c: "line line-chip", x: cx - cw / 2 + 10, y: cy + 31, s: p.sub });
-  return { id: n.id, label: n.label, href: n.href, aria: ariaFor(n, es), tier: n.tier, look: `${look(n)}${n.id === "kingdom" ? " is-focal" : ""}`, prims };
+  return { id: n.id, label: n.label, href: n.href, aria: ariaFor(n, es), tier: n.tier, look: `${look(n)}${n.id === "kingdom" ? " is-focal" : ""}${n.id === "project" ? " is-goal" : ""}`, prims };
 };
 
 const wholeScene = (): Scene => {
-  const Z = { base: 0, shelf: 104, dx: 64, agentic: 280, governance: 500 };
+  const Z = { base: 0, template: 92, dx: 64, agentic: 280, governance: 508 };
   const base: PlateSpec = { x: 0, y: 0, w: 7.2, d: 5, z: Z.base, t: 12, c: "plate tone-amber" };
-  const shelf: PlateSpec = { x: 0.4, y: 0.9, w: 6.2, d: 3.9, z: Z.shelf, t: 3, c: "plate plate-shelf tone-amber" };
+  // Template is a layer: a thin plate resting on the libraries, spanning them.
+  const tpl: PlateSpec = { x: 0.3, y: 0.3, w: 6.6, d: 4.4, z: Z.template, t: 4, c: "face-shelf" };
   const agentic: PlateSpec = { x: 0, y: 0, w: 9.4, d: 4.8, z: Z.agentic, t: 12, c: "plate tone-lime" };
   const gov: PlateSpec = { x: 2.8, y: 1.0, w: 4.4, d: 2.6, z: Z.governance, t: 12, c: "plate tone-violet" };
   const dx: PlateSpec = { x: 9.2, y: -0.8, w: 3.2, d: 3.8, z: Z.dx, t: 8, c: "plate plate-light tone-slate" };
 
   const places: IsoPlace[] = [
-    // Libraries under the template shelf, from the base up. Tooling beside them.
+    // The libraries stand on the template plate, from the base up. Tooling beside them.
     { id: "prisma-map", x: 0.9, y: 4.3, z: 0, h: 10, dx: -26 },
     { id: "json-rules", x: 2.9, y: 4.3, z: 0, h: 18, dy: 16 },
     { id: "permissions", x: 4.9, y: 4.3, z: 0, dx: 18, dy: 14 },
@@ -431,8 +448,11 @@ const wholeScene = (): Scene => {
     { id: "kingdom", x: 7.3, y: 2.3, z: Z.agentic, s: 1.3, h: 44, sub: "The permission hub", dy: 44, dx: 34 },
     { id: "artifactory", x: 8.6, y: 0.5, z: Z.agentic, dy: 14, dx: 26 },
     // Governance
-    { id: "whitepaper", x: 4.0, y: 2.5, z: Z.governance, s: 1, h: 18 },
-    { id: "project", x: 6.0, y: 1.9, z: Z.governance, s: 1, h: 18, dy: 10, dx: 74 },
+    // The project is the goal; the whitepaper (why) feeds into it.
+    { id: "whitepaper", x: 3.7, y: 2.9, z: Z.governance, s: 0.8, h: 12, dx: 4, dy: 30 },
+    { id: "project", x: 5.9, y: 2.0, z: Z.governance, s: 1.7, h: 34, sub: "The goal, planned", dy: 18, dx: 64 },
+    // Livestock is a product on the platform: a small block standing on the project.
+    { id: "livestock", x: 6.35, y: 2.45, z: Z.governance + 34, s: 0.55, h: 10, dy: -64, dx: 96 },
   ];
   const ids = places.map((p) => p.id);
   const es = allEdges.filter((e) => ids.includes(e.base) && ids.includes(e.user));
@@ -459,21 +479,10 @@ const wholeScene = (): Scene => {
     return edgeOf(b, u, kind, route([iso(pb.x, pb.y, z), mid, iso(pu.x, pu.y, z)], 8));
   };
 
-  // template is the shelf itself, resting on posts from the libraries under it.
   const templateNode = (): SceneNode => {
     const n = byId.get("template")!;
-    const prims = plate({ ...shelf, c: "face-shelf" });
-    const [lx, ly] = iso(shelf.x, shelf.y + shelf.d, shelf.z);
-    const label = n.label;
-    const cw = Math.max(textWidth(label, 15, true) + 14, textWidth("The whole SaaS app", 11) + 4) + 20;
-    const cx = lx - 40 - cw;
-    const cy = ly - 62;
-    prims.push({ t: "path", c: "leader", d: `M ${lx} ${ly} L ${cx + cw} ${cy + 19}` });
-    prims.push({ t: "rect", c: "chip", x: cx, y: cy, w: cw, h: 38, r: 6 });
-    prims.push({ t: "text", c: "name name-chip name-big", x: cx + 10, y: cy + 16.5, s: label });
-    prims.push({ t: "rect", c: "progress-dot", x: cx + cw - 16, y: cy + 9, w: 6, h: 6, r: 3 });
-    prims.push({ t: "text", c: "line line-chip", x: cx + 10, y: cy + 31, s: "The whole SaaS app" });
-    return { id: "template", label, href: n.href, aria: ariaFor(n, allEdges.filter((e) => e.user === "template" || e.base === "template")), tier: "building-blocks", look: look(n), prims };
+    const prims = [...plate(tpl), ...label(tpl, "amber", "Template", "The whole SaaS app")];
+    return { id: "template", label: n.label, href: n.href, aria: ariaFor(n, allEdges.filter((e) => e.user === "template" || e.base === "template")), tier: "building-blocks", look: `${look(n)} is-plate`, prims };
   };
   const baseTraces = [
     trace("prisma-map", "json-rules", Z.base, "uses"),
@@ -482,12 +491,14 @@ const wholeScene = (): Scene => {
     trace("json-rules", "transitions", Z.base, "uses", true),
     trace("permissions", "transitions", Z.base, "uses", true),
   ];
+  // The libraries hold the template layer up; transitions is still being built in (a dashed post).
   const posts = ["prisma-map", "json-rules", "permissions", "rules-builder", "transitions"].map((id) => {
     const p = pl[id];
     const [ax, ay] = topOf(id);
-    const [, ty] = iso(p.x, p.y, Z.shelf);
+    const [, ty] = iso(p.x, p.y, Z.template);
     return edgeOf(id, "template", "uses", `M ${ax} ${ay} L ${ax} ${ty}`, true);
   });
+  const govTraces = [trace("whitepaper", "project", Z.governance, "runs"), edgeOf("project", "livestock", "runs", "")];
   const agenticTraces = [
     trace("kingdom", "foundry", Z.agentic, "runs", true),
     trace("kingdom", "archive", Z.agentic),
@@ -499,6 +510,11 @@ const wholeScene = (): Scene => {
   const beams = [beam("json-rules", "signet"), beam("permissions", "kingdom"), beam("json-rules", "foundry")];
   const dxBeams = [
     beam("json-rules", "atlas"),
+    (() => {
+      const [ax, ay] = topOf("gloss");
+      const [bx, by] = iso(tpl.x + tpl.w, tpl.y + 1.2, Z.template);
+      return edgeOf("gloss", "template", "uses", `M ${ax} ${ay} C ${ax} ${ay - 60} ${bx + 40} ${by} ${bx} ${by}`, true);
+    })(),
     ...["worktrees", "init", "ci-rules"].map((id) => edgeOf(id, "template", "uses", "")),
   ];
 
@@ -526,11 +542,11 @@ const wholeScene = (): Scene => {
   const nodesIn = (tier: string, z?: number) =>
     places
       .filter((p) => byId.get(p.id)?.tier === tier && (z === undefined || p.z === z))
-      .sort((a, b) => a.x + a.y - (b.x + b.y))
+      .sort((a, b) => a.z - b.z || a.x + a.y - (b.x + b.y))
       .map((p) => ({ node: isoNode(p, es) }));
 
   const layers: Layer[] = [
-    { c: "tier", tier: "building-blocks", items: [...plate(base), ...label(base, "amber", "Building blocks", "Libraries and the template")] },
+    { c: "tier", tier: "building-blocks", items: [...plate(base), ...label(base, "amber", "Building blocks", "The libraries template is made of")] },
     { c: "edges", tier: "building-blocks", items: baseTraces.map((edge) => ({ edge })) },
     { c: "nodes", tier: "building-blocks", items: nodesIn("building-blocks", 0) },
     { c: "edges", tier: "building-blocks", items: posts.map((edge) => ({ edge })) },
@@ -543,6 +559,7 @@ const wholeScene = (): Scene => {
     { c: "edges", tier: "agentic", items: agenticTraces.map((edge) => ({ edge })) },
     { c: "nodes", tier: "agentic", items: nodesIn("agentic") },
     { c: "tier", tier: "governance", items: [...plate(gov), ...label(gov, "violet", "Governance", "Cooperation at scale")] },
+    { c: "edges", tier: "governance", items: govTraces.map((edge) => ({ edge })) },
     { c: "nodes", tier: "governance", items: nodesIn("governance") },
   ];
   // Fit the view box to what is drawn.
@@ -555,7 +572,7 @@ const wholeScene = (): Scene => {
         if (p.t === "poly") for (const [px, py] of p.pts) (xs.push(px), ys.push(py));
         if (p.t === "rect") (xs.push(p.x, p.x + p.w), ys.push(p.y, p.y + p.h));
         if (p.t === "text") {
-          const size = p.c.includes("tier-label") ? 17 : p.c.includes("tier-line") ? 12 : 13;
+          const size = p.c.includes("tier-label") ? 20 : p.c.includes("tier-line") ? 12 : 13;
           const w = textWidth(p.s, size, size > 13);
           xs.push(p.a === "end" ? p.x - w : p.a === "middle" ? p.x + w / 2 : p.x + w);
           ys.push(p.y - size, p.y + 4);
@@ -569,9 +586,9 @@ const wholeScene = (): Scene => {
     view: "whole",
     title: "The whole picture",
     desc:
-      "Three tiers. At the base, the building blocks: prisma-map, json-rules, permissions, transitions and rules-builder, with atlas, gloss and config as developer tooling, and the template built on top of the libraries. " +
+      "Three tiers. At the base, the template layer: the whole SaaS app, made of the building blocks prisma-map, json-rules, permissions, transitions and rules-builder; beside it, developer experience: atlas, gloss and config, with the worktrees, init and CI rules that come with template. " +
       "Above them, the agentic tools: Foundry, agent-session, Archive, KCP, Signet, Kingdom (the permission hub), Oracle, bench, and Artifactory (planned). " +
-      "At the top, governance: the whitepaper and the Inixiative project (planned).",
+      "At the top, governance: the Inixiative project (planned), a time-series governance platform with tokenization and the goal, which the whitepaper explains and feeds into; Livestock (planned) is a product that runs on it.",
     box: [Math.floor(minX), Math.floor(minY), Math.ceil(Math.max(...xs) + pad - minX), Math.ceil(Math.max(...ys) + pad - minY)],
     layers,
   };
