@@ -1,0 +1,52 @@
+---
+import Base from "../layouts/Base.astro";
+const gh = (repo: string) => `https://github.com/inixiative/${repo}`;
+const rows = [
+  { name: "The building blocks", what: "template, json-rules, permissions, transitions, prisma-map, atlas, rules-builder, config, gloss", license: "MIT", href: "/building-blocks/" },
+  { name: "Archive", what: "Keeps every agent session, local-first", license: "MIT", href: gh("archive") },
+  { name: "agent-session", what: "Claude Code, Codex and Muse as persistent sessions", license: "MIT", href: gh("agent-session") },
+  { name: "Signet", what: "Revocable passes to use an integration through Kingdom", license: "MIT", href: gh("signet") },
+  { name: "KCP", what: "Kingdom CLI Proxy (in progress)", license: "MIT", href: gh("kcp") },
+  { name: "Foundry core and ACP adapter", what: "foundry-core and foundry-acp, the engine and the adapter for ACP apps", license: "MIT", href: gh("foundry") },
+  { name: "Foundry", what: "The workspace around your agent", license: "BSL 1.1: free to use, including at work; not to resell; MIT in April 2030", href: "/foundry/" },
+  { name: "Kingdom", what: "The hosted service", license: "Closed", href: "https://kingdom.inixiative.com" },
+  { name: "Oracle", what: "The tuning loop", license: "Closed", href: undefined },
+];
+---
+<Base
+  title="Open source · inixiative"
+  description="What inixiative publishes as open source, what is source-available, and what is closed."
+  domain="inixiative"
+  current="open-source"
+>
+  <section class="hero">
+    <span class="eyebrow"><span class="status-dot"></span>Open source</span>
+    <h1 class="display-1">MIT by default.</h1>
+    <p class="lede">
+      We open the pieces people build on, and keep the hosted service and the tuning closed so the
+      project can sustain itself.
+    </p>
+  </section>
+
+  <section class="section" data-compact>
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr><th scope="col">What</th><th scope="col">Is</th><th scope="col">License</th></tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr>
+              <td>{row.href ? <a href={row.href}>{row.name}</a> : row.name}</td>
+              <td>{row.what}</td>
+              <td>{row.license}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div class="actions">
+      <a class="button" href="https://github.com/inixiative">github.com/inixiative</a>
+    </div>
+  </section>
+</Base>

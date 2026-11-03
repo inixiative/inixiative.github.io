@@ -1,7 +1,12 @@
-/* Shared stylesheet for the /proposals subtree.
-   Mirrors the site-wide tokens in index.html — change both together. */
+/* Shared stylesheet for the /proposals subtree (the governance chapters and moving-forward).
+   Tokens and fonts come from @inixiative/config/theme, served at /theme/ (see scripts/prepare-static.mjs).
+   Long-form reads in the light theme with the governance palette. The chapter HTML is canon and is not
+   edited for style, so the names the chapters and their SVG figures use (--blue, --gold, ...) are mapped
+   onto theme tokens here instead of renamed. */
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url('/theme/public.css');
+@import url('/theme/domains.css');
+@import url('/theme/marketing.css');
 
 * {
   margin: 0;
@@ -10,18 +15,27 @@
 }
 
 :root {
-  --bg: #0D1117;
-  --bg-surface: #161B22;
-  --blue: #58A6FF;
-  --blue-dim: #1F6FEB;
-  --gray: #6E7681;
-  --text: #C9D1D9;
-  --text-dim: #8B949E;
-  --border: #21262D;
-  --purple: #BC8CFF;
-  --gold: #D29922;
-  --green: #3FB950;
-  --red: #F85149;
+  /* governance palette in the slots, as data-domain="governance" would set them */
+  --app-primary: var(--governance-primary);
+  --app-tertiary: var(--governance-tertiary);
+  --app-quaternary: var(--governance-quaternary);
+  --ring: var(--governance-ring);
+
+  --bg: hsl(var(--background));
+  --bg-surface: hsl(var(--card));
+  --text: hsl(var(--foreground));
+  --text-dim: hsl(var(--muted-foreground));
+  --gray: hsl(var(--subtle-foreground));
+  --border: hsl(var(--border));
+  --accent: var(--governance-primary);
+  --blue: hsl(var(--governance-primary));
+  --blue-dim: hsl(var(--governance-primary) / 0.55);
+  --purple: hsl(var(--governance-quaternary));
+  --gold: hsl(var(--warning));
+  --green: hsl(var(--governance-tertiary));
+  --red: hsl(var(--error));
+  --display: var(--font-display);
+  --mono: var(--font-mono);
 }
 
 html {
@@ -29,7 +43,7 @@ html {
 }
 
 body {
-  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  font-family: var(--font-sans);
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -50,7 +64,7 @@ body {
 }
 
 .fade-in {
-  animation: fadeUp 0.6s ease-out both;
+  animation: fadeUp var(--duration-scene) var(--ease-standard) both;
 }
 
 .fade-in:nth-child(2) {
@@ -72,22 +86,22 @@ body {
 }
 
 .nav .home {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 1rem;
   text-decoration: none;
 }
 
 .nav .home .bracket {
-  color: var(--gray);
+  color: #8b949e; /* the <iXi> mark keeps its own colours */
 }
 
 .nav .home .mark {
-  color: var(--blue);
+  color: #0969da;
   font-weight: 700;
 }
 
 .nav .crumb {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--text-dim);
   text-decoration: none;
@@ -98,18 +112,18 @@ body {
 }
 
 .nav .cta {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--blue);
   text-decoration: none;
-  border: 1px solid rgba(88, 166, 255, 0.25);
+  border: 1px solid hsl(var(--accent) / 0.25);
   border-radius: 6px;
   padding: 0.4rem 1rem;
   transition: all 0.2s;
 }
 
 .nav .cta:hover {
-  background: rgba(88, 166, 255, 0.08);
+  background: hsl(var(--accent) / 0.08);
 }
 
 /* ---- Hero ---- */
@@ -132,7 +146,7 @@ body {
   transform: translate(-50%, -55%);
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(88, 166, 255, 0.04) 0%, transparent 70%);
+  background: radial-gradient(circle, hsl(var(--accent) / 0.04) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -142,7 +156,7 @@ body {
 }
 
 .tagline {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: clamp(0.7rem, 1.5vw, 0.8rem);
   color: var(--blue);
   text-transform: uppercase;
@@ -191,7 +205,7 @@ section.tight {
 }
 
 .section-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--gray);
   text-transform: uppercase;
@@ -233,7 +247,7 @@ section h2 em {
 }
 
 .prose h3 {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.95rem;
   color: var(--blue);
   font-weight: 600;
@@ -284,7 +298,7 @@ section h2 em {
 }
 
 .open-decision .od-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.68rem;
   color: var(--gold);
   text-transform: uppercase;
@@ -295,7 +309,7 @@ section h2 em {
 
 /* ---- Aside boxes: named vignettes pulled out of the argument ---- */
 .box {
-  background: rgba(88, 166, 255, 0.03);
+  background: hsl(var(--accent) / 0.03);
   border: 1px solid var(--border);
   border-left: 2px solid var(--blue-dim);
   border-radius: 8px;
@@ -304,7 +318,7 @@ section h2 em {
 }
 
 .box-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -381,7 +395,7 @@ section h2 em {
 }
 
 .card h3 {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.95rem;
   color: var(--blue);
   margin-bottom: 0.6rem;
@@ -413,7 +427,7 @@ section h2 em {
 }
 
 .card .step {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.7rem;
   color: var(--gray);
   display: block;
@@ -435,12 +449,12 @@ section h2 em {
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 0.2rem 0.6rem;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
 }
 
 .tag.status {
   color: var(--blue);
-  border-color: rgba(88, 166, 255, 0.2);
+  border-color: hsl(var(--accent) / 0.2);
   font-weight: 500;
 }
 
@@ -469,7 +483,7 @@ section h2 em {
 }
 
 .toc .toc-num {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.72rem;
   color: var(--gray);
   letter-spacing: 0.12em;
@@ -482,7 +496,7 @@ section h2 em {
 }
 
 .toc .toc-hook {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.68rem;
   color: var(--gray);
   text-align: right;
@@ -505,7 +519,7 @@ section h2 em {
 }
 
 .chapter-nav a {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.8rem;
   color: var(--text-dim);
   text-decoration: none;
@@ -520,7 +534,7 @@ section h2 em {
 .chapter-nav a:hover {
   color: var(--blue);
   border-color: var(--blue-dim);
-  background: rgba(88, 166, 255, 0.04);
+  background: hsl(var(--accent) / 0.04);
 }
 
 .chapter-nav .dir {
@@ -588,26 +602,26 @@ section h2 em {
 
 .flow-title {
   fill: var(--blue);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 14px;
   font-weight: 600;
 }
 
 .flow-sub {
   fill: var(--text-dim);
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11.5px;
 }
 
 .flow-step {
   fill: var(--gray);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 10.5px;
   letter-spacing: 0.04em;
 }
 
 .flow-role {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -642,7 +656,7 @@ section h2 em {
 .dial-ends {
   display: flex;
   justify-content: space-between;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.72rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -692,7 +706,7 @@ section h2 em {
 }
 
 .chip {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.68rem;
   color: var(--text-dim);
   border: 1px solid var(--border);
@@ -718,7 +732,7 @@ table {
 }
 
 th {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -742,14 +756,14 @@ tr:last-child td {
 }
 
 td.lead {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--text);
   white-space: nowrap;
 }
 
 .col-this {
-  background: rgba(88, 166, 255, 0.05);
+  background: hsl(var(--accent) / 0.05);
   color: var(--text);
 }
 
@@ -787,7 +801,7 @@ td.lead {
 }
 
 .steps-list span {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.7rem;
   color: var(--gray);
   letter-spacing: 0.15em;
@@ -829,7 +843,7 @@ td.lead {
 }
 
 .signup .or {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.7rem;
   color: var(--gray);
   text-transform: uppercase;
@@ -838,7 +852,7 @@ td.lead {
 }
 
 .button {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.85rem;
   text-decoration: none;
   border-radius: 6px;
@@ -869,7 +883,7 @@ td.lead {
 .links a {
   color: var(--text-dim);
   text-decoration: none;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.8rem;
   padding: 0.5rem 1.25rem;
   border: 1px solid var(--border);
@@ -881,7 +895,7 @@ td.lead {
 .links a:hover {
   color: var(--blue);
   border-color: var(--blue-dim);
-  background: rgba(88, 166, 255, 0.04);
+  background: hsl(var(--accent) / 0.04);
 }
 
 footer {
@@ -890,7 +904,7 @@ footer {
   border-top: 1px solid var(--border);
   color: var(--gray);
   font-size: 0.8rem;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
 }
 
 footer a {
@@ -899,7 +913,7 @@ footer a {
 }
 
 footer .copyright {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--mono);
   font-size: 0.7rem;
   margin-top: 0.75rem;
   opacity: 0.6;
@@ -926,4 +940,69 @@ footer .copyright {
   .chapter-nav a {
     max-width: 48%;
   }
+}
+
+/* ---- Theme type: display face for headings, darker text for long reading ---- */
+.hero h1,
+section h2,
+.signup h2,
+.box h4,
+.pull-quote blockquote {
+  font-family: var(--display);
+  letter-spacing: var(--tracking-heading);
+}
+
+.hero h1 {
+  font-weight: var(--weight-display);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-heading);
+}
+
+section h2 {
+  font-weight: var(--weight-heading);
+}
+
+.prose p,
+.prose ul,
+.prose ol,
+.thesis p {
+  color: var(--text);
+  line-height: var(--leading-prose);
+}
+
+.prose p strong,
+.thesis strong {
+  font-weight: var(--weight-strong);
+}
+
+.prose .aside,
+.open-decision,
+.dial-note,
+td {
+  color: var(--text-dim);
+}
+
+.nav {
+  border-bottom: 1px solid var(--border);
+  max-width: none;
+  padding-left: max(2rem, calc((100% - 900px) / 2 + 2rem));
+  padding-right: max(2rem, calc((100% - 900px) / 2 + 2rem));
+}
+
+.box {
+  background: var(--bg-surface);
+}
+
+.card,
+.signup,
+.tablewrap,
+.open-decision {
+  background: var(--bg-surface);
+  box-shadow: var(--elevation-1);
+}
+
+.button-ghost:hover,
+.links a:hover,
+.chapter-nav a:hover {
+  color: var(--blue);
 }

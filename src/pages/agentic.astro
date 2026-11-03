@@ -1,0 +1,142 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base
+  title="Agentic: an agent that works like you do · inixiative"
+  description="Foundry, the workspace around your agent. Kingdom, Archive, Signet, KCP and agent-session: the pieces that keep your agents working the way you do."
+  domain="agentic"
+  current="agentic"
+>
+  <section class="hero">
+    <span class="eyebrow"><span class="status-dot" data-live></span>Agentic</span>
+    <h1 class="display-1">An agent that works like you do.</h1>
+    <p class="subhead">Giving your work a voice.</p>
+    <p class="lede">
+      Every agent session starts half-amnesiac. You pay for it by explaining your conventions, your
+      decisions and your taste again. These tools carry what you've already decided into every
+      session, and let you decide who and what can reach your work.
+    </p>
+  </section>
+
+  <section class="section anchor-target" id="foundry">
+    <div class="card feature" data-raised>
+      <div class="text">
+        <span class="eyebrow"><span class="status-dot"></span>Foundry</span>
+        <h2 class="display-3">The workspace around your agent.</h2>
+        <p>
+          Foundry runs on your machine around Claude Code, Codex and Muse, or behind any app that speaks ACP.
+          Small expert agents called Wardens notice what your request touches and point your agent at what
+          your codebase already has.
+        </p>
+        <div class="tags">
+          <span class="tag" data-tone="open">Source-available · BSL 1.1</span>
+        </div>
+        <div class="actions">
+          <a class="button" href="/foundry/">How Foundry works</a>
+          <a class="button button-secondary" href="https://github.com/inixiative/foundry">GitHub</a>
+        </div>
+      </div>
+      <ul class="pitch-list" aria-label="What Foundry does">
+        <li>Stop repeating yourself to Claude.</li>
+        <li>Every agent you pay for, in one place.</li>
+        <li>Stop being a meat proxy. <span class="tag" data-tone="progress">Joiner view in progress</span></li>
+        <li>Stop checking a dozen apps. <span class="tag" data-tone="progress">In progress</span></li>
+        <li>Set up your repo. <span class="tag" data-tone="progress">In progress</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>How it works</span>
+      <h2>Your machine does the work. Kingdom holds the keys.</h2>
+      <p class="lede">
+        Agents run on your computer, on your own subscriptions. Anything that crosses to a teammate or a
+        provider goes through Kingdom, on a Signet the owner can take back.
+      </p>
+    </div>
+    <div class="map">
+      <div class="map-node" data-side="yours">
+        <span class="eyebrow">Your machine</span>
+        <ul>
+          <li>Foundry around Claude Code, Codex and Muse</li>
+          <li>agent-session runs each session</li>
+          <li>Archive keeps every session</li>
+        </ul>
+      </div>
+      <span class="map-link">Signet</span>
+      <div class="map-node">
+        <span class="eyebrow">Kingdom</span>
+        <ul>
+          <li>Who you are, in every team you're in</li>
+          <li>Your integrations and their credentials</li>
+          <li>Who and what can reach each piece</li>
+        </ul>
+      </div>
+      <span class="map-link">Signet</span>
+      <div class="map-node" data-side="shared">
+        <span class="eyebrow" data-side="shared">Shared</span>
+        <ul>
+          <li>Teammates and their agents</li>
+          <li>GitHub, Slack, Linear</li>
+          <li>Shared archives</li>
+        </ul>
+      </div>
+    </div>
+    <ul class="legend" aria-label="Colour key">
+      <li style="--swatch: var(--app-primary)">yours</li>
+      <li style="--swatch: var(--app-tertiary)">shared</li>
+      <li style="--swatch: var(--app-quaternary)">Signet</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>The pieces</span>
+      <h2>Use one, or all of them.</h2>
+    </div>
+    <div class="card-grid">
+      <a class="card anchor-target" id="kingdom" href="https://kingdom.inixiative.com">
+        <div class="card-head"><h3>Kingdom</h3><span class="tag">Hosted</span></div>
+        <p>Everything you're doing, in one place.</p>
+        <p class="meta">kingdom.inixiative.com →</p>
+      </a>
+      <div class="card anchor-target" id="archive">
+        <div class="card-head"><h3>Archive</h3><span class="tag" data-tone="open">MIT</span></div>
+        <p>Keeps every agent session. Local-first, and it syncs to the archives you choose.</p>
+        <div class="card-links"><a class="text-link" href="https://github.com/inixiative/archive">GitHub</a></div>
+      </div>
+      <div class="card anchor-target" id="signet">
+        <div class="card-head"><h3>Signet</h3><span class="tag" data-tone="open">MIT</span></div>
+        <p>A revocable pass on the owner's terms. It is how anything uses an integration through Kingdom, with every use tracked and audited.</p>
+        <div class="card-links"><a class="text-link" href="https://github.com/inixiative/signet">GitHub</a></div>
+      </div>
+      <div class="card anchor-target" id="kcp">
+        <div class="card-head"><h3>KCP</h3><span class="tags"><span class="tag" data-tone="open">MIT</span><span class="tag" data-tone="progress">In progress</span></span></div>
+        <p>Kingdom CLI Proxy. Run your provider CLIs through Kingdom with no credentials on your machine. Kingdom will run the command and stream the output back.</p>
+        <div class="card-links"><a class="text-link" href="https://github.com/inixiative/kcp">GitHub</a></div>
+      </div>
+      <div class="card anchor-target" id="agent-session">
+        <div class="card-head"><h3>agent-session</h3><span class="tag" data-tone="open">MIT</span></div>
+        <p>Drive Claude Code, Codex and Muse as persistent streaming sessions behind one interface.</p>
+        <div class="card-links"><a class="text-link" href="https://github.com/inixiative/agent-session">GitHub</a></div>
+      </div>
+      <div class="card anchor-target" id="oracle" data-plain>
+        <div class="card-head"><h3>Oracle</h3><span class="tag">Closed</span></div>
+        <p>Measures whether a correction stuck, and tunes the docs and Wardens.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section anchor-target" id="bench">
+    <a class="card" href="https://bench.inixiative.com" data-plain>
+      <div class="card-head">
+        <span class="eyebrow" data-quiet>bench</span>
+        <span class="tag">Results from June 2026</span>
+      </div>
+      <h3 class="heading-1">Do I Still Have a Job?</h3>
+      <p>Our own challenge set for coding agents, from staff to architect level. More challenges are coming.</p>
+      <p class="meta">bench.inixiative.com →</p>
+    </a>
+  </section>
+</Base>

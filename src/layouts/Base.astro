@@ -1,0 +1,54 @@
+---
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/site.css";
+
+interface Props {
+  title: string;
+  description: string;
+  domain: "inixiative" | "agentic" | "building-blocks" | "governance";
+  current?: string;
+  /** Long-form pages read in the light theme; product pages are dark. */
+  light?: boolean;
+  canonical?: string;
+}
+const { title, description, domain, current, light = false, canonical } = Astro.props;
+const url = new URL(canonical ?? Astro.url.pathname, Astro.site);
+const image = new URL("/og-1200x630.png", Astro.site);
+---
+<!doctype html>
+<html lang="en" class={light ? undefined : "dark"}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@inixiative" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon-32x32.png" />
+    <link rel="apple-touch-icon" href="/icon-180x180.png" />
+    <link rel="preload" href="/theme/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/theme/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/theme/public.css" />
+    <link rel="stylesheet" href="/theme/domains.css" />
+    <link rel="stylesheet" href="/theme/marketing.css" />
+    <slot name="head" />
+  </head>
+  <body class="marketing" data-domain={domain}>
+    <a class="skip" href="#main">Skip to content</a>
+    <Nav current={current} />
+    <main id="main" class="shell">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
