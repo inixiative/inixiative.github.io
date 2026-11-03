@@ -55,14 +55,14 @@ export const nodes: StackNode[] = [
   { id: "worktrees", label: "worktrees", tier: "developer-experience", group: "template-tooling", licence: "MIT", line: "A worktree per task, with its own database and ports", href: "/building-blocks/#worktrees" },
   { id: "init", label: "init", tier: "developer-experience", group: "template-tooling", licence: "MIT", line: "Sets up hosting, database and secrets for a new project", href: "/building-blocks/#init" },
   { id: "ci-rules", label: "CI rules", tier: "developer-experience", group: "template-tooling", licence: "MIT", line: "Checks that hold the codebase to its own conventions", href: "/building-blocks/#ci-rules" },
-  { id: "template", label: "template", tier: "building-blocks", group: "template", licence: "MIT", line: "The whole SaaS app, built from the libraries", href: "/building-blocks/#template" },
+  { id: "template", label: "template", tier: "building-blocks", group: "template", licence: "MIT", state: "progress", line: "The whole SaaS app, built from the libraries", href: "/building-blocks/#template" },
 
   // Agentic
-  { id: "foundry", label: "Foundry", tier: "agentic", group: "machine", licence: "BSL 1.1", line: "The workspace around your agent", href: "/agentic/#foundry" },
+  { id: "foundry", label: "Foundry", tier: "agentic", group: "machine", licence: "BSL 1.1", state: "progress", line: "The workspace around your agent", href: "/agentic/#foundry" },
   { id: "agent-session", label: "agent-session", tier: "agentic", group: "machine", licence: "MIT", line: "Runs each Claude Code and Codex session", href: "/agentic/#agent-session" },
   { id: "archive", label: "Archive", tier: "agentic", group: "machine", licence: "MIT", line: "Keeps every agent session", href: "/agentic/#archive" },
   { id: "kcp", label: "KCP", tier: "agentic", group: "machine", licence: "MIT", state: "progress", line: "Runs your CLIs through Kingdom", href: "/agentic/#kcp" },
-  { id: "kingdom", label: "Kingdom", tier: "agentic", group: "hub", licence: "closed", line: "The permission hub", href: "/agentic/#kingdom" },
+  { id: "kingdom", label: "Kingdom", tier: "agentic", group: "hub", licence: "closed", state: "progress", line: "The permission hub", href: "/agentic/#kingdom" },
   { id: "signet", label: "Signet", tier: "agentic", group: "hub", licence: "MIT", tone: "signet", line: "A revocable pass on the owner's terms", href: "/agentic/#signet" },
   { id: "integrations", label: "Your integrations", tier: "agentic", group: "outside", licence: "none", tone: "shared", line: "GitHub, Slack, Linear, Google" },
   { id: "teammates", label: "Teammates and their agents", tier: "agentic", group: "outside", licence: "none", tone: "shared", line: "Anyone the owner gives a Signet" },
