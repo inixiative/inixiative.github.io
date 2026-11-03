@@ -570,3 +570,11 @@
     padding-top: 0;
   }
 }
+
+/* a card that lists its parts (Foundry: app, core, ACP) */
+.card-grid .card-wide { grid-column: span 2; }
+@media (max-width: 720px) { .card-grid .card-wide { grid-column: auto; } }
+.card .card-parts { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 10px; }
+.card .card-parts li { display: grid; gap: 2px; padding-top: 10px; border-top: 1px solid var(--line, hsl(var(--border))); }
+.card .card-parts .part-head { display: flex; align-items: center; gap: 8px; }
+.card .card-parts .part-what { color: var(--dim, inherit); }
