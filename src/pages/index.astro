@@ -75,16 +75,15 @@ const tiers = [
       </p>
       <p>
         Template is where they come together. It is like shadcn, but for the whole SaaS app: you start
-        a product from it and own the code. It already solves sign-in with email, OAuth and API tokens; organizations and spaces with roles;
-        permissions; field-level encryption with key rotation; an audit log; background jobs; signed
-        webhooks with retries; live data over WebSockets; email templates and delivery; and a typed API
-        client generated from the routes.
+        a product from it and own the code. On day one, people can sign in and work together in teams,
+        each person sees only what they're allowed to, sensitive data stays encrypted, screens update
+        live, and the changes you choose to track are kept in a log with who made them.
       </p>
       <p>
-        For the most common problems I built packages you can use on their own: prisma-map reads your
-        schema at runtime, json-rules is the rules engine, permissions is the permissions library,
-        transitions handles lifecycles, and rules-builder gives you the rule builders. json-rules,
-        transitions, prisma-map and rules-builder run in production at the company where I work.
+        For the problems almost every product has, such as deciding who can do what, I built pieces you
+        can use without the template: a rules engine, a permissions library, the screens for building
+        rules, and a way to say which step a record can move to next. Most of them run in production at
+        the company where I work.
       </p>
     </div>
     <div class="actions">
@@ -99,15 +98,14 @@ const tiers = [
     </div>
     <div class="text">
       <p>
-        Atlas, gloss and config help me work on the code, and none of them ships in your product. Atlas
-        keeps a map of your code that CI checks. Gloss keeps agent commentary out of your code: the agent
-        records what it found useful as glosses (in law, notes in the margin that explain a text) and gets
-        them back when it reads that code. Config is one shared toolchain and theme for every repo.
+        These tools help me build, and none of them ends up in your product. Atlas keeps a map of what
+        is where in the code. Gloss keeps notes about the code out of the code, and hands them to an
+        agent when it reads that file. Config gives every project the same setup.
       </p>
       <p>
-        Template comes with its own: worktrees that each get their own databases, Redis and ports; a
-        guided setup that provisions a new project's services; and CI rules that fail when code skips a
-        system the repo already has.
+        Template comes with its own: several copies of a project can run side by side without colliding,
+        a guided setup creates a new project's accounts and services, and automatic checks stop code that
+        rebuilds something the project already has.
       </p>
     </div>
     <div class="actions">
@@ -122,24 +120,24 @@ const tiers = [
     </div>
     <div class="text">
       <p>
-        Then I started building with coding agents, and they ignored the answers. In a repo that already
-        had an auth path, an agent built a second one beside it. I kept correcting the same thing: agents
-        rewrote debounce wrappers, locks and JSON helpers the repo already had. If agents used the
-        template as written, I wouldn't have needed to build Foundry.
+        Then I started building with coding agents, and they ignored the answers. In a project that
+        already had a sign-in system, an agent built a second one beside it. I kept correcting the same
+        kind of thing: agents rewrote small tools the project already had. If agents used the template as
+        written, I wouldn't have needed to build Foundry.
       </p>
       <p>
         <strong>Stop repeating yourself to Claude.</strong> Foundry is the workspace around your agent,
         on the Claude Code and Codex subscriptions you already pay for. Small expert agents called
-        Wardens notice what your request touches and point your agent at what your codebase already has,
+        Wardens notice what your request touches and point your agent at what your project already has,
         and where it's written down. Your agent decides what to use. Giving your work a voice.
       </p>
       <p>I built the rest of the agentic tools for the same problem:</p>
       <ul>
-        <li>Kingdom holds your integrations and lets you decide who and what can reach them.</li>
-        <li>Archive keeps every agent session.</li>
-        <li>Signet is how anything uses an integration through Kingdom, on a grant the owner can take back.</li>
-        <li>KCP, the Kingdom CLI Proxy, will run your provider CLIs through Kingdom <span class="tag" data-tone="progress">In progress</span></li>
-        <li>Oracle measures whether a correction stuck (closed source).</li>
+        <li>Kingdom holds your connected accounts and apps, and lets you decide who and what can reach them.</li>
+        <li>Archive keeps a copy of every conversation with your agents.</li>
+        <li>Signet is a pass to use one of your connected accounts, which you can take back.</li>
+        <li>KCP will let your command-line tools use those accounts without keeping the keys on your computer. <span class="tag" data-tone="progress">In progress</span></li>
+        <li>Oracle checks whether a correction you gave an agent stuck (closed source).</li>
         <li>Artifactory will let you share and discuss what your agents make, with access from Kingdom. <span class="tag" data-tone="progress">Planned</span></li>
       </ul>
     </div>

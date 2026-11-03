@@ -1,0 +1,133 @@
+---
+import Base from "../../layouts/Base.astro";
+const gh = (path: string) => `https://github.com/inixiative/${path}`;
+type Item = { id: string; name: string; licence: string; progress?: string; line: string; points: string[]; links: { label: string; href: string }[] };
+const items: Item[] = [
+  {
+    id: "foundry",
+    name: "Foundry",
+    licence: "App BSL 1.1 · foundry-core and foundry-acp MIT",
+    line: "A local daemon and viewer around Claude Code and Codex, also reachable over ACP.",
+    points: [
+      "Runs as a launchd agent on macOS; the viewer is at http://localhost:4500. Install with bunx @inixiative/foundry-acp setup.",
+      "Threads run on the Claude Code and Codex logins already on the machine, through @inixiative/agent-session. No API key is needed.",
+      "foundry-acp is a stdio Agent Client Protocol adapter, so Paseo and T3 Code can drive the daemon.",
+      "Wardens are built from the repo's docs, one per topic. Each turn, every Warden is asked whether the request touches its topic and, if so, names the existing thing and the doc section where it's written. They never block. They are off on a fresh install and turned on per project in .foundry/project.json.",
+      "/feedback records a correction with its context; foundry repeats lists the corrections you keep giving.",
+      "The app is BSL 1.1: any use except offering it to third parties as a commercial product or service, internal use at work included. It becomes MIT on 2030-04-06.",
+    ],
+    links: [
+      { label: "README", href: gh("foundry#readme") },
+      { label: "ACP reference", href: gh("foundry/blob/main/docs/reference/FOUNDRY-ACP.md") },
+      { label: "LICENSE", href: gh("foundry/blob/main/LICENSE") },
+    ],
+  },
+  {
+    id: "kingdom",
+    name: "Kingdom",
+    licence: "Closed, hosted",
+    line: "The hosted hub for identity, owners, integrations and Signets.",
+    points: [
+      "Owners are a person, an organization, or a space inside an organization, with memberships and roles.",
+      "An integration (GitHub, Slack, Linear, a paired Foundry or Archive) holds its credentials in Kingdom; they are never handed out.",
+      "A Signet is the only grant to use an integration. An API token only reaches Kingdom's own API.",
+    ],
+    links: [{ label: "kingdom.inixiative.com", href: "https://kingdom.inixiative.com" }],
+  },
+  {
+    id: "archive",
+    name: "Archive",
+    licence: "MIT",
+    line: "A session store you run yourself, one per machine, that syncs onward.",
+    points: [
+      "Transcript extraction for Claude Code, Codex and Foundry sessions, immutable revisions in Postgres (pgvector and pg_trgm), lexical search and lossless text chunks.",
+      "An authenticated HTTP server and published image; archive up runs it with Docker Compose on loopback 4700. Railway and Render configurations ship in the repo.",
+      "Multiple explicit destinations with publication receipts, conflict detection and retry after interruption. One deployment is one ownership boundary with one access token.",
+    ],
+    links: [{ label: "README", href: gh("archive#readme") }],
+  },
+  {
+    id: "signet",
+    name: "Signet",
+    licence: "MIT",
+    line: "The one implementation of the Signet protocol, shared by Kingdom and every client.",
+    points: [
+      "contracts: the wire schemas for keys, grants (operation picks, lens layers, terms), proposals, pairing requests, describe and execute.",
+      "proof: DPoP proofs, ES256, nonce-bound and access-token-bound. files: private 0600 JSON files for keys and credentials.",
+      "client: registerInstallation, pairInstallation, InstallationSocket for live revocation, requestSignet, and SignetClient for describe and execute.",
+    ],
+    links: [{ label: "README", href: gh("signet#readme") }],
+  },
+  {
+    id: "kcp",
+    name: "KCP, the Kingdom CLI Proxy",
+    licence: "MIT",
+    progress: "In progress",
+    line: "A thin client on @inixiative/signet: a CLI command becomes a Signet execute call that Kingdom runs.",
+    points: [
+      "Built: kcp login (browser, --token, --signet), logout, status and map. Credentials live under ~/.kcp, 0700 directory and 0600 files, one directory per Kingdom host.",
+      "Not built yet: no operations are declared, so kcp railway, gh, vercel and infisical do not run commands yet.",
+    ],
+    links: [{ label: "README", href: gh("kcp#readme") }],
+  },
+  {
+    id: "agent-session",
+    name: "agent-session",
+    licence: "MIT",
+    line: "Long-lived Claude Code and Codex processes behind one interface.",
+    points: [
+      "ClaudeCodeSession keeps one agent process per session, sends each turn over stdin and classifies each event that comes back: text, thinking, tool calls, tool results and usage.",
+      "Claude Code runs over its CLI or the Agent SDK; Codex over its app-server.",
+      "Also holds primed decision sessions, subscription pools with deterministic routing, limit polling and session continuity. Foundry and Archive run their sessions on it.",
+    ],
+    links: [{ label: "README", href: gh("agent-session#readme") }],
+  },
+  {
+    id: "oracle",
+    name: "Oracle",
+    licence: "Closed",
+    line: "Measures whether a correction stuck, and tunes the docs and Wardens.",
+    points: [],
+    links: [],
+  },
+];
+---
+<Base
+  title="Agentic, technical details · inixiative"
+  description="Foundry, Kingdom, Archive, Signet, KCP and agent-session by command, function and file, with links to their code and docs."
+  domain="agentic"
+  current="agentic"
+>
+  <section class="hero">
+    <span class="eyebrow"><span class="status-dot" data-live></span>Agentic · technical details</span>
+    <h1 class="display-1">What each piece does, and where to check it.</h1>
+    <p class="lede">
+      Each line names the command, function or file that backs it. The plain version is on{" "}<a class="text-link" href="/agentic/">Agentic</a>.
+    </p>
+  </section>
+
+  <section class="section">
+    <ul class="packages">
+      {items.map((item) => (
+        <li class="package anchor-target" id={item.id}>
+          <div class="package-name">
+            <h3>{item.name}</h3>
+            <div class="tags">
+              <span class="tag" data-tone={item.licence.startsWith("MIT") ? "open" : undefined}>{item.licence}</span>
+              {item.progress && <span class="tag" data-tone="progress">{item.progress}</span>}
+            </div>
+          </div>
+          <div class="package-body">
+            <p class="line">{item.line}</p>
+            {item.points.length > 0 && <ul>{item.points.map((point) => <li>{point}</li>)}</ul>}
+            {item.links.length > 0 && (
+              <div class="card-links">
+                {item.links.map((link) => <a class="text-link" href={link.href}>{link.label}</a>)}
+              </div>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
