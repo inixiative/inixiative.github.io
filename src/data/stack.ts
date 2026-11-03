@@ -75,7 +75,7 @@ export const nodes: StackNode[] = [
 
   // Governance
   { id: "whitepaper", label: "The whitepaper", tier: "governance", group: "governance", licence: "none", line: "How groups set rules and hold each other to them", href: "/governance/" },
-  { id: "project", label: "The Inixiative project", tier: "governance", group: "governance", licence: "none", state: "planned", line: "change.org meets Kickstarter: a time-series governance platform, with tokenization", href: "/governance/" },
+  { id: "project", label: "The Inixiative project", tier: "governance", group: "governance", licence: "none", state: "planned", line: "change.org meets Kickstarter on blockchain: a time-series governance platform, with tokenization", href: "/governance/" },
   { id: "livestock", label: "Livestock", tier: "governance", group: "governance", licence: "none", state: "planned", line: "Tokenized cattle trusts in Uruguay and Argentina, a product on the Inixiative platform" },
 ];
 
@@ -170,7 +170,7 @@ const labels: Record<string, [string, string]> = {
   oracle: ["oracle", "Did a fix stick?"],
   bench: ["bench", "Agent challenges"],
   whitepaper: ["whitepaper", "Why"],
-  project: ["Inixiative project", "change.org meets Kickstarter"],
+  project: ["Inixiative project", "change.org meets Kickstarter on blockchain"],
   livestock: ["Livestock", "Tokenized cattle trusts"],
 };
 for (const n of nodes) {

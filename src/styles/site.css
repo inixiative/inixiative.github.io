@@ -29,6 +29,20 @@
   font-size: 1.25rem;
 }
 
+/* The header stays pinned while you scroll, so the footer doesn't repeat the mark. The shadow paints
+   the background past the container edges. */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: hsl(var(--background));
+  box-shadow: 0 0 0 100vmax hsl(var(--background));
+  clip-path: inset(0 -100vmax);
+}
+html {
+  scroll-padding-top: calc(var(--nav-height) + var(--gap-4));
+}
+
 /* Under 760px the theme hides .nav-links; keep the section links reachable in a row of their own. */
 .nav-links-compact {
   display: none;
@@ -855,4 +869,41 @@ h4 {
 .signoff {
   margin: var(--gap-7) 0 var(--gap-8);
   font-size: 1.125rem;
+}
+
+/* /open-source: one row per project, name then what it does. */
+.oss-group {
+  display: grid;
+  gap: var(--gap-3);
+  margin-top: var(--gap-7);
+}
+.oss-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.oss-row {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 1fr);
+  gap: var(--gap-2) var(--gap-7);
+  padding: var(--gap-4) 0;
+  border-top: 1px solid hsl(var(--border));
+}
+.oss-name {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: hsl(var(--app-primary));
+  text-decoration: none;
+}
+a.oss-name:hover {
+  text-decoration: underline;
+}
+.oss-what {
+  color: hsl(var(--muted-foreground));
+}
+@media (max-width: 640px) {
+  .oss-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
