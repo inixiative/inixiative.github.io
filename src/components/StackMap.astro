@@ -38,17 +38,17 @@ const stacks: Record<View, Stack> = {
   whole: [
     { key: "governance", label: "Governance", tone: "violet", ids: ["project", "livestock", "whitepaper"], note: "The project is the goal, Livestock a product on it; the whitepaper explains why" },
     { key: "agentic", label: "Agentic", tone: "lime", ids: ["foundry", "kingdom", "signet", "archive", "agent-session", "kcp", "oracle", "bench", "artifactory"] },
-    { key: "developer-experience", label: "Developer experience", tone: "slate", ids: ["atlas", "gloss", "config", "worktrees", "init", "ci-rules"], note: "Beside the stack: tools that help you work" },
+    { key: "developer-experience", label: "Developer experience", tone: "teal", ids: ["atlas", "gloss", "config", "worktrees", "init", "ci-rules"], note: "Beside the stack: tools that help you work" },
     { key: "template", label: "Template", tone: "amber", ids: ["template"], note: "The whole SaaS app, resting on the building blocks" },
     { key: "building-blocks", label: "Building blocks", tone: "amber", ids: ["rules-builder", "transitions", "permissions", "json-rules", "prisma-map"], note: "prisma-map at the base" },
   ],
   blocks: [
     { key: "libraries", label: "The libraries", tone: "amber", ids: ["template", "rules-builder", "transitions", "permissions", "json-rules", "prisma-map"], note: "template on top, prisma-map at the base" },
-    { key: "dx", label: "Developer experience", tone: "slate", ids: ["atlas", "gloss", "worktrees", "init", "ci-rules", "config"], note: "config is the toolchain under every package" },
+    { key: "dx", label: "Developer experience", tone: "teal", ids: ["atlas", "gloss", "worktrees", "init", "ci-rules", "config"], note: "config is the toolchain under every package" },
   ],
   vocabulary: [
     { key: "libraries", label: "The libraries", tone: "amber", ids: ["template", "rules-builder", "transitions", "permissions", "json-rules", "prisma-map"], note: "template on top, prisma-map at the base" },
-    { key: "dx", label: "Developer experience", tone: "slate", ids: ["atlas", "gloss", "worktrees", "init", "ci-rules", "config"], note: "config is the toolchain under every package" },
+    { key: "dx", label: "Developer experience", tone: "teal", ids: ["atlas", "gloss", "worktrees", "init", "ci-rules", "config"], note: "config is the toolchain under every package" },
   ],
   agentic: [
     { key: "loop", label: "Measuring", tone: "lime", ids: ["oracle", "bench"] },
@@ -71,7 +71,7 @@ const stack = stacks[view].filter((g) => !focusTiers || focusTiers.includes(g.ke
 }));
 
 const keyText =
-  "How to read the map: colour shows which part a piece belongs to (amber building blocks, slate developer experience, lime agentic, blue outside your machine, violet governance; charcoal marks closed source and pink marks a connection that goes through a Signet). " +
+  "How to read the map: colour shows which part a piece belongs to (amber building blocks, teal developer experience, lime agentic, blue outside your machine, violet governance; charcoal marks closed source and pink marks a connection that goes through a Signet). " +
   "Fill shows status: a solid block is done, a block in scaffolding is under construction, a dashed outline is planned. " +
   "Lines show the relation: solid builds on or runs with, dotted reads prisma-map's map, pink goes through a Signet, a scaffold-dashed line is under construction (on the technical graph: what template will adopt), a long-dashed grey line reaches a planned piece.";
 const readoutHint = view === "whole" ? "Hover or focus any piece to light what it builds on and what builds on it." : "Hover or focus a piece to light what it builds on and what builds on it.";

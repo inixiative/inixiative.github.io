@@ -16,7 +16,7 @@ const look = (n: StackNode) => {
         : n.tier === "building-blocks"
           ? "amber"
           : n.tier === "developer-experience"
-            ? "slate"
+            ? "teal"
           : n.tier === "governance"
             ? "violet"
             : "lime";
@@ -188,7 +188,7 @@ const librariesScene = (view: "blocks" | "vocabulary"): Scene => {
     { t: "rect", c: "zone zone-tooling", x: 816, y: rowY(2) - 30, w: 322, h: rowY(0) + H - rowY(2) + 52, r: 14 },
     { t: "rect", c: "cluster", x: 836, y: rowY(0) - 2, w: 236, h: 68, r: 8 },
     groupLabel(-2, rowY(0) + H + 36, "The libraries", "group-label tone-amber"),
-    groupLabel(834, rowY(0) + H + 36, "Developer experience", "group-label tone-slate"),
+    groupLabel(834, rowY(0) + H + 36, "Developer experience", "group-label tone-teal"),
     groupLabel(846, rowY(0) + 13, "Comes with template", "micro-label"),
   ];
   return {
@@ -434,7 +434,7 @@ const wholeScene = (): Scene => {
   const tpl: PlateSpec = { x: -1.1, y: 1.5, w: 5.0, d: 3.4, z: Z.template, t: 5, c: "tone-amber face-shelf" };
   const agentic: PlateSpec = { x: 0, y: 0, w: 9.4, d: 4.8, z: Z.agentic, t: 12, c: "plate tone-lime" };
   const gov: PlateSpec = { x: 2.8, y: 1.0, w: 4.4, d: 2.6, z: Z.governance, t: 12, c: "plate tone-violet" };
-  const dx: PlateSpec = { x: 9.2, y: -0.8, w: 3.2, d: 3.8, z: Z.dx, t: 8, c: "plate plate-light tone-slate" };
+  const dx: PlateSpec = { x: 9.2, y: -0.8, w: 3.2, d: 3.8, z: Z.dx, t: 8, c: "plate plate-light tone-teal" };
 
   const places: IsoPlace[] = [
     // The libraries stand on the template plate, from the base up. Tooling beside them.
@@ -591,7 +591,7 @@ const wholeScene = (): Scene => {
     ...label(base, "amber", "Building blocks", "The libraries template is made of"),
     ...label(agentic, "lime", "Agentic", "Agents that work like you do"),
     ...label(gov, "violet", "Governance", "Cooperation at scale"),
-    ...labelRight(dx, "slate", "Developer experience", "Tools that help you work"),
+    ...labelRight(dx, "teal", "Developer experience", "Tools that help you work"),
     ...trio(),
   ]);
   const nodesIn = (tier: string, z?: number) =>
@@ -608,7 +608,7 @@ const wholeScene = (): Scene => {
     { c: "tier", tier: "building-blocks", items: plate(tpl) },
     { c: "nodes", tier: "building-blocks", items: nodesIn("building-blocks", Z.template) },
     { c: "edges", items: beams.map((edge) => ({ edge })) },
-    { c: "tier", tier: "developer-experience", items: [...plate(dx), ...labelRight(dx, "slate", "Developer experience", "Tools that help you work"), ...trio()] },
+    { c: "tier", tier: "developer-experience", items: [...plate(dx), ...labelRight(dx, "teal", "Developer experience", "Tools that help you work"), ...trio()] },
     { c: "nodes", tier: "developer-experience", items: nodesIn("developer-experience") },
     { c: "edges", items: dxBeams.map((edge) => ({ edge })) },
     { c: "tier", tier: "agentic", items: [...plate(agentic), ...label(agentic, "lime", "Agentic", "Agents that work like you do")] },
