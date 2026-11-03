@@ -42,20 +42,44 @@ import Mark from "../components/Mark.astro";
     </div>
     <div class="text">
       <p>
-        On every product I built, I had to answer the same questions. Who can see this record? Which
-        state change is allowed right now, and for whom? How does one rule run in the browser, in Prisma
-        and in SQL? I answered each of them once, in code, and published the answers as libraries:
-        prisma-map, json-rules, permissions, transitions and rules-builder. Atlas, gloss and config are
-        the developer tooling I use around them.
+        Across my career I kept running into the same shapes of problem. More often than not, people
+        built a one-off solution for each, often right next to another problem with the same shape. I
+        pulled those problems out and built the best-shaped solution I could for each, so it can be
+        reused wherever that problem shows up.
       </p>
       <p>
-        Template puts them together. It is like shadcn, but for the whole SaaS app: you start a
-        product from it and own the code, about 139,000 lines with 409 test files. Six of these packages
-        run in production at the company where I work.
+        Template is where they come together. It is like shadcn, but for the whole SaaS app: you start
+        a product from it and own the code. It already solves sign-in with email, OAuth and API tokens; organizations and spaces with roles;
+        permissions; field-level encryption with key rotation; an audit log; background jobs; signed
+        webhooks with retries; live data over WebSockets; email templates and delivery; and a typed API
+        client generated from the routes.
+      </p>
+      <p>
+        For the most common problems I built packages you can use on their own: prisma-map reads your
+        schema at runtime, json-rules is the rules engine, permissions is the permissions library,
+        transitions handles lifecycles, and rules-builder gives you the rule builders. json-rules,
+        transitions, prisma-map and rules-builder run in production at the company where I work.
       </p>
     </div>
     <div class="actions">
       <a class="button button-secondary" href="/building-blocks/">The building blocks</a>
+    </div>
+  </section>
+
+  <section class="section story" aria-labelledby="developer-experience-title">
+    <div class="section-heading">
+      <span class="eyebrow"><span class="status-dot"></span>Developer experience</span>
+      <h2 id="developer-experience-title">Tools for working on the code.</h2>
+    </div>
+    <div class="text">
+      <p>
+        Atlas, gloss and config help me work on the code, and none of them ships in your product. Atlas
+        keeps a map of your code that CI checks. Gloss keeps explanations beside the code instead of in
+        it. Config is one shared toolchain and theme for every repo.
+      </p>
+    </div>
+    <div class="actions">
+      <a class="button button-secondary" href="/building-blocks/#developer-experience">Developer experience</a>
     </div>
   </section>
 
@@ -73,7 +97,7 @@ import Mark from "../components/Mark.astro";
       </p>
       <p>
         <strong>Stop repeating yourself to Claude.</strong> Foundry is the workspace around your agent,
-        on the Claude Code, Codex and Muse subscriptions you already pay for. Small expert agents called
+        on the Claude Code and Codex subscriptions you already pay for. Small expert agents called
         Wardens notice what your request touches and point your agent at what your codebase already has,
         and where it's written down. Your agent decides what to use. Giving your work a voice.
       </p>

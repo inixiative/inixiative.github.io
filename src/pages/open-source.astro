@@ -14,6 +14,11 @@ const groups: { title: string; rows: Row[] }[] = [
       { name: "permissions", what: "Who can do what, decided on your own records", can: mit, license: "MIT", href: gh("permissions") },
       { name: "transitions", what: "Which state change is allowed right now", can: mit, license: "MIT", href: gh("transitions") },
       { name: "rules-builder", what: "A rule editor that only offers what the engine can run", can: mit, license: "MIT", href: gh("rules-builder") },
+    ],
+  },
+  {
+    title: "Developer experience",
+    rows: [
       { name: "atlas", what: "A map of your code that CI keeps accurate", can: mit, license: "MIT", href: gh("atlas") },
       { name: "gloss", what: "Explanations kept beside the code instead of in it", can: mit, license: "MIT", href: gh("gloss") },
       { name: "config", what: "The shared toolchain and theme", can: mit, license: "MIT", href: gh("config") },
@@ -25,7 +30,7 @@ const groups: { title: string; rows: Row[] }[] = [
       { name: "Signet", what: "A pass to use an integration through Kingdom, which the owner can take back", can: mit, license: "MIT", href: gh("signet") },
       { name: "KCP (in progress)", what: "The Kingdom CLI Proxy: run provider CLIs through Kingdom", can: mit, license: "MIT", href: gh("kcp") },
       { name: "Archive", what: "Keeps every agent session on your machine and syncs where you choose", can: mit, license: "MIT", href: gh("archive") },
-      { name: "agent-session", what: "Runs Claude Code, Codex and Muse as long-lived sessions", can: mit, license: "MIT", href: gh("agent-session") },
+      { name: "agent-session", what: "Runs Claude Code and Codex as long-lived sessions", can: mit, license: "MIT", href: gh("agent-session") },
       { name: "Foundry core", what: "The engine under Foundry (foundry-core)", can: mit, license: "MIT", href: gh("foundry") },
       { name: "Foundry ACP adapter", what: "Lets apps such as Paseo and T3 Code drive Foundry (foundry-acp)", can: mit, license: "MIT", href: gh("foundry") },
       {
