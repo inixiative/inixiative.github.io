@@ -1,0 +1,240 @@
+---
+// One map of inixiative, in four views (src/map/views.ts). Wide screens get the drawing; under 760px a stacked
+// layout of the same pieces. Hover or focus lights what a piece builds on and what builds on it.
+import "../styles/stack-map.css";
+import { byId, edges as allEdges, nodes as allNodes, tiers } from "../data/stack";
+import { renderSvg } from "../map/render";
+import { relationsFor, sceneFor, type View } from "../map/views";
+
+interface Props {
+  view: View;
+  /** Visually framed as the page's hero drawing (homepage). */
+  hero?: boolean;
+  /** The whole picture with one part of the story lit and the rest stepped back (plain section pages). */
+  focus?: "building-blocks" | "agentic";
+}
+const { view, hero = false, focus } = Astro.props;
+const scene = sceneFor(view);
+const id = `map-${view}`;
+const svg = renderSvg(scene, { id });
+const { nodes, edges } = relationsFor(scene);
+const shown = new Set(nodes.map((n) => n.id));
+const drawn = allEdges.filter((e) => shown.has(e.base) && shown.has(e.user));
+const label = (nid: string) => byId.get(nid)?.label ?? nid;
+const modeOf = scene.modes?.[0]?.id;
+
+// The text alternative, in the order the site lists things (data/stack.ts).
+const ordered = allNodes.filter((n) => shown.has(n.id));
+const relations = ordered.map((n) => {
+  const on = drawn.filter((e) => e.kind === "uses" && e.user === n.id).map((e) => label(e.base) + (e.structural ? " (reads its map)" : "") + (e.next ? " (next)" : ""));
+  const runs = drawn.filter((e) => e.kind === "runs" && (e.base === n.id || e.user === n.id)).map((e) => e.why);
+  return { n, on, runs };
+});
+
+// The stacked layout: groups from the top of the stack down.
+type Stack = { key: string; label: string; tone: string; ids: string[]; note?: string }[];
+const stacks: Record<View, Stack> = {
+  whole: [
+    { key: "governance", label: "Governance", tone: "violet", ids: ["whitepaper", "project"] },
+    { key: "agentic", label: "Agentic", tone: "lime", ids: ["foundry", "kingdom", "signet", "archive", "agent-session", "kcp", "oracle", "bench", "artifactory"] },
+    { key: "developer-experience", label: "Developer experience", tone: "slate", ids: ["atlas", "gloss", "config", "worktrees", "init", "ci-rules"], note: "Beside the stack: tools that help you work" },
+    { key: "building-blocks", label: "Building blocks", tone: "amber", ids: ["template", "rules-builder", "transitions", "permissions", "json-rules", "prisma-map"], note: "template on top, prisma-map at the base" },
+  ],
+  blocks: [
+    { key: "libraries", label: "The libraries", tone: "amber", ids: ["template", "rules-builder", "transitions", "permissions", "json-rules", "prisma-map"], note: "template on top, prisma-map at the base" },
+    { key: "dx", label: "Developer experience", tone: "slate", ids: ["atlas", "gloss", "worktrees", "init", "ci-rules", "config"], note: "config is the toolchain under every package" },
+  ],
+  vocabulary: [
+    { key: "libraries", label: "The libraries", tone: "amber", ids: ["template", "rules-builder", "transitions", "permissions", "json-rules", "prisma-map"], note: "template on top, prisma-map at the base" },
+    { key: "dx", label: "Developer experience", tone: "slate", ids: ["atlas", "gloss", "worktrees", "init", "ci-rules", "config"], note: "config is the toolchain under every package" },
+  ],
+  agentic: [
+    { key: "loop", label: "Measuring", tone: "lime", ids: ["oracle", "bench"] },
+    { key: "machine", label: "On your machine", tone: "lime", ids: ["foundry", "agent-session", "archive", "kcp"] },
+    { key: "hub", label: "Hosted", tone: "pink", ids: ["kingdom", "signet"], note: "Everything outside your machine reaches you through a Signet" },
+    { key: "outside", label: "Outside your machine", tone: "blue", ids: ["integrations", "teammates", "artifactory"] },
+  ],
+};
+const sceneNode = new Map(nodes.map((n) => [n.id, n]));
+const focusTiers = focus === "building-blocks" ? ["building-blocks", "developer-experience"] : focus ? [focus] : null;
+const stack = stacks[view].filter((g) => !focusTiers || focusTiers.includes(g.key)).map((g) => ({
+  ...g,
+  items: g.ids.filter((i) => shown.has(i)).map((i) => {
+    const sn = sceneNode.get(i);
+    const n = byId.get(i);
+    const on = drawn.filter((e) => e.kind === "uses" && e.user === i && e.base !== "config" && !["worktrees", "init", "ci-rules"].includes(e.base)).map((e) => label(e.base));
+    if (["worktrees", "init", "ci-rules"].includes(i)) on.push("comes with template");
+    return { id: i, label: label(i), line: n?.line ?? "", href: sn?.href, look: sn?.look ?? "", on };
+  }),
+}));
+
+const legend: Record<View, { c: string; t: string }[]> = {
+  whole: [
+    { c: "key-open", t: "Open source" },
+    { c: "key-closed", t: "Closed" },
+    { c: "key-planned", t: "Planned" },
+    { c: "key-progress", t: "In progress" },
+    { c: "key-signet", t: "Through a Signet" },
+  ],
+  blocks: [
+    { c: "key-uses", t: "Built on" },
+    { c: "key-structural", t: "Reads prisma-map's map" },
+    { c: "key-next", t: "Next" },
+    { c: "key-progress", t: "In progress" },
+  ],
+  vocabulary: [
+    { c: "key-uses", t: "Built on" },
+    { c: "key-structural", t: "Reads prisma-map's map" },
+    { c: "key-next", t: "Next" },
+  ],
+  agentic: [
+    { c: "key-signet", t: "Through a Signet" },
+    { c: "key-runs", t: "Runs" },
+    { c: "key-closed", t: "Closed" },
+    { c: "key-planned", t: "Planned" },
+    { c: "key-progress", t: "In progress" },
+  ],
+};
+const readoutHint = view === "whole" ? "Hover or focus any piece to light what it builds on and what builds on it." : "Hover or focus a piece to light what it builds on and what builds on it.";
+void tiers;
+void edges;
+---
+<figure class:list={["stack-map", `view-${view}`, { "is-hero": hero, "is-focused": focus }]} data-view={view} data-mode={modeOf} data-focus={focus}>
+  {scene.modes && (
+    <div class="map-modes" role="group" aria-label="Show">
+      {scene.modes.map((m, i) => (
+        <button type="button" data-mode={m.id} aria-pressed={i === 0 ? "true" : "false"}>{m.label}</button>
+      ))}
+    </div>
+  )}
+  <div class="map-canvas">
+    <Fragment set:html={svg} />
+  </div>
+  <div class="map-foot">
+    <p class="map-readout" aria-live="polite" data-hint={readoutHint}>{readoutHint}</p>
+    <ul class="map-legend" aria-label="Key">
+      {legend[view].map((k) => <li class={k.c}>{k.t}</li>)}
+    </ul>
+  </div>
+
+  <div class="map-stacked">
+    {stack.map((g, gi) => (
+      <section class={`slab tone-${g.tone}`} aria-label={g.label}>
+        <header>
+          <span class="slab-name">{g.label}</span>
+          {g.note && <span class="slab-note">{g.note}</span>}
+        </header>
+        <ul>
+          {g.items.map((it) => (
+            <li class={it.look}>
+              {it.href ? <a href={it.href}>{it.label}</a> : <span>{it.label}</span>}
+              <span class="slab-line">{it.line}</span>
+              {it.on.length > 0 && <span class="slab-on">{it.on[0] === "comes with template" ? "Comes with template" : `Built on ${it.on.join(", ")}`}</span>}
+            </li>
+          ))}
+        </ul>
+        {gi < stack.length - 1 && <span class="slab-join" aria-hidden="true" />}
+      </section>
+    ))}
+  </div>
+
+  <details class="map-text">
+    <summary>Read the map as text</summary>
+    <ul>
+      {relations.map(({ n, on, runs }) => (
+        <li>
+          <strong>{n.label}</strong>: {n.line}.
+          {n.licence === "closed" && " Closed source."}
+          {n.state === "planned" && " Planned."}
+          {n.state === "progress" && " In progress."}
+          {on.length > 0 && ` Built on ${on.join(", ")}.`}
+          {runs.map((r) => ` ${r[0].toUpperCase()}${r.slice(1)}.`).join("")}
+        </li>
+      ))}
+    </ul>
+  </details>
+</figure>
+
+<script>
+  // Light a piece, everything it builds on (upstream) and everything built on it (downstream).
+  const reach = (start: string, step: Map<string, string[]>) => {
+    const seen = new Set<string>();
+    const stack = [...(step.get(start) ?? [])];
+    while (stack.length) {
+      const id = stack.pop()!;
+      if (seen.has(id)) continue;
+      seen.add(id);
+      stack.push(...(step.get(id) ?? []));
+    }
+    return seen;
+  };
+
+  const small = window.matchMedia("(max-width: 760px)");
+  for (const fig of document.querySelectorAll<HTMLElement>(".stack-map")) {
+    const svg = fig.querySelector("svg");
+    if (!svg) continue;
+    // Under 760px the drawing is a picture above the slabs, which carry the links.
+    const canvas = fig.querySelector<HTMLElement>(".map-canvas");
+    const sync = () => {
+      canvas?.toggleAttribute("inert", small.matches);
+      if (small.matches) canvas?.setAttribute("aria-hidden", "true");
+      else canvas?.removeAttribute("aria-hidden");
+    };
+    sync();
+    small.addEventListener("change", sync);
+    const readout = fig.querySelector<HTMLElement>(".map-readout");
+    const nodes = [...svg.querySelectorAll<SVGElement>(".node")];
+    const edges = [...svg.querySelectorAll<SVGPathElement>(".edge")];
+    const live = () => edges.filter((e) => !fig.dataset.mode || e.dataset.kind === fig.dataset.mode || e.classList.contains("is-cross"));
+
+    const clear = () => {
+      delete fig.dataset.active;
+      for (const el of [...nodes, ...edges]) el.classList.remove("is-lit", "is-focus");
+      if (readout) readout.textContent = readout.dataset.hint ?? "";
+    };
+    const light = (node: SVGElement) => {
+      const id = node.dataset.id!;
+      const up = new Map<string, string[]>();
+      const down = new Map<string, string[]>();
+      for (const e of live()) {
+        const b = e.dataset.base!;
+        const u = e.dataset.user!;
+        up.set(u, [...(up.get(u) ?? []), b]);
+        down.set(b, [...(down.get(b) ?? []), u]);
+      }
+      const ups = reach(id, up);
+      const downs = reach(id, down);
+      const lit = new Set([id, ...ups, ...downs]);
+      fig.dataset.active = id;
+      for (const n of nodes) {
+        n.classList.toggle("is-lit", lit.has(n.dataset.id!));
+        n.classList.toggle("is-focus", n === node);
+      }
+      for (const e of edges) {
+        const b = e.dataset.base!;
+        const u = e.dataset.user!;
+        const on = (u === id || ups.has(u)) && ups.has(b);
+        const by = (b === id || downs.has(b)) && downs.has(u);
+        e.classList.toggle("is-lit", live().includes(e) && (on || by));
+      }
+      if (readout) readout.textContent = node.getAttribute("aria-label") ?? "";
+    };
+
+    for (const n of nodes) {
+      n.addEventListener("pointerenter", () => light(n));
+      n.addEventListener("focus", () => light(n));
+      n.addEventListener("pointerleave", () => {
+        if (document.activeElement !== n) clear();
+      });
+      n.addEventListener("blur", clear);
+    }
+
+    for (const b of fig.querySelectorAll<HTMLButtonElement>(".map-modes button")) {
+      b.addEventListener("click", () => {
+        fig.dataset.mode = b.dataset.mode;
+        for (const o of fig.querySelectorAll<HTMLButtonElement>(".map-modes button")) o.setAttribute("aria-pressed", String(o === b));
+        clear();
+      });
+    }
+  }
+</script>

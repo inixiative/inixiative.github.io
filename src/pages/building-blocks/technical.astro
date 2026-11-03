@@ -1,5 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
+import StackMap from "../../components/StackMap.astro";
 import { developerExperience, packages, templateTechnical, type Piece } from "../../data/building-blocks";
 const anchor = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
 const sections: { id: string; eyebrow: string; title: string; lede: string; pieces: Piece[] }[] = [
@@ -31,6 +32,14 @@ const sections: { id: string; eyebrow: string; title: string; lede: string; piec
     <p class="lede">
       Each line below names the function, file or doc that backs it. The plain version is on{" "}<a class="text-link" href="/building-blocks/">Building blocks</a>.
     </p>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>How they fit</span>
+      <h2>Every dependency, from prisma-map up.</h2>
+    </div>
+    <StackMap view="blocks" />
   </section>
 
   <section class="section anchor-target" id="template">

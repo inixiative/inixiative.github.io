@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import StackMap from "../components/StackMap.astro";
 import { developerExperience, packages, templatePlain } from "../data/building-blocks";
 const anchor = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
 ---
@@ -45,9 +46,7 @@ const anchor = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
       <h2>For the problems almost every product has.</h2>
       <p class="lede">You can use each one without the template.</p>
     </div>
-    <ol class="chain" aria-label="Dependency order">
-      {packages.map((p) => <li><a href={`#${p.name}`}>{p.name}</a></li>)}
-    </ol>
+    <StackMap view="whole" focus="building-blocks" />
     <ul class="packages">
       {packages.map((p) => (
         <li class="package" id={anchor(p.name)}>
