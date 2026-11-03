@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
+import StackMap from "../components/StackMap.astro";
 import { byLicence, foundryMitDate } from "../data/open-source";
 
 const mitProjects = byLicence("mit");
@@ -52,13 +53,18 @@ const tiers = [
     })();
   </script>
 
-  <section class="hero">
-    <span class="hero-mark"><Mark /></span>
-    <h1 class="display-1">Technology for cooperation.</h1>
-    <p class="lede">
-      I'm Aron Greenspan. inixiative is a decade of lessons from building software, packaged so I
-      don't have to figure the same things out on every project, and so you can start from them too.
-    </p>
+  <section class="hero hero-split">
+    <div class="hero-copy">
+      <span class="hero-mark"><Mark /></span>
+      <h1 class="display-1">Technology for cooperation.</h1>
+      <p class="lede">
+        I'm Aron Greenspan. inixiative is a decade of lessons from building software, packaged so I
+        don't have to figure the same things out on every project, and so you can start from them too.
+      </p>
+    </div>
+    <div class="hero-map">
+      <StackMap view="whole" hero />
+    </div>
   </section>
 
   <section class="section story" data-domain="building-blocks" aria-labelledby="building-blocks-title">

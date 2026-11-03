@@ -266,94 +266,6 @@
   user-select: none;
 }
 
-/* Agentic: where things run. Lime = yours, blue = shared, pink = Signet (the theme's meanings). */
-.map {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr auto 1fr;
-  gap: var(--gap-4);
-  align-items: stretch;
-}
-.map-node {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-3);
-  padding: var(--gap-6);
-  border-radius: var(--radius-4);
-  background: hsl(var(--card));
-  box-shadow: inset 0 0 0 1px hsl(var(--border));
-}
-.map-node[data-side="yours"] {
-  box-shadow:
-    inset 0 0 0 1px hsl(var(--app-primary) / 0.5),
-    var(--elevation-1);
-}
-.map-node[data-side="shared"] {
-  box-shadow: inset 0 0 0 1px hsl(var(--app-tertiary) / 0.5);
-}
-.map-node .eyebrow[data-side="shared"] {
-  color: hsl(var(--app-tertiary));
-}
-.map-node ul {
-  margin: 0;
-  padding-left: 1.1em;
-  color: hsl(var(--muted-foreground));
-  font-size: var(--text-small);
-}
-.map-node li + li {
-  margin-top: var(--gap-1);
-}
-.map-link {
-  align-self: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--gap-2);
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: hsl(var(--app-quaternary));
-  text-align: center;
-}
-.map-link::before {
-  content: "";
-  width: 3.5rem;
-  height: 2px;
-  background: hsl(var(--app-quaternary));
-}
-@media (max-width: 900px) {
-  .map {
-    grid-template-columns: 1fr;
-  }
-  .map-link::before {
-    width: 2px;
-    height: 1.5rem;
-  }
-}
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap-5);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: hsl(var(--muted-foreground));
-}
-.legend li {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--gap-2);
-}
-.legend li::before {
-  content: "";
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: hsl(var(--swatch));
-}
-
 /* Feature card (Foundry on /agentic) */
 .feature {
   display: grid;
@@ -386,29 +298,6 @@
 }
 
 /* Building blocks: the dependency strip and the package rows */
-.chain {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--gap-2) var(--gap-3);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: var(--font-mono);
-  font-size: var(--text-small);
-}
-.chain li {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--gap-3);
-}
-.chain li + li::before {
-  content: "→";
-  color: hsl(var(--subtle-foreground));
-}
-.chain a {
-  color: hsl(var(--app-primary));
-}
 .packages {
   display: grid;
   gap: 0;
@@ -771,5 +660,27 @@ h4 {
   }
   .package {
     padding: var(--gap-6) 0;
+  }
+}
+
+/* Homepage hero: the words on the left, the whole map on the right. */
+.hero-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.74fr) minmax(0, 1.26fr);
+  align-items: center;
+  gap: var(--gap-7);
+  padding-top: calc(var(--section-padding) * 0.45);
+  padding-bottom: calc(var(--section-padding) * 0.5);
+  min-height: calc(100svh - var(--nav-height) - 2rem);
+}
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-6);
+}
+@media (max-width: 1080px) {
+  .hero-split {
+    grid-template-columns: 1fr;
+    min-height: 0;
   }
 }

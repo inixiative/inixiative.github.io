@@ -1,5 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
+import StackMap from "../../components/StackMap.astro";
 const gh = (path: string) => `https://github.com/inixiative/${path}`;
 type Item = { id: string; name: string; licence: string; progress?: string; line: string; points: string[]; links: { label: string; href: string }[] };
 const items: Item[] = [
@@ -104,6 +105,14 @@ const items: Item[] = [
     <p class="lede">
       Each line names the command, function or file that backs it. The plain version is on{" "}<a class="text-link" href="/agentic/">Agentic</a>.
     </p>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>How they fit</span>
+      <h2>How the pieces run together, and what each is built on.</h2>
+    </div>
+    <StackMap view="agentic" />
   </section>
 
   <section class="section">

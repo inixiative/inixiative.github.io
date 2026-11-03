@@ -1,0 +1,688 @@
+/*
+ * The map (src/components/StackMap.astro). Colours come from the theme's raw section tokens (domains.css), so a
+ * piece wears its section's colour on any page: amber building blocks, lime/blue/pink agentic (yours / shared /
+ * Signet, as in the products), violet governance. Developer experience is the theme's neutral slate
+ * (--muted-foreground), lighter than every section and no status colour. Closed products are charcoal.
+ */
+
+.stack-map {
+  --map-charcoal: 206 22% 16%;
+  --map-charcoal-ink: 96 17% 94%;
+  margin: 0;
+  display: grid;
+  gap: var(--gap-4);
+  position: relative;
+}
+.dark .stack-map {
+  --map-charcoal: 206 30% 4%;
+}
+
+.stack-map .tone-amber { --tone: var(--building-blocks-primary); }
+.stack-map .tone-lime { --tone: var(--agentic-primary); }
+.stack-map .tone-blue { --tone: var(--agentic-tertiary); }
+.stack-map .tone-pink { --tone: var(--agentic-quaternary); }
+.stack-map .tone-violet { --tone: var(--governance-primary); }
+.stack-map .tone-slate { --tone: var(--muted-foreground); }
+
+/* ---- Canvas -------------------------------------------------------------------------------- */
+
+.map-canvas {
+  position: relative;
+  border-radius: var(--radius-5);
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(90% 60% at 50% 100%, hsl(var(--building-blocks-primary) / 0.07), transparent 70%),
+    radial-gradient(70% 55% at 50% 0%, hsl(var(--governance-primary) / 0.06), transparent 70%),
+    hsl(var(--card) / 0.5);
+  box-shadow: inset 0 0 0 1px hsl(var(--border));
+}
+.map-canvas::before {
+  /* the drafting grid, faded out at the edges */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    repeating-linear-gradient(0deg, hsl(var(--foreground) / 0.035) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(90deg, hsl(var(--foreground) / 0.035) 0 1px, transparent 1px 32px);
+  -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 40%, transparent 100%);
+}
+.map-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: var(--font-body);
+}
+.view-blocks .map-canvas,
+.view-vocabulary .map-canvas,
+.view-agentic .map-canvas {
+  padding: var(--gap-7) var(--gap-6);
+}
+
+/* The homepage: no frame, the drawing floats on the page. */
+.stack-map.is-hero .map-canvas {
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+.stack-map.is-hero .map-canvas::before {
+  inset: -10% -20%;
+  background:
+    repeating-linear-gradient(0deg, hsl(var(--foreground) / 0.03) 0 1px, transparent 1px 36px),
+    repeating-linear-gradient(90deg, hsl(var(--foreground) / 0.03) 0 1px, transparent 1px 36px);
+}
+
+/* ---- Text ---------------------------------------------------------------------------------- */
+
+.map-svg text {
+  fill: hsl(var(--foreground));
+}
+.map-svg .name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+.map-svg .name-big {
+  font-size: 22px;
+}
+.map-svg .name-small {
+  font-size: 13px;
+}
+.map-svg .name-chip {
+  font-size: 13px;
+}
+.map-svg .name-chip.name-big {
+  font-size: 15px;
+}
+.map-svg .line {
+  font-size: 13px;
+  fill: hsl(var(--muted-foreground));
+}
+.map-svg .line-chip {
+  font-size: 11px;
+}
+.map-svg .flag {
+  font-size: 10.5px;
+  font-weight: 600;
+  fill: hsl(var(--muted-foreground));
+}
+.map-svg .flag-plate {
+  fill: none;
+  stroke: hsl(var(--border));
+}
+.map-svg .is-progress .flag { fill: hsl(var(--warning)); }
+.map-svg .is-progress .flag-plate { stroke: hsl(var(--warning) / 0.6); }
+.map-svg .group-label {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 650;
+  fill: hsl(var(--tone, var(--muted-foreground)));
+}
+.map-svg .micro-label {
+  font-size: 11.5px;
+  fill: hsl(var(--subtle-foreground));
+}
+.map-svg .tier-label {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  fill: hsl(var(--tone));
+}
+.map-svg .tier-line {
+  font-size: 12px;
+  fill: hsl(var(--muted-foreground));
+}
+
+/* ---- Plates (the whole picture) -------------------------------------------------------------- */
+
+.map-svg .plate-top {
+  fill: hsl(var(--tone) / 0.07);
+  stroke: hsl(var(--tone) / 0.4);
+  stroke-width: 1;
+}
+.map-svg .plate-left { fill: hsl(var(--tone) / 0.2); }
+.map-svg .plate-right { fill: hsl(var(--tone) / 0.12); }
+.map-svg .plate-grid {
+  fill: none;
+  stroke: hsl(var(--tone) / 0.11);
+  stroke-width: 1;
+}
+.map-svg .plate-rim {
+  fill: none;
+  stroke: hsl(var(--tone) / 0.9);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px hsl(var(--tone) / 0.55));
+}
+.map-svg .face-shelf.plate-top { fill: hsl(var(--tone) / 0.09); stroke: hsl(var(--tone) / 0.7); }
+.map-svg .face-shelf.plate-rim { stroke-width: 2; filter: drop-shadow(0 0 8px hsl(var(--tone) / 0.7)); }
+.map-svg .face-shelf.plate-grid { stroke: hsl(var(--tone) / 0.07); }
+.map-svg .face-shelf.plate-left { fill: hsl(var(--tone) / 0.45); }
+.map-svg .face-shelf.plate-right { fill: hsl(var(--tone) / 0.3); }
+.map-svg .node.is-focus .face-shelf.plate-rim,
+.map-svg .node:focus-visible .face-shelf.plate-rim { stroke-width: 2.5; }
+.map-svg .plate-light.plate-top { fill: hsl(var(--tone) / 0.04); stroke: hsl(var(--tone) / 0.3); }
+.map-svg .plate-light.plate-rim { stroke: hsl(var(--tone) / 0.55); filter: none; }
+.map-svg .plate-light.plate-left { fill: hsl(var(--tone) / 0.1); }
+.map-svg .plate-light.plate-right { fill: hsl(var(--tone) / 0.06); }
+
+/* ---- Zones (the elevation views) ----------------------------------------------------------- */
+
+.map-svg .zone {
+  fill: hsl(var(--tone, var(--foreground)) / 0.035);
+  stroke: hsl(var(--tone, var(--foreground)) / 0.2);
+  stroke-width: 1;
+}
+.map-svg .cluster {
+  fill: hsl(var(--muted-foreground) / 0.05);
+  stroke: hsl(var(--muted-foreground) / 0.35);
+  stroke-dasharray: 3 4;
+}
+.map-svg .zone-libraries { --tone: var(--building-blocks-primary); }
+.map-svg .zone-tooling { --tone: var(--muted-foreground); stroke-dasharray: 4 5; }
+.map-svg .zone-machine { --tone: var(--agentic-primary); }
+.map-svg .zone-measure { --tone: var(--muted-foreground); stroke-dasharray: 4 5; }
+.map-svg .zone-outside { --tone: var(--agentic-tertiary); }
+.map-svg .zone-blocks { --tone: var(--muted-foreground); stroke-dasharray: 4 5; }
+
+/* ---- Nodes ---------------------------------------------------------------------------------- */
+
+.map-svg .node {
+  cursor: pointer;
+  outline: none;
+  transition: opacity var(--duration-base) var(--ease-standard);
+}
+.map-svg .face-front,
+.map-svg .face-top,
+.map-svg .face-side {
+  stroke: hsl(var(--tone) / 0.6);
+  stroke-width: 1;
+  stroke-linejoin: round;
+  transition: fill var(--duration-base) var(--ease-standard), stroke var(--duration-base) var(--ease-standard);
+}
+.map-svg .face-front { fill: hsl(var(--tone) / 0.13); }
+.map-svg .face-base { fill: hsl(var(--card)); stroke: none; }
+.map-svg .is-planned .face-base { fill: hsl(var(--card) / 0.6); }
+.map-svg .face-top { fill: hsl(var(--tone) / 0.34); }
+.map-svg .face-side { fill: hsl(var(--tone) / 0.22); }
+.map-svg rect.face-front { fill: hsl(var(--card)); }
+.map-svg .node:not(.is-closed):not(.is-planned) rect.face-front {
+  fill: hsl(var(--tone) / 0.1);
+}
+.map-svg .is-template rect.face-front { fill: hsl(var(--tone) / 0.16); }
+.map-svg .is-template .face-top { fill: hsl(var(--tone) / 0.5); }
+
+.map-svg .chip {
+  fill: hsl(var(--card));
+  stroke: hsl(var(--tone) / 0.55);
+  stroke-width: 1;
+}
+.map-svg .leader {
+  stroke: hsl(var(--tone) / 0.55);
+  stroke-width: 1;
+  fill: none;
+}
+.map-svg .progress-dot { fill: hsl(var(--warning)); }
+
+/* Closed: charcoal, set apart from the open, tinted pieces. */
+.map-svg .is-closed { --tone: var(--muted-foreground); }
+.map-svg .is-closed .face-front,
+.map-svg .is-closed .face-side,
+.map-svg .is-closed .chip {
+  fill: hsl(var(--map-charcoal));
+  stroke: hsl(var(--foreground) / 0.45);
+}
+.map-svg .is-closed .face-top { fill: hsl(var(--foreground) / 0.16); stroke: hsl(var(--foreground) / 0.45); }
+.map-svg .is-closed text { fill: hsl(var(--map-charcoal-ink)); }
+.map-svg .is-closed .line { fill: hsl(var(--map-charcoal-ink) / 0.7); }
+.map-svg .is-closed .flag { fill: hsl(var(--map-charcoal-ink) / 0.7); }
+.map-svg .is-closed .flag-plate { stroke: hsl(var(--map-charcoal-ink) / 0.3); }
+.map-svg .crest { color: hsl(var(--agentic-primary)); }
+.map-svg:not(:is(.dark *)) .crest { color: hsl(var(--map-charcoal-ink)); }
+
+/* Planned: a ghost. */
+.map-svg .is-planned .face-front,
+.map-svg .is-planned .face-top,
+.map-svg .is-planned .face-side,
+.map-svg .is-planned .chip,
+.map-svg .is-planned .leader {
+  fill: hsl(var(--background) / 0.4);
+  stroke: hsl(var(--tone) / 0.7);
+  stroke-dasharray: 4 4;
+}
+.map-svg .is-planned text { fill: hsl(var(--muted-foreground)); }
+
+/* Focus and hover: the piece, its upstream and downstream; everything else steps back. */
+.stack-map[data-active] .map-svg .node:not(.is-lit) { opacity: 0.22; }
+.stack-map[data-active] .map-svg .edge:not(.is-lit) { opacity: 0.08; }
+.stack-map[data-active] .map-svg .pulse { opacity: 0; }
+.map-svg .node.is-focus .face-front,
+.map-svg .node.is-focus .face-top,
+.map-svg .node.is-focus .chip {
+  stroke: hsl(var(--tone));
+  stroke-width: 1.75;
+}
+.map-svg .node:focus-visible .face-front,
+.map-svg .node:focus-visible .chip {
+  stroke: hsl(var(--ring));
+  stroke-width: 2.5;
+}
+
+/* ---- Edges ---------------------------------------------------------------------------------- */
+
+.map-svg .edge {
+  fill: none;
+  stroke: hsl(var(--foreground) / 0.34);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: opacity var(--duration-base) var(--ease-standard), stroke var(--duration-base) var(--ease-standard),
+    stroke-width var(--duration-base) var(--ease-standard);
+}
+.view-blocks .map-svg .edge,
+.view-vocabulary .map-svg .edge,
+.view-whole .map-svg .edge.kind-uses {
+  stroke: hsl(var(--building-blocks-primary) / 0.6);
+}
+.map-svg .edge.kind-runs { stroke: hsl(var(--agentic-primary) / 0.6); }
+.map-svg .edge.is-signet {
+  stroke: hsl(var(--agentic-quaternary) / 0.85);
+  stroke-width: 2.25;
+}
+.map-svg .edge.is-next { stroke-dasharray: 6 6; }
+.map-svg .edge.is-structural {
+  stroke: hsl(var(--muted-foreground) / 0.85);
+  stroke-dasharray: 0.5 6;
+  stroke-width: 2.5;
+}
+.view-whole .map-svg .edge.is-cross[data-user="template"] {
+  stroke: hsl(var(--building-blocks-primary) / 0.75);
+  stroke-width: 1.5;
+}
+.view-whole .map-svg .edge.is-cross:not([data-user="template"]) {
+  stroke: hsl(var(--foreground) / 0.24);
+  stroke-width: 1.25;
+}
+.map-svg .edge.is-lit {
+  stroke-width: 2.5;
+  opacity: 1;
+}
+.map-svg .edge.kind-uses.is-lit:not(.is-structural) { stroke: hsl(var(--building-blocks-primary)); }
+.map-svg .edge.kind-runs.is-lit:not(.is-signet) { stroke: hsl(var(--agentic-primary)); }
+.map-svg .edge.is-signet.is-lit { stroke: hsl(var(--agentic-quaternary)); }
+.map-svg .edge.is-unseen { display: none; }
+.map-svg .pulse {
+  fill: none;
+  stroke: hsl(var(--agentic-quaternary));
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 0.04 0.96;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 0 4px hsl(var(--agentic-quaternary) / 0.9));
+}
+
+/* Agentic: two ways to read the same pieces. */
+.view-agentic[data-mode="runs"] .map-svg .edge.kind-uses,
+.view-agentic[data-mode="uses"] .map-svg .edge.kind-runs,
+.view-agentic[data-mode="uses"] .map-svg .pulse {
+  display: none;
+}
+.view-agentic[data-mode="runs"] .map-svg .node:is([data-tier="building-blocks"], [data-tier="developer-experience"]) {
+  opacity: 0.45;
+}
+.map-modes {
+  display: inline-flex;
+  justify-self: start;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 1px hsl(var(--border));
+  background: hsl(var(--card));
+}
+.map-modes button {
+  border: 0;
+  border-radius: var(--radius-pill);
+  padding: var(--gap-2) var(--gap-4);
+  font: inherit;
+  font-size: var(--text-small);
+  color: hsl(var(--muted-foreground));
+  background: none;
+  cursor: pointer;
+}
+.map-modes button[aria-pressed="true"] {
+  color: hsl(var(--app-primary-foreground));
+  background: hsl(var(--app-primary));
+}
+.map-modes button:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* ---- Under the drawing ------------------------------------------------------------------- */
+
+.map-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap-3) var(--gap-6);
+}
+.map-readout {
+  margin: 0;
+  flex: 1 1 22rem;
+  min-height: 3em;
+  font-size: var(--text-small);
+  color: hsl(var(--muted-foreground));
+}
+.stack-map[data-active] .map-readout { color: hsl(var(--foreground)); }
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-2) var(--gap-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-caption);
+  color: hsl(var(--muted-foreground));
+}
+.map-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-2);
+}
+.map-legend li::before {
+  content: "";
+  flex: none;
+  width: 14px;
+  height: 10px;
+  border-radius: 2px;
+}
+.map-legend .key-open::before {
+  background: hsl(var(--agentic-primary) / 0.25);
+  box-shadow: inset 0 0 0 1px hsl(var(--agentic-primary) / 0.7);
+}
+.map-legend .key-closed::before {
+  background: hsl(var(--map-charcoal));
+  box-shadow: inset 0 0 0 1px hsl(var(--foreground) / 0.45);
+}
+.map-legend .key-planned::before {
+  border: 1px dashed hsl(var(--muted-foreground));
+}
+.map-legend .key-progress::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: hsl(var(--warning));
+}
+.map-legend :is(.key-signet, .key-runs, .key-uses, .key-next, .key-structural)::before {
+  width: 22px;
+  height: 0;
+  border-radius: 0;
+  border-top: 2px solid;
+}
+.map-legend .key-signet::before { border-color: hsl(var(--agentic-quaternary)); }
+.map-legend .key-runs::before { border-color: hsl(var(--agentic-primary)); }
+.map-legend .key-uses::before { border-color: hsl(var(--building-blocks-primary)); }
+.map-legend .key-next::before { border-top-style: dashed; border-color: hsl(var(--building-blocks-primary)); }
+.map-legend .key-structural::before { border-top: 3px dotted hsl(var(--muted-foreground)); }
+
+.map-text {
+  font-size: var(--text-small);
+  color: hsl(var(--muted-foreground));
+}
+.map-text summary {
+  cursor: pointer;
+  width: max-content;
+  color: hsl(var(--muted-foreground));
+}
+.map-text summary:hover { color: hsl(var(--foreground)); }
+.map-text ul {
+  margin: var(--gap-3) 0 0;
+  padding-left: 1.1em;
+  display: grid;
+  gap: var(--gap-2);
+  max-width: var(--measure);
+}
+.map-text strong { color: hsl(var(--foreground)); font-weight: var(--weight-strong); }
+
+.view-vocabulary { max-width: 64rem; }
+
+/* ---- Small screens: a stack of slabs -------------------------------------------------------- */
+
+.map-stacked { display: none; }
+
+@media (max-width: 760px) {
+  .map-canvas,
+  .map-foot,
+  .map-modes { display: none; }
+  .map-stacked {
+    display: grid;
+    gap: var(--gap-5);
+  }
+  .slab {
+    position: relative;
+    padding: var(--gap-4) var(--gap-4) var(--gap-5);
+    border-radius: var(--radius-3);
+    background:
+      repeating-linear-gradient(90deg, hsl(var(--tone) / 0.06) 0 1px, transparent 1px 24px),
+      linear-gradient(hsl(var(--tone) / 0.1), hsl(var(--tone) / 0.03));
+    box-shadow:
+      inset 0 1px 0 hsl(var(--tone) / 0.9),
+      inset 0 0 0 1px hsl(var(--tone) / 0.3),
+      0 6px 0 -1px hsl(var(--tone) / 0.22),
+      0 18px 30px -18px hsl(var(--shadow, 0 0% 0%) / 0.6);
+  }
+  .slab header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--gap-1) var(--gap-3);
+    margin-bottom: var(--gap-3);
+  }
+  .slab-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-heading-3);
+    color: hsl(var(--tone));
+  }
+  .slab-note {
+    font-size: var(--text-caption);
+    color: hsl(var(--muted-foreground));
+  }
+  .slab ul {
+    display: grid;
+    gap: var(--gap-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .slab li {
+    display: grid;
+    gap: 2px;
+    padding: var(--gap-2) var(--gap-3);
+    border-radius: var(--radius-2);
+    background: hsl(var(--card) / 0.85);
+    box-shadow: inset 0 0 0 1px hsl(var(--tone) / 0.35);
+  }
+  .slab li > :first-child {
+    font-family: var(--font-display);
+    font-weight: 650;
+    color: hsl(var(--foreground));
+  }
+  .slab li.is-closed { background: hsl(var(--map-charcoal)); box-shadow: inset 0 0 0 1px hsl(var(--foreground) / 0.35); }
+  .slab li.is-closed > * { color: hsl(var(--map-charcoal-ink)); }
+  .slab li.is-planned { background: none; box-shadow: none; border: 1px dashed hsl(var(--tone) / 0.6); }
+  .slab li.is-progress > :first-child::after {
+    content: "in progress";
+    margin-left: var(--gap-2);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--text-micro);
+    color: hsl(var(--warning));
+  }
+  .slab li.is-planned > :first-child::after {
+    content: "planned";
+    margin-left: var(--gap-2);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--text-micro);
+    color: hsl(var(--muted-foreground));
+  }
+  .slab li.is-template { box-shadow: inset 0 0 0 1px hsl(var(--tone) / 0.7); background: hsl(var(--tone) / 0.12); }
+  .slab-line,
+  .slab-on {
+    font-size: var(--text-caption);
+    color: hsl(var(--muted-foreground));
+  }
+  .slab-on { color: hsl(var(--subtle-foreground)); }
+  .slab li.tone-pink { box-shadow: inset 0 0 0 1px hsl(var(--agentic-quaternary) / 0.55); }
+  /* The homepage keeps the drawing as a small picture above the slabs, and lists names only. */
+  .view-whole .map-canvas {
+    display: block;
+    margin: 0 calc(var(--gutter) * -0.5);
+  }
+  .view-whole .map-svg .chip,
+  .view-whole .map-svg text,
+  .view-whole .map-svg .leader,
+  .view-whole .map-svg .crest,
+  .view-whole .map-svg .progress-dot { display: none; }
+  .view-whole .slab ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .view-whole .slab li { padding: var(--gap-1) var(--gap-3); }
+  .view-whole .slab-line,
+  .view-whole .slab-on { display: none; }
+  .slab-join {
+    position: absolute;
+    left: 50%;
+    bottom: calc(var(--gap-5) * -1 - 2px);
+    width: 2px;
+    height: calc(var(--gap-5) + 4px);
+    background: linear-gradient(hsl(var(--tone) / 0.6), transparent);
+  }
+}
+
+/* ---- One orchestrated arrival: plates settle from the base up, then edges draw. ------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .view-whole .map-svg .layer {
+    animation: map-settle 900ms var(--ease-standard) both;
+  }
+  .view-whole .map-svg .layer[data-tier="building-blocks"] { animation-delay: 80ms; }
+  .view-whole .map-svg .layer[data-tier="developer-experience"] { animation-delay: 260ms; }
+  .view-whole .map-svg .layer[data-tier="agentic"] { animation-delay: 380ms; }
+  .view-whole .map-svg .layer[data-tier="governance"] { animation-delay: 560ms; }
+  .view-whole .map-svg .layer.edges { animation: none; }
+
+  .view-whole .map-svg .edge[pathLength] {
+    stroke-dasharray: 1;
+    animation: map-draw 1100ms var(--ease-move) both;
+    animation-delay: calc(700ms + var(--i) * 18ms);
+  }
+  .view-whole .map-svg .edge.is-next,
+  .view-whole .map-svg .edge.is-structural {
+    animation: map-fade 700ms var(--ease-standard) both;
+    animation-delay: calc(900ms + var(--i) * 18ms);
+  }
+  .map-svg .pulse {
+    animation: map-pulse 5.5s linear infinite;
+    animation-delay: calc(2400ms + var(--i) * 230ms);
+  }
+}
+
+@keyframes map-settle {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes map-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes map-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes map-pulse {
+  0% { stroke-dashoffset: 1; opacity: 0; }
+  8% { opacity: 1; }
+  55% { stroke-dashoffset: 0.04; opacity: 1; }
+  62%, 100% { stroke-dashoffset: 0.04; opacity: 0; }
+}
+
+/* ---- Marks on the blocks' top faces -------------------------------------------------------- */
+
+.map-svg .glyph {
+  fill: none;
+  stroke: hsl(var(--tone));
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.95;
+}
+.map-svg .is-closed .glyph { stroke: hsl(var(--map-charcoal-ink) / 0.85); }
+.map-svg .is-planned .glyph { opacity: 0.5; }
+.map-svg .glyph-crest { stroke: hsl(var(--agentic-primary)); stroke-width: 1.6; }
+
+/* Kingdom is the keep: the one lit block. */
+.map-svg .is-focal .face-top { fill: hsl(var(--foreground) / 0.1); }
+.map-svg .is-focal :is(.face-front, .face-side, .face-top) {
+  stroke: hsl(var(--agentic-primary) / 0.85);
+}
+.map-svg .is-focal .face-front {
+  filter: drop-shadow(0 0 14px hsl(var(--agentic-primary) / 0.35));
+}
+.map-svg .is-focal .chip { stroke: hsl(var(--agentic-primary) / 0.7); }
+
+/* The template shelf's posts stay quiet; the shelf carries the idea. */
+.view-whole .map-svg .edge.is-cross[data-user="template"]:not(.is-lit) { opacity: 0.45; }
+.view-whole .map-svg .edge.is-signet { stroke-width: 2.75; filter: drop-shadow(0 0 4px hsl(var(--agentic-quaternary) / 0.6)); }
+.map-svg .micro-strong { fill: hsl(var(--muted-foreground)); font-weight: 600; }
+
+/* Light pages (the vocabulary): stronger edges and faces on a pale ground. */
+.stack-map:not(:is(.dark *)):not(.dark) .map-svg .edge { stroke-width: 1.75; }
+.stack-map:not(:is(.dark *)):not(.dark) .map-svg .edge.kind-uses:not(.is-structural) { stroke: hsl(var(--building-blocks-primary) / 0.85); }
+.stack-map:not(:is(.dark *)):not(.dark) .map-svg .edge.is-structural { stroke: hsl(var(--foreground) / 0.55); }
+.stack-map:not(:is(.dark *)):not(.dark) .map-svg :is(.face-front, .face-top, .face-side) { stroke: hsl(var(--tone) / 0.95); }
+.stack-map:not(:is(.dark *)):not(.dark) .map-svg .face-side { fill: hsl(var(--tone) / 0.42); }
+.stack-map:not(:is(.dark *)):not(.dark) .map-svg .face-top { fill: hsl(var(--tone) / 0.5); }
+.stack-map:not(:is(.dark *)):not(.dark) .map-svg .zone { stroke: hsl(var(--tone, var(--foreground)) / 0.35); }
+
+@media (max-width: 760px) {
+  /* The small picture keeps its tier names. */
+  .view-whole .map-svg :is(.tier-label, .tier-line) { display: inline; }
+  .view-whole .map-svg .tier-label { font-size: 20px; }
+  .view-whole .map-svg .tier-line { display: none; }
+}
+
+/* The elevation views stand on the page like a model on a table: a slight tilt back, and a floor shadow. */
+@media (min-width: 761px) {
+  .view-blocks .map-canvas,
+  .view-vocabulary .map-canvas,
+  .view-agentic .map-canvas {
+    perspective: 1600px;
+    perspective-origin: 50% 0%;
+  }
+  .view-blocks .map-svg,
+  .view-vocabulary .map-svg,
+  .view-agentic .map-svg {
+    transform: rotateX(16deg);
+    transform-origin: 50% 100%;
+    filter: drop-shadow(0 24px 22px hsl(var(--shadow, 0 0% 0%) / 0.45));
+  }
+}
+
+/* A section page's picture: its own part of the stack lit, the rest stepped back. */
+.stack-map[data-focus="building-blocks"] .map-svg .layer:is([data-tier="agentic"], [data-tier="governance"]) > *,
+.stack-map[data-focus="agentic"] .map-svg .layer:is([data-tier="building-blocks"], [data-tier="developer-experience"], [data-tier="governance"]) > * {
+  opacity: 0.3;
+}
+.stack-map.is-focused { max-width: 58rem; margin-inline: auto; }
+.stack-map.is-focused .map-canvas { padding: var(--gap-6) var(--gap-5); }

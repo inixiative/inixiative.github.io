@@ -1,6 +1,7 @@
 ---
 // Renders .github/VOCABULARY.md in the browser, so the page is always the current file (as /vocabulary.html did).
 import Base from "../layouts/Base.astro";
+import StackMap from "../components/StackMap.astro";
 const source = "https://raw.githubusercontent.com/inixiative/.github/main/VOCABULARY.md";
 const github = "https://github.com/inixiative/.github/blob/main/VOCABULARY.md";
 ---
@@ -10,6 +11,12 @@ const github = "https://github.com/inixiative/.github/blob/main/VOCABULARY.md";
   domain="inixiative"
   light
 >
+  <section class="section vocabulary-map">
+    <div class="section-heading">
+      <h2 class="display-3">How the libraries fit</h2>
+    </div>
+    <StackMap view="vocabulary" />
+  </section>
   <section class="section">
     <article class="prose" id="content" data-source={source} data-github={github}>
       <p>Loading the vocabulary…</p>
@@ -27,6 +34,36 @@ const github = "https://github.com/inixiative/.github/blob/main/VOCABULARY.md";
         })
         .then(function (md) {
           el.innerHTML = marked.parse(md, { gfm: true });
+          // The file's own diagram (the ASCII block, or the image that replaces it on GitHub) is drawn above.
+          var art = [].slice.call(el.querySelectorAll("pre, picture, img")).find(function (n) {
+            return /─▶|vocabulary-map/.test(n.textContent + " " + (n.getAttribute("src") || "") + n.innerHTML);
+          });
+          if (art) (art.closest("picture") || art).remove();
+          // GitHub-style ids, so #anchors match the file on GitHub.
+          var used = {};
+          [].slice.call(el.querySelectorAll("h1, h2, h3, h4")).forEach(function (h) {
+            var slug = h.textContent.trim().toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu, "").replace(/\s/g, "-");
+            if (used[slug] != null) slug += "-" + ++used[slug];
+            else used[slug] = 0;
+            h.id = slug;
+          });
+          // Point each block on the map at its entry.
+          var find = {
+            "prisma-map": /prisma-map/i, "json-rules": /rule logic/i, permissions: /permissions: who|@inixiative\/permissions/i,
+            transitions: /transitions: guarded|@inixiative\/transitions/i, "rules-builder": /builders/i,
+            atlas: /^atlas/i, gloss: /^gloss/i, config: /^config/i, template: /the template/i,
+          };
+          [].slice.call(document.querySelectorAll(".view-vocabulary [data-id]")).forEach(function (a) {
+            var key = { worktrees: "template", init: "template", "ci-rules": "template" }[a.dataset.id] || a.dataset.id;
+            var re = find[key];
+            var h = re && [].slice.call(el.querySelectorAll("h2, h3, h4")).find(function (x) { return re.test(x.textContent.trim()); });
+            if (h) a.setAttribute("href", "#" + h.id);
+            else if (a.tagName.toLowerCase() === "a") a.setAttribute("href", el.dataset.github);
+          });
+          if (location.hash) {
+            var t = document.getElementById(location.hash.slice(1));
+            if (t) t.scrollIntoView();
+          }
         })
         .catch(function (err) {
           el.textContent = "Could not load the vocabulary (" + err.message + "). Read it on GitHub: " + el.dataset.github;

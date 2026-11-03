@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import StackMap from "../components/StackMap.astro";
 ---
 <Base
   title="Agentic: an agent that works like you do · inixiative"
@@ -59,39 +60,7 @@ import Base from "../layouts/Base.astro";
         provider goes through Kingdom, on a Signet the owner can take back.
       </p>
     </div>
-    <div class="map">
-      <div class="map-node" data-side="yours">
-        <span class="eyebrow">Your machine</span>
-        <ul>
-          <li>Foundry around Claude Code and Codex</li>
-          <li>agent-session runs each session</li>
-          <li>Archive keeps every session</li>
-        </ul>
-      </div>
-      <span class="map-link">Signet</span>
-      <div class="map-node">
-        <span class="eyebrow">Kingdom</span>
-        <ul>
-          <li>Who you are, in every team you're in</li>
-          <li>Your integrations and their credentials</li>
-          <li>Who and what can reach each piece</li>
-        </ul>
-      </div>
-      <span class="map-link">Signet</span>
-      <div class="map-node" data-side="shared">
-        <span class="eyebrow" data-side="shared">Shared</span>
-        <ul>
-          <li>Teammates and their agents</li>
-          <li>GitHub, Slack, Linear</li>
-          <li>Shared archives</li>
-        </ul>
-      </div>
-    </div>
-    <ul class="legend" aria-label="Colour key">
-      <li style="--swatch: var(--app-primary)">yours</li>
-      <li style="--swatch: var(--app-tertiary)">shared</li>
-      <li style="--swatch: var(--app-quaternary)">Signet</li>
-    </ul>
+    <StackMap view="whole" focus="agentic" />
   </section>
 
   <section class="section">
