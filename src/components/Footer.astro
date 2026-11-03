@@ -1,5 +1,4 @@
 ---
-import Mark from "./Mark.astro";
 // Pages with a primary page of their own; the section buckets are in the top nav.
 const pages = [
   { href: "/foundry/", label: "Foundry" },
@@ -32,7 +31,6 @@ const elsewhere = [
 ---
 <footer class="shell site-footer">
   <div class="footer">
-    <a class="brand" href="/" aria-label="inixiative home"><Mark /></a>
     <ul class="footer-links" aria-label="Pages">
       {pages.map((page) => <li><a href={page.href}>{page.label}</a></li>)}
     </ul>

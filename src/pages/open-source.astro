@@ -1,66 +1,116 @@
 ---
 import Base from "../layouts/Base.astro";
-import { groups, foundryMitDate } from "../data/open-source";
+import { groups, foundryMitDate, type Project } from "../data/open-source";
+
+const mitGroups = groups
+  .map((group) => ({
+    title: group.title,
+    projects: group.projects.filter((project) => project.licence === "mit" && project.state !== "paused"),
+  }))
+  .filter((group) => group.projects.length > 0);
+const paused = groups.flatMap((group) => group.projects).filter((project) => project.state === "paused");
+const closed = groups.flatMap((group) => group.projects).filter((project) => project.licence === "closed");
+const label = (project: Project) => (project.state === "in progress" ? `${project.name} (in progress)` : project.name);
 ---
 <Base
   signoff
-  title="Open source: what you can use, change and sell · inixiative"
-  description="Almost everything inixiative publishes is MIT: use it, change it, use it at work, sell what you build. Foundry's app is free to use at work but not to resell. Kingdom and Oracle are closed."
+  title="Open source: building and thinking in public · inixiative"
+  description="inixiative builds and thinks in public. Almost everything it publishes is MIT: use it, change it, use it at work, sell what you build. Foundry's app is free to use at work but not to resell. Kingdom and Oracle are closed."
   domain="inixiative"
   current="open-source"
 >
   <section class="hero">
     <span class="eyebrow"><span class="status-dot"></span>Open source</span>
-    <h1 class="display-1">What you can use, change and sell.</h1>
+    <h1 class="display-1">Building and thinking in public.</h1>
     <p class="lede">
-      Almost everything here you can use, change, use at work and build a business on. You can use
-      Foundry's app at work too, but you can't resell it. Kingdom and Oracle are closed.
+      The code, the designs and the reasoning behind them are public, so you can check what's being
+      built and whether it does what it says.
     </p>
-  </section>
-
-  <section class="section" data-compact>
     <div class="text">
       <p>
-        <strong>MIT</strong> means you can do anything with the code, including selling what you build
-        with it, as long as you keep the copyright notice.
-      </p>
-      <p>
-        <strong>Source-available (BSL 1.1)</strong> means you can read, run and change the code, including
-        inside your company, but you can't sell it or offer it to others as a product or service. Foundry's
-        app becomes MIT on {foundryMitDate}.
+        You can also use almost all of it. Most of it is MIT. Foundry's app is free to use, including at
+        work, but not to resell. Kingdom and Oracle are closed.
       </p>
     </div>
   </section>
 
-  {groups.map((group) => (
-    <section class="section" data-compact>
-      <h2 class="eyebrow" data-quiet>{group.title}</h2>
-      <div class="table-wrap">
-        <table class="table">
-          <thead>
-            <tr><th scope="col">What</th><th scope="col">What you can do</th><th scope="col">License</th><th scope="col">Link</th></tr>
-          </thead>
-          <tbody>
-            {group.projects.map((row) => (
-              <tr>
-                <td><strong>{row.name}</strong>{row.state && ` (${row.state})`}<br />{row.what}</td>
-                <td>{row.can}</td>
-                <td>{row.licenceLabel}</td>
-                <td>{row.href ? <a href={row.href}>{row.linkLabel ?? "GitHub"}</a> : "None"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-  ))}
-
-  <section class="section" data-compact>
+  <section class="section" aria-labelledby="mit-title">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>MIT</span>
+      <h2 id="mit-title">Use it for anything.</h2>
+    </div>
     <div class="text">
-      <h2 class="eyebrow" data-quiet>Why</h2>
       <p>
-        I keep the code people build on open so the lessons in it travel. I keep the hosted service and
-        the tuning closed so the project can pay for itself.
+        Use the code, change it, use it at work and sell what you build with it. Keep the copyright notice.
+      </p>
+    </div>
+    {mitGroups.map((group) => (
+      <div class="oss-group">
+        <h3 class="eyebrow" data-quiet>{group.title}</h3>
+        <ul class="oss-list">
+          {group.projects.map((project) => (
+            <li class="oss-row">
+              <a class="oss-name" href={project.href}>{label(project)}</a>
+              <span class="oss-what">{project.what}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+    {paused.length > 0 && (
+      <p class="meta">
+        Paused, still MIT:{" "}
+        {paused.map((project, index) => (
+          <>{index > 0 && ", "}<a class="text-link" href={project.href}>{project.name}</a></>
+        ))}.
+      </p>
+    )}
+  </section>
+
+  <section class="section" aria-labelledby="bsl-title">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>Source-available</span>
+      <h2 id="bsl-title">Foundry: free to use, not to resell.</h2>
+    </div>
+    <div class="text">
+      <p>
+        Foundry's app is under the Business Source License (BSL 1.1). You can read, run and change it,
+        including inside your company. You can't sell it or offer it to others as a product or service.
+        On {foundryMitDate} it becomes MIT.
+      </p>
+      <p>Its engine (foundry-core) and the adapter other agent apps use to drive it (foundry-acp) are MIT now.</p>
+    </div>
+    <div class="actions">
+      <a class="button button-secondary" href="https://github.com/inixiative/foundry">Foundry on GitHub</a>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="closed-title">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>Closed</span>
+      <h2 id="closed-title">Kingdom and Oracle.</h2>
+    </div>
+    <ul class="oss-list">
+      {closed.map((project) => (
+        <li class="oss-row">
+          {project.href ? <a class="oss-name" href={project.href}>{project.name}</a> : <span class="oss-name">{project.name}</span>}
+          <span class="oss-what">
+            {project.what}. {project.href ? "Use it as a hosted service." : "Not published."}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="why-title">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>Why</span>
+      <h2 id="why-title">Why some of it is closed.</h2>
+    </div>
+    <div class="text">
+      <p>
+        The code people build on stays open, so the lessons in it travel. The hosted service and the
+        tuning stay closed, so the project can pay for itself.
       </p>
     </div>
     <div class="actions">
