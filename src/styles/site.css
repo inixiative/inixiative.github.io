@@ -541,11 +541,45 @@
   color: hsl(var(--foreground));
 }
 
-.contributors {
-  margin: calc(var(--gap-7) * -1) 0 0;
-  padding-bottom: var(--gap-8);
+/* Footer: the pages line, then a quiet base row with the credit and where else to find us. */
+.site-footer .footer {
+  padding-bottom: var(--gap-5);
+}
+.footer-base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-3) var(--gap-6);
+  padding: var(--gap-5) 0 var(--gap-8);
+  border-top: 1px solid hsl(var(--border) / 0.6);
   font-size: var(--text-small);
   color: hsl(var(--muted-foreground));
+}
+.contributors {
+  margin: 0;
+}
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-3) var(--gap-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-2);
+  color: hsl(var(--muted-foreground));
+  text-decoration: none;
+}
+.footer-social a:hover,
+.footer-social a:focus-visible {
+  color: hsl(var(--foreground));
+}
+.footer-social svg {
+  flex: none;
 }
 
 .anchor-target {
@@ -578,3 +612,164 @@
 .card .card-parts li { display: grid; gap: 2px; padding-top: 10px; border-top: 1px solid var(--line, hsl(var(--border))); }
 .card .card-parts .part-head { display: flex; align-items: center; gap: 8px; }
 .card .card-parts .part-what { color: var(--dim, inherit); }
+
+/* Homepage open-source section: one column per licence, the count first. */
+.licence-tiers {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--gap-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.licence-tier {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-4);
+  padding: var(--gap-6);
+  border-radius: var(--radius-3);
+  background: hsl(var(--card));
+  box-shadow: inset 0 0 0 1px hsl(var(--border));
+}
+.licence-tier[data-licence="mit"] {
+  box-shadow: inset 0 0 0 1px hsl(var(--app-primary) / 0.45);
+}
+.licence-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--gap-3);
+}
+.licence-count {
+  font-size: var(--text-display-3);
+  font-weight: var(--weight-strong);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: hsl(var(--foreground));
+}
+.licence-tier[data-licence="mit"] .licence-count {
+  color: hsl(var(--app-primary));
+}
+.licence-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+.licence-can {
+  margin: 0;
+  color: hsl(var(--foreground));
+}
+.licence-names {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-2);
+  margin: auto 0 0;
+  padding: 0;
+  list-style: none;
+}
+.licence-names li {
+  padding: 2px var(--gap-3);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  color: hsl(var(--muted-foreground));
+  box-shadow: inset 0 0 0 1px hsl(var(--border));
+}
+@media (max-width: 900px) {
+  .licence-tiers {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Building blocks: the tools that come with template, as one card with parts. */
+.tool-card {
+  margin-top: var(--gap-7);
+}
+.tool-card .tool-card-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-heading-2);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: hsl(var(--app-primary));
+}
+.tool-parts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: var(--gap-6) var(--gap-7);
+  margin: var(--gap-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tool-parts li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-3);
+  padding-top: var(--gap-5);
+  border-top: 1px solid hsl(var(--border));
+}
+.tool-part-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gap-2) var(--gap-3);
+}
+.tool-part-head h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-heading-3);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--tracking-heading);
+  color: hsl(var(--foreground));
+}
+.tool-parts p {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+}
+.tool-parts .text-link {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* Site-wide type and spacing pass (Aron 11-02). */
+/* Section headings: the theme's 42.5rem box broke display-2 headings into three or four lines;
+   let the heading run wider and keep the lede at reading measure. */
+.section-heading {
+  max-width: 58rem;
+}
+.section-heading > :not(h2):not(.eyebrow) {
+  max-width: var(--measure);
+}
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+.lede,
+.text p,
+.card p,
+.package-body li,
+.facts li {
+  text-wrap: pretty;
+}
+/* Raised cards: the heading sat flush under the eyebrow row, and the facts grid flush under the paragraph. */
+.card[data-raised] > h2 {
+  margin-top: var(--gap-2);
+}
+.card .facts {
+  margin-top: var(--gap-5);
+}
+
+.card .card-parts .part-what {
+  color: hsl(var(--muted-foreground));
+}
+/* Phones: the theme's 2rem card padding left ~280px for text inside a 24px gutter. */
+@media (max-width: 600px) {
+  .card,
+  .licence-tier {
+    padding: var(--gap-5);
+  }
+  .package {
+    padding: var(--gap-6) 0;
+  }
+}
