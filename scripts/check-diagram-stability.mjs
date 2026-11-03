@@ -32,8 +32,11 @@ for (const w of [1440, 390]) {
     let worst = 0;
     for (const id of pick) {
       for (const mode of ['hover', 'focus']) {
-        const before = await snap(id);
         const sel = `figure.stack-map .map-svg .node[data-id="${id}"]`;
+        // Bring the piece into view first, so the hover's own scroll-into-view is not counted as movement.
+        await p.evaluate((s) => document.querySelector(s).scrollIntoView({ block: 'center' }), sel);
+        await p.waitForTimeout(200);
+        const before = await snap(id);
         if (mode === 'hover') await p.hover(sel, { force: true });
         else await p.evaluate((s) => document.querySelector(s).focus({ preventScroll: true }), sel);
         await p.waitForTimeout(260);
