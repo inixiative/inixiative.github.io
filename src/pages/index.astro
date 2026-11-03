@@ -24,7 +24,7 @@ const tiers = [
     label: "Closed",
     count: byLicence("closed").length,
     can: "Kingdom runs as a hosted service. Oracle is not published.",
-    names: byLicence("closed").map((project) => (project.name === "Kingdom" ? "Kingdom (hosted)" : project.name)),
+    names: byLicence("closed").map((project) => project.name),
   },
 ];
 ---
