@@ -382,7 +382,7 @@ const isoNode = (p: IsoPlace, es: StackEdge[]): SceneNode => {
   const crest = n.id === "kingdom";
   const flag = n.state === "progress";
   const tw = textWidth(n.label, size, true) + (crest ? 18 : 0) + (flag ? 12 : 0);
-  const cw = tw + 20;
+  const cw = Math.max(tw, p.sub ? textWidth(p.sub, 11) + 4 : 0) + 20;
   const ch = p.sub ? 38 : 24;
   const cx = ax + (p.dx ?? 0);
   const cy = ay - (p.dy ?? 22) - ch;
@@ -428,11 +428,11 @@ const wholeScene = (): Scene => {
     { id: "kcp", x: 4.6, y: 2.2, z: Z.agentic, dy: 18 },
     { id: "archive", x: 4.0, y: 4.3, z: Z.agentic, dy: 14 },
     { id: "signet", x: 5.8, y: 3.6, z: Z.agentic, dy: 16 },
-    { id: "kingdom", x: 7.3, y: 2.3, z: Z.agentic, s: 1.3, h: 44, sub: "The permission hub", dy: 30, dx: 14 },
+    { id: "kingdom", x: 7.3, y: 2.3, z: Z.agentic, s: 1.3, h: 44, sub: "The permission hub", dy: 44, dx: 34 },
     { id: "artifactory", x: 8.6, y: 0.5, z: Z.agentic, dy: 14, dx: 26 },
     // Governance
     { id: "whitepaper", x: 4.0, y: 2.5, z: Z.governance, s: 1, h: 18 },
-    { id: "project", x: 6.0, y: 1.9, z: Z.governance, s: 1, h: 18, dy: 30, dx: 30 },
+    { id: "project", x: 6.0, y: 1.9, z: Z.governance, s: 1, h: 18, dy: 10, dx: 74 },
   ];
   const ids = places.map((p) => p.id);
   const es = allEdges.filter((e) => ids.includes(e.base) && ids.includes(e.user));
@@ -465,9 +465,9 @@ const wholeScene = (): Scene => {
     const prims = plate({ ...shelf, c: "face-shelf" });
     const [lx, ly] = iso(shelf.x, shelf.y + shelf.d, shelf.z);
     const label = n.label;
-    const cw = textWidth(label, 15, true) + 34;
-    const cx = lx - 56 - cw;
-    const cy = ly - 30;
+    const cw = Math.max(textWidth(label, 15, true) + 14, textWidth("The whole SaaS app", 11) + 4) + 20;
+    const cx = lx - 40 - cw;
+    const cy = ly - 62;
     prims.push({ t: "path", c: "leader", d: `M ${lx} ${ly} L ${cx + cw} ${cy + 19}` });
     prims.push({ t: "rect", c: "chip", x: cx, y: cy, w: cw, h: 38, r: 6 });
     prims.push({ t: "text", c: "name name-chip name-big", x: cx + 10, y: cy + 16.5, s: label });

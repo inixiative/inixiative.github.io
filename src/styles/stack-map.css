@@ -66,10 +66,12 @@
 .stack-map.is-hero .map-canvas {
   background: none;
   box-shadow: none;
-  overflow: visible;
+  overflow: clip;
+  overflow-clip-margin: 0;
 }
+.stack-map { min-width: 0; max-width: 100%; }
 .stack-map.is-hero .map-canvas::before {
-  inset: -10% -20%;
+  inset: 0;
   background:
     repeating-linear-gradient(0deg, hsl(var(--foreground) / 0.03) 0 1px, transparent 1px 36px),
     repeating-linear-gradient(90deg, hsl(var(--foreground) / 0.03) 0 1px, transparent 1px 36px);
@@ -545,7 +547,7 @@
   /* The homepage keeps the drawing as a small picture above the slabs, and lists names only. */
   .view-whole .map-canvas {
     display: block;
-    margin: 0 calc(var(--gutter) * -0.5);
+    margin: 0;
   }
   .view-whole .map-svg .chip,
   .view-whole .map-svg text,
