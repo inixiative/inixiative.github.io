@@ -4,7 +4,7 @@ import type { View } from "./views";
 export type Swatch = { label: string; kind: "block" | "line"; cls: string };
 const part = {
   bb: { label: "Building blocks", kind: "block", cls: "tone-amber" },
-  dx: { label: "Developer experience", kind: "block", cls: "tone-slate" },
+  dx: { label: "Developer experience", kind: "block", cls: "tone-teal" },
   ag: { label: "Agentic", kind: "block", cls: "tone-lime" },
   out: { label: "Outside your machine", kind: "block", cls: "tone-blue" },
   gov: { label: "Governance", kind: "block", cls: "tone-violet" },

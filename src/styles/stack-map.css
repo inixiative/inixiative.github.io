@@ -1,8 +1,8 @@
 /*
  * The map (src/components/StackMap.astro). Colours come from the theme's raw section tokens (domains.css), so a
  * piece wears its section's colour on any page: amber building blocks, lime/blue/pink agentic (yours / shared /
- * Signet, as in the products), violet governance. Developer experience is the theme's neutral slate
- * (--muted-foreground), lighter than every section and no status colour. Closed products are charcoal.
+ * Signet, as in the products), violet governance. Developer experience is teal (the building-blocks tertiary,
+ * a sibling of the building blocks). Closed products are charcoal.
  */
 
 .stack-map {
@@ -22,6 +22,7 @@
 .stack-map .tone-blue { --tone: var(--agentic-tertiary); }
 .stack-map .tone-pink { --tone: var(--agentic-quaternary); }
 .stack-map .tone-violet { --tone: var(--governance-primary); }
+.stack-map .tone-teal { --tone: var(--building-blocks-tertiary); }
 .stack-map .tone-slate { --tone: var(--muted-foreground); }
 
 /* ---- Canvas -------------------------------------------------------------------------------- */
