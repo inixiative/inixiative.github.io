@@ -435,6 +435,8 @@ const wholeScene = (): Scene => {
   const agentic: PlateSpec = { x: 0, y: 0, w: 9.4, d: 4.8, z: Z.agentic, t: 12, c: "plate tone-lime" };
   const gov: PlateSpec = { x: 2.8, y: 1.0, w: 4.4, d: 2.6, z: Z.governance, t: 12, c: "plate tone-violet" };
   const dx: PlateSpec = { x: 9.2, y: -0.8, w: 3.2, d: 3.8, z: Z.dx, t: 8, c: "plate plate-light tone-teal" };
+  // A consumer of the Inixiative platform, not part of it: raised just above the governance plate.
+  const lsPlate: PlateSpec = { x: 6.6, y: 0.2, w: 1.3, d: 1.1, z: Z.governance + 96, t: 6, c: "plate plate-light is-closed" };
 
   const places: IsoPlace[] = [
     // The libraries stand on the template plate, from the base up. Tooling beside them.
@@ -464,8 +466,8 @@ const wholeScene = (): Scene => {
     // The project is the goal; the whitepaper (why) feeds into it.
     { id: "whitepaper", x: 3.7, y: 2.9, z: Z.governance, s: 0.8, h: 12, dx: 4, dy: 30 },
     { id: "project", x: 5.9, y: 2.0, z: Z.governance, s: 1.7, h: 34, sub: "The goal, planned", dy: 18, dx: 64 },
-    // Livestock is a product on the platform: a small block standing on the project.
-    { id: "livestock", x: 6.35, y: 2.45, z: Z.governance + 34, s: 0.55, h: 10, dy: -64, dx: 96 },
+    // Livestock uses the platform: it floats on its own small plate above governance.
+    { id: "livestock", x: lsPlate.x + 0.5, y: lsPlate.y + 0.45, z: lsPlate.z, s: 0.6, h: 12 },
   ];
   const ids = places.map((p) => p.id);
   const es = allEdges.filter((e) => ids.includes(e.base) && ids.includes(e.user));
@@ -509,7 +511,7 @@ const wholeScene = (): Scene => {
     const lift = (ay - by) * 0.5;
     return edgeOf(id, "template", "uses", `M ${ax} ${ay} C ${ax} ${ay - lift} ${bx} ${by + lift} ${bx} ${by}`, true);
   });
-  const govTraces = [trace("whitepaper", "project", Z.governance, "runs"), edgeOf("project", "livestock", "runs", "")];
+  const govTraces = [trace("whitepaper", "project", Z.governance, "runs")];
   const agenticTraces = [
     trace("kingdom", "foundry", Z.agentic, "runs", true),
     trace("kingdom", "archive", Z.agentic),
@@ -616,7 +618,10 @@ const wholeScene = (): Scene => {
     { c: "nodes", tier: "agentic", items: nodesIn("agentic") },
     { c: "tier", tier: "governance", items: [...plate(gov), ...label(gov, "violet", "Governance", "Cooperation at scale")] },
     { c: "edges", tier: "governance", items: govTraces.map((edge) => ({ edge })) },
-    { c: "nodes", tier: "governance", items: nodesIn("governance") },
+    { c: "nodes", tier: "governance", items: nodesIn("governance", Z.governance) },
+    { c: "edges", tier: "governance", items: [{ edge: beam("project", "livestock", "runs") }] },
+    { c: "tier", tier: "governance", items: plate(lsPlate) },
+    { c: "nodes", tier: "governance", items: nodesIn("governance", lsPlate.z) },
   ];
   // Fit the view box to what is drawn.
   const xs: number[] = [];
@@ -644,7 +649,7 @@ const wholeScene = (): Scene => {
     desc:
       "Three tiers. At the base, the template layer: the whole SaaS app, made of the building blocks prisma-map, json-rules, permissions, transitions and rules-builder; beside it, developer experience: atlas, gloss and config, with the worktrees, init and CI rules that come with template. " +
       "Above them, the agentic tools: Foundry, agent-session, Archive, KCP, Signet, Kingdom (the permission hub), Oracle, bench, and Artifactory (planned). " +
-      "At the top, governance: the Inixiative project (planned), a time-series governance platform with tokenization and the goal, which the whitepaper explains and feeds into; Livestock (planned) is a product that runs on it.",
+      "At the top, governance: the Inixiative project (planned), a time-series governance platform with tokenization and the goal, which the whitepaper explains and feeds into; Livestock (planned, closed source) sits just above it, a product that uses the platform.",
     box: [Math.floor(minX), Math.floor(minY), Math.ceil(Math.max(...xs) + pad - minX), Math.ceil(Math.max(...ys) + pad - minY)],
     layers,
   };

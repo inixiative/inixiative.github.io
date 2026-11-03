@@ -76,7 +76,7 @@ export const nodes: StackNode[] = [
   // Governance
   { id: "whitepaper", label: "The whitepaper", tier: "governance", group: "governance", licence: "none", line: "How groups set rules and hold each other to them", href: "/governance/" },
   { id: "project", label: "The Inixiative project", tier: "governance", group: "governance", licence: "none", state: "planned", line: "change.org meets Kickstarter on blockchain: a time-series governance platform, with tokenization", href: "/governance/" },
-  { id: "livestock", label: "Livestock", tier: "governance", group: "governance", licence: "none", state: "planned", line: "Tokenized cattle trusts in Uruguay and Argentina, a product on the Inixiative platform" },
+  { id: "livestock", label: "Livestock", tier: "governance", group: "governance", licence: "closed", state: "planned", line: "Tokenized cattle trusts in Uruguay and Argentina, a product on the Inixiative platform" },
 ];
 
 const byLabel = (id: string) => (id === "ci-rules" ? "CI rules" : id);
