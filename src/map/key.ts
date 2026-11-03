@@ -9,6 +9,7 @@ const part = {
   out: { label: "Outside your machine", kind: "block", cls: "tone-blue" },
   yours: { label: "Yours: your agent, code, accounts and people", kind: "block", cls: "tone-blue" },
   signet: { label: "Signet", kind: "block", cls: "tone-pink" },
+  template: { label: "Building block (template)", kind: "block", cls: "tone-amber" },
   gov: { label: "Governance", kind: "block", cls: "tone-violet" },
   closed: { label: "Closed source", kind: "block", cls: "tone-slate is-closed" },
 } as const satisfies Record<string, Swatch>;
@@ -20,6 +21,7 @@ const status = {
 const line = {
   uses: { label: "Builds on", kind: "line", cls: "edge kind-uses" },
   runs: { label: "Runs with", kind: "line", cls: "edge kind-runs" },
+  works: { label: "Works with", kind: "line", cls: "edge kind-runs" },
   reads: { label: "Reads its map", kind: "line", cls: "edge kind-uses is-structural" },
   signet: { label: "Goes through a Signet", kind: "line", cls: "edge kind-runs is-signet" },
   next: { label: "Under construction", kind: "line", cls: "edge kind-uses is-next" },
@@ -42,9 +44,9 @@ export const key: Record<View, { title: string; items: Swatch[] }[]> = {
     { title: "Lines: relation", items: [line.uses, line.reads, line.adopt] },
   ],
   "foundry-kingdom": [
-    { title: "Colour: part", items: [part.ag, part.yours, part.signet, part.closed, part.bb] },
+    { title: "Colour: part", items: [part.ag, part.yours, part.signet, part.closed, part.template] },
     { title: "Fill: status", items: [status.done, status.building, status.planned] },
-    { title: "Lines: relation", items: [line.runs, line.signet, line.next, line.toPlanned] },
+    { title: "Lines: relation", items: [line.works, line.signet, line.next, line.toPlanned] },
   ],
   agentic: [
     { title: "Colour: part", items: [part.ag, part.out, part.bb, part.dx, part.closed] },

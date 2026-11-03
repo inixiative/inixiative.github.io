@@ -28,10 +28,14 @@ const drawn = allEdges.filter(
 const label = (nid: string) => byId.get(nid)?.label ?? nid;
 const modeOf = scene.modes?.[0]?.id;
 
+// On the Foundry and Kingdom view the Signet is the pass on the pink lines, which say so themselves; it is not
+// something the pieces are built on.
+const passOnly = (e: { base: string }) => view === "foundry-kingdom" && e.base === "signet";
+
 // The text alternative, in the order the site lists things (data/stack.ts).
 const ordered = allNodes.filter((n) => shown.has(n.id));
 const relations = ordered.map((n) => {
-  const on = drawn.filter((e) => e.kind === "uses" && e.user === n.id).map((e) => label(e.base) + (e.structural ? " (reads its map)" : "") + (e.next ? " (next)" : ""));
+  const on = drawn.filter((e) => e.kind === "uses" && e.user === n.id && !passOnly(e)).map((e) => label(e.base) + (e.structural ? " (reads its map)" : "") + (e.next ? " (next)" : ""));
   const runs = drawn.filter((e) => e.kind === "runs" && (e.base === n.id || e.user === n.id)).map((e) => e.why);
   return { n, on, runs };
 });
@@ -73,7 +77,7 @@ const stack = stacks[view].filter((g) => !focusTiers || focusTiers.includes(g.ke
   items: g.ids.filter((i) => shown.has(i)).map((i) => {
     const sn = sceneNode.get(i);
     const n = byId.get(i);
-    const on = drawn.filter((e) => e.kind === "uses" && e.user === i && e.base !== "config" && !["worktrees", "init", "ci-rules"].includes(e.base)).map((e) => label(e.base));
+    const on = drawn.filter((e) => e.kind === "uses" && e.user === i && !passOnly(e) && e.base !== "config" && !["worktrees", "init", "ci-rules"].includes(e.base)).map((e) => label(e.base));
     if (["worktrees", "init", "ci-rules"].includes(i)) on.push("comes with template");
     return { id: i, label: label(i), tag: n?.tag ?? label(i), short: sn?.short ?? n?.short ?? "", step: sn?.step, href: sn?.href, look: sn?.look ?? "", on };
   }),
@@ -82,11 +86,11 @@ const stack = stacks[view].filter((g) => !focusTiers || focusTiers.includes(g.ke
 const keyText = view === "foundry-kingdom"
   ? "How to read the map: colour shows which part a piece belongs to (lime for Foundry and the agentic tools, blue for what is yours: your agent, your codebase, your accounts and the people you work with, pink for the Signet, charcoal for closed source, amber for template, a building block). " +
     "Fill shows status: a solid block is done, a block in scaffolding is under construction, a dashed outline is planned. " +
-    "Lines show the relation: a lime line works with, a pink line goes through a Signet, a scaffold-dashed line is under construction, a long-dashed grey line reaches a planned piece. The numbers follow one request, from 1 to 5."
+    "Lines show the relation: a lime line works with, a pink line goes through a Signet, a scaffold-dashed line is under construction, a long-dashed grey line reaches a planned piece. Steps 1 to 3 follow one request; 4 and 5 are how the setup learns from it."
   : "How to read the map: colour shows which part a piece belongs to (amber building blocks, teal developer experience, lime agentic, blue outside your machine, violet governance; charcoal marks closed source and pink marks a connection that goes through a Signet). " +
   "Fill shows status: a solid block is done, a block in scaffolding is under construction, a dashed outline is planned. " +
   "Lines show the relation: solid builds on or runs with, dotted reads prisma-map's map, pink goes through a Signet, a scaffold-dashed line is under construction (on the technical graph: what template will adopt), a long-dashed grey line reaches a planned piece.";
-const readoutHint = view === "foundry-kingdom" ? "Follow the numbers from 1 to 5. Hover or focus a piece to light what it works with." : view === "whole" ? "Hover or focus any piece to light what it builds on and what builds on it." : "Hover or focus a piece to light what it builds on and what builds on it.";
+const readoutHint = view === "foundry-kingdom" ? "Steps 1 to 3 follow one request; 4 and 5 are how it learns. Hover or focus a piece to light what it works with." : view === "whole" ? "Hover or focus any piece to light what it builds on and what builds on it." : "Hover or focus a piece to light what it builds on and what builds on it.";
 void tiers;
 void edges;
 ---

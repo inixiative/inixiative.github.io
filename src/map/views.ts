@@ -729,11 +729,11 @@ const foundryKingdomScene = (): Scene => {
     { id: "foundry", x: 3.4, y: 2.7, z: 0, s: 4.4, sd: 3.4, h: F, line: "The workspace around your agent" },
     { id: "agent", x: 3.5, y: 3.2, z: F, s: 0.9, h: 30, step: 1, line: "You ask. Your agent decides." },
     { id: "wardens", x: 4.7, y: 1.9, z: F, s: 0.5, h: 11, step: 2, line: "Notice what your request touches", copies: [[-1.3, -0.1], [-2.6, 0.2], [-2.7, 1.6], [0.3, 1.5]] },
-    { id: "codebase", x: 6.9, y: 1.1, z: 0, s: 1.1, h: 26, step: 3, line: "They point at what's already here" },
-    { id: "template", x: 7.0, y: 3.6, z: 0, s: 0.7, h: 12, line: "Comes with its Wardens built" },
+    { id: "codebase", x: 6.9, y: 1.1, z: 0, s: 1.1, h: 26, step: 3, line: "Wardens point your agent here" },
+    { id: "template", x: 3.8, y: 5.6, z: 0, s: 0.7, h: 12, line: "Comes with its Wardens built" },
     { id: "archive", x: 1.4, y: 5.4, z: 0, h: 16, step: 4, line: "Keeps every session" },
-    { id: "kcp", x: 7.0, y: 5.3, z: 0, s: 0.7, h: 14, line: "Your CLIs, through Kingdom" },
-    { id: "oracle", x: 1.6, y: 1.15, z: loop.z, h: 18, step: 5, line: "Checks fixes stick, tunes Wardens" },
+    { id: "kcp", x: 6.4, y: 5.5, z: 0, s: 0.7, h: 14, line: "Your command-line tools, via Kingdom" },
+    { id: "oracle", x: 1.6, y: 1.15, z: loop.z, h: 18, step: 5, line: "Checks fixes stick, proposes changes" },
     { id: "signet", x: 10.4, y: 2.6, z: 0, s: 0.6, h: 12, line: "A pass you can take back" },
     { id: "kingdom", x: 12.4, y: 2.6, z: 0, s: 1.3, h: 50, line: "Your accounts, and who may use them" },
     { id: "integrations", x: 14.5, y: 1.0, z: 0, line: "GitHub, Slack, Linear" },
@@ -795,7 +795,7 @@ const foundryKingdomScene = (): Scene => {
   const [ox, oy] = footOf("oracle");
   const raised = [
     edgeOf("codebase", "wardens", "runs", curve(topOf("codebase"), at("wardens", 0.25, 0, F + 11), 0.3), true),
-    edgeOf("template", "wardens", "runs", curve(topOf("template"), at("wardens", 0.3, 1.5, F + 11), 0.3), true),
+    edgeOf("template", "wardens", "runs", curve(topOf("template"), at("wardens", -2.7, 1.6, F + 11), 0.3), true),
     // The loop: Archive keeps the session, Oracle checks whether a correction stuck and tunes the Wardens.
     edgeOf("archive", "oracle", "runs", curve(topOf("archive"), [ox - 30, oy + 12], 0.55), true),
     edgeOf("oracle", "wardens", "runs", curve([ox + 34, oy + 10], at("wardens", -2.6, 0.2, F + 11), -0.4), true),
@@ -809,7 +809,7 @@ const foundryKingdomScene = (): Scene => {
   ];
   const loopLabel = plateLabel(loop, "slate", "Learning from corrections", "Closed source");
   placeChips([...machineLabel, ...hostedLabel, ...loopLabel], ["agent", "wardens", "codebase", "archive", "oracle", "kingdom", "foundry"], {
-    own: ["foundry"],
+    own: ["foundry", "codebase", "kingdom", "kcp", "signet"],
     lines,
   });
   const node = (id: string) => ({ node: isoNode(pl[id], es) });
@@ -829,9 +829,9 @@ const foundryKingdomScene = (): Scene => {
     view: "foundry-kingdom",
     title: "How Foundry works, and where Kingdom fits",
     desc:
-      "On your machine, your agent (Claude Code or Codex) runs inside Foundry on your own subscription. 1: you ask your agent. 2: Wardens, small expert agents built from your docs, " +
+      "On your machine, your agent (Claude Code or Codex) runs inside Foundry on your own subscription. 1: you ask your agent. 2: Wardens, small expert agents built from your docs (under construction: they come built in repos made from template, and building them for any repo is in progress), " +
       "notice what the request touches. 3: they point your agent at what your codebase already has, and where it's written down; your agent decides what to use. " +
-      "4: Archive keeps every session. 5: Oracle (closed source) checks whether a correction stuck, and tunes the docs and Wardens. " +
+      "Then the loop that learns: 4: Archive keeps every session. 5: Oracle (closed source) checks whether a correction stuck, and proposes changes to the docs and Wardens. " +
       "A codebase built from template comes with its Wardens built. Hosted: Kingdom (closed source, under construction) holds your accounts, such as GitHub, Slack and Linear, " +
       "and anything that uses them goes through a Signet, a pass the owner can take back: Foundry pairs with Kingdom on one, teammates and their agents come in on one, " +
       "and KCP (under construction) will run your command-line tools through Kingdom. Artifactory, for sharing what agents make, is planned.",
