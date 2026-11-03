@@ -7,6 +7,8 @@ const part = {
   dx: { label: "Developer experience", kind: "block", cls: "tone-teal" },
   ag: { label: "Agentic", kind: "block", cls: "tone-lime" },
   out: { label: "Outside your machine", kind: "block", cls: "tone-blue" },
+  yours: { label: "Yours: your agent, code, accounts and people", kind: "block", cls: "tone-blue" },
+  signet: { label: "Signet", kind: "block", cls: "tone-pink" },
   gov: { label: "Governance", kind: "block", cls: "tone-violet" },
   closed: { label: "Closed source", kind: "block", cls: "tone-slate is-closed" },
 } as const satisfies Record<string, Swatch>;
@@ -38,6 +40,11 @@ export const key: Record<View, { title: string; items: Swatch[] }[]> = {
   vocabulary: [
     { title: "Colour: part", items: [part.bb, part.dx] },
     { title: "Lines: relation", items: [line.uses, line.reads, line.adopt] },
+  ],
+  "foundry-kingdom": [
+    { title: "Colour: part", items: [part.ag, part.yours, part.signet, part.closed, part.bb] },
+    { title: "Fill: status", items: [status.done, status.building, status.planned] },
+    { title: "Lines: relation", items: [line.runs, line.signet, line.next, line.toPlanned] },
   ],
   agentic: [
     { title: "Colour: part", items: [part.ag, part.out, part.bb, part.dx, part.closed] },

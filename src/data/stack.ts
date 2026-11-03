@@ -62,6 +62,9 @@ export const nodes: StackNode[] = [
 
   // Agentic
   { id: "foundry", label: "Foundry", tier: "agentic", group: "machine", licence: "BSL 1.1", state: "progress", line: "The workspace around your agent", href: "/agentic/#foundry" },
+  { id: "agent", label: "Your agent", tier: "agentic", group: "machine", licence: "none", tone: "shared", line: "Claude Code or Codex, on the subscription you already pay for" },
+  { id: "wardens", label: "Wardens", tier: "agentic", group: "machine", licence: "BSL 1.1", line: "Small expert agents inside Foundry, each knowing one part of your codebase", href: "/foundry/" },
+  { id: "codebase", label: "Your codebase", tier: "agentic", group: "machine", licence: "none", tone: "shared", line: "Your code, and the docs and rules that say how it's done" },
   { id: "agent-session", label: "agent-session", tier: "agentic", group: "machine", licence: "MIT", line: "Runs each Claude Code and Codex session", href: "/agentic/#agent-session" },
   { id: "archive", label: "Archive", tier: "agentic", group: "machine", licence: "MIT", line: "Keeps every agent session", href: "/agentic/#archive" },
   { id: "kcp", label: "KCP", tier: "agentic", group: "machine", licence: "MIT", state: "progress", line: "Runs your CLIs through Kingdom", href: "/agentic/#kcp" },
@@ -139,6 +142,13 @@ export const edges: StackEdge[] = [
   { base: "foundry", user: "agent-session", kind: "runs", why: "Foundry runs each agent session on your machine" },
   { base: "foundry", user: "archive", kind: "runs", why: "Foundry sends every session to Archive" },
   { base: "foundry", user: "oracle", kind: "runs", why: "Oracle measures and tunes Foundry's docs and Wardens" },
+  // How Foundry works (the /agentic map)
+  { base: "foundry", user: "agent", kind: "runs", why: "your agent runs inside Foundry, on your own subscription" },
+  { base: "codebase", user: "wardens", kind: "runs", why: "Wardens are built from your codebase's docs, one per topic" },
+  { base: "wardens", user: "agent", kind: "runs", why: "Wardens notice what a request touches and point your agent at what your codebase already has, and where it's written down; your agent decides what to use" },
+  { base: "archive", user: "oracle", kind: "runs", why: "Oracle reads the sessions Archive keeps" },
+  { base: "oracle", user: "wardens", kind: "runs", why: "Oracle checks whether a correction stuck and tunes the docs and Wardens" },
+  { base: "template", user: "wardens", kind: "runs", why: "a codebase built from template comes with its Wardens built and turned on" },
   { base: "whitepaper", user: "project", kind: "runs", why: "the whitepaper explains why; the Inixiative project is the goal" },
   { base: "project", user: "livestock", kind: "runs", why: "Livestock is a product that runs on the Inixiative platform" },
 ];
@@ -159,6 +169,9 @@ const labels: Record<string, [string, string]> = {
   "ci-rules": ["CI rules", "Convention checks"],
   template: ["template", "The whole SaaS app"],
   foundry: ["foundry", "Agent workspace"],
+  agent: ["your agent", "Claude Code or Codex"],
+  wardens: ["wardens", "Small expert agents"],
+  codebase: ["your codebase", "Code, docs and rules"],
   "agent-session": ["agent-session", "Runs sessions"],
   archive: ["archive", "Keeps sessions"],
   kcp: ["kcp", "CLIs through Kingdom"],

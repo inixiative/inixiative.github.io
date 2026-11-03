@@ -19,6 +19,9 @@ export type SceneNode = {
   tier: string;
   look: string;
   prims: Prim[];
+  /** The short description this view gives the piece, and its step in the view's story, for the stacked layout. */
+  short?: string;
+  step?: number;
 };
 
 export type SceneEdge = {
@@ -61,7 +64,9 @@ export const textWidth = (s: string, size: number, display = false) => {
 };
 
 /** An orthogonal route through waypoints with rounded corners. */
-export const route = (pts: [number, number][], r = 10) => {
+export const route = (all: [number, number][], r = 10) => {
+  // A repeated point has no direction to round from.
+  const pts = all.filter((q, i) => i === 0 || q[0] !== all[i - 1][0] || q[1] !== all[i - 1][1]);
   let d = `M ${pts[0][0]} ${pts[0][1]}`;
   for (let i = 1; i < pts.length - 1; i++) {
     const [px, py] = pts[i - 1];
