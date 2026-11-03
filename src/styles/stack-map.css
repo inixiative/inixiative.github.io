@@ -378,7 +378,12 @@
 .map-readout {
   margin: 0;
   flex: 1 1 22rem;
-  min-height: 3em;
+  /* A fixed box: what the readout says never moves anything below it. */
+  height: 4.8em;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
   font-size: var(--text-small);
   color: hsl(var(--muted-foreground));
 }
@@ -508,7 +513,6 @@
     flex-wrap: wrap;
   }
   .view-whole .slab li { padding: var(--gap-1) var(--gap-3); }
-  .view-whole .slab-line,
   .view-whole .slab-on { display: none; }
   .slab-join {
     position: absolute;
@@ -742,3 +746,36 @@
   .hero-split .map-key.is-standalone { order: 3; }
 }
 .stack-map .key-swatch .edge { display: inline !important; }
+
+/* ---- One label shape everywhere: the tag (repo name, mono, in the part's colour), then a short description. */
+.map-svg .tag-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  fill: hsl(var(--tone, var(--muted-foreground)));
+}
+.map-svg .desc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  fill: hsl(var(--foreground));
+}
+.map-svg .is-closed .tag-text { fill: hsl(var(--map-charcoal-ink) / 0.75); }
+.map-svg .is-closed .desc { fill: hsl(var(--map-charcoal-ink)); }
+.map-svg .is-planned .desc { fill: hsl(var(--muted-foreground)); }
+.map-svg .is-goal.is-planned .tag-text { fill: hsl(var(--tone)); }
+@media (max-width: 760px) {
+  .slab li .slab-tag {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: var(--text-micro);
+    color: hsl(var(--tone));
+  }
+  .slab li.is-closed .slab-tag { color: hsl(var(--map-charcoal-ink) / 0.75); }
+  .slab-desc { font-family: var(--font-display); font-weight: 650; color: hsl(var(--foreground)); }
+  .slab li.is-closed .slab-desc { color: hsl(var(--map-charcoal-ink)); }
+  .view-whole .slab li { padding: var(--gap-2) var(--gap-3); }
+  .view-whole .slab-desc { font-size: var(--text-small); }
+  .slab li.is-progress > :first-child::after,
+  .slab li.is-planned > :first-child::after { font-family: var(--font-body); }
+}

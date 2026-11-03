@@ -1,4 +1,11 @@
 ---
 // The <iXi> org mark, set as text the way it has always been (brand/logo-*.svg, .github/brand).
+// closing: the sign-off at the end of a long page, </iXi>. Never self-closing.
+interface Props { closing?: boolean }
+const { closing = false } = Astro.props;
 ---
-<span class="ixi" role="img" aria-label="inixiative"><span class="ixi-bracket">&lt;</span><span class="ixi-mark">iXi</span><span class="ixi-bracket">&gt;</span></span>
+{closing ? (
+  <span class="ixi" aria-hidden="true"><span class="ixi-bracket">&lt;/</span><span class="ixi-mark">iXi</span><span class="ixi-bracket">&gt;</span></span>
+) : (
+  <span class="ixi" role="img" aria-label="inixiative"><span class="ixi-bracket">&lt;</span><span class="ixi-mark">iXi</span><span class="ixi-bracket">&gt;</span></span>
+)}

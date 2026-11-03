@@ -772,6 +772,21 @@ h4 {
 .diagram .d-note {
   fill: hsl(var(--muted-foreground));
 }
+/* The one label shape, as on the maps: the tag (repo name, mono, in the section's colour), then a short description. */
+.diagram .d-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  fill: hsl(var(--app-primary));
+}
+.diagram .d-desc {
+  font-size: 13px;
+  font-weight: 600;
+}
+.diagram .d-ui {
+  font-size: 12px;
+  fill: hsl(var(--muted-foreground));
+}
 .diagram .d-frame {
   fill: none;
   stroke: hsl(var(--border));
@@ -828,4 +843,16 @@ h4 {
 }
 .diagram .d-accent-fill-solid {
   fill: hsl(var(--app-primary));
+}
+
+/* Who "I" is, quietly: a byline under the first-person openings, and the </iXi> sign-off at the end of long pages. */
+.byline {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: hsl(var(--subtle-foreground));
+}
+.signoff {
+  margin: var(--gap-7) 0 var(--gap-8);
+  font-size: 1.125rem;
 }
