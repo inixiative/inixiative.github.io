@@ -28,6 +28,8 @@ export type SceneEdge = {
   signet?: boolean;
   next?: boolean;
   structural?: boolean;
+  /** Reaches a planned piece: drawn as a ghost, not as construction. */
+  planned?: boolean;
   /** Edges that leave one tier for another: drawn as rising beams. */
   cross?: boolean;
   d: string;

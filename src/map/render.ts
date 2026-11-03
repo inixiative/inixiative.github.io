@@ -32,6 +32,7 @@ const edgeClass = (e: SceneEdge) =>
     `kind-${e.kind}`,
     e.signet ? "is-signet" : "",
     e.next ? "is-next" : "",
+    e.planned ? "is-planned" : "",
     e.structural ? "is-structural" : "",
     e.cross ? "is-cross" : "",
     e.d ? "" : "is-unseen",
@@ -44,7 +45,7 @@ const edge = (e: SceneEdge) => {
   order += 1;
   const data = `data-base="${e.base}" data-user="${e.user}" data-kind="${e.kind}" style="--i:${order}"`;
   if (!e.d) return `<path class="${edgeClass(e)}" ${data}/>`;
-  const solid = !e.next && !e.structural;
+  const solid = !e.next && !e.structural && !e.planned;
   const path = `<path class="${edgeClass(e)}" ${data} d="${e.d}"${solid ? ' pathLength="1"' : ""}><title>${esc(e.why)}</title></path>`;
   // A Signet relation carries a slow light along it.
   return e.signet && solid ? `${path}<path class="pulse" d="${e.d}" pathLength="1" aria-hidden="true"/>` : path;
