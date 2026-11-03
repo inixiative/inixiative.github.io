@@ -183,12 +183,28 @@ const packages = [...libraries, ...tooling];
         </li>
       ))}
     </ul>
-      <div class="text">
-      <h3>Comes with template</h3>
-      <ul>
-        <li><strong>Worktrees.</strong> <code>bun run worktree:create</code> gives each worktree its own Postgres databases, Redis database, storage buckets and ports, so several branches or agents run side by side. <a class="text-link" href="https://github.com/inixiative/template/blob/main/docs/claude/SCRIPTS.md">Scripts</a></li>
-        <li><strong>Init.</strong> A guided setup in the terminal that provisions a new project's services (GitHub, PlanetScale, Railway, Vercel, Cloudflare, Resend) and keeps their secrets in Infisical. <a class="text-link" href="https://github.com/inixiative/template/blob/main/docs/claude/INIT_SCRIPT_PATTERNS.md">Init</a></li>
-        <li><strong>CI rules.</strong> Checks the repo owns, run by <code>bun run check</code>: they fail when code skips a system the repo already has (a raw lock, a raw transaction, a second middleware chain) or a doc names something that no longer exists. <a class="text-link" href="https://github.com/inixiative/template/blob/main/docs/claude/SCRIPTS.md">Scripts</a></li>
+    <div class="card tool-card anchor-target" id="template-tooling">
+      <div class="card-head">
+        <h3 class="tool-card-title">template</h3>
+        <span class="tag" data-tone="open">MIT</span>
+      </div>
+      <p>Three tools come with template rather than as packages of their own.</p>
+      <ul class="tool-parts">
+        <li>
+          <div class="tool-part-head"><h4>Worktrees</h4><code>bun run worktree:create</code></div>
+          <p>Each worktree gets its own Postgres databases, Redis database, storage buckets and ports, so several branches or agents run side by side.</p>
+          <a class="text-link" href="https://github.com/inixiative/template/blob/main/docs/claude/SCRIPTS.md">Scripts</a>
+        </li>
+        <li>
+          <div class="tool-part-head"><h4>Init</h4><code>bun run init</code></div>
+          <p>A guided terminal setup that provisions a new project's services (GitHub, PlanetScale, Railway, Vercel, Cloudflare, Resend) and keeps their secrets in Infisical.</p>
+          <a class="text-link" href="https://github.com/inixiative/template/blob/main/docs/claude/INIT_SCRIPT_PATTERNS.md">Init</a>
+        </li>
+        <li>
+          <div class="tool-part-head"><h4>CI rules</h4><code>bun run check</code></div>
+          <p>Checks that fail when code skips a system the repo already has (a raw lock, a raw transaction, a second middleware chain) or a doc names something that no longer exists.</p>
+          <a class="text-link" href="https://github.com/inixiative/template/blob/main/docs/claude/SCRIPTS.md">Scripts</a>
+        </li>
       </ul>
     </div>
   </section>

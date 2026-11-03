@@ -681,3 +681,95 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Building blocks: the tools that come with template, as one card with parts. */
+.tool-card {
+  margin-top: var(--gap-7);
+}
+.tool-card .tool-card-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-heading-2);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: hsl(var(--app-primary));
+}
+.tool-parts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: var(--gap-6) var(--gap-7);
+  margin: var(--gap-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tool-parts li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-3);
+  padding-top: var(--gap-5);
+  border-top: 1px solid hsl(var(--border));
+}
+.tool-part-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--gap-2) var(--gap-3);
+}
+.tool-part-head h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-heading-3);
+  font-weight: var(--weight-heading);
+  letter-spacing: var(--tracking-heading);
+  color: hsl(var(--foreground));
+}
+.tool-parts p {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+}
+.tool-parts .text-link {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+/* Site-wide type and spacing pass (Aron 11-02). */
+/* Section headings: the theme's 42.5rem box broke display-2 headings into three or four lines;
+   let the heading run wider and keep the lede at reading measure. */
+.section-heading {
+  max-width: 58rem;
+}
+.section-heading > :not(h2):not(.eyebrow) {
+  max-width: var(--measure);
+}
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+.lede,
+.text p,
+.card p,
+.package-body li,
+.facts li {
+  text-wrap: pretty;
+}
+/* Raised cards: the heading sat flush under the eyebrow row, and the facts grid flush under the paragraph. */
+.card[data-raised] > h2 {
+  margin-top: var(--gap-2);
+}
+.card .facts {
+  margin-top: var(--gap-5);
+}
+
+.card .card-parts .part-what {
+  color: hsl(var(--muted-foreground));
+}
+/* Phones: the theme's 2rem card padding left ~280px for text inside a 24px gutter. */
+@media (max-width: 600px) {
+  .card,
+  .licence-tier {
+    padding: var(--gap-5);
+  }
+  .package {
+    padding: var(--gap-6) 0;
+  }
+}
