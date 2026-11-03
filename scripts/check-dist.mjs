@@ -31,6 +31,8 @@ for (const page of pages) {
   const html = readFileSync(page, "utf8");
   for (const [, raw] of html.matchAll(/\s(?:href|src)="([^"]+)"/g)) {
     if (/^(?:[a-z]+:|\/\/)/i.test(raw)) continue;
+    // Template literals inside an inline script (the Foundry demo) are not links yet.
+    if (raw.includes("${")) continue;
     // Relative links resolve against the page's own URL.
     const href = raw.startsWith("/") || raw.startsWith("#") ? raw : new URL(raw, `https://x${page.replace(dist, "")}`).pathname;
     if (externalPaths.some((p) => href.startsWith(p))) continue;
