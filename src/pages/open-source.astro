@@ -1,55 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-// Licenses checked against each repo's LICENSE on origin/main, 2026-11-02.
-const gh = (repo: string) => `https://github.com/inixiative/${repo}`;
-const mit = "Use it, change it, use it at work, sell what you build with it";
-type Row = { name: string; what: string; can: string; license: string; href?: string; linkLabel?: string };
-const groups: { title: string; rows: Row[] }[] = [
-  {
-    title: "Building blocks",
-    rows: [
-      { name: "template", what: "A SaaS app you start a product from and own", can: mit, license: "MIT", href: gh("template") },
-      { name: "prisma-map", what: "Your Prisma schema, readable at runtime", can: mit, license: "MIT", href: gh("prisma-map") },
-      { name: "json-rules", what: "One rule that runs in memory, in Prisma and in SQL", can: mit, license: "MIT", href: gh("json-rules") },
-      { name: "permissions", what: "Who can do what, decided on your own records", can: mit, license: "MIT", href: gh("permissions") },
-      { name: "transitions", what: "Which state change is allowed right now", can: mit, license: "MIT", href: gh("transitions") },
-      { name: "rules-builder", what: "A rule editor that only offers what the engine can run", can: mit, license: "MIT", href: gh("rules-builder") },
-    ],
-  },
-  {
-    title: "Developer experience",
-    rows: [
-      { name: "atlas", what: "A map of your code that CI keeps accurate", can: mit, license: "MIT", href: gh("atlas") },
-      { name: "gloss", what: "Explanations kept beside the code instead of in it", can: mit, license: "MIT", href: gh("gloss") },
-      { name: "config", what: "The shared toolchain and theme", can: mit, license: "MIT", href: gh("config") },
-    ],
-  },
-  {
-    title: "Agentic tools",
-    rows: [
-      { name: "Signet", what: "A pass to use an integration through Kingdom, which the owner can take back", can: mit, license: "MIT", href: gh("signet") },
-      { name: "KCP (in progress)", what: "The Kingdom CLI Proxy: run provider CLIs through Kingdom", can: mit, license: "MIT", href: gh("kcp") },
-      { name: "Archive", what: "Keeps every agent session on your machine and syncs where you choose", can: mit, license: "MIT", href: gh("archive") },
-      { name: "agent-session", what: "Runs Claude Code and Codex as long-lived sessions", can: mit, license: "MIT", href: gh("agent-session") },
-      {
-        name: "Foundry",
-        what: "The workspace around your agent",
-        can: "Use it, change it, use it at work. You can't sell it or offer it to others as a product or service.",
-        license: "Source-available (BSL 1.1), MIT from 2030-04-06",
-        href: gh("foundry"),
-      },
-      { name: "Foundry · core", what: "The engine under Foundry (foundry-core)", can: mit, license: "MIT", href: gh("foundry") },
-      { name: "Foundry · ACP adapter", what: "Lets apps such as Paseo and T3 Code drive Foundry (foundry-acp)", can: mit, license: "MIT", href: gh("foundry") },
-    ],
-  },
-  {
-    title: "Closed",
-    rows: [
-      { name: "Kingdom", what: "The hub where you decide who and what can reach your work", can: "Use the hosted service", license: "Closed", href: "https://kingdom.inixiative.com", linkLabel: "kingdom.inixiative.com" },
-      { name: "Oracle", what: "Measures whether a correction stuck, and tunes the docs your agent is pointed at", can: "Not published", license: "Closed" },
-    ],
-  },
-];
+import { groups, foundryMitDate } from "../data/open-source";
 ---
 <Base
   title="Open source: what you can use, change and sell · inixiative"
@@ -75,7 +26,7 @@ const groups: { title: string; rows: Row[] }[] = [
       <p>
         <strong>Source-available (BSL 1.1)</strong> means you can read, run and change the code, including
         inside your company, but you can't sell it or offer it to others as a product or service. Foundry's
-        app becomes MIT on 6 April 2030.
+        app becomes MIT on {foundryMitDate}.
       </p>
     </div>
   </section>
@@ -89,11 +40,11 @@ const groups: { title: string; rows: Row[] }[] = [
             <tr><th scope="col">What</th><th scope="col">What you can do</th><th scope="col">License</th><th scope="col">Link</th></tr>
           </thead>
           <tbody>
-            {group.rows.map((row) => (
+            {group.projects.map((row) => (
               <tr>
-                <td><strong>{row.name}</strong><br />{row.what}</td>
+                <td><strong>{row.name}</strong>{row.state && ` (${row.state})`}<br />{row.what}</td>
                 <td>{row.can}</td>
-                <td>{row.license}</td>
+                <td>{row.licenceLabel}</td>
                 <td>{row.href ? <a href={row.href}>{row.linkLabel ?? "GitHub"}</a> : "None"}</td>
               </tr>
             ))}

@@ -60,10 +60,10 @@ const tooling = [
   },
   {
     name: "gloss",
-    line: "Comment-free source, with explanations on the side.",
+    line: "Agent commentary kept out of your code.",
     points: [
-      "Moves explanation out of the code into a mirrored sidecar tree: src/foo.ts gets .gloss/src/foo.ts.md.",
-      "You read the code, and open the sidecar only when you need the explanation.",
+      "The agent records what it found useful, or what you want kept, as a gloss beside the symbol. In law, a gloss is a note in the margin that explains a text.",
+      "When an agent reads that code, it gets the glosses back. They live in a mirrored tree: src/foo.ts gets .gloss/src/foo.ts.md.",
     ],
   },
   {
@@ -196,13 +196,8 @@ const packages = [...libraries, ...tooling];
   <section class="section" data-compact>
     <span class="eyebrow" data-quiet>Paused</span>
     <div class="card-grid">
-      <div class="card anchor-target" id="hivemind" data-plain>
-        <div class="card-head"><h3>hivemind</h3><span class="tag">Paused</span></div>
-        <p>Multi-agent coordination over MCP: a shared event log with role-scoped channels. Not recommended for use.</p>
-        <div class="card-links"><a class="text-link" href="https://github.com/inixiative/hivemind">GitHub</a></div>
-      </div>
       <div class="card anchor-target" id="conditional-form" data-plain>
-        <div class="card-head"><h3>conditional-form</h3><span class="tag">Paused</span></div>
+        <div class="card-head"><h3>conditional-form</h3><span class="tag" data-tone="progress">Paused</span></div>
         <p>Forms whose show, hide and validation logic is the same rule language the backend uses. Not recommended for use.</p>
         <div class="card-links"><a class="text-link" href="https://github.com/inixiative/conditional-form">GitHub</a></div>
       </div>
