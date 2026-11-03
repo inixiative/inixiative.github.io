@@ -1,50 +1,110 @@
 ---
 import Base from "../layouts/Base.astro";
+// Licenses checked against each repo's LICENSE on origin/main, 2026-11-02.
 const gh = (repo: string) => `https://github.com/inixiative/${repo}`;
-const rows = [
-  { name: "The building blocks", what: "template, json-rules, permissions, transitions, prisma-map, atlas, rules-builder, config, gloss", license: "MIT", href: "/building-blocks/" },
-  { name: "Archive", what: "Keeps every agent session, local-first", license: "MIT", href: gh("archive") },
-  { name: "agent-session", what: "Claude Code, Codex and Muse as persistent sessions", license: "MIT", href: gh("agent-session") },
-  { name: "Signet", what: "Revocable passes to use an integration through Kingdom", license: "MIT", href: gh("signet") },
-  { name: "KCP", what: "Kingdom CLI Proxy (in progress)", license: "MIT", href: gh("kcp") },
-  { name: "Foundry core and ACP adapter", what: "foundry-core and foundry-acp, the engine and the adapter for ACP apps", license: "MIT", href: gh("foundry") },
-  { name: "Foundry", what: "The workspace around your agent", license: "BSL 1.1: free to use, including at work; not to resell; MIT in April 2030", href: "/foundry/" },
-  { name: "Kingdom", what: "The hosted service", license: "Closed", href: "https://kingdom.inixiative.com" },
-  { name: "Oracle", what: "The tuning loop", license: "Closed", href: undefined },
+const mit = "Use it, change it, use it at work, sell what you build with it";
+type Row = { name: string; what: string; can: string; license: string; href?: string; linkLabel?: string };
+const groups: { title: string; rows: Row[] }[] = [
+  {
+    title: "Building blocks",
+    rows: [
+      { name: "template", what: "A SaaS app you start a product from and own", can: mit, license: "MIT", href: gh("template") },
+      { name: "prisma-map", what: "Your Prisma schema, readable at runtime", can: mit, license: "MIT", href: gh("prisma-map") },
+      { name: "json-rules", what: "One rule that runs in memory, in Prisma and in SQL", can: mit, license: "MIT", href: gh("json-rules") },
+      { name: "permissions", what: "Who can do what, decided on your own records", can: mit, license: "MIT", href: gh("permissions") },
+      { name: "transitions", what: "Which state change is allowed right now", can: mit, license: "MIT", href: gh("transitions") },
+      { name: "rules-builder", what: "A rule editor that only offers what the engine can run", can: mit, license: "MIT", href: gh("rules-builder") },
+      { name: "atlas", what: "A map of your code that CI keeps accurate", can: mit, license: "MIT", href: gh("atlas") },
+      { name: "gloss", what: "Explanations kept beside the code instead of in it", can: mit, license: "MIT", href: gh("gloss") },
+      { name: "config", what: "The shared toolchain and theme", can: mit, license: "MIT", href: gh("config") },
+    ],
+  },
+  {
+    title: "Agentic tools",
+    rows: [
+      { name: "Signet", what: "A pass to use an integration through Kingdom, which the owner can take back", can: mit, license: "MIT", href: gh("signet") },
+      { name: "KCP (in progress)", what: "The Kingdom CLI Proxy: run provider CLIs through Kingdom", can: mit, license: "MIT", href: gh("kcp") },
+      { name: "Archive", what: "Keeps every agent session on your machine and syncs where you choose", can: mit, license: "MIT", href: gh("archive") },
+      { name: "agent-session", what: "Runs Claude Code, Codex and Muse as long-lived sessions", can: mit, license: "MIT", href: gh("agent-session") },
+      { name: "Foundry core", what: "The engine under Foundry (foundry-core)", can: mit, license: "MIT", href: gh("foundry") },
+      { name: "Foundry ACP adapter", what: "Lets apps such as Paseo and T3 Code drive Foundry (foundry-acp)", can: mit, license: "MIT", href: gh("foundry") },
+      {
+        name: "Foundry",
+        what: "The workspace around your agent",
+        can: "Use it, change it, use it at work. You can't sell it or offer it to others as a product or service.",
+        license: "Source-available (BSL 1.1), MIT from 2030-04-06",
+        href: gh("foundry"),
+      },
+    ],
+  },
+  {
+    title: "Closed",
+    rows: [
+      { name: "Kingdom", what: "The hub where you decide who and what can reach your work", can: "Use the hosted service", license: "Closed", href: "https://kingdom.inixiative.com", linkLabel: "kingdom.inixiative.com" },
+      { name: "Oracle", what: "Measures whether a correction stuck, and tunes the docs your agent is pointed at", can: "Not published", license: "Closed" },
+    ],
+  },
 ];
 ---
 <Base
-  title="Open source · inixiative"
-  description="The building blocks, Archive, agent-session, Signet, KCP and Foundry's core are MIT. Foundry's app is source-available. Kingdom and Oracle are closed."
+  title="Open source: what you can use, change and sell · inixiative"
+  description="Almost everything inixiative publishes is MIT: use it, change it, use it at work, sell what you build. Foundry's app is free to use at work but not to resell. Kingdom and Oracle are closed."
   domain="inixiative"
   current="open-source"
 >
   <section class="hero">
     <span class="eyebrow"><span class="status-dot"></span>Open source</span>
-    <h1 class="display-1">MIT by default.</h1>
+    <h1 class="display-1">What you can use, change and sell.</h1>
     <p class="lede">
-      The building blocks are MIT because the point is that you start from them and own the code. We
-      open the pieces people build on, and keep the hosted service and the tuning closed so the
-      project can sustain itself.
+      Almost everything here you can use, change, use at work and build a business on. You can use
+      Foundry's app at work too, but you can't resell it. Kingdom and Oracle are closed.
     </p>
   </section>
 
   <section class="section" data-compact>
-    <div class="table-wrap">
-      <table class="table">
-        <thead>
-          <tr><th scope="col">What</th><th scope="col">Is</th><th scope="col">License</th></tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr>
-              <td>{row.href ? <a href={row.href}>{row.name}</a> : row.name}</td>
-              <td>{row.what}</td>
-              <td>{row.license}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div class="text">
+      <p>
+        <strong>MIT</strong> means you can do anything with the code, including selling what you build
+        with it, as long as you keep the copyright notice.
+      </p>
+      <p>
+        <strong>Source-available (BSL 1.1)</strong> means you can read, run and change the code, including
+        inside your company, but you can't sell it or offer it to others as a product or service. Foundry's
+        app becomes MIT on 6 April 2030.
+      </p>
+    </div>
+  </section>
+
+  {groups.map((group) => (
+    <section class="section" data-compact>
+      <h2 class="eyebrow" data-quiet>{group.title}</h2>
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr><th scope="col">What</th><th scope="col">What you can do</th><th scope="col">License</th><th scope="col">Link</th></tr>
+          </thead>
+          <tbody>
+            {group.rows.map((row) => (
+              <tr>
+                <td><strong>{row.name}</strong><br />{row.what}</td>
+                <td>{row.can}</td>
+                <td>{row.license}</td>
+                <td>{row.href ? <a href={row.href}>{row.linkLabel ?? "GitHub"}</a> : "None"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  ))}
+
+  <section class="section" data-compact>
+    <div class="text">
+      <h2 class="eyebrow" data-quiet>Why</h2>
+      <p>
+        I keep the code people build on open so the lessons in it travel. I keep the hosted service and
+        the tuning closed so the project can pay for itself.
+      </p>
     </div>
     <div class="actions">
       <a class="button" href="https://github.com/inixiative">github.com/inixiative</a>
