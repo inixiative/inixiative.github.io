@@ -1,6 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
-const essay = "https://inixiative.substack.com/p/the-real-problem-with-ai-coding-isnt";
+import { substack, substackPath } from "../data/elsewhere";
+const essay = `${substack}/p/the-real-problem-with-ai-coding-isnt`;
+const demo = "/foundry/demo/";
 ---
 <Base
   signoff
@@ -19,7 +21,11 @@ const essay = "https://inixiative.substack.com/p/the-real-problem-with-ai-coding
     </p>
     <div class="actions">
       <a class="button" href="https://github.com/inixiative/foundry">Foundry on GitHub</a>
-      <a class="text-link" href={essay}>Read why we built it</a>
+      <a class="button button-secondary" href={demo}>Try the demo</a>
+      <a class="text-link substack-link" href={essay}>
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path fill="currentColor" d={substackPath} /></svg>
+        The real problem with AI coding is alignment
+      </a>
     </div>
   </section>
 
@@ -46,7 +52,7 @@ const essay = "https://inixiative.substack.com/p/the-real-problem-with-ai-coding
           loop that tunes those docs.
         </p>
         <p>
-          The longer version is the essay{" "}<a href={essay}>The Real Problem With AI Coding Isn't Capability. It's Alignment.</a>
+          The longer version is the essay{" "}<a class="substack-link" href={essay}><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" focusable="false"><path fill="currentColor" d={substackPath} /></svg>The Real Problem With AI Coding Isn't Capability. It's Alignment.</a>
         </p>
       </div>
     </div>
@@ -66,6 +72,7 @@ const essay = "https://inixiative.substack.com/p/the-real-problem-with-ai-coding
           agent decides what to use.
         </p>
         <p>Wardens are built from your repo's docs, one per topic, and run once the project turns them on in <code>.foundry/project.json</code>. A fresh install starts without them. Repos built from template ship with their Wardens built and turned on.</p>
+        <a class="text-link" href={`${demo}?pitch=repeat`}>Watch it in the demo</a>
       </li>
       <li class="pitch">
         <h3>Every agent you pay for, in one place.</h3>
@@ -78,11 +85,13 @@ const essay = "https://inixiative.substack.com/p/the-real-problem-with-ai-coding
         <h3>Stop being a meat proxy.</h3>
         <p>Your agent, their agent and the people in one thread, hashing out the work.</p>
         <div class="tags"><span class="tag" data-tone="open">Host side built</span><span class="tag" data-tone="progress">Joiner view in progress</span></div>
+        <a class="text-link" href={`${demo}?pitch=proxy`}>Watch it in the demo</a>
       </li>
       <li class="pitch">
         <h3>Stop checking a dozen apps.</h3>
         <p>Whatever comes in (a Slack DM, a review request, an email) reaches you already researched and in context. It's read as data, so it can't instruct your agent.</p>
         <div class="tags"><span class="tag" data-tone="progress">In progress</span></div>
+        <a class="text-link" href={`${demo}?pitch=apps`}>Watch it in the demo</a>
       </li>
       <li class="pitch">
         <h3>Set up your repo.</h3>

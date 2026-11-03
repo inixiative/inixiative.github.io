@@ -907,3 +907,12 @@ a.oss-name:hover {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.substack-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+.substack-link svg {
+  flex: none;
+}
