@@ -1,0 +1,36 @@
+---
+// Foundry: Wardens notice what a request touches and point the agent at what the project already has.
+const has = ["Sign-in", "Permissions", "Small tools"];
+---
+<svg class="diagram" viewBox="0 0 400 240" role="img" aria-labelledby="agent-diagram-title">
+  <title id="agent-diagram-title">Wardens point your agent at what your project already has.</title>
+  <rect class="d-brick" x="12" y="96" width="76" height="48" rx="24" />
+  <text class="d-plain" x="50" y="125" text-anchor="middle">You</text>
+  <path class="d-link" d="M88 120 H 128" marker-end="url(#agent-arrow)" />
+  <rect class="d-brick d-accent-fill" x="132" y="92" width="100" height="56" rx="8" />
+  <text class="d-plain" x="182" y="117" text-anchor="middle">Your agent</text>
+  <text class="d-name" x="182" y="135" text-anchor="middle">Claude · Codex</text>
+  <rect class="d-frame" x="268" y="44" width="120" height="152" rx="12" />
+  <text class="d-note" x="280" y="66">your project</text>
+  {has.map((item, i) => (
+    <g>
+      <rect class="d-brick" x="280" y={80 + i * 36} width="96" height="28" rx="6" />
+      <text class="d-name" x="290" y={98 + i * 36}>{item}</text>
+    </g>
+  ))}
+  <g class="d-wardens">
+    <circle class="d-dot d-accent-fill-solid" cx="150" cy="36" r="6" />
+    <circle class="d-dot d-accent-fill-solid" cx="182" cy="28" r="6" />
+    <circle class="d-dot d-accent-fill-solid" cx="214" cy="36" r="6" />
+    <text class="d-note" x="182" y="14" text-anchor="middle">Wardens</text>
+  </g>
+  <path class="d-link d-dashed d-accent-line" d="M182 40 V 88" />
+  <path class="d-link d-dashed d-accent-line" d="M220 40 C 250 50, 260 80, 278 94" marker-end="url(#agent-arrow-accent)" />
+  <path class="d-link" d="M232 120 H 264" marker-end="url(#agent-arrow)" />
+  <text class="d-note" x="132" y="180">uses what exists,</text>
+  <text class="d-note" x="132" y="196">not a second copy</text>
+  <defs>
+    <marker id="agent-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path class="d-arrow" d="M0 0 L8 4 L0 8 z" /></marker>
+    <marker id="agent-arrow-accent" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path class="d-arrow d-accent-fill-solid" d="M0 0 L8 4 L0 8 z" /></marker>
+  </defs>
+</svg>

@@ -1,0 +1,27 @@
+---
+// Developer experience: copies side by side (worktrees), a map of the code (atlas), notes beside it (gloss).
+const lines = [0, 1, 2, 3, 4];
+---
+<svg class="diagram" viewBox="0 0 400 240" role="img" aria-labelledby="tools-diagram-title">
+  <title id="tools-diagram-title">Copies of a project side by side, a map of the code, and notes kept beside it.</title>
+  <rect class="d-brick d-faint" x="48" y="40" width="150" height="150" rx="10" />
+  <rect class="d-brick d-faint" x="34" y="54" width="150" height="150" rx="10" />
+  <rect class="d-brick" x="20" y="68" width="150" height="150" rx="10" />
+  {lines.map((i) => (
+    <rect class={i === 2 ? "d-bar d-accent-fill-solid" : "d-bar"} x="36" y={92 + i * 22} width={i % 2 ? 80 : 112} height="8" rx="4" />
+  ))}
+  <text class="d-note" x="20" y="30">copies side by side</text>
+  <path class="d-link d-accent-line" d="M150 140 H 226" />
+  <rect class="d-brick d-accent-fill" x="226" y="112" width="160" height="56" rx="8" />
+  <text class="d-plain" x="238" y="136">Notes beside the code</text>
+  <text class="d-name" x="238" y="154">gloss</text>
+  <rect class="d-brick" x="226" y="184" width="160" height="40" rx="8" />
+  <text class="d-plain" x="238" y="209">Same setup · config</text>
+  <rect class="d-brick" x="226" y="40" width="160" height="56" rx="8" />
+  <circle class="d-dot" cx="244" cy="58" r="4" />
+  <circle class="d-dot" cx="262" cy="58" r="4" />
+  <circle class="d-dot d-accent-fill-solid" cx="280" cy="58" r="4" />
+  <path class="d-link" d="M244 58 H 280" />
+  <text class="d-plain" x="238" y="82">Map of what is where</text>
+  <text class="d-name" x="300" y="62">atlas</text>
+</svg>

@@ -1,0 +1,24 @@
+---
+// The Inixiative project (planned): a group pools money and releases it when its members agree a milestone was met.
+const cx = 110, cy = 124, r = 78;
+const members = [0, 1, 2, 3, 4, 5].map((i) => {
+  const a = (i / 6) * Math.PI * 2 - Math.PI / 2;
+  return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+});
+---
+<svg class="diagram" viewBox="0 0 400 240" role="img" aria-labelledby="group-diagram-title">
+  <title id="group-diagram-title">A group pools money and releases it when its members agree a milestone was met.</title>
+  {members.map((m) => <path class="d-link d-faint-line" d={`M${m.x} ${m.y} L${cx} ${cy}`} />)}
+  {members.map((m) => <circle class="d-member" cx={m.x} cy={m.y} r="12" />)}
+  <circle class="d-brick d-accent-fill" cx={cx} cy={cy} r="34" />
+  <text class="d-plain" x={cx} y={cy + 4} text-anchor="middle">Pool</text>
+  <path class="d-link d-accent-line" d="M194 124 H 252" marker-end="url(#group-arrow)" />
+  <text class="d-note" x="196" y="110">all agree</text>
+  <rect class="d-brick" x="256" y="96" width="132" height="56" rx="8" />
+  <path class="d-check d-accent-line" d="M270 124 l6 6 l12 -14" />
+  <text class="d-plain" x="298" y="121">Milestone met</text>
+  <text class="d-name" x="298" y="139">funds released</text>
+  <defs>
+    <marker id="group-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path class="d-arrow d-accent-fill-solid" d="M0 0 L8 4 L0 8 z" /></marker>
+  </defs>
+</svg>

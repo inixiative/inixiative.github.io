@@ -2,6 +2,11 @@
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
 import StackMap from "../components/StackMap.astro";
+
+import BlocksDiagram from "../components/diagrams/BlocksDiagram.astro";
+import ToolsDiagram from "../components/diagrams/ToolsDiagram.astro";
+import AgentDiagram from "../components/diagrams/AgentDiagram.astro";
+import GroupDiagram from "../components/diagrams/GroupDiagram.astro";
 import { byLicence, foundryMitDate } from "../data/open-source";
 
 const mitProjects = byLicence("mit");
@@ -67,113 +72,52 @@ const tiers = [
     </div>
   </section>
 
-  <section class="section story" data-domain="building-blocks" aria-labelledby="building-blocks-title">
-    <div class="section-heading">
-      <span class="eyebrow"><span class="status-dot"></span>Building blocks</span>
-      <h2 id="building-blocks-title">Stop rediscovering what you need to build.</h2>
-    </div>
-    <div class="text">
-      <p>
-        Across my career I kept running into the same shapes of problem. More often than not, people
-        built a one-off solution for each, often right next to another problem with the same shape. I
-        pulled those problems out and built the best-shaped solution I could for each, so it can be
-        reused wherever that problem shows up.
-      </p>
-      <p>
-        Template is where they come together. It is like shadcn, but for the whole SaaS app: you start
-        a product from it and own the code. On day one, people can sign in and work together in teams,
-        each person sees only what they're allowed to, sensitive data stays encrypted, screens update
-        live, and the changes you choose to track are kept in a log with who made them.
-      </p>
-      <p>
-        For the problems almost every product has, such as deciding who can do what, I built pieces you
-        can use without the template: a rules engine, a permissions library, the screens for building
-        rules, and a way to say which step a record can move to next. Most of them run in production at
-        the company where I work.
-      </p>
-    </div>
-    <div class="actions">
-      <a class="button button-secondary" href="/building-blocks/">The building blocks</a>
-    </div>
-  </section>
+  <section class="section areas" aria-label="What inixiative builds">
+    <article class="area" data-domain="building-blocks" aria-labelledby="building-blocks-title">
+      <div class="area-text">
+        <span class="eyebrow"><span class="status-dot"></span>Building blocks</span>
+        <h2 id="building-blocks-title" class="display-3">Stop rediscovering what you need to build.</h2>
+        <p>Start a product with the hard parts already built, or use the pieces for the most common problems on their own.</p>
+        <a class="text-link" href="/building-blocks/">The building blocks</a>
+      </div>
+      <figure class="area-figure"><BlocksDiagram /></figure>
+    </article>
 
-  <section class="section story" aria-labelledby="developer-experience-title">
-    <div class="section-heading">
-      <span class="eyebrow"><span class="status-dot"></span>Developer experience</span>
-      <h2 id="developer-experience-title">Tools for working on the code.</h2>
-    </div>
-    <div class="text">
-      <p>
-        These tools help me build, and none of them ends up in your product. Atlas keeps a map of what
-        is where in the code. Gloss keeps notes about the code out of the code, and hands them to an
-        agent when it reads that file. Config gives every project the same setup.
-      </p>
-      <p>
-        Template comes with its own: several copies of a project can run side by side without colliding,
-        a guided setup creates a new project's accounts and services, and automatic checks stop code that
-        rebuilds something the project already has.
-      </p>
-    </div>
-    <div class="actions">
-      <a class="button button-secondary" href="/building-blocks/#developer-experience">Developer experience</a>
-    </div>
-  </section>
+    <article class="area" data-domain="inixiative" aria-labelledby="developer-experience-title">
+      <div class="area-text">
+        <span class="eyebrow"><span class="status-dot"></span>Developer experience</span>
+        <h2 id="developer-experience-title" class="display-3">Tools for working on the code.</h2>
+        <p>These tools help me build, and none of them ends up in your product.</p>
+        <a class="text-link" href="/building-blocks/#developer-experience">Developer experience</a>
+      </div>
+      <figure class="area-figure"><ToolsDiagram /></figure>
+    </article>
 
-  <section class="section story" data-domain="agentic" aria-labelledby="agentic-title">
-    <div class="section-heading">
-      <span class="eyebrow"><span class="status-dot"></span>Agentic</span>
-      <h2 id="agentic-title">An agent that works like you do.</h2>
-    </div>
-    <div class="text">
-      <p>
-        Then I started building with coding agents, and they ignored the answers. In a project that
-        already had a sign-in system, an agent built a second one beside it. I kept correcting the same
-        kind of thing: agents rewrote small tools the project already had. If agents used the template as
-        written, I wouldn't have needed to build Foundry.
-      </p>
-      <p>
-        <strong>Stop repeating yourself to Claude.</strong> Foundry is the workspace around your agent,
-        on the Claude Code and Codex subscriptions you already pay for. Small expert agents called
-        Wardens notice what your request touches and point your agent at what your project already has,
-        and where it's written down. Your agent decides what to use. Giving your work a voice.
-      </p>
-      <p>I built the rest of the agentic tools for the same problem:</p>
-      <ul>
-        <li>Kingdom holds your connected accounts and apps, and lets you decide who and what can reach them.</li>
-        <li>Archive keeps a copy of every conversation with your agents.</li>
-        <li>Signet is a pass to use one of your connected accounts, which you can take back.</li>
-        <li>KCP will let your command-line tools use those accounts without keeping the keys on your computer. <span class="tag" data-tone="progress">In progress</span></li>
-        <li>Oracle checks whether a correction you gave an agent stuck (closed source).</li>
-        <li>Artifactory will let you share and discuss what your agents make, with access from Kingdom. <span class="tag" data-tone="progress">Planned</span></li>
-      </ul>
-    </div>
-    <div class="actions">
-      <a class="button" href="/foundry/">How Foundry works</a>
-      <a class="button button-secondary" href="/agentic/">All the agentic tools</a>
-    </div>
-  </section>
+    <article class="area" data-domain="agentic" aria-labelledby="agentic-title">
+      <div class="area-text">
+        <span class="eyebrow"><span class="status-dot"></span>Agentic</span>
+        <h2 id="agentic-title" class="display-3">An agent that works like you do.</h2>
+        <p>Foundry points your coding agent at what your project already has, so you stop repeating yourself.</p>
+        <div class="area-links">
+          <a class="text-link" href="/agentic/">The agentic tools</a>
+          <a class="text-link" href="/foundry/">How Foundry works</a>
+        </div>
+      </div>
+      <figure class="area-figure"><AgentDiagram /></figure>
+    </article>
 
-  <section class="section story" data-domain="governance" aria-labelledby="governance-title">
-    <div class="section-heading">
-      <span class="eyebrow"><span class="status-dot"></span>Governance</span>
-      <h2 id="governance-title">Designs for cooperation at scale.</h2>
-    </div>
-    <div class="text">
-      <p>
-        The long-term goal is tools for people, and their agents, to cooperate. The whitepaper and the
-        proposals describe how groups set rules, hold each other accountable and invest together without
-        a central referee.
-      </p>
-      <p>
-        The first piece I plan to build there is the Inixiative project: a group pools money and releases
-        it only when its members agree a milestone was met, starting with cattle trusts in Uruguay and
-        Argentina. <span class="tag" data-tone="progress">Planned</span>
-      </p>
-    </div>
-    <div class="actions">
-      <a class="button button-secondary" href="/governance/">The proposals</a>
-      <a class="text-link" href="/governance/#planned">The Inixiative project</a>
-    </div>
+    <article class="area" data-domain="governance" aria-labelledby="governance-title">
+      <div class="area-text">
+        <span class="eyebrow"><span class="status-dot"></span>Governance</span>
+        <h2 id="governance-title" class="display-3">Designs for cooperation at scale.</h2>
+        <p>The long-term goal is tools for people, and their agents, to cooperate.</p>
+        <a class="text-link" href="/governance/">The proposals</a>
+      </div>
+      <figure class="area-figure">
+        <GroupDiagram />
+        <figcaption>Planned first: the Inixiative project, where funding is released in phases as participants vote that each milestone was met.</figcaption>
+      </figure>
+    </article>
   </section>
 
   <section class="section story" aria-labelledby="open-source-title">
