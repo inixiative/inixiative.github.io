@@ -1,0 +1,25 @@
+---
+// The map's key, as small labelled groups: colour = part, fill = status, lines = relation (src/map/key.ts).
+// Standalone (outside a map figure) it brings the map's scope with it, so the swatches draw as on the map.
+import "../styles/stack-map.css";
+import { key, swatchSvg } from "../map/key";
+import type { View } from "../map/views";
+
+interface Props {
+  view: View;
+  standalone?: boolean;
+}
+const { view, standalone = false } = Astro.props;
+---
+<div class:list={["map-key", { "stack-map": standalone, [`view-${view}`]: standalone, "is-standalone": standalone }]} role="group" aria-label="How to read the map">
+  {key[view].map((g) => (
+    <div class="key-group">
+      <span class="key-title">{g.title}</span>
+      <ul>
+        {g.items.map((w) => (
+          <li><Fragment set:html={swatchSvg(w)} />{w.label}</li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</div>

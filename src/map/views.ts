@@ -348,6 +348,7 @@ const glyphs: Record<string, string> = {
   oracle: "M3 12 Q12 4 21 12 Q12 20 3 12 Z M12 9 A3 3 0 1 1 11.99 9 Z",
   bench: "M6 19 V13 M10 19 V8 M14 19 V11 M18 19 V5",
   whitepaper: "M6 3 H15 L19 7 V21 H6 Z M9 10 H16 M9 13.5 H16 M9 17 H13",
+  livestock: "M8 4 H16 L19 9 V20 H5 V9 Z M12 7 A1.5 1.5 0 1 1 11.99 7 Z",
   project: "M3 12 A6 6 0 1 0 15 12 A6 6 0 1 0 3 12 Z M9 12 A6 6 0 1 0 21 12 A6 6 0 1 0 9 12 Z",
   atlas: "M3 6 L9 4 L15 6 L21 4 V18 L15 20 L9 18 L3 20 Z M9 4 V18 M15 6 V20",
   gloss: "M3 4 H12 V20 H3 Z M15 7 H21 M15 12 H21 M15 17 H19",
@@ -450,6 +451,8 @@ const wholeScene = (): Scene => {
     // The project is the goal; the whitepaper (why) feeds into it.
     { id: "whitepaper", x: 3.7, y: 2.9, z: Z.governance, s: 0.8, h: 12, dx: 4, dy: 30 },
     { id: "project", x: 5.9, y: 2.0, z: Z.governance, s: 1.7, h: 34, sub: "The goal, planned", dy: 18, dx: 64 },
+    // Livestock is a product on the platform: a small block standing on the project.
+    { id: "livestock", x: 6.35, y: 2.45, z: Z.governance + 34, s: 0.55, h: 10, dy: -64, dx: 96 },
   ];
   const ids = places.map((p) => p.id);
   const es = allEdges.filter((e) => ids.includes(e.base) && ids.includes(e.user));
@@ -495,7 +498,7 @@ const wholeScene = (): Scene => {
     const [, ty] = iso(p.x, p.y, Z.template);
     return edgeOf(id, "template", "uses", `M ${ax} ${ay} L ${ax} ${ty}`, true);
   });
-  const govTraces = [trace("whitepaper", "project", Z.governance, "runs")];
+  const govTraces = [trace("whitepaper", "project", Z.governance, "runs"), edgeOf("project", "livestock", "runs", "")];
   const agenticTraces = [
     trace("kingdom", "foundry", Z.agentic, "runs", true),
     trace("kingdom", "archive", Z.agentic),
@@ -539,7 +542,7 @@ const wholeScene = (): Scene => {
   const nodesIn = (tier: string, z?: number) =>
     places
       .filter((p) => byId.get(p.id)?.tier === tier && (z === undefined || p.z === z))
-      .sort((a, b) => a.x + a.y - (b.x + b.y))
+      .sort((a, b) => a.z - b.z || a.x + a.y - (b.x + b.y))
       .map((p) => ({ node: isoNode(p, es) }));
 
   const layers: Layer[] = [
@@ -585,7 +588,7 @@ const wholeScene = (): Scene => {
     desc:
       "Three tiers. At the base, the template layer: the whole SaaS app, made of the building blocks prisma-map, json-rules, permissions, transitions and rules-builder; beside it, developer experience: atlas, gloss and config, with the worktrees, init and CI rules that come with template. " +
       "Above them, the agentic tools: Foundry, agent-session, Archive, KCP, Signet, Kingdom (the permission hub), Oracle, bench, and Artifactory (planned). " +
-      "At the top, governance: the Inixiative project (planned), the goal, which the whitepaper explains and feeds into.",
+      "At the top, governance: the Inixiative project (planned), a time-series governance platform with tokenization and the goal, which the whitepaper explains and feeds into; Livestock (planned) is a product that runs on it.",
     box: [Math.floor(minX), Math.floor(minY), Math.ceil(Math.max(...xs) + pad - minX), Math.ceil(Math.max(...ys) + pad - minY)],
     layers,
   };
