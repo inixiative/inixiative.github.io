@@ -1,6 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
 import StackMap from "../components/StackMap.astro";
+
+import ToolsDiagram from "../components/diagrams/ToolsDiagram.astro";
 import { developerExperience, packages, templatePlain } from "../data/building-blocks";
 const anchor = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
 ---
@@ -16,9 +18,17 @@ const anchor = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
     <p class="lede">
       Across my career I kept running into the same shapes of problem. More often than not, people
       built a one-off solution for each, often right next to another problem with the same shape. I
-      built the best-shaped solution I could for each, so it can be reused wherever that problem shows
-      up. Most of these pieces run in production at the company where I work.
+      pulled those problems out and built the best-shaped solution I could for each, so it can be
+      reused wherever that problem shows up.
     </p>
+    <div class="text">
+      <p>
+        Template is where they come together. For the problems almost every product has, such as
+        deciding who can do what, I built pieces you can use without the template: a rules engine, a
+        permissions library, the screens for building rules, and a way to say which step a record can
+        move to next. Most of them run in production at the company where I work.
+      </p>
+    </div>
     <p class="meta">If your coding agent writes its own versions instead, <a class="text-link" href="/agentic/">Foundry</a> points it back at these.</p>
   </section>
 
@@ -68,9 +78,21 @@ const anchor = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
   <section class="section anchor-target" id="developer-experience">
     <div class="section-heading">
       <span class="eyebrow" data-quiet>Developer experience</span>
-      <h2>Tools for working on the code. None of them ships in your product.</h2>
-      <p class="lede">Atlas, gloss and config are packages of their own. Worktrees, init and the CI rules come with template.</p>
+      <h2>Tools for working on the code.</h2>
     </div>
+    <div class="text">
+      <p>
+        These tools help me build, and none of them ends up in your product. Atlas keeps a map of what
+        is where in the code. Gloss keeps notes about the code out of the code, and hands them to an
+        agent when it reads that file. Config gives every project the same setup.
+      </p>
+      <p>
+        Template comes with its own: several copies of a project can run side by side without colliding,
+        a guided setup creates a new project's accounts and services, and automatic checks stop code that
+        rebuilds something the project already has.
+      </p>
+    </div>
+    <figure class="area-figure"><ToolsDiagram /></figure>
     <ul class="packages">
       {developerExperience.map((p) => (
         <li class="package" id={anchor(p.name)}>

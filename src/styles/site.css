@@ -684,3 +684,148 @@ h4 {
     min-height: 0;
   }
 }
+
+/* Homepage: one compact row per area, text beside a small diagram. Rows alternate sides on wide screens. */
+.areas {
+  display: grid;
+  gap: 0;
+  padding-top: 0;
+}
+.area {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: var(--gap-8);
+  align-items: center;
+  padding: var(--gap-8) 0;
+  border-top: 1px solid hsl(var(--border));
+}
+.area:first-child {
+  border-top: 0;
+}
+.area:nth-child(even) .area-text {
+  order: 2;
+}
+.area-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-4);
+}
+.area-text h2 {
+  margin: 0;
+}
+.area-text p {
+  margin: 0;
+  max-width: 34rem;
+  color: hsl(var(--muted-foreground));
+}
+.area-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-5);
+}
+.area-figure {
+  margin: 0;
+  display: grid;
+  gap: var(--gap-3);
+}
+.area-figure figcaption {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: hsl(var(--subtle-foreground));
+}
+@media (max-width: 760px) {
+  .area {
+    grid-template-columns: 1fr;
+    gap: var(--gap-5);
+    padding: var(--gap-7) 0;
+  }
+  .area:nth-child(even) .area-text {
+    order: 0;
+  }
+}
+
+/* Inline diagrams: lines in the text colour, the accent from the section's domain. */
+.diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 34rem;
+  color: hsl(var(--muted-foreground));
+  overflow: visible;
+}
+.diagram text {
+  fill: hsl(var(--foreground));
+  font-family: var(--font-sans);
+}
+.diagram .d-plain {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.diagram .d-name,
+.diagram .d-label,
+.diagram .d-note {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.diagram .d-name,
+.diagram .d-note {
+  fill: hsl(var(--muted-foreground));
+}
+.diagram .d-frame {
+  fill: none;
+  stroke: hsl(var(--border));
+  stroke-width: 1.5;
+}
+.diagram .d-brick {
+  fill: hsl(var(--card));
+  stroke: hsl(var(--border));
+  stroke-width: 1.5;
+}
+.diagram .d-faint {
+  opacity: 0.55;
+}
+.diagram .d-bar {
+  fill: hsl(var(--muted-foreground) / 0.35);
+}
+.diagram .d-dot {
+  fill: currentColor;
+}
+.diagram .d-member {
+  fill: hsl(var(--card));
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+.diagram .d-link {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+.diagram .d-faint-line {
+  stroke: hsl(var(--border));
+}
+.diagram .d-dashed {
+  stroke-dasharray: 4 4;
+}
+.diagram .d-check {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.diagram .d-arrow {
+  fill: currentColor;
+}
+.diagram .d-accent-line {
+  stroke: hsl(var(--app-primary));
+}
+.diagram .d-accent-text {
+  fill: hsl(var(--app-primary));
+}
+.diagram .d-accent-fill {
+  fill: hsl(var(--app-primary) / 0.12);
+  stroke: hsl(var(--app-primary) / 0.7);
+}
+.diagram .d-accent-fill-solid {
+  fill: hsl(var(--app-primary));
+}
