@@ -183,6 +183,14 @@ const packages = [...libraries, ...tooling];
         </li>
       ))}
     </ul>
+      <div class="text">
+      <h3>Comes with template</h3>
+      <ul>
+        <li><strong>Worktrees.</strong> <code>bun run worktree:create</code> gives each worktree its own Postgres databases, Redis database, storage buckets and ports, so several branches or agents run side by side. <a class="text-link" href="https://github.com/inixiative/template/blob/main/docs/claude/SCRIPTS.md">Scripts</a></li>
+        <li><strong>Init.</strong> A guided setup in the terminal that provisions a new project's services (GitHub, PlanetScale, Railway, Vercel, Cloudflare, Resend) and keeps their secrets in Infisical. <a class="text-link" href="https://github.com/inixiative/template/blob/main/docs/claude/INIT_SCRIPT_PATTERNS.md">Init</a></li>
+        <li><strong>CI rules.</strong> Checks the repo owns, run by <code>bun run check</code>: they fail when code skips a system the repo already has (a raw lock, a raw transaction, a second middleware chain) or a doc names something that no longer exists. <a class="text-link" href="https://github.com/inixiative/template/blob/main/docs/claude/SCRIPTS.md">Scripts</a></li>
+      </ul>
+    </div>
   </section>
 
   <section class="section" data-compact>
