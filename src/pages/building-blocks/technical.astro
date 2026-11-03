@@ -1,0 +1,85 @@
+---
+import Base from "../../layouts/Base.astro";
+import { developerExperience, packages, templateTechnical, type Piece } from "../../data/building-blocks";
+const anchor = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
+const sections: { id: string; eyebrow: string; title: string; lede: string; pieces: Piece[] }[] = [
+  {
+    id: "packages",
+    eyebrow: "The packages",
+    title: "Building blocks, in dependency order from the bottom up.",
+    lede: "prisma-map sits at the bottom: json-rules and permissions read your schema through it. Transitions builds on permissions, and rules-builder on json-rules. Each is MIT and published on npm.",
+    pieces: packages,
+  },
+  {
+    id: "developer-experience",
+    eyebrow: "Developer experience",
+    title: "Tools for working on the code. None of them ships in your product.",
+    lede: "Atlas, gloss and config are packages of their own; template uses atlas and config. Worktrees, init and the CI rules ship in template's repo.",
+    pieces: developerExperience,
+  },
+];
+---
+<Base
+  title="Building blocks, technical details · inixiative"
+  description="What template ships and where each part is documented, and the packages and developer tools by function name, with links to their code and docs."
+  domain="building-blocks"
+  current="building-blocks"
+>
+  <section class="hero">
+    <span class="eyebrow"><span class="status-dot"></span>Building blocks · technical details</span>
+    <h1 class="display-1">What each piece does, and where to check it.</h1>
+    <p class="lede">
+      Each line below names the function, file or doc that backs it. The plain version is on{" "}<a class="text-link" href="/building-blocks/">Building blocks</a>.
+    </p>
+  </section>
+
+  <section class="section anchor-target" id="template">
+    <div class="card" data-raised>
+      <div class="card-head">
+        <span class="eyebrow"><span class="status-dot"></span>template</span>
+        <span class="tag" data-tone="open">MIT</span>
+      </div>
+      <h2 class="display-3">An API, web, admin and superadmin apps and a shared UI package.</h2>
+      <ul class="facts">
+        {templateTechnical.map((fact) => (
+          <li><strong>{fact.title}</strong>{fact.body} <a class="text-link" href={fact.href}>Doc</a></li>
+        ))}
+      </ul>
+      <p class="meta">bun · hono · prisma 7 · react · turborepo · postgres</p>
+      <div class="card-links">
+        <a class="text-link" href="https://github.com/inixiative/template">GitHub</a>
+        <a class="text-link" href="https://github.com/inixiative/template/blob/main/FEATURES.md">Every feature and its status</a>
+        <a class="text-link" href="https://github.com/inixiative/template/blob/main/COMPARISONS.md">Compared with managed services</a>
+      </div>
+    </div>
+  </section>
+
+  {sections.map((section) => (
+    <section class="section anchor-target" id={section.id}>
+      <div class="section-heading">
+        <span class="eyebrow" data-quiet>{section.eyebrow}</span>
+        <h2>{section.title}</h2>
+        <p class="lede">{section.lede}</p>
+      </div>
+      <ul class="packages">
+        {section.pieces.map((p) => (
+          <li class="package" id={anchor(p.name)}>
+            <div class="package-name">
+              <h3>{p.name}</h3>
+              <div class="tags"><span class="tag" data-tone="open">MIT</span></div>
+            </div>
+            <div class="package-body">
+              <p class="line">{p.line}</p>
+              <ul>{p.points.map((point) => <li>{point}</li>)}</ul>
+              <div class="card-links">
+                {p.links.map((link) => <a class="text-link" href={link.href}>{link.label}</a>)}
+                {p.demo && <a class="text-link" href={p.demo}>Live demo</a>}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+</Base>

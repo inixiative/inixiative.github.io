@@ -3,7 +3,7 @@ import Base from "../layouts/Base.astro";
 ---
 <Base
   title="Agentic: an agent that works like you do · inixiative"
-  description="Foundry, the workspace around your agent. Kingdom, Archive, Signet, KCP and agent-session: the pieces that keep your agents working the way you do."
+  description="Foundry points your coding agent at what your project already has, so you stop repeating yourself. Kingdom, Archive and Signet keep your work and your accounts under your control."
   domain="agentic"
   current="agentic"
 >
@@ -13,10 +13,12 @@ import Base from "../layouts/Base.astro";
     <p class="subhead">Giving your work a voice.</p>
     <p class="lede">
       I packaged the <a class="text-link" href="/building-blocks/">building blocks</a> so I would stop
-      solving the same problems, and coding agents wrote their own versions beside them. Every agent
-      session starts half-amnesiac, so you explain your conventions, your decisions and your taste again.
-      These tools carry what you've already decided into every session, and let you decide who and what
-      can reach your work.
+      solving the same problems, and coding agents wrote their own versions beside them. Every new
+      conversation with an agent starts half-amnesiac, so you explain how you work, what you decided
+      and what you like all over again. These tools carry what you've already decided into every
+      conversation, and let you decide who and what can reach your work.
+    </p>
+    <p class="meta"><a class="text-link" href="/agentic/technical/">Technical details</a>
     </p>
   </section>
 
@@ -26,9 +28,9 @@ import Base from "../layouts/Base.astro";
         <span class="eyebrow"><span class="status-dot"></span>Foundry</span>
         <h2 class="display-3">The workspace around your agent.</h2>
         <p>
-          Foundry runs on your machine around Claude Code and Codex, or behind any app that speaks ACP.
-          Once you turn them on for a project, small expert agents called Wardens notice what your request touches and point your agent at what
-          your codebase already has.
+          Foundry runs on your computer around Claude Code and Codex, or inside other agent apps. Once you
+          turn them on for a project, small expert agents called Wardens notice what your request touches
+          and point your agent at what your project already has.
         </p>
         <div class="tags">
           <span class="tag" data-tone="open">Source-available · BSL 1.1</span>
@@ -100,42 +102,42 @@ import Base from "../layouts/Base.astro";
     <div class="card-grid">
       <div class="card card-wide" id="foundry-parts">
         <div class="card-head"><h3>Foundry</h3><span class="tag">Source-available</span></div>
-        <p>The workspace around your agent, on your machine. It comes in three parts:</p>
+        <p>The workspace around your agent, on your computer. It comes in three parts:</p>
         <ul class="card-parts">
           <li><span class="part-head"><strong>Foundry</strong><span class="tag">BSL 1.1</span></span><span class="part-what">The app and its daemon.</span></li>
           <li><span class="part-head"><strong>foundry-core</strong><span class="tag" data-tone="open">MIT</span></span><span class="part-what">The engine underneath.</span></li>
-          <li><span class="part-head"><strong>foundry-acp</strong><span class="tag" data-tone="open">MIT</span></span><span class="part-what">Lets apps such as Paseo and T3 Code drive Foundry.</span></li>
+          <li><span class="part-head"><strong>foundry-acp</strong><span class="tag" data-tone="open">MIT</span></span><span class="part-what">Lets other agent apps, such as Paseo and T3 Code, use Foundry.</span></li>
         </ul>
-        <div class="card-links"><a class="text-link" href="/foundry/">How it works</a><a class="text-link" href="https://github.com/inixiative/foundry">GitHub</a></div>
+        <div class="card-links"><a class="text-link" href="/foundry/">How it works</a><a class="text-link" href="/agentic/technical/#foundry">Technical details</a></div>
       </div>
       <a class="card anchor-target" id="kingdom" href="https://kingdom.inixiative.com">
         <div class="card-head"><h3>Kingdom</h3><span class="tag">Hosted</span></div>
-        <p>Everything you're doing, in one place.</p>
+        <p>Everything you're doing, in one place: your accounts, apps and agents across every team you're in, and who may reach each one.</p>
         <p class="meta">kingdom.inixiative.com →</p>
       </a>
       <div class="card anchor-target" id="archive">
         <div class="card-head"><h3>Archive</h3><span class="tag" data-tone="open">MIT</span></div>
-        <p>Keeps every agent session. Local-first, and it syncs to the archives you choose.</p>
-        <div class="card-links"><a class="text-link" href="https://github.com/inixiative/archive">GitHub</a></div>
+        <p>Keeps a copy of every conversation with your agents on your computer, and copies it where you choose.</p>
+        <div class="card-links"><a class="text-link" href="/agentic/technical/#archive">Technical details</a></div>
       </div>
       <div class="card anchor-target" id="signet">
         <div class="card-head"><h3>Signet</h3><span class="tag" data-tone="open">MIT</span></div>
-        <p>A revocable pass on the owner's terms. It is how anything uses an integration through Kingdom, with every use tracked and audited.</p>
-        <div class="card-links"><a class="text-link" href="https://github.com/inixiative/signet">GitHub</a></div>
+        <p>A pass you give someone, or something, to use one of your connected accounts. You set its limits, you can take it back, and every use is recorded.</p>
+        <div class="card-links"><a class="text-link" href="/agentic/technical/#signet">Technical details</a></div>
       </div>
       <div class="card anchor-target" id="kcp">
         <div class="card-head"><h3>KCP</h3><span class="tags"><span class="tag" data-tone="open">MIT</span><span class="tag" data-tone="progress">In progress</span></span></div>
-        <p>Kingdom CLI Proxy. When it is done, you will run your provider CLIs through Kingdom with no credentials on your machine, and Kingdom will run each command and stream the output back. Today the client signs in to Kingdom; provider commands do not run yet.</p>
-        <div class="card-links"><a class="text-link" href="https://github.com/inixiative/kcp">GitHub</a></div>
+        <p>Will let your command-line tools use your accounts through Kingdom, so the keys never sit on your computer. Signing in works today; running commands does not yet.</p>
+        <div class="card-links"><a class="text-link" href="/agentic/technical/#kcp">Technical details</a></div>
       </div>
       <div class="card anchor-target" id="agent-session">
         <div class="card-head"><h3>agent-session</h3><span class="tag" data-tone="open">MIT</span></div>
-        <p>Drive Claude Code and Codex as persistent streaming sessions behind one interface.</p>
-        <div class="card-links"><a class="text-link" href="https://github.com/inixiative/agent-session">GitHub</a></div>
+        <p>Keeps Claude Code and Codex running between messages, so a tool can hold a long conversation with them.</p>
+        <div class="card-links"><a class="text-link" href="/agentic/technical/#agent-session">Technical details</a></div>
       </div>
       <div class="card anchor-target" id="oracle" data-plain>
         <div class="card-head"><h3>Oracle</h3><span class="tag">Closed</span></div>
-        <p>Measures whether a correction stuck, and tunes the docs and Wardens.</p>
+        <p>Checks whether a correction you gave an agent stuck, and improves what the agent reads. Closed source.</p>
       </div>
       <div class="card anchor-target" id="artifactory" data-plain>
         <div class="card-head"><h3>Artifactory</h3><span class="tag" data-tone="progress">Planned</span></div>
@@ -143,7 +145,7 @@ import Base from "../layouts/Base.astro";
       </div>
       <div class="card anchor-target" id="hivemind" data-plain>
         <div class="card-head"><h3>hivemind</h3><span class="tags"><span class="tag" data-tone="open">MIT</span><span class="tag" data-tone="progress">Paused</span></span></div>
-        <p>Multi-agent coordination over MCP: a shared event log with role-scoped channels. Not recommended for use.</p>
+        <p>Lets several agents coordinate through a shared log. Not recommended for use.</p>
         <div class="card-links"><a class="text-link" href="https://github.com/inixiative/hivemind">GitHub</a></div>
       </div>
     </div>
