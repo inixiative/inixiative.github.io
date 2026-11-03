@@ -4,7 +4,7 @@ import Mark from "../components/Mark.astro";
 ---
 <Base
   title="inixiative: technology for cooperation"
-  description="Open building blocks, the agentic tools built from them that work the way you do, and designs for cooperation at scale."
+  description="Aron Greenspan's open building blocks for SaaS backends, a workspace that gets coding agents to use what your codebase already has, and designs for cooperation."
   domain="inixiative"
 >
   <script slot="head" is:inline>
@@ -30,55 +30,81 @@ import Mark from "../components/Mark.astro";
     <span class="hero-mark"><Mark /></span>
     <h1 class="display-1">Technology for cooperation.</h1>
     <p class="lede">
-      inixiative builds open building blocks, the agentic tools built from them that keep your agents
-      working the way you do, and designs for how people cooperate at scale.
+      I'm Aron Greenspan. inixiative is a decade of lessons from building software, packaged so I
+      don't have to figure the same things out on every project, and so you can start from them too.
     </p>
   </section>
 
-  <section class="section" aria-labelledby="doors-title">
-    <h2 id="doors-title" class="eyebrow" data-quiet>What we build</h2>
-    <div class="card-grid doors">
-      <a class="card" data-domain="building-blocks" href="/building-blocks/">
-        <span class="eyebrow"><span class="status-dot"></span>Building blocks</span>
-        <h3>Stop rediscovering what you need to build.</h3>
-        <p>A SaaS backend template you own, and the open libraries it is built from: rules, permissions, lifecycles and the tooling around them.</p>
-        <p class="meta">template · json-rules · permissions · transitions</p>
-      </a>
-      <a class="card" data-domain="agentic" href="/agentic/">
-        <span class="eyebrow"><span class="status-dot"></span>Agentic</span>
-        <h3>An agent that works like you do.</h3>
-        <p>Foundry is the workspace around your agent. With Kingdom, you decide who and what can reach your work. Archive keeps every session.</p>
-        <p class="meta">Foundry · Kingdom · Archive · Signet · KCP</p>
-      </a>
-      <a class="card" data-domain="governance" href="/governance/">
-        <span class="eyebrow"><span class="status-dot"></span>Governance</span>
-        <h3>Designs for cooperation at scale.</h3>
-        <p>The whitepaper and the proposals: how groups set rules, hold each other accountable, and invest together without a central referee.</p>
-        <p class="meta">proposals · whitepaper · vocabulary</p>
-      </a>
+  <section class="section story" data-domain="building-blocks" aria-labelledby="building-blocks-title">
+    <div class="section-heading">
+      <span class="eyebrow"><span class="status-dot"></span>Building blocks</span>
+      <h2 id="building-blocks-title">Stop rediscovering what you need to build.</h2>
+    </div>
+    <div class="text">
+      <p>
+        On every product I built, I had to answer the same questions. Who can see this record? Which
+        state change is allowed right now, and for whom? How does one rule run in the browser, in Prisma
+        and in SQL? I answered each of them once, in code, and published the answers as libraries:
+        json-rules, permissions, transitions, prisma-map, atlas, rules-builder, config and gloss.
+      </p>
+      <p>
+        Template puts them together. It is like shadcn, but for the whole SaaS backend: you start a
+        product from it and own the code, about 139,000 lines with 409 test files. Six of the libraries
+        run in production at the company where I work.
+      </p>
+    </div>
+    <div class="actions">
+      <a class="button button-secondary" href="/building-blocks/">The building blocks</a>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section story" data-domain="agentic" aria-labelledby="agentic-title">
     <div class="section-heading">
-      <span class="eyebrow" data-quiet>How it fits</span>
-      <h2>The agentic tools are built on the building blocks, and both serve the governance work.</h2>
+      <span class="eyebrow"><span class="status-dot"></span>Agentic</span>
+      <h2 id="agentic-title">An agent that works like you do.</h2>
     </div>
-    <div class="layers">
-      <div class="layer" data-domain="building-blocks">
-        <span class="eyebrow">Building blocks</span>
-        <p>Open libraries for rules, permissions and lifecycles, and a template that wires them into a working backend.</p>
-      </div>
-      <span class="layer-arrow" aria-hidden="true">→</span>
-      <div class="layer" data-domain="agentic">
-        <span class="eyebrow">Agentic</span>
-        <p>Foundry, Kingdom and Archive are built on those blocks. Foundry brings what you've decided into every agent session, and Kingdom lets you decide who and what can reach your work.</p>
-      </div>
-      <span class="layer-arrow" aria-hidden="true">→</span>
-      <div class="layer" data-domain="governance">
-        <span class="eyebrow">Governance</span>
-        <p>The design work it all serves: how groups set rules and cooperate at scale without a central referee.</p>
-      </div>
+    <div class="text">
+      <p>
+        Then I started building with coding agents, and they ignored the answers. In a repo that already
+        had an auth path, an agent built a second one beside it. I kept correcting the same thing: agents
+        rewrote debounce wrappers, locks and JSON helpers the repo already had. If agents used the
+        template as written, I wouldn't have needed to build Foundry.
+      </p>
+      <p>
+        <strong>Stop repeating yourself to Claude.</strong> Foundry is the workspace around your agent,
+        on the Claude Code, Codex and Muse subscriptions you already pay for. Small expert agents called
+        Wardens notice what your request touches and point your agent at what your codebase already has,
+        and where it's written down. Your agent decides what to use. Giving your work a voice.
+      </p>
+      <p>I built the rest of the agentic tools for the same problem:</p>
+      <ul>
+        <li>Kingdom holds your integrations and lets you decide who and what can reach them.</li>
+        <li>Archive keeps every agent session.</li>
+        <li>Signet is how anything uses an integration through Kingdom, on a grant the owner can take back.</li>
+        <li>KCP, the Kingdom CLI Proxy, will run your provider CLIs through Kingdom <span class="tag" data-tone="progress">In progress</span></li>
+        <li>Oracle measures whether a correction stuck (closed source).</li>
+      </ul>
+    </div>
+    <div class="actions">
+      <a class="button" href="/foundry/">How Foundry works</a>
+      <a class="button button-secondary" href="/agentic/">All the agentic tools</a>
+    </div>
+  </section>
+
+  <section class="section story" data-domain="governance" aria-labelledby="governance-title">
+    <div class="section-heading">
+      <span class="eyebrow"><span class="status-dot"></span>Governance</span>
+      <h2 id="governance-title">Designs for cooperation at scale.</h2>
+    </div>
+    <div class="text">
+      <p>
+        The long-term goal is tools for people, and their agents, to cooperate. The whitepaper and the
+        proposals describe how groups set rules, hold each other accountable and invest together without
+        a central referee.
+      </p>
+    </div>
+    <div class="actions">
+      <a class="button button-secondary" href="/governance/">The proposals</a>
     </div>
   </section>
 

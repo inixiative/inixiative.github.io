@@ -13,8 +13,9 @@ const essay = "https://inixiative.substack.com/p/the-real-problem-with-ai-coding
     <h1 class="display-1">Stop repeating yourself to Claude.</h1>
     <p class="subhead">The voice of the codebase.</p>
     <p class="lede">
-      Foundry is the workspace around your agent. It works with Claude Code, Codex and Muse, and with
-      apps that speak ACP. What you've already decided reaches every session.
+      I built Foundry because coding agents kept writing their own versions of what my codebase already
+      had. Foundry is the workspace around your agent: Claude Code, Codex and Muse, and apps that speak
+      ACP. What you've already decided reaches every session.
     </p>
     <div class="actions">
       <a class="button" href="https://github.com/inixiative/foundry">Foundry on GitHub</a>
@@ -64,7 +65,7 @@ const essay = "https://inixiative.substack.com/p/the-real-problem-with-ai-coding
           point at what your codebase already has, and where it's written down. They never block; your
           agent decides what to use.
         </p>
-        <p>Wardens come from your repo's regions and run once the project enables its chorus in <code>.foundry/project.json</code>. A fresh install starts without them. Repos built from template ship with regions and the chorus on.</p>
+        <p>Wardens are built from your repo's docs, one per topic, and run once the project turns them on in <code>.foundry/project.json</code>. A fresh install starts without them. Repos built from template ship with their Wardens built and turned on.</p>
       </li>
       <li class="pitch">
         <h3>Every agent you pay for, in one place.</h3>
@@ -96,8 +97,8 @@ const essay = "https://inixiative.substack.com/p/the-real-problem-with-ai-coding
       <span class="eyebrow" data-quiet>How Wardens work</span>
       <h2>Wardens point; your agent decides.</h2>
       <p class="lede">
-        Each Warden knows one region of your docs and code. Together they are the chorus, and they speak up
-        only when your request is in their region. Building regions for any repo is pitch 5, in progress.
+        Foundry splits your docs and code by topic, and each Warden knows one topic. A Warden speaks up only
+        when your request is in its topic. Building Wardens for any repo is pitch 5, in progress.
       </p>
     </div>
     <ol class="steps">
