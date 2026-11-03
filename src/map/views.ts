@@ -482,6 +482,16 @@ const wholeScene = (): Scene => {
   const templateNode = (): SceneNode => {
     const n = byId.get("template")!;
     const prims = [...plate(tpl), ...label(tpl, "amber", "Template", "The whole SaaS app")];
+    // Under construction, as a layer: scaffolding along its front edges.
+    const g = 0.18;
+    const lift = 10;
+    const fl = iso(tpl.x - g, tpl.y + tpl.d + g, Z.template + lift);
+    const fc = iso(tpl.x + tpl.w + g, tpl.y + tpl.d + g, Z.template + lift);
+    const fr = iso(tpl.x + tpl.w + g, tpl.y - g, Z.template + lift);
+    const bl = iso(tpl.x - g, tpl.y + tpl.d + g, Z.template - tpl.t);
+    const bc = iso(tpl.x + tpl.w + g, tpl.y + tpl.d + g, Z.template - tpl.t);
+    const br = iso(tpl.x + tpl.w + g, tpl.y - g, Z.template - tpl.t);
+    prims.push({ t: "path", c: "scaffold", d: `M ${fl.join(" ")} L ${fc.join(" ")} L ${fr.join(" ")} M ${fl.join(" ")} L ${bl.join(" ")} M ${fc.join(" ")} L ${bc.join(" ")} M ${fr.join(" ")} L ${br.join(" ")}` });
     return { id: "template", label: n.label, href: n.href, aria: ariaFor(n, allEdges.filter((e) => e.user === "template" || e.base === "template")), tier: "building-blocks", look: `${look(n)} is-plate`, prims };
   };
   const baseTraces = [
