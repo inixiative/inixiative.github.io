@@ -1,6 +1,7 @@
 ---
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import Mark from "../components/Mark.astro";
 import "../styles/site.css";
 
 interface Props {
@@ -11,8 +12,10 @@ interface Props {
   /** Long-form pages read in the light theme; product pages are dark. */
   light?: boolean;
   canonical?: string;
+  /** Close a long page with the </iXi> sign-off after its last paragraph. */
+  signoff?: boolean;
 }
-const { title, description, domain, current, light = false, canonical } = Astro.props;
+const { title, description, domain, current, light = false, canonical, signoff = false } = Astro.props;
 const url = new URL(canonical ?? Astro.url.pathname, Astro.site);
 const image = new URL("/og-1200x630.png", Astro.site);
 ---
@@ -48,6 +51,7 @@ const image = new URL("/og-1200x630.png", Astro.site);
     <Nav current={current} />
     <main id="main" class="shell">
       <slot />
+      {signoff && <p class="signoff" aria-hidden="true"><Mark closing /></p>}
     </main>
     <Footer />
   </body>

@@ -20,6 +20,9 @@ export type StackNode = {
   tone?: "signet" | "shared";
   line: string;
   href?: string;
+  /** The label shape used everywhere: the repo or package name as a small tag, then a short plain description. */
+  tag?: string;
+  short?: string;
 };
 
 /** `base` is built on or reached by `user`. "uses": a package dependency. "runs": how they work together. */
@@ -72,8 +75,8 @@ export const nodes: StackNode[] = [
 
   // Governance
   { id: "whitepaper", label: "The whitepaper", tier: "governance", group: "governance", licence: "none", line: "How groups set rules and hold each other to them", href: "/governance/" },
-  { id: "project", label: "The Inixiative project", tier: "governance", group: "governance", licence: "none", state: "planned", line: "A time-series governance platform, with tokenization", href: "/governance/" },
-  { id: "livestock", label: "Livestock", tier: "governance", group: "governance", licence: "none", state: "planned", line: "Tokenized cattle trusts in Uruguay and Argentina, a product on the platform" },
+  { id: "project", label: "The Inixiative project", tier: "governance", group: "governance", licence: "none", state: "planned", line: "change.org meets Kickstarter: a time-series governance platform, with tokenization", href: "/governance/" },
+  { id: "livestock", label: "Livestock", tier: "governance", group: "governance", licence: "none", state: "planned", line: "Tokenized cattle trusts in Uruguay and Argentina, a product on the Inixiative platform" },
 ];
 
 const byLabel = (id: string) => (id === "ci-rules" ? "CI rules" : id);
@@ -139,5 +142,41 @@ export const edges: StackEdge[] = [
   { base: "whitepaper", user: "project", kind: "runs", why: "the whitepaper explains why; the Inixiative project is the goal" },
   { base: "project", user: "livestock", kind: "runs", why: "Livestock is a product that runs on the Inixiative platform" },
 ];
+
+// One label shape on every map and diagram: [tag, short description]. The tag is the repo or package name; for
+// things that are not repos, their own name.
+const labels: Record<string, [string, string]> = {
+  "prisma-map": ["prisma-map", "Data shape"],
+  "json-rules": ["json-rules", "Rules"],
+  permissions: ["permissions", "Who can do what"],
+  transitions: ["transitions", "Lifecycles"],
+  "rules-builder": ["rules-builder", "Rule screens"],
+  atlas: ["atlas", "Map of the code"],
+  gloss: ["gloss", "Notes beside the code"],
+  config: ["config", "Shared setup"],
+  worktrees: ["worktrees", "A copy per task"],
+  init: ["init", "Project setup"],
+  "ci-rules": ["CI rules", "Convention checks"],
+  template: ["template", "The whole SaaS app"],
+  foundry: ["foundry", "Agent workspace"],
+  "agent-session": ["agent-session", "Runs sessions"],
+  archive: ["archive", "Keeps sessions"],
+  kcp: ["kcp", "CLIs through Kingdom"],
+  kingdom: ["kingdom", "The permission hub"],
+  signet: ["signet", "Revocable pass"],
+  integrations: ["integrations", "GitHub, Slack, Linear"],
+  teammates: ["teammates", "Them and their agents"],
+  artifactory: ["artifactory", "Share agent work"],
+  oracle: ["oracle", "Did a fix stick?"],
+  bench: ["bench", "Agent challenges"],
+  whitepaper: ["whitepaper", "Why"],
+  project: ["Inixiative project", "change.org meets Kickstarter"],
+  livestock: ["Livestock", "Tokenized cattle trusts"],
+};
+for (const n of nodes) {
+  const l = labels[n.id];
+  if (!l) throw new Error(`stack: no label for ${n.id}`);
+  [n.tag, n.short] = l;
+}
 
 export const byId = new Map(nodes.map((n) => [n.id, n]));

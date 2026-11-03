@@ -66,14 +66,14 @@ const stack = stacks[view].filter((g) => !focusTiers || focusTiers.includes(g.ke
     const n = byId.get(i);
     const on = drawn.filter((e) => e.kind === "uses" && e.user === i && e.base !== "config" && !["worktrees", "init", "ci-rules"].includes(e.base)).map((e) => label(e.base));
     if (["worktrees", "init", "ci-rules"].includes(i)) on.push("comes with template");
-    return { id: i, label: label(i), line: n?.line ?? "", href: sn?.href, look: sn?.look ?? "", on };
+    return { id: i, label: label(i), tag: n?.tag ?? label(i), short: n?.short ?? "", href: sn?.href, look: sn?.look ?? "", on };
   }),
 }));
 
 const keyText =
   "How to read the map: colour shows which part a piece belongs to (amber building blocks, slate developer experience, lime agentic, blue outside your machine, violet governance; charcoal marks closed source and pink marks a connection that goes through a Signet). " +
   "Fill shows status: a solid block is done, a block in scaffolding is under construction, a dashed outline is planned. " +
-  "Lines show the relation: solid builds on or runs with, dotted reads prisma-map's map, pink goes through a Signet, a scaffold-dashed line is being built in, a long-dashed grey line reaches a planned piece.";
+  "Lines show the relation: solid builds on or runs with, dotted reads prisma-map's map, pink goes through a Signet, a scaffold-dashed line is under construction (on the technical graph: what template will adopt), a long-dashed grey line reaches a planned piece.";
 const readoutHint = view === "whole" ? "Hover or focus any piece to light what it builds on and what builds on it." : "Hover or focus a piece to light what it builds on and what builds on it.";
 void tiers;
 void edges;
@@ -106,8 +106,8 @@ void edges;
         <ul>
           {g.items.map((it) => (
             <li class={it.look}>
-              {it.href ? <a href={it.href}>{it.label}</a> : <span>{it.label}</span>}
-              <span class="slab-line">{it.line}</span>
+              {it.href ? <a class="slab-tag" href={it.href}>{it.tag}</a> : <span class="slab-tag">{it.tag}</span>}
+              <span class="slab-desc">{it.short}</span>
               {it.on.length > 0 && <span class="slab-on">{it.on[0] === "comes with template" ? "Comes with template" : `Built on ${it.on.join(", ")}`}</span>}
             </li>
           ))}
@@ -127,7 +127,7 @@ void edges;
           {n.licence === "closed" && " Closed source."}
           {n.state === "planned" && " Planned."}
           {n.state === "progress" && " Under construction."}
-          {on.length > 0 && ` Built on ${on.join(", ")}.`.replace(/ \(next\)/g, " (under construction)")}
+          {on.length > 0 && ` Built on ${on.join(", ")}.`.replace(/ \(next\)/g, " (to adopt)")}
           {runs.map((r) => ` ${r[0].toUpperCase()}${r.slice(1)}.`).join("")}
         </li>
       ))}

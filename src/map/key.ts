@@ -20,7 +20,8 @@ const line = {
   runs: { label: "Runs with", kind: "line", cls: "edge kind-runs" },
   reads: { label: "Reads its map", kind: "line", cls: "edge kind-uses is-structural" },
   signet: { label: "Goes through a Signet", kind: "line", cls: "edge kind-runs is-signet" },
-  next: { label: "Being built in", kind: "line", cls: "edge kind-uses is-next" },
+  next: { label: "Under construction", kind: "line", cls: "edge kind-uses is-next" },
+  adopt: { label: "Template will adopt", kind: "line", cls: "edge kind-uses is-next" },
   toPlanned: { label: "To a planned piece", kind: "line", cls: "edge kind-runs is-planned" },
 } as const satisfies Record<string, Swatch>;
 export const key: Record<View, { title: string; items: Swatch[] }[]> = {
@@ -32,11 +33,11 @@ export const key: Record<View, { title: string; items: Swatch[] }[]> = {
   blocks: [
     { title: "Colour: part", items: [part.bb, part.dx] },
     { title: "Fill: status", items: [status.done] },
-    { title: "Lines: relation", items: [line.uses, line.reads, line.next] },
+    { title: "Lines: relation", items: [line.uses, line.reads, line.adopt] },
   ],
   vocabulary: [
     { title: "Colour: part", items: [part.bb, part.dx] },
-    { title: "Lines: relation", items: [line.uses, line.reads, line.next] },
+    { title: "Lines: relation", items: [line.uses, line.reads, line.adopt] },
   ],
   agentic: [
     { title: "Colour: part", items: [part.ag, part.out, part.bb, part.dx, part.closed] },
