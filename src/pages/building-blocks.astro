@@ -5,9 +5,9 @@ import Base from "../layouts/Base.astro";
 const packages = [
   {
     name: "json-rules",
-    line: "One rule. It runs in memory, in Prisma and in SQL.",
+    line: "One rule that runs in memory, in Prisma and in SQL.",
     points: [
-      "One rule AST compiles to an in-memory check, a Prisma query and a PostgreSQL WHERE clause. Write the rule once and enforce it wherever it has to run.",
+      "One rule AST compiles to an in-memory check, a Prisma query and a SQL WHERE clause for PostgreSQL or MySQL. Write the rule once and enforce it wherever it has to run.",
       "Rules are plain JSON. Store them, send them, let a tenant write one.",
       "Operators, paths and bindings are type-checked against your models.",
     ],
@@ -67,7 +67,7 @@ const packages = [
     line: "Comment-free source, with explanations on the side.",
     points: [
       "Moves explanation out of the code into a mirrored sidecar tree: src/foo.ts gets .gloss/src/foo.ts.md.",
-      "Read the code. Read the margin only when you need it.",
+      "You read the code, and open the sidecar only when you need the explanation.",
     ],
   },
 ];
