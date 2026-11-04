@@ -3,7 +3,7 @@ import Base from "../layouts/Base.astro";
 import StackMap from "../components/StackMap.astro";
 
 import ToolsDiagram from "../components/diagrams/ToolsDiagram.astro";
-import { developerExperience, packages, templatePlain } from "../data/building-blocks";
+import { composition, developerExperience, packages, templateOwn, templatePlain, templateStart } from "../data/building-blocks";
 const anchor = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
 ---
 <Base
@@ -51,6 +51,36 @@ const anchor = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
     </div>
   </section>
 
+  <section class="section anchor-target" id="starting-from-template">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>Starting from template</span>
+      <h2>Start a product from template, and own all of it.</h2>
+      <p class="lede">
+        Template is a working SaaS app with the parts nearly every product needs already built. You copy it
+        once and build your product in that copy. Nothing stays tied to a service of ours. Kingdom, the hosted
+        hub on the <a class="text-link" href="/agentic/">agentic</a> side, started from template the same way.
+      </p>
+    </div>
+    <div class="split">
+      <div class="text">
+        <h3>How you start</h3>
+        <ol class="steps">
+          {templateStart.map((s) => <li><strong>{s.step}</strong>{s.command && <code>{s.command}</code>} {s.detail}</li>)}
+        </ol>
+      </div>
+      <div class="text">
+        <h3>What you own</h3>
+        <ul>
+          {templateOwn.map((item) => <li>{item}</li>)}
+        </ul>
+        <p>
+          Template has no plugin system and no hidden framework. Each solved problem is ordinary code in your
+          repository, documented where it lives, so you can read it, change it or replace it.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="section-heading">
       <span class="eyebrow" data-quiet>The pieces</span>
@@ -74,6 +104,26 @@ const anchor = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
         </li>
       ))}
     </ul>
+  </section>
+
+  <section class="section anchor-target" id="how-they-fit">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>How they fit together</span>
+      <h2>One rule language, from the database to the screen.</h2>
+      <p class="lede">
+        Each piece reads the one beneath it. A rule a tenant writes in the builder is the same JSON that
+        permissions checks and that the database query filters by, so the three never disagree.
+      </p>
+    </div>
+    <ol class="pitches">
+      {composition.map((c) => (
+        <li class="pitch">
+          <h3>{c.name}</h3>
+          <p>{c.does}</p>
+          {c.href && <div class="card-links"><a class="text-link" href={c.href}>Try the rule builder</a></div>}
+        </li>
+      ))}
+    </ol>
   </section>
 
   <section class="section anchor-target" id="developer-experience">

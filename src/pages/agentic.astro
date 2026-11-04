@@ -1,6 +1,45 @@
 ---
 import Base from "../layouts/Base.astro";
 import StackMap from "../components/StackMap.astro";
+
+/** Working in Foundry, from install to the correction that sticks. */
+const foundryFlow = [
+  { step: "Install it beside the agent you use.", detail: "One command installs the daemon. You work in Foundry's own window, or keep working in an agent app such as Paseo or T3 Code. Until you turn something on, your messages reach Claude Code or Codex exactly as you typed them." },
+  { step: "Turn on the Wardens for a project.", detail: "Foundry builds them from the project's own docs, one small expert per topic. Repos started from template come with theirs built." },
+  { step: "Give each task its own thread.", detail: "Each thread runs on the worker you pick, Claude Code or Codex with the model and effort you choose, on your own logins. A thread can move to another worker partway through and carries on from its record. Subagents show up as threads under the one that started them." },
+  { step: "Correct the agent once.", detail: "/feedback records a correction with what was happening at the time, so it can go into the docs every later session reads." },
+  { step: "See what you keep repeating.", detail: "Every session is kept in Archive on your machine, and foundry repeats lists the corrections you give again and again." },
+];
+const foundryEnables = [
+  "Stop re-explaining your conventions at the start of every session.",
+  "Run every agent subscription you pay for from one place, a thread at a time.",
+  "Keep a full record of what your agents did, on your own machine.",
+  "See which corrections stuck and which keep coming back.",
+];
+
+/** Kingdom, from connecting an account to handing out a Signet. */
+const kingdomFlow = [
+  { step: "Connect each account once.", detail: "GitHub, Slack, Linear, your hosting and your AI logins. Kingdom keeps the longest-lived credential each provider offers, encrypted, renews it on its own, and never hands it out." },
+  { step: "Pair your machines.", detail: "Foundry and Archive on each computer pair with Kingdom, and you approve each one. A paired machine holds the Signets you give it, and nothing else." },
+  { step: "Hand out Signets.", detail: "A Signet is a pass on your connected accounts with exactly the operations and records you choose, and an expiry or limits if you want them. Give one to a teammate, to the Foundry their agent works in, or to your own other machine." },
+  { step: "Take it back at once.", detail: "Revoking or narrowing a Signet applies to the next request. Every use is recorded against the Signet that allowed it." },
+  { step: "Run command-line tools through Kingdom.", detail: "With KCP, a command such as gh pr list becomes a call to Kingdom, which runs the real tool with the stored credential and streams the output back, so no token lands on the machine. Signing in works today; running commands is in progress." },
+];
+const kingdomEnables = [
+  "Let an agent work in GitHub or your hosting without you logging it in, or leaving a token in a file.",
+  "Give a teammate, or their agent, read access to one project's issues, and end it whenever you choose.",
+  "Use the same accounts from every machine you own without copying keys between them.",
+  "Hear about GitHub review requests as they happen, with nothing set up on your machine.",
+];
+
+/** The Oracle loop. */
+const oracleLoop = [
+  { step: "Capture the correction.", detail: "Archive keeps every session, and Foundry records each correction with what the agent was doing when it was given." },
+  { step: "Turn it into a change.", detail: "Usually a doc edit, or a change to what one Warden knows, made in the one place that owns the mistake." },
+  { step: "Test it on real finished work.", detail: "Oracle takes work that was already merged, winds the repo back to the commit before it, and gives the agent the original ticket. The merged diff is the answer key. Cheap tests ask only whether the right Warden spoke up; the full test lets the agent build in a sealed copy of the repo." },
+  { step: "Keep what holds.", detail: "A change ships only when it does at least as well as what it replaces, on the same work." },
+  { step: "Watch for the same correction.", detail: "If the correction comes back in later sessions, the change did not stick, and the loop runs again." },
+];
 ---
 <Base
   signoff
@@ -80,6 +119,91 @@ import StackMap from "../components/StackMap.astro";
       </p>
     </div>
     <StackMap view="foundry-kingdom" />
+  </section>
+
+  <section class="section anchor-target" id="foundry-flow">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>Working in Foundry</span>
+      <h2>From install to a correction that sticks.</h2>
+      <p class="lede">The map above follows one request. This is the rest of working in Foundry, in the order you meet it.</p>
+    </div>
+    <ol class="steps">
+      {foundryFlow.map((s) => <li><strong>{s.step}</strong> {s.detail}</li>)}
+    </ol>
+    <div class="text">
+      <h3>What it lets you do</h3>
+      <ul>{foundryEnables.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section anchor-target" id="kingdom-flow">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>Working with Kingdom</span>
+      <h2>Connect an account once, and decide who may use it.</h2>
+      <p class="lede">
+        Kingdom is the hosted hub. It holds your accounts across every team you are in, and a person or an agent
+        reaches one only through a Signet you gave them.
+      </p>
+    </div>
+    <ol class="steps">
+      {kingdomFlow.map((s) => <li><strong>{s.step}</strong> {s.detail}</li>)}
+    </ol>
+    <div class="text">
+      <h3>What it lets you do</h3>
+      <ul>{kingdomEnables.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section anchor-target" id="oracle-loop">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>The Oracle loop</span>
+      <h2>Every fix is tested on work that already shipped.</h2>
+      <p class="lede">
+        Oracle decides whether a change to the docs or the Wardens helps before it reaches your sessions. It
+        tests each change on real work with a known right answer, so a fix that only sounds right does not ship.
+      </p>
+    </div>
+    <ol class="steps">
+      {oracleLoop.map((s) => <li><strong>{s.step}</strong> {s.detail}</li>)}
+    </ol>
+    <div class="text">
+      <h3>Early numbers</h3>
+      <p>
+        These come from our own repos, on the same work the Wardens were tuned on, so treat them as early.
+        Wardens built from docs saw 7 of 30 moments where the agent needed something that already existed,
+        against 1 of 30 for a hand-picked list of Wardens. Given only the task as it was asked, across 116 tasks,
+        they flagged 81% of the topics a task touched, and wrongly flagged 2.7% of the topics it did not touch.
+      </p>
+    </div>
+  </section>
+
+  <section class="section anchor-target" id="prospector">
+    <div class="split">
+      <div class="text">
+        <span class="eyebrow" data-quiet>The Prospector</span>
+        <h2 class="display-3">Oracle's harvester.</h2>
+        <p>
+          When work lands on main, the Prospector reconstructs what went into it: the ticket, the pull request
+          and its reviews, the agent sessions that built it, and every correction given along the way. It keeps
+          that as a log of what happened, and Oracle will build its tests from it.
+        </p>
+        <p>
+          It also works out which parts of the codebase each piece of work touched, and sets aside about 1 in 4
+          pieces of work for each part as a held-out set that tuning never reads. Every report splits the two.
+          If results on the held-out work fall behind results on the work used for tuning, the tuning is
+          overfitting, and the gap shows by how much.
+        </p>
+      </div>
+      <div class="text">
+        <span class="eyebrow" data-quiet>Where it stands</span>
+        <ul>
+          <li>Linking work to its ticket, pull request, reviews and sessions is built, and so is the log.</li>
+          <li>Over 30 days of sessions, 508 of 646 corrections were matched to the work they belonged to. The matching was tuned on those same 30 days.</li>
+          <li>No test reads the held-out set yet, so there is no overfitting number. The first check on work the Prospector has not seen is due after 18 November 2026.</li>
+          <li>Oracle, the Prospector included, is closed source.</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <section class="section">
