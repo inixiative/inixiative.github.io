@@ -44,7 +44,7 @@ const relations = ordered.map((n) => {
 type Stack = { key: string; label: string; tone: string; ids: string[]; note?: string }[];
 const stacks: Record<View, Stack> = {
   whole: [
-    { key: "governance", label: "Governance", tone: "violet", ids: ["project", "livestock", "whitepaper"], note: "The project is the goal, Livestock a product on it; the whitepaper explains why" },
+    { key: "governance", label: "Governance", tone: "violet", ids: ["project", "livestock", "whitepaper"], note: "The project is the goal, and Livestock, closed source, is a product that uses it; the whitepaper explains why" },
     { key: "agentic", label: "Agentic", tone: "lime", ids: ["foundry", "kingdom", "signet", "archive", "agent-session", "kcp", "oracle", "bench", "artifactory"] },
     { key: "developer-experience", label: "Developer experience", tone: "teal", ids: ["atlas", "gloss", "config", "worktrees", "init", "ci-rules"], note: "Beside the stack: tools that help you work" },
     { key: "template", label: "Template", tone: "amber", ids: ["template"], note: "The whole SaaS app, resting on the building blocks" },
