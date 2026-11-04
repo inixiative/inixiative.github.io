@@ -170,3 +170,61 @@ export const templateTechnical: { title: string; body: string; href: string }[] 
   { title: "Responses checked against the spec", body: "A controller can only send the responses its route declares, and payloads are validated at runtime.", href: tdoc("API_ROUTES.md") },
   { title: "Errors as a system", body: "One error body everywhere, with guidance per status and request correlation.", href: tdoc("ERRORS.md") },
 ];
+
+/** How the building blocks compose, bottom up: each reads the one beneath it (/building-blocks, "How they fit together"). */
+export const composition: { name: string; does: string; href?: string }[] = [
+  {
+    name: "prisma-map describes your data.",
+    does: "It reads the Prisma client you already generate and lists each model, its fields, how records relate and which side holds the foreign key. Every piece after it reads this map instead of guessing at your schema.",
+  },
+  {
+    name: "json-rules writes rules over that data.",
+    does: "A rule is plain JSON naming those fields, such as \"the status is open and the person is on the record's team\". The same rule checks one record in memory, or compiles to a Prisma query or a SQL WHERE clause that finds every matching row. Because a rule is data, you can store it, validate it and let a tenant edit it.",
+  },
+  {
+    name: "permissions are rules about who can do what.",
+    does: "Roles, walks along relations (a member of an organization can read its projects) and conditions on the record and on the person acting are all json-rules rules, decided on the rows you already have. There is no second store to keep in sync, and anything a person hands on is checked against what they could do themselves.",
+  },
+  {
+    name: "transitions are rules about a record's lifecycle.",
+    does: "They say which moves are open from the current state, such as draft to approved, and who may make each one, by asking permissions. The same rules list the actions open on one record and compile to a query for every record an action is open to.",
+  },
+  {
+    name: "rules-builder is the screens for editing rules.",
+    does: "It reads the same map and offers only the fields and operators the engine can run, so whatever a person builds will run.",
+    href: "/rules-builder/",
+  },
+  {
+    name: "template puts them in one SaaS app you own.",
+    does: "Template uses prisma-map, json-rules, permissions and rules-builder for its data, its rules and who can do what, alongside sign-in, organizations, background jobs, email and the admin screens. Transitions works beside it and is not wired into template yet.",
+  },
+];
+
+/** Starting a product from template, in order (/building-blocks, "Starting a product from template"). */
+export const templateStart: { step: string; command?: string; detail: string }[] = [
+  {
+    step: "Create your own repository from it.",
+    detail: "Template is a GitHub template repository under MIT, so the new repository is yours, every line of it.",
+  },
+  {
+    step: "Run it on your machine.",
+    command: "bun run setup && bun run local",
+    detail: "Setup installs the packages, starts Postgres, Redis and file storage in Docker, and seeds the database. Local runs the API with the web, admin and superadmin apps.",
+  },
+  {
+    step: "Put it online when you are ready.",
+    command: "bun run init",
+    detail: "A guided setup creates the project's accounts on GitHub, PlanetScale, Railway, Vercel, Cloudflare and Resend, and keeps their secrets in Infisical.",
+  },
+  {
+    step: "Build your product on top.",
+    detail: "Add your own models and routes. Each route registers itself and regenerates the typed API client, and who may use a new model is a few rules in the permissions schema.",
+  },
+];
+
+/** What you own once you start from template. */
+export const templateOwn = [
+  "All of the code, in your repository. Change any of it, including the parts that came with template.",
+  "The building blocks, as MIT packages from npm that you update when you choose.",
+  "Docs written for people and for coding agents, and the repo's Foundry setup, so an agent working in your product is pointed at what is already there.",
+];
