@@ -3139,7 +3139,7 @@ const FI = (function () {
     { k: "f_used", text: "Use test factories, not hand-built rows", project: "Kingdom", thread: "kv", turn: 43, note: "Used in 4 threads" },
     { k: "f_recurred", text: "Use the scoped client; don't pass the database around", project: "template", thread: "wr", turn: 13, note: "Recurred once · back to the docs" },
     { k: "f_routed", text: "Reuse an existing helper before writing a new one", project: "template", thread: "wr", turn: 13, note: "Routed to 3 regions" },
-    { k: "f_formalized", text: "Keep generated docs out of the region corpus", project: "acme-shop", thread: "zp", turn: 2, note: "Doc change drafted" },
+    { k: "f_formalized", text: "Keep generated docs out of the regions", project: "acme-shop", thread: "zp", turn: 2, note: "Doc change drafted" },
     { k: "f_captured", text: "Fold follow-up fixes into the open PR", project: "Archive", thread: "ar", turn: 2, note: "Captured today" }
   ];
   const FB_STEPS = ["f_captured", "f_formalized", "f_routed", "f_used", "f_held"];
@@ -3419,7 +3419,7 @@ const FI = (function () {
     if (L === 4) {
       const q = t.pointers;
       const row = (k, [txt, n]) => `<div class="li"><span class="ptr ${k}" style="justify-self:start"><span class="k">${k === "chorus" ? "†" : "◇"}</span>${esc(txt)}</span><button class="jump" data-jump="${n}">t${n} →</button></div>`;
-      return `<div class="lp"><div class="sec"><h3>Chorus <small>rules and docs the Wardens pointed at, each delivered once</small></h3>${q.chorus.length ? `<div class="list">${q.chorus.map((x) => row("chorus", x)).join("")}</div>` : none("None yet.")}</div>
+      return `<div class="lp"><div class="sec"><h3>Chorus <small>rules and docs the Wardens reminded the agent of, each delivered once</small></h3>${q.chorus.length ? `<div class="list">${q.chorus.map((x) => row("chorus", x)).join("")}</div>` : none("None yet.")}</div>
         <div class="sec"><h3>Herald <small>overlap, related threads, past work</small></h3>${q.herald.length ? `<div class="list">${q.herald.map((x) => row("herald", x)).join("")}</div>` : none("None yet.")}</div></div>`;
     }
     if (L === 5) {
@@ -3674,7 +3674,7 @@ const FI = (function () {
     const h = t.heralds;
     const list = (arr, glyph, open) => arr.length ? arr.map(([a, b, id]) => `<div class="hcard"><span class="hk2">${glyph}</span><span>${esc(a)}</span>${open && id && byId(id) ? `<button class="jump" data-open="${id}">open →</button>` : "<span></span>"}<span class="m">${esc(b)}</span></div>`).join("") : none("Nothing yet.");
     return `<div class="lp" style="max-width:900px">
-      <div class="box"><h4>How Heralds see this thread ${NEW}</h4><div style="font-size:13.5px">${esc(h.rep)}</div><span style="font-size:11.5px;color:var(--dim)">Built from the thread summary each turn. Heralds carry live data (who is working on what); Wardens point at rules and docs.</span></div>
+      <div class="box"><h4>How Heralds see this thread ${NEW}</h4><div style="font-size:13.5px">${esc(h.rep)}</div><span style="font-size:11.5px;color:var(--dim)">Built from the thread summary each turn. Heralds carry live data (who is working on what); Wardens remind the agent of rules and docs.</span></div>
       <div class="ctxgrid"><div class="box"><h4>Overlaps</h4>${list(h.overlaps, "◇")}</div><div class="box"><h4>Related threads</h4>${list(h.related, "⇄", true)}</div>
       <div class="box"><h4>Past work it echoes</h4>${list(h.past, "↺")}</div><div class="box"><h4>Watching or touching it</h4>${list(h.watching, "◉")}</div></div></div>`;
   }
@@ -4361,7 +4361,7 @@ const FI = (function () {
   function heraldTab(t) {
     const h = t.heralds;
     const list = (arr, ic, open) => arr.length ? arr.map(([a, b, id]) => `<div class="hcard">${icon(ic)}<span>${esc(a)}</span>${open && id && byId(id) ? `<button class="jump" data-open="${id}">open →</button>` : "<span></span>"}<span class="m">${esc(b)}</span></div>`).join("") : none("Nothing yet.");
-    return `<div class="lp"><div class="box"><h4>How Heralds see this thread ${NEW}</h4><div style="font-size:13.5px">${esc(h.rep)}</div><span style="font-size:12px;color:var(--tx-muted)">Built from the thread summary each turn. Heralds carry live data; Wardens point at rules and docs.</span></div>
+    return `<div class="lp"><div class="box"><h4>How Heralds see this thread ${NEW}</h4><div style="font-size:13.5px">${esc(h.rep)}</div><span style="font-size:12px;color:var(--tx-muted)">Built from the thread summary each turn. Heralds carry live data; Wardens remind the agent of rules and docs.</span></div>
       <div class="box"><h4>Overlaps</h4>${list(h.overlaps, "h_overlap")}</div><div class="box"><h4>Related threads</h4>${list(h.related, "h_related", true)}</div>
       <div class="box"><h4>Past work it echoes</h4>${list(h.past, "h_past")}</div><div class="box"><h4>Watching or touching it</h4>${list(h.watching, "h_watch")}</div></div>`;
   }
@@ -5107,7 +5107,7 @@ const FI = (function () {
   /* About: last entry in Settings › Foundry, also from the ? overlay */
   const ext = (href, label) => `<a class="klink" href="https://${href}" target="_blank" rel="noopener">${label} ↗</a>`;
   SETTINGS2.about = ["About", "What Foundry is, and who helped.", () =>
-    scard(`<h3 style="margin:0;font-size:16px">About Foundry</h3><p style="margin:0;font-size:13.5px;line-height:1.55">Foundry is a local harness for coding agents (Claude Code, Codex). It keeps your agents working the way your project already works: a chorus of small expert agents points the main thread at the rules, docs and code you already have, and every thread is captured, so a correction you give once sticks instead of being repeated.</p>`) +
+    scard(`<h3 style="margin:0;font-size:16px">About Foundry</h3><p style="margin:0;font-size:13.5px;line-height:1.55">Foundry is a local harness for coding agents (Claude Code, Codex). It keeps your agents working the way your project already works: a chorus of small expert agents reminds the main thread of the rules, docs and code you already have, and every thread is captured, so a correction you give once sticks instead of being repeated.</p>`) +
     scard(`<h3 style="margin:0;font-size:16px">Built on open source</h3><p style="margin:0;font-size:13.5px;line-height:1.55">Big thanks to T3 Code (Theo and the Ping team) and Paseo, open-source agent runners that helped shape the language Foundry uses and gave us a reference to check our work against. Thank you for working in the open.</p><div class="acts" style="margin:0">${ext("github.com/pingdotgg/t3code", "T3 Code")}${ext("github.com/getpaseo/paseo", "Paseo")}</div><p style="margin:0;font-size:13.5px">Thanks to UserEvidence for supporting open-source software.</p><div class="acts" style="margin:0">${ext("userevidence.com", "UserEvidence")}${ext("userevidence.com", "The customer advocacy platform")}</div>`) +
     scard(lbl("Version", "Foundry 0.9 · your MacBook Pro") + lbl("Repository", ext("github.com/inixiative/foundry", "inixiative/foundry")) + lbl("Licence", ext("github.com/inixiative/foundry/blob/main/LICENSE", "MIT and BSL · see LICENSE")))];
   function renderLegend() {
@@ -6195,7 +6195,7 @@ const FI = (function () {
       $("main").innerHTML = head + `<div class="tcols3 n${shown.length}" style="grid-template-columns:repeat(${shown.length}, minmax(0, 1fr))">${shown.map(col).join("")}</div>`;
       shown.forEach((k) => { const b = $("tc3-" + k); if (b) b.scrollTop = b.scrollHeight; });
     } else {
-      const body = tabBody(t) + (state.tab === 3 ? `<div class="lp" id="ptrledger"><div class="sec"><h3>Pointer ledger <small>what the chorus and the Heralds pointed at, delivered once each</small></h3></div>${pointersTab(t)}</div>` : "");
+      const body = tabBody(t) + (state.tab === 3 ? `<div class="lp" id="ptrledger"><div class="sec"><h3>Pointer ledger <small>what the chorus and the Heralds reminded the agent of, delivered once each</small></h3></div>${pointersTab(t)}</div>` : "");
       $("main").innerHTML = head + `<div class="pane" id="pane" role="tabpanel">${body}</div><div class="tsend"><section class="tcol3 k-thread solo dock">${stack}${sendBox(t, "thread", drafts.thread)}</section></div>`;
       if (state.tab === 3) decorateLoop(t);
     }
@@ -6428,13 +6428,10 @@ const FI = (function () {
     if (doc && !doc.querySelector(".dsgclose")) doc.insertAdjacentHTML("afterbegin", `<div class="dsgbar"><b>About this design</b><span>Rationale, legend, where everything lands, Kingdom touchpoints, status catalog</span><button class="btn" data-design="0">Back to the app (Esc)</button></div>`);
     const tr = document.querySelector("#fdb .tright");
     if (tr && !tr.querySelector("[data-design]")) tr.querySelector("#helpbtn") ? tr.insertAdjacentHTML("beforeend", "") : null;
-    const help = document.getElementById("helpbtn");
-    if (help && !document.querySelector(".dsgbtn")) help.insertAdjacentHTML("beforebegin", `<button class="dsgbtn" data-design="1" title="About this design: rationale, legend, placement map (#design)">Design notes</button>`);
-    if (location.hash === "#design") toggleDesign(true);
   })();
   document.addEventListener("click", (e) => { const el = e.target.closest && e.target.closest("[data-design]"); if (!el) return; e.preventDefault(); toggleDesign(el.dataset.design === "1"); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && document.body.classList.contains("design")) toggleDesign(false); });
-  window.addEventListener("hashchange", () => toggleDesign(location.hash === "#design"));
+  window.addEventListener("hashchange", () => { if (document.body.classList.contains("design")) toggleDesign(false); });
 
 ;(() => {
   document.addEventListener("click", (e) => {
@@ -6796,7 +6793,7 @@ function incomingViewHTML(r) {
 })();
 
 ;(() => {
-  /* Corner switch, outside the app: Pitch · Foundry · Design notes (Aron 11-01) */
+  /* Corner switch, outside the app: Pitch · Foundry (Aron 11-01; Design notes hidden from the public demo 11-10) */
   const css = document.createElement("style");
   css.textContent = `
   .top .dsgbtn{display:none!important}
@@ -6808,13 +6805,11 @@ function incomingViewHTML(r) {
   function sw() {
     let m = document.getElementById("mockswitch");
     if (!m) { document.body.insertAdjacentHTML("beforeend", `<div id="mockswitch" role="group" aria-label="Mockup"></div>`); m = document.getElementById("mockswitch"); }
-    const dsg = !!document.querySelector(".dsgpanel.open, #design.open, .design.open") || location.hash === "#design";
-    m.innerHTML = `<button data-ms="pitch" aria-pressed="${!!state.pitch}">Pitch</button><button data-ms="app" aria-pressed="${!dsg && !state.story && !state.pitch}">Foundry</button><button data-ms="design" aria-pressed="${dsg}">Design notes</button>`;
+    m.innerHTML = `<button data-ms="pitch" aria-pressed="${!!state.pitch}">Pitch</button><button data-ms="app" aria-pressed="${!state.story && !state.pitch}">Foundry</button>`;
   }
   document.addEventListener("click", (e) => {
     const m = e.target.closest && e.target.closest("[data-ms]");
     if (m) { e.stopImmediatePropagation(); const a = m.dataset.ms;
-      if (a === "design") { const d = document.querySelector(".dsgbtn, [data-design]"); if (d) d.click(); setTimeout(sw, 50); return; }
       if (a === "app") { if (location.hash === "#design") location.hash = ""; const c = document.querySelector(".dsgclose"); if (c) c.click(); setTimeout(sw, 50); return; }
     }
   }, true);
@@ -7408,7 +7403,7 @@ const KNOW = (id) => ({
     { t: "You're working", c: "A thread about lifting the owner-only rule. The conversation is in the middle; everything else is one key away.", hi: "#fdb .cband", go: () => { state.page = "workspace"; state.view = "thread"; state.tab = 0; state.rsize = "icons"; openThread("kv"); } },
     { t: "You ask for something", c: "You type into the message box. Enter sends; while the agent is working, Enter steers it instead.", hi: "#fdb .sbox.k-thread", go: async () => { await typeInto("Add the case for a member holding own who asks for thread."); } },
     { t: "Sent", c: "Your message joins the thread.", hi: null, go: () => { clearTa(); append(`<div class="storymsg"><b>You</b><p>Add the case for a member holding <code>own</code> who asks for <code>thread</code>.</p></div>`); } },
-    { t: "The chorus chimes in", c: "Before the agent answers, Foundry asks every region Warden whether this touches what it knows. Three say yes and point at the existing thing: the doc section, not a lecture. The agent gets the pointers; you see them too.", hi: ".storychime", go: () => append(`<div class="storychime"><em>Chorus · 53 Wardens asked · 3 pointed</em><span>† docs/claude/TESTING.md §dynamic factories</span><span>† docs/claude/PERMISSIONS.md §one model</span><span>† docs/claude/AUTH.md §bearer-only</span></div>`) },
+    { t: "The chorus chimes in", c: "Before the agent answers, Foundry asks every region Warden whether this touches what it knows. Three say yes and remind the agent of the existing thing: the doc section, not a lecture. The agent gets the reminders; you see them too.", hi: ".storychime", go: () => append(`<div class="storychime"><em>Chorus · 53 Wardens asked · 3 reminded</em><span>† docs/claude/TESTING.md §dynamic factories</span><span>† docs/claude/PERMISSIONS.md §one model</span><span>† docs/claude/AUTH.md §bearer-only</span></div>`) },
     { t: "The agent works", c: "It edits the test and runs it. What it starts and leaves running (the test watcher, a dev server, a subagent) shows in Running, bottom right.", hi: "#fdb .runpanel", go: () => { state.rsize = "normal"; state.inspOpen = true; render(true); } },
     { t: "It needs you", c: "Anything waiting on you sits in one stack above the message box: approvals, held sends, questions. Tab moves into it; Enter approves; whatever you typed goes with your answer.", hi: "#fdb .stk", go: () => {} },
     { t: "New work arrives", c: "Someone outside your org asks to bring their agent in. It lands in Open › Shared as a request, with where it would go; nothing reaches your thread until you accept.", hi: "#fdb .inrows, #fdb .inrow", go: () => { state.rail = "active"; render(true); } },
@@ -7848,7 +7843,7 @@ window.__softScroll = (el, where) => { if (!el) return; let a = el.parentElement
       "Already in context": { m: ["Inspecting the message shows the five pointers it skipped, because they're already in this thread."] },
       "How the map is built": { m: ["Foundry builds the map by reading your project's docs and code once. You don't write any configuration."] },
       "Kept current": { m: ["When docs or code change, it re-reads only what changed, so the map stays current."] },
-      "Stale docs flagged": { m: ["It flags docs that describe things that no longer exist, so the agent isn't pointed at stale advice."] },
+      "Stale docs flagged": { m: ["It flags docs that describe things that no longer exist, so the agent isn't reminded of stale advice."] },
       "One expert per subject": { m: ["Each subject gets its own small expert that knows just that part of your project."] },
       "Tested before it ships": { m: ["Changes to the map are tested against real moments from your work before they're used."] },
       "Did it help?": { m: ["It also measures whether it worked: how often the agent still needed correcting, with and without Foundry."] }

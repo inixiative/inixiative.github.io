@@ -18,8 +18,8 @@ const art = "/foundry/art";
     <h1 class="display-1">Stop repeating yourself to Claude.</h1>
     <p class="subhead">The voice of your project.</p>
     <p class="lede">
-      Coding agents keep writing their own versions of what your codebase already has. Foundry is the workspace around your agent: Claude Code and Codex, and apps that speak
-      ACP. What you've already decided reaches every session.
+      Coding agents keep writing their own versions of what your codebase already has. Foundry is the workspace around your agent: Claude Code and Codex, and agent apps such as Paseo
+      and T3 Code that speak the Agent Client Protocol (ACP). What you've already decided reaches every session.
     </p>
     <div class="actions">
       <a class="button" href="https://github.com/inixiative/foundry">Foundry on GitHub</a>
@@ -53,7 +53,7 @@ const art = "/foundry/art";
           again. The model is outside your control, and so is the harness it runs in.
         </p>
         <p>
-          Your corpus is the one layer you control: your docs, your rules, your <code>CLAUDE.md</code>.
+          Your docs, your rules and your <code>CLAUDE.md</code> are the one layer you control.
           Foundry is a tool for controlling it.
         </p>
       </div>
@@ -75,7 +75,7 @@ const art = "/foundry/art";
   <section class="section">
     <div class="section-heading">
       <span class="eyebrow" data-quiet>What it does</span>
-      <h2>Five things Foundry is for.</h2>
+      <h2>What it does today.</h2>
     </div>
     <ol class="pitches">
       <li class="pitch">
@@ -86,7 +86,7 @@ const art = "/foundry/art";
           reminds your agent what already exists and where it's written down. Wardens never block; your
           agent decides what to use.
         </p>
-        <p>Wardens are built from your repo's docs, one per topic, and run once the project turns them on in <code>.foundry/project.json</code>. A fresh install starts without them. Repos built from template ship with their Wardens built and turned on.</p>
+        <p>Wardens are built from your repo's docs, one per topic. They are off on a fresh install. Turn them on per project with <code>"chorus": {"{"} "enabled": true {"}"}</code> in the repo's <code>.foundry/project.json</code>, or with the project's Chorus switch in Foundry's settings. Repos built from template ship with their Wardens built and turned on.</p>
         <a class="text-link" href={`${demo}?pitch=repeat`}>Watch it in the demo</a>
       </li>
       <li class="pitch">
@@ -96,10 +96,19 @@ const art = "/foundry/art";
           session is captured.
         </p>
       </li>
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>What's next</span>
+      <h2>In progress.</h2>
+    </div>
+    <ol class="pitches">
       <li class="pitch">
         <h3>Stop being a meat proxy.</h3>
         <p>Your agent, their agent and the people in one thread, hashing out the work.</p>
-        <div class="tags"><span class="tag" data-tone="open">Host side built</span><span class="tag" data-tone="progress">Joiner view in progress</span></div>
+        <div class="tags"><span class="tag" data-tone="open">Hosting a shared thread works</span><span class="tag" data-tone="progress">The view for people who join is in progress</span></div>
         <a class="text-link" href={`${demo}?pitch=proxy`}>Watch it in the demo</a>
       </li>
       <li class="pitch pitch-art">
@@ -131,8 +140,8 @@ const art = "/foundry/art";
         <h2>Each Warden holds one part of what your project knows.</h2>
         <p class="lede">
           Foundry splits your docs and code by topic and gives each topic to one Warden. A Warden speaks up only
-          when your request touches its topic, and makes sure your agent is reminded of it. Building Wardens
-          for any repo is pitch 5, in progress.
+          when your request touches its topic, and makes sure your agent is reminded of it. Repos started from
+          template come with their Wardens built. Building them for any repo is in progress.
         </p>
       </div>
       <figure class="art art-portrait">
@@ -148,7 +157,7 @@ const art = "/foundry/art";
       </figure>
     </div>
     <ol class="steps">
-      <li><strong>You ask in plain words.</strong> In Claude Code, Codex or an ACP app, the way you already work.</li>
+      <li><strong>You ask in plain words.</strong> In Claude Code, Codex or an Agent Client Protocol app, the way you already work.</li>
       <li><strong>Wardens notice what it touches.</strong> Each one checks whether the request is in its part of your codebase.</li>
       <li><strong>They remind your agent of what exists.</strong> The primitive, the pattern, and the doc section where it's written down. They never block.</li>
       <li><strong>Your agent decides.</strong> It builds with that in view, on your machine.</li>
@@ -181,8 +190,19 @@ const art = "/foundry/art";
   <section class="section">
     <div class="section-heading">
       <span class="eyebrow" data-quiet>Run it</span>
-      <h2>Clone it and set it up.</h2>
+      <h2>Install it with one command.</h2>
+      <p>
+        Requires macOS (the daemon is a launchd agent), <a href="https://bun.sh">Bun</a> 1.4.4 or later, and
+        Claude Code logged in (<code>claude</code>). For a Codex worker, also <code>codex login</code>. The
+        local Archive runs on Docker.
+      </p>
     </div>
+    <pre class="code"><span class="prompt">$ </span>bunx @inixiative/foundry-acp setup</pre>
+    <p>
+      This installs Foundry and <code>foundry-acp</code>, runs the daemon, prints the settings for Paseo and
+      T3 Code, and ends with <code>foundry repeats</code>. Then open <code>http://localhost:4500</code>.
+    </p>
+    <p>From source:</p>
     <pre class="code"><span class="prompt">$ </span>git clone https://github.com/inixiative/foundry.git
 <span class="prompt">$ </span>cd foundry &amp;&amp; bun install
 <span class="prompt">$ </span>bun run setup

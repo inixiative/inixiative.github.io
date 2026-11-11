@@ -289,7 +289,7 @@ const agenticScene = (): Scene => {
     desc:
       "Foundry runs on your machine with agent-session and Archive. Kingdom is the permission hub: your integrations connect to it, " +
       "and anything that uses an integration goes through a Signet. Foundry and a local Archive pair with Kingdom through a Signet; " +
-      "KCP will run your CLIs through Kingdom (under construction). Oracle measures and tunes Foundry. Artifactory is planned.",
+      "Your command-line tools will run through Kingdom so no token sits on your machine, with KCP, the Kingdom CLI Proxy (signing in works; running commands is in progress). Oracle measures and tunes Foundry. Artifactory is planned.",
     box: [-30, -30, 1240, 740],
     modes: [
       { id: "runs", label: "How they run" },
@@ -839,7 +839,7 @@ const foundryKingdomScene = (): Scene => {
       "Then the loop that learns: 4: Archive keeps every session. 5: Oracle (closed source) checks whether a correction stuck, and proposes changes to the docs and Wardens. " +
       "A codebase built from template comes with its Wardens built. Hosted: Kingdom (closed source, under construction) holds your accounts, such as GitHub, Slack and Linear, " +
       "and anything that uses them goes through a Signet, a pass the owner can take back: Foundry pairs with Kingdom on one, teammates and their agents come in on one, " +
-      "and KCP (under construction) will run your command-line tools through Kingdom. Artifactory, for sharing what agents make, is planned.",
+      "and your command-line tools will run through Kingdom so no token sits on your machine, with KCP, the Kingdom CLI Proxy (signing in works; running commands is in progress). Artifactory, for sharing what agents make, is planned.",
     box: fitBox(layers, 14),
     layers,
   };

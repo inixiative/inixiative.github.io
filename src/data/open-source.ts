@@ -49,7 +49,7 @@ export const groups: { title: string; projects: Project[] }[] = [
     title: "Agentic tools",
     projects: [
       mit("Signet", "A pass to use an integration through Kingdom, which the owner can take back", gh("signet")),
-      mit("KCP", "The Kingdom CLI Proxy: run provider CLIs through Kingdom", gh("kcp"), "in progress"),
+      mit("KCP", "Runs your command-line tools through Kingdom so no token sits on your machine (the Kingdom CLI Proxy); signing in works, running commands is in progress", gh("kcp"), "in progress"),
       mit("Archive", "Keeps every agent session on your machine and syncs where you choose", gh("archive")),
       mit("agent-session", "Runs Claude Code and Codex as long-lived sessions", gh("agent-session")),
       {
@@ -60,7 +60,7 @@ export const groups: { title: string; projects: Project[] }[] = [
         href: gh("foundry"),
       },
       mit("foundry-core", "The engine under Foundry", gh("foundry")),
-      mit("foundry-acp", "Lets apps such as Paseo and T3 Code drive Foundry", gh("foundry")),
+      mit("foundry-acp", "Lets agent apps such as Paseo and T3 Code drive Foundry over the Agent Client Protocol (ACP)", gh("foundry")),
       mit("hivemind", "Multi-agent coordination over MCP: a shared event log with role-scoped channels", gh("hivemind"), "paused"),
     ],
   },
