@@ -3,22 +3,27 @@ import Base from "../layouts/Base.astro";
 import { oracleWaitlist } from "../data/elsewhere";
 
 const how = [
-  { step: "It rebuilds your past work.", detail: "From the sessions Archive keeps, and your tickets, threads and pull requests in Linear, Slack and GitHub, reached through Kingdom: what was asked, what the agent did, where it went wrong, and what you corrected." },
-  { step: "It turns that into tests.", detail: "Each test hands the agent a real task from before the work landed. What you merged is the answer key." },
-  { step: "It tries changes against them.", detail: "Changes to your docs and to what each Warden knows. Oracle keeps the ones that pass and drops the rest." },
+  { step: "It rebuilds your past work.", detail: "From the sessions Archive keeps, and your tickets, threads and pull requests in Linear, Slack and GitHub, reached through Kingdom: what was asked, what the agent did, where it went wrong, and what you corrected. Foundry records each correction with what the agent was doing when it was given." },
+  { step: "It turns that into tests.", detail: "Each test hands the agent a real task from before the work landed. What you merged is the answer key. Cheap tests ask only whether the right Warden spoke up; the full test lets the agent build in a sealed copy of the repo." },
+  { step: "It tries changes against them.", detail: "Changes to your docs and to what each Warden knows, each made in the one place that owns the mistake. A change ships only when it does at least as well as what it replaces, on the same work; Oracle drops the rest." },
   { step: "It holds some work back.", detail: "About one piece of work in four is set aside and never tuned on, so Oracle can tell a real gain from one that only fits its own tests." },
+  { step: "It watches for the same correction.", detail: "If you give the same correction again in a later session, the change did not stick, and Oracle goes around again." },
+];
+const prospector = [
+  "Built: the log, which links each piece of finished work to its ticket, pull request, reviews and the agent sessions behind it, and the held-back share. Reading Slack comes later.",
+  "Over 30 days of sessions, 508 of 646 corrections were matched to the work they belonged to. The matching was tuned on those same 30 days.",
+  "No test reads the held-out set yet, so there is no overfitting number. The first check on work the Prospector has not seen is due after 18 November 2026.",
 ];
 const status = [
   "Running on inixiative's own projects.",
-  "Built: linking each piece of finished work to its ticket, pull request, reviews and the agent sessions behind it, and setting aside the held-back share. Reading Slack comes later.",
-  "Oracle is closed source.",
+  "Oracle, the Prospector included, is closed source.",
 ];
 ---
 <Base
   title="Oracle: your agents stop making the same mistake · inixiative"
   description="Oracle figures out how to make your coding agent better on your project, from your own past work, and checks that it worked. Join the waitlist."
   domain="agentic"
-  current="oracle"
+  current="agentic"
 >
   <section class="hero">
     <span class="eyebrow"><span class="status-dot" data-live></span>Oracle</span>
@@ -90,6 +95,30 @@ const status = [
     <div class="text">
       <h3>Where it stands</h3>
       <ul>{status.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section anchor-target" id="prospector">
+    <div class="split">
+      <div class="text">
+        <span class="eyebrow" data-quiet>The Prospector</span>
+        <h2 class="display-3">Oracle's harvester.</h2>
+        <p>
+          When work lands on main, the Prospector reconstructs what went into it: the ticket, the pull request
+          and its reviews, the agent sessions that built it, and every correction given along the way. It keeps
+          that as a log of what happened, and Oracle will build its tests from it.
+        </p>
+        <p>
+          It also works out which parts of the codebase each piece of work touched, and sets aside about 1 in 4
+          pieces of work for each part as a held-out set that tuning never reads. Every report splits the two.
+          If results on the held-out work fall behind results on the work used for tuning, the tuning is
+          overfitting, and the gap shows by how much.
+        </p>
+      </div>
+      <div class="text">
+        <span class="eyebrow" data-quiet>Where it stands</span>
+        <ul>{prospector.map((item) => <li>{item}</li>)}</ul>
+      </div>
     </div>
   </section>
 

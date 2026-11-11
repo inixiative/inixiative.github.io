@@ -61,19 +61,19 @@ export const nodes: StackNode[] = [
   { id: "template", label: "template", tier: "building-blocks", group: "template", licence: "MIT", state: "progress", line: "The whole SaaS app, built from the libraries", href: "/building-blocks/#template" },
 
   // Agentic
-  { id: "foundry", label: "Foundry", tier: "agentic", group: "machine", licence: "BSL 1.1", state: "progress", line: "The workspace around your agent", href: "/agentic/#foundry" },
+  { id: "foundry", label: "Foundry", tier: "agentic", group: "machine", licence: "BSL 1.1", state: "progress", line: "The workspace around your agent", href: "/foundry/" },
   { id: "agent", label: "Your agent", tier: "agentic", group: "machine", licence: "none", tone: "shared", line: "Claude Code or Codex, on the subscription you already pay for" },
   { id: "wardens", label: "Wardens", tier: "agentic", group: "machine", licence: "BSL 1.1", state: "progress", line: "Small agents inside Foundry, each holding one part of what your project knows", href: "/foundry/" },
   { id: "codebase", label: "Your codebase", tier: "agentic", group: "machine", licence: "none", tone: "shared", line: "Your code, and the docs and rules that say how it's done" },
   { id: "agent-session", label: "agent-session", tier: "agentic", group: "machine", licence: "MIT", line: "Runs each Claude Code and Codex session", href: "/agentic/#agent-session" },
   { id: "archive", label: "Archive", tier: "agentic", group: "machine", licence: "MIT", line: "Keeps every agent session", href: "/agentic/#archive" },
   { id: "kcp", label: "KCP", tier: "agentic", group: "machine", licence: "MIT", state: "progress", line: "Runs your CLIs through Kingdom", href: "/agentic/#kcp" },
-  { id: "kingdom", label: "Kingdom", tier: "agentic", group: "hub", licence: "closed", state: "progress", line: "The permission hub", href: "/agentic/#kingdom" },
+  { id: "kingdom", label: "Kingdom", tier: "agentic", group: "hub", licence: "closed", state: "progress", line: "The permission hub", href: "/kingdom/" },
   { id: "signet", label: "Signet", tier: "agentic", group: "hub", licence: "MIT", tone: "signet", line: "A revocable pass on the owner's terms", href: "/agentic/#signet" },
   { id: "integrations", label: "Your integrations", tier: "agentic", group: "outside", licence: "none", tone: "shared", line: "GitHub, Slack, Linear, Google" },
   { id: "teammates", label: "Teammates and their agents", tier: "agentic", group: "outside", licence: "none", tone: "shared", line: "Anyone the owner gives a Signet" },
   { id: "artifactory", label: "Artifactory", tier: "agentic", group: "outside", licence: "none", state: "planned", tone: "shared", line: "Sharing what agents make, signed in with Kingdom" },
-  { id: "oracle", label: "Oracle", tier: "agentic", group: "loop", licence: "closed", line: "Measures whether a correction stuck", href: "/agentic/#oracle" },
+  { id: "oracle", label: "Oracle", tier: "agentic", group: "loop", licence: "closed", line: "Measures whether a correction stuck", href: "/oracle/" },
   { id: "bench", label: "bench", tier: "agentic", group: "loop", licence: "none", line: "Our challenge set for coding agents", href: "/agentic/#bench" },
 
   // Governance
