@@ -734,7 +734,7 @@ const foundryKingdomScene = (): Scene => {
     { id: "foundry", x: 3.4, y: 2.7, z: 0, s: 4.4, sd: 3.4, h: F, line: "The workspace around your agent" },
     { id: "agent", x: 3.5, y: 3.2, z: F, s: 0.9, h: 30, step: 1, line: "You ask. Your agent decides." },
     { id: "wardens", x: 4.7, y: 1.9, z: F, s: 0.5, h: 11, step: 2, line: "Notice what your request touches", copies: [[-1.3, -0.1], [-2.6, 0.2], [-2.7, 1.6], [0.3, 1.5]] },
-    { id: "codebase", x: 6.9, y: 1.1, z: 0, s: 1.1, h: 26, step: 3, line: "Wardens point your agent here" },
+    { id: "codebase", x: 6.9, y: 1.1, z: 0, s: 1.1, h: 26, step: 3, line: "What Wardens remind your agent of" },
     { id: "template", x: 3.8, y: 5.6, z: 0, s: 0.7, h: 12, line: "Comes with its Wardens built" },
     { id: "archive", x: 1.4, y: 5.4, z: 0, h: 16, step: 4, line: "Keeps every session" },
     { id: "kcp", x: 6.4, y: 5.5, z: 0, s: 0.7, h: 14, line: "Your command-line tools, via Kingdom" },
@@ -780,7 +780,7 @@ const foundryKingdomScene = (): Scene => {
   const in0 = raw.find((p) => p.id === "integrations")!;
   const ar0 = raw.find((p) => p.id === "artifactory")!;
 
-  // How a request runs, on your machine: the Wardens point at your agent from all around it.
+  // How a request runs, on your machine: the Wardens reach your agent from all around it.
   const w = pl.wardens;
   const spokes = [[0, 0] as Pt, ...(w.copies ?? [])]
     .map(([ox, oy]) => `M ${iso(w.x + ox, w.y + oy, F + 5).join(" ")} L ${at("agent", 0, 0, F + 14).join(" ")}`)
@@ -835,7 +835,7 @@ const foundryKingdomScene = (): Scene => {
     title: "How Foundry works, and where Kingdom fits",
     desc:
       "On your machine, your agent (Claude Code or Codex) runs inside Foundry on your own subscription. 1: you ask your agent. 2: Wardens, small expert agents built from your docs (under construction: they come built in repos made from template, and building them for any repo is in progress), " +
-      "notice what the request touches. 3: they point your agent at what your codebase already has, and where it's written down; your agent decides what to use. " +
+      "notice what the request touches. 3: they remind your agent of what your project already has, and where it's written down; your agent decides what to use. " +
       "Then the loop that learns: 4: Archive keeps every session. 5: Oracle (closed source) checks whether a correction stuck, and proposes changes to the docs and Wardens. " +
       "A codebase built from template comes with its Wardens built. Hosted: Kingdom (closed source, under construction) holds your accounts, such as GitHub, Slack and Linear, " +
       "and anything that uses them goes through a Signet, a pass the owner can take back: Foundry pairs with Kingdom on one, teammates and their agents come in on one, " +

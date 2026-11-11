@@ -1,6 +1,6 @@
 ---
-// Foundry, on one request: the Wardens that recognise it point straight across at what the project already has,
-// and those pointers ride along to your agent. Each Warden sits on the same row as the thing it points at.
+// Foundry, on one request: the Wardens that recognise it hold what the project already has (straight across),
+// and remind your agent of it. Each Warden sits on the same row as the thing it holds.
 const rows = [
   { warden: "paging", has: "paginate()", lit: true },
   { warden: "filters", has: "parseFilters()", lit: true },
@@ -9,7 +9,7 @@ const rows = [
 const rowY = (i: number) => 104 + i * 40;
 ---
 <svg class="diagram" viewBox="0 0 400 240" role="img" aria-labelledby="agent-diagram-title">
-  <title id="agent-diagram-title">You ask for products with paging. Inside Foundry, the paging and filters Wardens point at the paginate and parseFilters your project already has, and your agent builds on them.</title>
+  <title id="agent-diagram-title">You ask for products with paging. Inside Foundry, the paging and filters Wardens remind your agent of the paginate and parseFilters your project already has, and your agent builds on them.</title>
 
   <rect class="d-brick" x="12" y="6" width="250" height="44" rx="22" />
   <text class="d-tag" x="30" y="24">you ask</text>
@@ -41,8 +41,8 @@ const rowY = (i: number) => 104 + i * 40;
       <path class="d-link d-accent-line" d={`M166 ${rowY(i)} C 152 ${rowY(i)}, 150 ${140 + i * 16}, 140 ${140 + i * 16}`} marker-end="url(#agent-arrow-accent)" />
     </g>
   ))}
-  <text class="d-note" x="24" y="198">two pointers</text>
-  <text class="d-note" x="24" y="212">ride along</text>
+  <text class="d-note" x="24" y="198">two reminders</text>
+  <text class="d-note" x="24" y="212">reach your agent</text>
 
   <defs>
     <marker id="agent-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path class="d-arrow" d="M0 0 L8 4 L0 8 z" /></marker>

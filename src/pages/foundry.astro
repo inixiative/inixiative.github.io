@@ -7,7 +7,7 @@ const art = "/foundry/art";
 ---
 <Base
   signoff
-  title="Foundry: the voice of the codebase · inixiative"
+  title="Foundry: the voice of your project · inixiative"
   description="Foundry is the workspace around your agent. What you've already decided reaches every session, on the Claude Code and Codex subscriptions you already pay for."
   domain="agentic"
   current="agentic"
@@ -16,7 +16,7 @@ const art = "/foundry/art";
     <div class="hero-copy">
     <span class="eyebrow"><span class="status-dot" data-live></span>Foundry</span>
     <h1 class="display-1">Stop repeating yourself to Claude.</h1>
-    <p class="subhead">The voice of the codebase.</p>
+    <p class="subhead">The voice of your project.</p>
     <p class="lede">
       Coding agents keep writing their own versions of what your codebase already has. Foundry is the workspace around your agent: Claude Code and Codex, and apps that speak
       ACP. What you've already decided reaches every session.
@@ -81,8 +81,9 @@ const art = "/foundry/art";
       <li class="pitch">
         <h3>Stop repeating yourself to Claude.</h3>
         <p>
-          What you've already decided reaches every session. Wardens notice what your request touches and
-          point at what your codebase already has, and where it's written down. They never block; your
+          What you've already decided reaches every session. Foundry splits what your project knows across
+          small agents called Wardens, each holding one part. When your request touches a Warden's part, it
+          reminds your agent what already exists and where it's written down. Wardens never block; your
           agent decides what to use.
         </p>
         <p>Wardens are built from your repo's docs, one per topic, and run once the project turns them on in <code>.foundry/project.json</code>. A fresh install starts without them. Repos built from template ship with their Wardens built and turned on.</p>
@@ -127,10 +128,11 @@ const art = "/foundry/art";
     <div class="warden-intro">
       <div class="section-heading">
         <span class="eyebrow" data-quiet>How Wardens work</span>
-        <h2>Wardens point; your agent decides.</h2>
+        <h2>Each Warden holds one part of what your project knows.</h2>
         <p class="lede">
-          Foundry splits your docs and code by topic, and each Warden knows one topic. A Warden speaks up only
-          when your request is in its topic. Building Wardens for any repo is pitch 5, in progress.
+          Foundry splits your docs and code by topic and gives each topic to one Warden. A Warden speaks up only
+          when your request touches its topic, and makes sure your agent is reminded of it. Building Wardens
+          for any repo is pitch 5, in progress.
         </p>
       </div>
       <figure class="art art-portrait">
@@ -148,7 +150,7 @@ const art = "/foundry/art";
     <ol class="steps">
       <li><strong>You ask in plain words.</strong> In Claude Code, Codex or an ACP app, the way you already work.</li>
       <li><strong>Wardens notice what it touches.</strong> Each one checks whether the request is in its part of your codebase.</li>
-      <li><strong>They point at what exists.</strong> The primitive, the pattern, and the doc section where it's written down. They never block.</li>
+      <li><strong>They remind your agent of what exists.</strong> The primitive, the pattern, and the doc section where it's written down. They never block.</li>
       <li><strong>Your agent decides.</strong> It builds with that in view, on your machine.</li>
     </ol>
   </section>
