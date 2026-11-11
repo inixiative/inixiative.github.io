@@ -1,0 +1,183 @@
+---
+import Base from "../layouts/Base.astro";
+const app = "https://kingdom.inixiative.com";
+
+/** Kingdom, from connecting an account to handing out a Signet. */
+const kingdomFlow = [
+  { step: "Connect each account once.", detail: "GitHub, Slack, Linear, your hosting and your AI logins. Kingdom keeps the longest-lived credential each provider offers, encrypted, renews it on its own, and never hands it out." },
+  { step: "Pair your machines.", detail: "Foundry and Archive on each computer pair with Kingdom, and you approve each one. A paired machine holds the Signets you give it, and nothing else." },
+  { step: "Hand out Signets.", detail: "A Signet is a pass on your connected accounts with exactly the operations and records you choose, and an expiry or limits if you want them. Give one to a teammate, to the Foundry their agent works in, or to your own other machine." },
+  { step: "Take it back at once.", detail: "Revoking or narrowing a Signet applies to the next request. Every use is recorded against the Signet that allowed it." },
+  { step: "Run command-line tools through Kingdom.", detail: "A command such as gh pr list becomes a call to Kingdom, which runs the real tool with the stored credential and streams the output back, so no token sits on your machine. The client that does this is KCP, the Kingdom CLI Proxy. Signing in to Kingdom with it works today; running commands through Kingdom is in progress." },
+];
+const kingdomEnables = [
+  "Let an agent work in GitHub or your hosting without you logging it in, or leaving a token in a file.",
+  "Give a teammate, or their agent, read access to one project's issues, and end it whenever you choose.",
+  "Use the same accounts from every machine you own without copying keys between them.",
+  "Hear about GitHub review requests as they happen, with nothing set up on your machine.",
+];
+
+/** Credential, token, Signet: each does one job (kingdom README, access model). */
+const layers = [
+  { name: "Credential", what: "What you give Kingdom so it can call a provider for you. It is stored encrypted and never handed out." },
+  { name: "Token", what: "A key for Kingdom's own API, capped at a role. It never reaches a connected account, and it cannot create another token." },
+  { name: "Signet", what: "The only way a person or an agent uses one of your connected accounts. You choose the operations and records it covers, and you can revoke it at any time." },
+];
+
+const today = [
+  "People, organizations and spaces inside them, with members and roles.",
+  "GitHub, both an organization's app installation and a person's own account, with each repository mapped to a project.",
+  "Reading Slack channels and messages, and Linear issues.",
+  "Live GitHub, Slack and Linear events, streamed to whoever holds a Signet for them and is connected at the time. Nothing is stored for later.",
+  "Automatic renewal of each connected account's sign-in, with its health shown in the dashboard.",
+  "Claude Code and Codex logins, held for a person and released only to their own Foundry, from a pool per project.",
+  "Pairing Foundry, Archive and Oracle, with usage recorded against each Signet, person and project, under limits you set.",
+];
+const notYet = [
+  "The Slack, Linear and GitHub repository connections are read-only.",
+  "Notion, Google Drive, Gmail, Jira, Confluence, Microsoft Teams and Discord are planned. Each has an early read-only connection with one or two operations.",
+  "A Signet goes to a person or to a paired app today. Signets for a whole organization or team are not built.",
+  "Running commands through KCP is designed and not built.",
+];
+---
+<Base
+  signoff
+  title="Kingdom: your accounts, and who may use them · inixiative"
+  description="Kingdom holds the accounts you connect and hands out revocable passes called Signets, so teammates, their agents and your other machines can work in them without holding a key."
+  domain="agentic"
+  current="agentic"
+>
+  <section class="hero">
+    <span class="eyebrow"><span class="status-dot" data-live></span>Kingdom</span>
+    <h1 class="display-1">Your accounts, and who may use them.</h1>
+    <p class="subhead">Everything you're doing, in one place.</p>
+    <p class="lede">
+      Kingdom holds your accounts, AI logins and agents across every team you're in. A person or an agent
+      reaches one of them only through a Signet you gave them, and you can take it back at once.
+    </p>
+    <div class="actions">
+      <a class="button" href={app}>Open Kingdom</a>
+      <a class="button button-secondary" href="#signets">How Signets work</a>
+    </div>
+  </section>
+
+  <section class="section anchor-target" id="kingdom-flow">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>Working with Kingdom</span>
+      <h2>Connect an account once, and decide who may use it.</h2>
+      <p class="lede">
+        Kingdom is the hosted hub. Your agents work on your machine, and anything they do in GitHub, Slack,
+        Linear or your hosting goes through Kingdom, on a Signet the owner can take back.
+      </p>
+    </div>
+    <ol class="steps">
+      {kingdomFlow.map((s) => <li><strong>{s.step}</strong> {s.detail}</li>)}
+    </ol>
+    <div class="text">
+      <h3>What it lets you do</h3>
+      <ul>{kingdomEnables.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section anchor-target" id="signets">
+    <div class="split">
+      <div class="text">
+        <span class="eyebrow" data-quiet>Signets</span>
+        <h2 class="display-3">A pass with exactly the operations you choose.</h2>
+        <p>
+          A Signet names the account, the operations and the records it covers, and can carry an expiry and
+          limits on how much it is used. Revoking or narrowing it applies to the next request. Every use is
+          recorded against the Signet that allowed it.
+        </p>
+        <p>
+          The holder presents it with a key enrolled on their own machine, so a copied Signet is no use to
+          anyone else. The protocol is the MIT package Signet.
+        </p>
+        <div class="card-links">
+          <a class="text-link" href="https://github.com/inixiative/signet">Signet on GitHub</a>
+          <a class="text-link" href="/agentic/technical/#signet">Technical details</a>
+        </div>
+      </div>
+      <div class="text">
+        <span class="eyebrow" data-quiet>One job each</span>
+        <h3>Credential, token and Signet never stand in for each other.</h3>
+        <dl class="layers">
+          {layers.map((layer) => (
+            <div><dt>{layer.name}</dt><dd>{layer.what}</dd></div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section anchor-target" id="kcp">
+    <div class="split">
+      <div class="text">
+        <span class="eyebrow" data-quiet>KCP</span>
+        <h2 class="display-3">Your command-line tools, with no token on your machine.</h2>
+        <p>
+          KCP, the Kingdom CLI Proxy, turns a command such as <code>gh pr list</code> into a call to Kingdom.
+          Kingdom runs the real tool with the stored credential and streams the output back. A Signet names
+          the commands it allows, so a command that would print a token has no operation and cannot run.
+        </p>
+      </div>
+      <div class="text">
+        <span class="eyebrow" data-quiet>Where it stands</span>
+        <ul>
+          <li>Signing in to Kingdom with <code>kcp login</code> works today.</li>
+          <li>Running commands through Kingdom is in progress.</li>
+          <li>KCP is MIT.</li>
+        </ul>
+        <div class="card-links">
+          <a class="text-link" href="https://github.com/inixiative/kcp">KCP on GitHub</a>
+          <a class="text-link" href="/agentic/technical/#kcp">Technical details</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section anchor-target" id="status">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>Where it stands</span>
+      <h2>Hosted at kingdom.inixiative.com, and closed source.</h2>
+      <p class="lede">
+        Kingdom started from the <a class="text-link" href="/building-blocks/#template">template</a> and keeps
+        its sign-in, organizations, permissions and jobs.
+      </p>
+    </div>
+    <div class="split">
+      <div class="text">
+        <h3>Runs today</h3>
+        <ul>{today.map((item) => <li>{item}</li>)}</ul>
+      </div>
+      <div class="text">
+        <h3>Not built yet</h3>
+        <ul>{notYet.map((item) => <li>{item}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="card feature" data-raised>
+      <div class="text">
+        <span class="eyebrow"><span class="status-dot"></span>Kingdom</span>
+        <h2 class="display-3">Where your agents reach your accounts.</h2>
+        <p>
+          Foundry and Archive on your machine pair with Kingdom, and Oracle reads your tickets, threads and pull
+          requests through it. Each of them works on a Signet you can take back.
+        </p>
+        <div class="actions">
+          <a class="button" href={app}>Open Kingdom</a>
+          <a class="button button-secondary" href="/foundry/">Foundry</a>
+          <a class="text-link" href="/agentic/">The rest of the agentic tools</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .layers { display: grid; gap: 0.75rem; margin: 0; }
+  .layers dt { font-weight: 600; }
+  .layers dd { margin: 0.15rem 0 0; }
+</style>

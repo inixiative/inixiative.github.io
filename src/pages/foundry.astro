@@ -4,6 +4,21 @@ import { substack, substackPath } from "../data/elsewhere";
 const essay = `${substack}/p/the-real-problem-with-ai-coding-isnt`;
 const demo = "/foundry/demo/";
 const art = "/foundry/art";
+
+/** Working in Foundry, from install to the correction that sticks. */
+const foundryFlow = [
+  { step: "Install it beside the agent you use.", detail: "One command installs the daemon. You work in Foundry's own window, or keep working in an agent app such as Paseo or T3 Code. Until you turn something on, your messages reach Claude Code or Codex exactly as you typed them." },
+  { step: "Turn on the Wardens for a project.", detail: "Wardens come from the project's own docs, one small expert per topic. Repos started from template come with theirs built; building them for any repo is in progress." },
+  { step: "Give each task its own thread.", detail: "Each thread runs on the worker you pick, Claude Code or Codex with the model and effort you choose, on your own logins. A thread can move to another worker partway through and carries on from its record. Subagents show up as threads under the one that started them." },
+  { step: "Correct the agent once.", detail: "/feedback records a correction with what was happening at the time, so it can go into the docs every later session reads." },
+  { step: "See what you keep repeating.", detail: "Every session is kept in Archive on your machine, and foundry repeats lists the corrections you give again and again." },
+];
+const foundryEnables = [
+  "Stop re-explaining your conventions at the start of every session.",
+  "Run every agent subscription you pay for from one place, a thread at a time.",
+  "Keep a full record of what your agents did, on your own machine.",
+  "See which corrections stuck and which keep coming back.",
+];
 ---
 <Base
   signoff
@@ -164,6 +179,21 @@ const art = "/foundry/art";
     </ol>
   </section>
 
+  <section class="section anchor-target" id="foundry-flow">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>Working in Foundry</span>
+      <h2>From install to a correction that sticks.</h2>
+      <p class="lede">The rest of working in Foundry, in the order you meet it.</p>
+    </div>
+    <ol class="steps">
+      {foundryFlow.map((s) => <li><strong>{s.step}</strong> {s.detail}</li>)}
+    </ol>
+    <div class="text">
+      <h3>What it lets you do</h3>
+      <ul>{foundryEnables.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </section>
+
   <section class="section">
     <div class="split">
       <div class="text">
@@ -183,6 +213,20 @@ const art = "/foundry/art";
           becomes MIT in April 2030. The core engine and the ACP adapter are MIT today.
         </p>
         <p>Thanks to <a href="https://userevidence.com">UserEvidence</a> for supporting open-source software.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="card-grid">
+      <div class="card card-wide anchor-target" id="foundry-parts">
+        <div class="card-head"><h3>Foundry comes in three parts.</h3><span class="tag">Source-available</span></div>
+        <ul class="card-parts">
+          <li><span class="part-head"><strong>Foundry</strong><span class="tag">BSL 1.1</span></span><span class="part-what">The app and its daemon.</span></li>
+          <li><span class="part-head"><strong>foundry-core</strong><span class="tag" data-tone="open">MIT</span></span><span class="part-what">The engine underneath.</span></li>
+          <li><span class="part-head"><strong>foundry-acp</strong><span class="tag" data-tone="open">MIT</span></span><span class="part-what">Lets other agent apps, such as Paseo and T3 Code, use Foundry over the Agent Client Protocol (ACP).</span></li>
+        </ul>
+        <div class="card-links"><a class="text-link" href="https://github.com/inixiative/foundry">GitHub</a><a class="text-link" href="/agentic/technical/#foundry">Technical details</a></div>
       </div>
     </div>
   </section>
