@@ -1,13 +1,8 @@
 ---
 import Base from "../layouts/Base.astro";
 import Mark from "../components/Mark.astro";
-import StackMap from "../components/StackMap.astro";
-import StackMapKey from "../components/StackMapKey.astro";
+import { oracleWaitlist } from "../data/elsewhere";
 
-import BlocksDiagram from "../components/diagrams/BlocksDiagram.astro";
-import ToolsDiagram from "../components/diagrams/ToolsDiagram.astro";
-import AgentDiagram from "../components/diagrams/AgentDiagram.astro";
-import GroupDiagram from "../components/diagrams/GroupDiagram.astro";
 import { byLicence, foundryMitDate } from "../data/open-source";
 
 const mitProjects = byLicence("mit");
@@ -37,7 +32,7 @@ const tiers = [
 ---
 <Base
   title="inixiative: technology for cooperation"
-  description="Aron Greenspan's open building blocks for SaaS apps, a workspace that gets coding agents to use what your codebase already has, and designs for cooperation."
+  description="Stop repeating yourself to Claude: Oracle tests whether your corrections change how your agent behaves for good. Plus open building blocks for SaaS apps, and designs for cooperation."
   domain="inixiative"
 >
   <script slot="head" is:inline>
@@ -59,67 +54,52 @@ const tiers = [
     })();
   </script>
 
-  <section class="hero hero-split">
-    <div class="hero-copy">
-      <span class="hero-mark"><Mark /></span>
-      <h1 class="display-1">Technology for cooperation.</h1>
-      <p class="lede">
-        A decade of lessons from building software, packaged so you don't have to figure the same things
-        out on every project.
-      </p>
-      <StackMapKey view="whole" standalone />
-    </div>
-    <div class="hero-map">
-      <StackMap view="whole" hero />
-    </div>
+  <section class="hero">
+    <span class="hero-mark"><Mark /></span>
+    <h1 class="display-1">Technology for cooperation.</h1>
+    <p class="lede">
+      A decade of lessons from building software, packaged so you don't have to figure the same things
+      out on every project, and tools that get coding agents to use them.
+    </p>
+    <div class="actions"><a class="button button-secondary" href="/about/">See the whole map</a></div>
   </section>
 
-  <section class="section areas" aria-label="What inixiative builds">
-    <article class="area" data-domain="building-blocks" aria-labelledby="building-blocks-title">
-      <div class="area-text">
-        <span class="eyebrow"><span class="status-dot"></span>Building blocks</span>
-        <h2 id="building-blocks-title" class="display-3">Stop rediscovering what you need to build.</h2>
-        <p>Start a product with the hard parts already built, or use the pieces for the most common problems on their own.</p>
+  <section class="section hooks" aria-label="What inixiative builds">
+    <article class="hook" data-domain="agentic" aria-labelledby="agentic-title">
+      <span class="eyebrow"><span class="status-dot"></span>Agentic</span>
+      <h2 id="agentic-title" class="display-3">Stop repeating yourself to Claude.</h2>
+      <p>
+        We're testing whether the corrections you keep giving, collected and given to your agent before it
+        plans, change how it behaves for good.
+      </p>
+      <div class="hook-links">
+        <a class="button" data-size="small" href={oracleWaitlist}>Join the Oracle waitlist</a>
+        <a class="text-link" href="/oracle/">What Oracle is</a>
+        <a class="text-link" href="/foundry/">Use Foundry today</a>
+        <a class="text-link" href="/agentic/">The agentic tools</a>
+      </div>
+    </article>
+
+    <article class="hook" data-domain="building-blocks" aria-labelledby="building-blocks-title">
+      <span class="eyebrow"><span class="status-dot"></span>Building blocks</span>
+      <h2 id="building-blocks-title" class="display-3">The hard parts of a SaaS app, already built.</h2>
+      <p>
+        Permissions, rules and lifecycles as MIT packages, plus a template you start from and own.
+      </p>
+      <div class="hook-links">
         <a class="text-link" href="/building-blocks/">The building blocks</a>
       </div>
-      <figure class="area-figure"><BlocksDiagram /></figure>
     </article>
 
-    <article class="area" data-domain="inixiative" aria-labelledby="developer-experience-title">
-      <div class="area-text">
-        <span class="eyebrow"><span class="status-dot"></span>Developer experience</span>
-        <h2 id="developer-experience-title" class="display-3">Tools for working on the code.</h2>
-        <p>These tools help while you build, and none of them ends up in your product.</p>
-        <a class="text-link" href="/building-blocks/#developer-experience">Developer experience</a>
-      </div>
-      <figure class="area-figure"><ToolsDiagram /></figure>
-    </article>
-
-    <article class="area" data-domain="agentic" aria-labelledby="agentic-title">
-      <div class="area-text">
-        <span class="eyebrow"><span class="status-dot"></span>Agentic</span>
-        <h2 id="agentic-title" class="display-3">An agent that works like you do.</h2>
-        <p>Foundry reminds your coding agent of what your project already has, so you stop repeating yourself.</p>
-        <div class="area-links">
-          <a class="text-link" href="/agentic/">The agentic tools</a>
-          <a class="text-link" href="/foundry/">How Foundry works</a>
-          <a class="text-link" href="/foundry/demo/">Try the demo</a>
-        </div>
-      </div>
-      <figure class="area-figure"><AgentDiagram /></figure>
-    </article>
-
-    <article class="area" data-domain="governance" aria-labelledby="governance-title">
-      <div class="area-text">
-        <span class="eyebrow"><span class="status-dot"></span>Governance</span>
-        <h2 id="governance-title" class="display-3">Designs for cooperation at scale.</h2>
-        <p>The long-term goal is tools for people, and their agents, to cooperate.</p>
+    <article class="hook" data-domain="governance" aria-labelledby="governance-title">
+      <span class="eyebrow"><span class="status-dot"></span>Governance</span>
+      <h2 id="governance-title" class="display-3">change.org meets Kickstarter on blockchain.</h2>
+      <p>
+        Money is released milestone by milestone, as backers vote that each one was met.
+      </p>
+      <div class="hook-links">
         <a class="text-link" href="/governance/">The proposals</a>
       </div>
-      <figure class="area-figure">
-        <GroupDiagram />
-        <figcaption>Funding is released in phases, as members vote that each milestone was met.</figcaption>
-      </figure>
     </article>
   </section>
 

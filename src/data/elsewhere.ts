@@ -1,5 +1,7 @@
 // Marks from simple-icons (CC0), drawn in currentColor.
 export const substack = "https://inixiative.substack.com";
+// The Oracle waitlist: the Oracle section of the Substack (Aron, 2026-11-10).
+export const oracleWaitlist = `${substack}/s/oracle`;
 export const substackPath =
   "M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z";
 

@@ -72,7 +72,7 @@ export const nodes: StackNode[] = [
   { id: "signet", label: "Signet", tier: "agentic", group: "hub", licence: "MIT", tone: "signet", line: "A revocable pass on the owner's terms", href: "/agentic/#signet" },
   { id: "integrations", label: "Your integrations", tier: "agentic", group: "outside", licence: "none", tone: "shared", line: "GitHub, Slack, Linear, Google" },
   { id: "teammates", label: "Teammates and their agents", tier: "agentic", group: "outside", licence: "none", tone: "shared", line: "Anyone the owner gives a Signet" },
-  { id: "artifactory", label: "Artifactory", tier: "agentic", group: "outside", licence: "none", state: "planned", tone: "shared", line: "Sharing what agents make, signed in with Kingdom", href: "/agentic/#artifactory" },
+  { id: "artifactory", label: "Artifactory", tier: "agentic", group: "outside", licence: "none", state: "planned", tone: "shared", line: "Sharing what agents make, signed in with Kingdom" },
   { id: "oracle", label: "Oracle", tier: "agentic", group: "loop", licence: "closed", line: "Measures whether a correction stuck", href: "/agentic/#oracle" },
   { id: "bench", label: "bench", tier: "agentic", group: "loop", licence: "none", line: "Our challenge set for coding agents", href: "/agentic/#bench" },
 
