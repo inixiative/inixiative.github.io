@@ -5,7 +5,7 @@ import StackMap from "../components/StackMap.astro";
 /** Working in Foundry, from install to the correction that sticks. */
 const foundryFlow = [
   { step: "Install it beside the agent you use.", detail: "One command installs the daemon. You work in Foundry's own window, or keep working in an agent app such as Paseo or T3 Code. Until you turn something on, your messages reach Claude Code or Codex exactly as you typed them." },
-  { step: "Turn on the Wardens for a project.", detail: "Foundry builds them from the project's own docs, one small expert per topic. Repos started from template come with theirs built." },
+  { step: "Turn on the Wardens for a project.", detail: "Wardens come from the project's own docs, one small expert per topic. Repos started from template come with theirs built; building them for any repo is in progress." },
   { step: "Give each task its own thread.", detail: "Each thread runs on the worker you pick, Claude Code or Codex with the model and effort you choose, on your own logins. A thread can move to another worker partway through and carries on from its record. Subagents show up as threads under the one that started them." },
   { step: "Correct the agent once.", detail: "/feedback records a correction with what was happening at the time, so it can go into the docs every later session reads." },
   { step: "See what you keep repeating.", detail: "Every session is kept in Archive on your machine, and foundry repeats lists the corrections you give again and again." },
@@ -23,7 +23,7 @@ const kingdomFlow = [
   { step: "Pair your machines.", detail: "Foundry and Archive on each computer pair with Kingdom, and you approve each one. A paired machine holds the Signets you give it, and nothing else." },
   { step: "Hand out Signets.", detail: "A Signet is a pass on your connected accounts with exactly the operations and records you choose, and an expiry or limits if you want them. Give one to a teammate, to the Foundry their agent works in, or to your own other machine." },
   { step: "Take it back at once.", detail: "Revoking or narrowing a Signet applies to the next request. Every use is recorded against the Signet that allowed it." },
-  { step: "Run command-line tools through Kingdom.", detail: "With KCP, a command such as gh pr list becomes a call to Kingdom, which runs the real tool with the stored credential and streams the output back, so no token lands on the machine. Signing in works today; running commands is in progress." },
+  { step: "Run command-line tools through Kingdom.", detail: "A command such as gh pr list becomes a call to Kingdom, which runs the real tool with the stored credential and streams the output back, so no token sits on your machine. The client that does this is KCP, the Kingdom CLI Proxy. Signing in to Kingdom with it works today; running commands through Kingdom is in progress." },
 ];
 const kingdomEnables = [
   "Let an agent work in GitHub or your hosting without you logging it in, or leaving a token in a file.",
@@ -102,7 +102,7 @@ const oracleLoop = [
       <ul class="pitch-list" aria-label="What Foundry does">
         <li>Stop repeating yourself to Claude.</li>
         <li>Every agent you pay for, in one place.</li>
-        <li>Stop being a meat proxy. <span class="tag" data-tone="progress">Joiner view in progress</span></li>
+        <li>Stop being a meat proxy. <span class="tag" data-tone="progress">The view for people who join is in progress</span></li>
         <li>Stop checking a dozen apps. <span class="tag" data-tone="progress">In progress</span></li>
         <li>Set up your repo. <span class="tag" data-tone="progress">In progress</span></li>
       </ul>
@@ -219,7 +219,7 @@ const oracleLoop = [
         <ul class="card-parts">
           <li><span class="part-head"><strong>Foundry</strong><span class="tag">BSL 1.1</span></span><span class="part-what">The app and its daemon.</span></li>
           <li><span class="part-head"><strong>foundry-core</strong><span class="tag" data-tone="open">MIT</span></span><span class="part-what">The engine underneath.</span></li>
-          <li><span class="part-head"><strong>foundry-acp</strong><span class="tag" data-tone="open">MIT</span></span><span class="part-what">Lets other agent apps, such as Paseo and T3 Code, use Foundry.</span></li>
+          <li><span class="part-head"><strong>foundry-acp</strong><span class="tag" data-tone="open">MIT</span></span><span class="part-what">Lets other agent apps, such as Paseo and T3 Code, use Foundry over the Agent Client Protocol (ACP).</span></li>
         </ul>
         <div class="card-links"><a class="text-link" href="/foundry/">How it works</a><a class="text-link" href="/agentic/technical/#foundry">Technical details</a></div>
       </div>
@@ -240,7 +240,7 @@ const oracleLoop = [
       </div>
       <div class="card anchor-target" id="kcp">
         <div class="card-head"><h3>KCP</h3><span class="tags"><span class="tag" data-tone="open">MIT</span><span class="tag" data-tone="progress">In progress</span></span></div>
-        <p>Will let your command-line tools use your accounts through Kingdom, so the keys never sit on your computer. Signing in works today; running commands does not yet.</p>
+        <p>Will let your command-line tools use your accounts through Kingdom, so the keys never sit on your computer. Signing in works today; running commands through Kingdom is in progress.</p>
         <div class="card-links"><a class="text-link" href="/agentic/technical/#kcp">Technical details</a></div>
       </div>
       <div class="card anchor-target" id="agent-session">
