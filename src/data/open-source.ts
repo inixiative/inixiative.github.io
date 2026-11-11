@@ -77,7 +77,7 @@ export const groups: { title: string; projects: Project[] }[] = [
       },
       {
         name: "Oracle",
-        what: "Measures whether a correction stuck, and tunes the docs your agent is pointed at",
+        what: "Measures whether a correction stuck, and tunes the docs and Wardens that remind your agent",
         licence: "closed",
         licenceLabel: "Closed",
       },

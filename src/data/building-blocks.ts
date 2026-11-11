@@ -227,5 +227,5 @@ export const templateStart: { step: string; command?: string; detail: string }[]
 export const templateOwn = [
   "All of the code, in your repository. Change any of it, including the parts that came with template.",
   "The building blocks, as MIT packages from npm that you update when you choose.",
-  "Docs written for people and for coding agents, and the repo's Foundry setup, so an agent working in your product is pointed at what is already there.",
+  "Docs written for people and for coding agents, and the repo's Foundry setup, so an agent working in your product is reminded of what is already there.",
 ];
