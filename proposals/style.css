@@ -508,6 +508,22 @@ section h2 em {
   }
 }
 
+/* The </iXi> sign-off that closes every article (Aron, 2026-11-10). Never self-closing. */
+.signoff {
+  max-width: 900px;
+  margin: 1rem auto 0;
+  padding: 0 2rem;
+  font-family: var(--font-mono);
+  font-size: 1.125rem;
+}
+.signoff .bracket {
+  color: #8b949e;
+}
+.signoff .mark {
+  color: #0969da;
+  font-weight: 700;
+}
+
 /* ---- Chapter prev/next ---- */
 .chapter-nav {
   display: flex;

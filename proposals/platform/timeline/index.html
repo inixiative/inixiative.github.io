@@ -484,6 +484,22 @@
       margin-top: 0.75rem;
       opacity: 0.6;
     }
+
+    /* The </iXi> sign-off that closes every article (Aron, 2026-11-10). Never self-closing. */
+    .signoff {
+      max-width: 960px;
+      margin: 1rem auto 0;
+      padding: 0 2rem;
+      font-family: var(--font-mono);
+      font-size: 1.125rem;
+    }
+    .signoff .bracket {
+      color: #8b949e;
+    }
+    .signoff .mark {
+      color: #0969da;
+      font-weight: 700;
+    }
   </style>
 </head>
 
@@ -800,6 +816,7 @@
       price.</p>
   </section>
 
+  <p class="signoff" aria-hidden="true"><span class="bracket">&lt;/</span><span class="mark">iXi</span><span class="bracket">&gt;</span></p>
   <p class="fine-print">The inixiative platform is a research project in open design. Figures on this page are
     illustrative mechanics, not offers, projections, or terms. Nothing here is an offer to sell, or a solicitation to
     buy, securities or any other financial instrument.</p>
