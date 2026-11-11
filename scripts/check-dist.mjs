@@ -3,6 +3,7 @@
 //  - the old /#<repo> anchors the root script redirects all land on a real id
 //  - nothing claims a path another Pages site serves under this domain (/rules-builder/)
 //  - CNAME ships, and no page links the GitHub-dark Google Fonts the theme replaced
+//  - every article (governance chapters, the platform pages, Moving forward) ends with the </iXi> sign-off
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 
@@ -62,6 +63,19 @@ if (!lists.blocks || !lists.agentic) errors.push("root anchor redirect script no
 
 for (const path of externalPaths) if (existsSync(join(dist, path))) errors.push(`dist must not contain ${path}`);
 if (!existsSync(join(dist, "CNAME"))) errors.push("CNAME missing from dist");
+
+// Aron, 2026-11-10: "Anytime that we're writing an article, we should be using the closing tag."
+// The governance contents page and the mindmap appendix are not articles.
+const articles = pages.filter((page) => {
+  const path = page.replace(dist, "");
+  if (/^\/proposals\/governance\/(?!index\.html|mindmap\/)[^/]+\/index\.html$/.test(path)) return true;
+  return ["/proposals/platform/index.html", "/proposals/platform/timeline/index.html", "/moving-forward/index.html"].includes(path);
+});
+for (const page of articles) {
+  if (!/class="signoff"[^>]*>(?:(?!<\/p>).)*&lt;\/<\/span><span class="(?:ixi-)?mark">iXi</.test(readFileSync(page, "utf8")))
+    errors.push(`${page.replace(dist, "")}: article without the </iXi> sign-off`);
+}
+if (articles.length < 18) errors.push(`expected at least 18 articles to check for the sign-off, found ${articles.length}`);
 
 if (errors.length) {
   console.error(errors.join("\n"));

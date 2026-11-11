@@ -653,6 +653,22 @@
         padding: 1.5rem;
       }
     }
+
+    /* The </iXi> sign-off that closes every article (Aron, 2026-11-10). Never self-closing. */
+    .signoff {
+      max-width: 900px;
+      margin: 1rem auto 0;
+      padding: 0 2rem;
+      font-family: var(--font-mono);
+      font-size: 1.125rem;
+    }
+    .signoff .bracket {
+      color: #8b949e;
+    }
+    .signoff .mark {
+      color: #0969da;
+      font-weight: 700;
+    }
   </style>
 </head>
 
@@ -816,7 +832,8 @@
         href="mailto:aron.greenspan@inixiative.com?subject=Interested%20in%20the%20inixiative%20platform">tell us what
         you'd bring &rarr;</a>
     </div>
-    <p class="fine-print">The inixiative platform is a research project in open design. Nothing on this page is an
+    <p class="signoff" aria-hidden="true"><span class="bracket">&lt;/</span><span class="mark">iXi</span><span class="bracket">&gt;</span></p>
+  <p class="fine-print">The inixiative platform is a research project in open design. Nothing on this page is an
       offer to sell, or a solicitation to buy, securities or any other financial instrument. Registering interest
       creates no obligation on either side.</p>
   </section>
