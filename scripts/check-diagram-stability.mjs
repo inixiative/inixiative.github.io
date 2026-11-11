@@ -2,7 +2,7 @@
 // Hover and keyboard-focus pieces on every interactive diagram; nothing may move.
 import { chromium } from 'playwright';
 const base = process.argv[2];
-const pages = ['/', '/building-blocks/', '/agentic/', '/building-blocks/technical/', '/agentic/technical/', '/vocabulary/'];
+const pages = ['/about/', '/building-blocks/', '/agentic/', '/building-blocks/technical/', '/agentic/technical/', '/vocabulary/'];
 const b = await chromium.launch();
 let failures = 0;
 const rows = [];

@@ -1,0 +1,106 @@
+---
+import Base from "../layouts/Base.astro";
+import { oracleWaitlist } from "../data/elsewhere";
+
+const experiment = [
+  { step: "Collect the corrections you keep giving.", detail: "Archive keeps every session with your agent, and Foundry records each correction with what the agent was doing when you gave it." },
+  { step: "Give them to your agent before it plans.", detail: "Each correction becomes a change to your docs, or to what one Warden knows, so your agent is reminded of it on the turn it matters." },
+  { step: "Measure whether the same correction comes back.", detail: "If you stop having to give it, the change held. If it comes back, the change did not stick, and Oracle tries again." },
+];
+const youGet = [
+  "Oracle runs that experiment on your project, against your own sessions and your own merged work.",
+  "It keeps the doc and Warden changes that hold, and drops the ones that don't.",
+  "It shows you the numbers: which corrections stopped coming back, and which you still give.",
+];
+---
+<Base
+  title="Oracle: your agents stop making the same mistake · inixiative"
+  description="Oracle collects the corrections you keep giving your coding agent, gives them to the agent before it plans, and measures whether the same correction comes back. Join the waitlist."
+  domain="agentic"
+  current="oracle"
+>
+  <section class="hero">
+    <span class="eyebrow"><span class="status-dot" data-live></span>Oracle</span>
+    <h1 class="display-1">Your agents stop making the same mistake.</h1>
+    <p class="lede">
+      Oracle collects the corrections you keep giving your coding agent, gives them to the agent before it
+      plans, and measures whether the same correction comes back.
+    </p>
+    <div class="actions">
+      <a class="button" href={oracleWaitlist}>Join the Oracle waitlist</a>
+      <a class="button button-secondary" href="/foundry/">Use Foundry today</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>The experiment</span>
+      <h2>Testing whether your corrections change how your agent behaves for good.</h2>
+      <p class="lede">
+        Models get better, but they keep doing things their own way in your codebase. Oracle tests whether the
+        corrections you already give, collected and handed to the agent in advance, change that without
+        retraining the model.
+      </p>
+    </div>
+    <ol class="steps">
+      {experiment.map((s) => <li><strong>{s.step}</strong> {s.detail}</li>)}
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="split">
+      <div class="text">
+        <span class="eyebrow" data-quiet>What you get</span>
+        <h2 class="display-3">The changes that hold, and the numbers that show it.</h2>
+        <ul>{youGet.map((item) => <li>{item}</li>)}</ul>
+        <p>
+          Each change is tested on work that already shipped: Oracle winds the repo back to before a merged
+          change, gives the agent the original ticket, and uses the merged diff as the answer key.
+        </p>
+      </div>
+      <div class="text">
+        <span class="eyebrow" data-quiet>Where it stands</span>
+        <h2 class="display-3">Running on our own projects now.</h2>
+        <p>
+          On template's tuning set of 116 real tasks, taken from merged work, the Wardens recognised 81% of
+          the moments that touched something the codebase already had (92 of 114), and spoke up wrongly on 2.7%
+          of the rest (37 of 1,349).
+        </p>
+        <p>
+          These numbers are early: they were measured on 18 October 2026, on the same set the Wardens were
+          tuned on. There is no number yet for how much less often a correction comes back; that is what the
+          experiment measures. Oracle is closed source.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="card feature" data-raised>
+      <div class="text">
+        <span class="eyebrow"><span class="status-dot"></span>Foundry</span>
+        <h2 class="display-3">How Oracle's changes reach your agent today.</h2>
+        <p>
+          Foundry is the workspace around Claude Code and Codex, free to use and source-available. Its Wardens
+          remind your agent of what your project already has and where it's written down, on every turn. When
+          Oracle changes a doc or a Warden, Foundry is what carries that change into your next session.
+        </p>
+        <div class="actions">
+          <a class="button button-secondary" href="/foundry/">How Foundry works</a>
+          <a class="text-link" href="/foundry/demo/">Try the demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="waitlist">
+    <div class="section-heading">
+      <span class="eyebrow" data-quiet>Waitlist</span>
+      <h2>Run Oracle on your project.</h2>
+      <p class="lede">Join the waitlist to hear when Oracle opens to other projects, with the results as they come in.</p>
+    </div>
+    <div class="actions">
+      <a class="button" href={oracleWaitlist}>Join the Oracle waitlist</a>
+    </div>
+  </section>
+</Base>

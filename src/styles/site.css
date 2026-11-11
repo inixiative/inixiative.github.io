@@ -699,44 +699,42 @@ h4 {
   }
 }
 
-/* Homepage: one compact row per area, text beside a small diagram. Rows alternate sides on wide screens. */
-.areas {
+/* Homepage: one hook per area, Agentic first. Three columns on wide screens, each in its domain's colour. */
+.hooks {
   display: grid;
-  gap: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-7);
   padding-top: 0;
 }
-.area {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  gap: var(--gap-8);
-  align-items: center;
-  padding: var(--gap-8) 0;
-  border-top: 1px solid hsl(var(--border));
-}
-.area:first-child {
-  border-top: 0;
-}
-.area:nth-child(even) .area-text {
-  order: 2;
-}
-.area-text {
+.hook {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--gap-4);
+  padding-top: var(--gap-5);
+  border-top: 3px solid hsl(var(--app-primary));
 }
-.area-text h2 {
+.hook h2 {
   margin: 0;
 }
-.area-text p {
+.hook p {
   margin: 0;
   max-width: 34rem;
   color: hsl(var(--muted-foreground));
 }
-.area-links {
+.hook-links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--gap-5);
+  align-items: center;
+  gap: var(--gap-4) var(--gap-5);
+  margin-top: auto;
+  padding-top: var(--gap-2);
+}
+@media (max-width: 900px) {
+  .hooks {
+    grid-template-columns: 1fr;
+    gap: var(--gap-8);
+  }
 }
 .area-figure {
   margin: 0;
@@ -747,16 +745,6 @@ h4 {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   color: hsl(var(--subtle-foreground));
-}
-@media (max-width: 760px) {
-  .area {
-    grid-template-columns: 1fr;
-    gap: var(--gap-5);
-    padding: var(--gap-7) 0;
-  }
-  .area:nth-child(even) .area-text {
-    order: 0;
-  }
 }
 
 /* Inline diagrams: lines in the text colour, the accent from the section's domain. */
