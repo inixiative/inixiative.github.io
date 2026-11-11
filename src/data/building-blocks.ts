@@ -63,7 +63,8 @@ export const packages: Piece[] = [
     plain: "Says which step a record can move to next, and who may move it, such as draft to approved.",
     line: "Declarative lifecycles on json-rules.",
     points: [
-      "checkPath guards a proposed state change; describe lists the transitions open right now; createAuthorize ties them to permissions.",
+      "checkTransition guards a proposed change and returns why it failed; available lists the actions open on one record; eligible compiles the same rules into a Prisma query for every record an action is open to.",
+      "createAuthorize hands each side's permission rule to @inixiative/permissions.",
       "Workflow rules and permission rules are written in the same language.",
     ],
     links: pkgLinks("transitions"),
